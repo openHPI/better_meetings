@@ -39,7 +39,21 @@ var jsFilesToInject = [
   'vendor/sails.io.js/sails.io.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'app/**/*.js'
+  'app/**/*.js',
+  'js/dependencies/**/*.js',
+
+  // All of the rest of your client-side js files
+  // will be injected here in no particular order.
+  'js/vendor/bootstrap/dist/js/bootstrap.min.js',
+  'js/vendor/bootstrap.min.js',
+  'js/vendor/jquery-ui.min.js',
+  'js/**/*.js',
+
+  'bower_components/requirejs/require.js',
+  'bower_components/react/react-dom-server.min.js',
+  'bower_components/react/react-dom.min.js',
+  'bower_components/react/react-with-addons.min.js',
+
 ];
 
 

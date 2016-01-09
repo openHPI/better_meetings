@@ -13,6 +13,17 @@
  */
 
 module.exports = function(grunt) {
+        // JSX Extension
+	grunt.loadNpmTasks('grunt-jsx');
+	grunt.initConfig({
+  		reactify: {
+      'tmp': 'public/js/components/*.js'
+  		},
+	})
+
+	// RequireJS Plugin
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
+
 
 
 	// Load the include-all library in order to require all of our grunt
