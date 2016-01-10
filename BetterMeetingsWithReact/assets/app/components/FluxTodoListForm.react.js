@@ -49,7 +49,7 @@ var FluxTaskForm = React.createClass({
 
     _onChange: function(event) {
         if(event.target.value.length != 0){
-            var suggestions = [];
+            var suggestions = []
             this.props.member.forEach(function (element, index) {
                 if(event.target.value === element.name.substring(0, event.target.value.length))
                     suggestions.push(element);

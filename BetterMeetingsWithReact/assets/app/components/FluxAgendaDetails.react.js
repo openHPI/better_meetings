@@ -19,8 +19,10 @@ var FluxAgendaDetails = React.createClass({
                     <h4>Description:</h4>
                     <p>{selected.description}</p>
                 </div>
-                <FluxTodoList items={items} member={member} />
-                <FluxTodoListDone items={done} />
+                <div className="flux-todolist">
+                    <FluxTodoList items={items} member={member} />
+                    <FluxTodoListDone items={done} />
+                </div>
             </div>
         );
     }
