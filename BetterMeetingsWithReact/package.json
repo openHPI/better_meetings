@@ -1,7 +1,7 @@
 {
   "name": "BetterMeetingsWithReact",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
@@ -34,6 +34,7 @@
     "react-bootstrap": "^0.20.3",
     "sails": "~0.11.0",
     "sails-disk": "~0.10.0",
+    "underscore": "^1.8.3",
     "watchify": "^3.7.0"
   },
   "devDependencies": {
