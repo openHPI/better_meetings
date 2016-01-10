@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-jsx');
 	grunt.initConfig({
   		reactify: {
-      'tmp': 'public/js/components/*.js'
+      		'tmp': 'public/js/components/*.js'
   		},
 	})
 

@@ -11,6 +11,6 @@ MeetingDataAPI.getMeetingData();
 
 React.render(
 	<FluxMeetingApp />,
-	$('#flux-meetingApp').get( 0 )
+	document.getElementById('flux-meetingApp')
 );
 
