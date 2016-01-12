@@ -10,13 +10,13 @@ var FluxTodoListDone = React.createClass({
             return(
                     <div className="flux-todolistdone-list">
                         <h3>Already done</h3>
-                        <ul>
+                        <ol>
                             {Object.keys(items).map(function(index){
                                 return (
                                     <FluxTodoListDoneItem item={items[index]} index={index} />
                                 )
                             })}
-                        </ul>
+                        </ol>
                     </div>
             );
         }

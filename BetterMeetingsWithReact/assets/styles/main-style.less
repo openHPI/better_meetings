@@ -1,47 +1,89 @@
 /*
  * Globals
  */
+//color
+@grey:  #E0E0E0;
+@black:  #000000;
+@primary: #009688;
+@white: #FFFFFF;
 
 /* Links */
 a,
 a:focus,
 a:hover {
-  color: #fff;
+  color: @primary;
 }
-
-/* Custom default button */
-.btn-default,
-.btn-default:hover,
-.btn-default:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
-}
-
-
-
-
 /*==============================
-=            Agenda            =
+=            HEADER            =
+==============================*/
+.navbar {
+  border-bottom: 1px solid @grey;
+  border-radius: 0px;
+}
+.navbar-brand {
+  color: @black;
+}
+.dropdown-toggle {
+  color: @white;
+  background-color: @primary;
+  border: none;
+  border-radius: 0px;
+  &:hover,&:focus {
+    color: @white;
+    background-color: @primary !important;
+  }
+}
+.icon-bar {
+  background-color: @primary;
+}
+/*==============================
+=            FlUX-APP          =
 ==============================*/
 
-.flux-agenda-list ul {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
+.fa-check {
+  color: green;
 }
-
-.flux-agenda-list ul .agenda-item {
-  padding: 20px;
+.fa-times {
+  color: red;
 }
-
-.flux-agenda-list ul .agenda-item.active h3 {
-  color: grey;
+.fa-user {
+  padding-right: 5px;
 }
-
-/*=====  End of Agenda  ======*/
-
+/*==============================
+=            AGENDA            =
+==============================*/
+.flux-agenda-list
+  ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    .agenda-item {
+      padding: 20px;
+      .active h3 {
+        color:grey;
+      }
+    }
+  }
+/*==============================
+=            MEMBER            =
+==============================*/
+.flux-memberlist-list {
+  td {
+    text-align: center;
+  }
+}
+/*====================================
+=            TodoList                 =
+====================================*/
+.todo-title {
+  display: inline;
+  font-weight: bold;
+  padding-right: 10px;
+}
+.todo-author {
+  font-weight: 100;
+  padding-right: 10px;
+}
 /*====================================
 =            TodoListForm            =
 ====================================*/
@@ -65,9 +107,6 @@ a:hover {
     z-index: 10;
 }
 
-/*=====  End of TodoListForm  ======*/
-
-
 /*=============================
 =            Login            =
 =============================*/
@@ -77,11 +116,12 @@ a:hover {
   padding: 20px;
   border: 2px solid #000;
   border-radius: 10px;
+  h2 {
+    text-align: center;
+  }
 }
 
-.login-container h2 {
-  text-align: center;
-}
+
 
 /*=====  End of Login  ======*/
 

@@ -13,14 +13,14 @@ var FluxTodoList = React.createClass({
             return(
                     <div className="flux-todolist-list">
                         <h3>Todo List</h3>
-                        <button type="button" id="flux-todolist-newElementButton" className="close" data-toggle="modal" data-target="#newListElementModal">new</button> 
-                        <ul>
+                        <button type="button" id="flux-todolist-newElementButton" className="close" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-2x fa-plus-square-o"></i></button> 
+                        <ol>
                             {Object.keys(items).map(function(index){
                                 return (
                                     <FluxTodoListItem item={items[index]} index={index} />
                                 )
                             })}
-                        </ul>
+                        </ol>
                         <FluxTodoListForm member={member} />
                     </div>
             );
@@ -29,7 +29,7 @@ var FluxTodoList = React.createClass({
             return(
                 <div className="flux-todolist-list">
                     <h3>Todo List (empty)</h3>
-                    <button type="button" className="close" data-toggle="modal" data-target="#newListElementModal">new</button>
+                    <button type="button" className="close" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-plus-square-o"></i></button>
                     <FluxTodoListForm member={member} />
                 </div>
             );

@@ -9,8 +9,8 @@ var FluxTodoListDoneItem = React.createClass({
         var index = this.props.index;
         return(
             <li key={index} className="todo-item todo-done">
-                <h3 className="todo-title">{item.title}</h3>
-                <p className="todo-author">author: {item.author}</p>
+                <p className="todo-title">{item.title}</p>
+                <small className="todo-author"><i className="fa fa-user"></i>{item.author}</small>
             </li>
         );
     }

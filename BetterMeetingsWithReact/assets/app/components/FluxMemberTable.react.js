@@ -19,8 +19,8 @@ var FluxMemberTable = React.createClass({
                             return (
                                 <tr>
                                     <td>{attendee.name}</td>
-                                    <td><button>present</button></td>
-                                    <td><button>absent</button></td>
+                                    <td><i className="fa fa-check"></i></td>
+                                    <td><i className="fa fa-times"></i></td>
                                 </tr>
                             )
                     })}

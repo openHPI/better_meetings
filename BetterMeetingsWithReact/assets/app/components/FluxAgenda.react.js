@@ -39,10 +39,11 @@ var FluxAgenda = React.createClass({
                 </div>
                 <div className="btn-group" role="group" aria-label="...">
 				  <button type="button" className="btn btn-default" onClick={this.selectPrevious}>
-				  	<span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				  	<i className="fa fa-caret-left"></i>
 				  </button>
 				  <button type="button" className="btn btn-default" onClick={this.selectNext}>
-				  	<span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				  	<i className="fa fa-caret-right"></i>
+
 				  </button>
 				</div>
 			</div>
