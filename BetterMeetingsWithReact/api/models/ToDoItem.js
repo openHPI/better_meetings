@@ -8,7 +8,20 @@
 module.exports = {
 
   attributes: {
-
+  	todoItemID: {
+  		type: 'integer',
+  		primaryKey: true,
+  		autoIncrement: true,
+  		required: true
+  	},
+  	title: {
+  		type: 'string',
+  		required: true,	
+  	},
+  	description: {
+  		type: 'string',
+  		required: false,
+  	},
   }
 };
 
