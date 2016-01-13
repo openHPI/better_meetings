@@ -23,7 +23,7 @@ module.exports = {
   		required: false,
   	},
   	assignee: {
-  		type: 'integer'
+  		type: 'integer',
   		required: false
   	},
   	done: {
