@@ -20,7 +20,12 @@ module.exports = {
   		required: true
   	},
   	assignedMeetings: {
-  		type: 'array'
+  		type: 'array',
+  		required: false
+  	},
+  	done: {
+  		type: 'boolean',
+  		required: true
   	}
 
   }
