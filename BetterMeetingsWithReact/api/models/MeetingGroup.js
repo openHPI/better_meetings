@@ -8,7 +8,18 @@
 module.exports = {
 
   attributes: {
-
+  	meetingID: {
+  		type: 'integer',
+  		required: true
+  	},
+  	adminMembers: {
+  		type: 'array',
+  		required: true,
+  	},
+  	guestMembers: {
+  		type: 'array'
+  		required: false
+  	}
   }
 };
 
