@@ -8,6 +8,20 @@
 module.exports = {
 
   attributes: {
+  	personID: {
+  		type: 'integer',
+  		autoIncrement: true,
+  		required: true,
+  		primaryKey: true
+  	},
+  	displayName: {
+  		type: 'integer',
+  		unique: true,
+  		required: true
+  	},
+  	assignedMeetings: {
+  		type: 'array'
+  	}
 
   }
 };
