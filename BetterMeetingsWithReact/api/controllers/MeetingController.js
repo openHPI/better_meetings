@@ -7,7 +7,11 @@
 
 module.exports = {
 	
-
+	create: function (req, res) {
+		Meeting.create(req.body).done(function(err, meeting) {
+			res.end(JSON.stringify(meeting));
+		})
+	},
 
   /**
    * `MeetingController.createJourFixe()`
