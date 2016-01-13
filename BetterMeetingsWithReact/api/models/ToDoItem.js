@@ -22,6 +22,14 @@ module.exports = {
   		type: 'string',
   		required: false,
   	},
+  	assignee: {
+  		type: 'integer'
+  		required: false
+  	},
+  	done: {
+  		type: 'boolean',
+  		required: true
+  	}
   }
 };
 
