@@ -17,7 +17,7 @@ module.exports = {
   		required: true,
   	},
   	guestMembers: {
-  		type: 'array'
+  		type: 'array',
   		required: false
   	}
   }
