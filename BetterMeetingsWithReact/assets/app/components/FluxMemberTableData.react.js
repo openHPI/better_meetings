@@ -11,7 +11,7 @@ var FluxMemberTableData = React.createClass({
 
     // Mark a member as absent
     absent: function() {
-        FluxAgendaActions.markAsAbsent(this.porps.index);
+        FluxAgendaActions.markAsAbsent(this.props.index);
     },
 
     render: function(){
