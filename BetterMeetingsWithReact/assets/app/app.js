@@ -1,4 +1,5 @@
 window.React = require('react');
+var $ = require('jquery')(window);
 var ProductData = require('./ExampleData');
 var MeetingDataAPI = require('./utils/MeetingExampleDataAPI');
 var FluxMeetingApp = require('./components/FluxMeetingApp.react');
