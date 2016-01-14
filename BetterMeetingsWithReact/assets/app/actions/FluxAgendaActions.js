@@ -41,6 +41,29 @@ var FluxAgendaActions = {
 			actionType: FluxAgendaConstants.TODO_DONE,
 			data: index
 		})
+	},
+
+	// Mark a member as present
+	markAsPresent: function(index) {
+		AppDispatcher.handleAction({
+			actionType: FluxAgendaConstants.MEMBER_PRESENT,
+			data: index
+		})
+	},
+
+	// Mark a member as absent
+	markAsAbsent: function(index) {
+		AppDispatcher.handleAction({
+			actionType: FluxAgendaConstants.MEMBER_ABSENT,
+			data: index
+		})
+	},
+
+	// Start the Meeting
+	startMeeting: function() {
+		AppDispatcher.handleAction({
+			actionType: FluxAgendaConstants.MEETING_START
+		})
 	}
 };
 

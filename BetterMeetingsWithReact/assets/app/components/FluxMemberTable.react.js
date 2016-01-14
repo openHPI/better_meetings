@@ -1,4 +1,5 @@
 var React = require('react');
+var FluxMemberTableData = require('./FluxMemberTableData.react');
 
 // Flux todolist view
 var FluxMemberTable = React.createClass({
@@ -15,14 +16,10 @@ var FluxMemberTable = React.createClass({
                         <th>Present</th>
                         <th>Absent</th>
                     </tr>
-                    {member.map(function(attendee){
-                            return (
-                                <tr>
-                                    <td>{attendee.name}</td>
-                                    <td><i className="fa fa-check"></i></td>
-                                    <td><i className="fa fa-times"></i></td>
-                                </tr>
-                            )
+                    {Object.keys(member).map(function(index){
+                        return (
+                            <FluxMemberTableData attendee={member[index]} index={index} />
+                        )
                     })}
                 </table>
             </div>

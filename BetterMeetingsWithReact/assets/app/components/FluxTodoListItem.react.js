@@ -17,6 +17,7 @@ var FluxTodoListItem = React.createClass({
     render: function(){
         var item = this.props.item;
         var index = this.props.index;
+        
         return(
             <li key={index} className="todo-item">
                 <p className="todo-title">{item.title}</p>

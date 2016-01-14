@@ -4,18 +4,44 @@ var FluxAgendaConstants = require('../constants/FluxAgendaConstants');
 var _ = require('underscore');
 
 // Define initial data
-var _agenda = [], _selected = null, _member = [];
+var _agenda = [], _selected = null, _member = [], _hasStarted = false, _timer = 100;
 
 // Method to load item data from MeetingDataAPI
-function loadAgenda(data) {
+function loadAgenda (data) {
 	_agenda = data.agenda;
 	_selected = data.agenda[0];
 	_member = data.member;
 }
 
 // Method to set the currently selected agenda item
-function setSelected(index) {
-	_selected = _agenda[index];
+function setSelected (index) {
+	if(index >= 0)
+		_selected = _agenda[index];
+}
+
+// Method to add a task to the todolist
+function addTask (item) {
+	item.id = _selected.todoList.length.toString();
+	item.author = "Lando";
+	_selected.todoList.push(item);	
+}
+
+// Method to remove a task from the todolist
+function removeTask (index) {
+	if(index >= 0)
+		_selected.todoList.splice(index, 1);
+}
+
+// Method to mark a task as done
+function markTaskAsDone (index) {
+	if (index >= 0){
+		_selected.todoList_done.push(_selected.todoList[index]);
+		_selected.todoList.splice(index, 1);
+	}
+}
+
+function startMeeting (data) {
+	_hasStarted = true;
 }
 
 // Extend AgendaStore with EventEmitter to add eventing capabilities
@@ -33,6 +59,16 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 	// Return member
 	getMember: function() {
 		return _member;
+	},
+
+	// Return hasStarted
+	hasStarted: function() {
+		return _hasStarted;
+	},
+
+	// Return timer
+	getTimer: function() {
+		return _timer;
 	},
 
 	// Return number of Agenda Items
@@ -71,23 +107,27 @@ AppDispatcher.register(function(payload) {
 
 		// Respond to TODO_ADD action
 		case FluxAgendaConstants.TODO_ADD:
-			action.data.id = _selected.todoList.length.toString();
-			action.data.author = "Lando";
-			_selected.todoList.push(action.data);
+			addTask(action.data);
 			break;
 
 		// Respond to TODO_REMOVE action
 		case FluxAgendaConstants.TODO_REMOVE:
-			if(action.data >= 0)
-				_selected.todoList.splice(action.data, 1);
+			removeTask(action.data);
 			break;
 
 		// Respond to TODO_DONE action
 		case FluxAgendaConstants.TODO_DONE:
-			if (action.data >= 0){
-				_selected.todoList_done.push(_selected.todoList[action.data]);
-				_selected.todoList.splice(action.data, 1);
-			}
+			markTaskAsDone(action.data);
+			break;
+
+		// Respond to MEMBER_PRESENT
+		case FluxAgendaConstants.MEMBER_PRESENT:
+			_member[action.data]['status'] = 'present';
+			break;
+
+		// Respond to MEMBER_ABSENT
+		case FluxAgendaConstants.MEMBER_ABSENT:
+			_member[action.data]['status'] = 'absent';
 			break;
 		
 		// Respond to RECEIVE_DATA action
@@ -97,8 +137,12 @@ AppDispatcher.register(function(payload) {
 
 		// Respond to SET_SELECTED action
 		case FluxAgendaConstants.SET_SELECTED:
-			if(action.data >= 0)
-				setSelected(action.data);
+			setSelected(action.data);
+			break;
+
+		// Respond to MEETING_START
+		case FluxAgendaConstants.MEETING_START:
+			startMeeting();
 			break;
 
 		default:
