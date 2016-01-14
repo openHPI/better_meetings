@@ -44,6 +44,7 @@ var jsFilesToInject = [
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
+  'js/dependencies/jquery-1.12.0.min.js',
   'js/vendor/bootstrap/dist/js/bootstrap.min.js',
   'js/vendor/bootstrap.min.js',
   'js/vendor/jquery-ui.min.js',
