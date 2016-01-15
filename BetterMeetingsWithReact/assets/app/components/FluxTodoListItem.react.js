@@ -22,6 +22,7 @@ var FluxTodoListItem = React.createClass({
             <li key={index} className="todo-item">
                 <p className="todo-title">{item.title}</p>
                 <small className="todo-author"><i className="fa fa-user"></i>{item.author}</small>
+                <small className="todo-assignee">assigned to: { (item.assignee !== null) ? item.assignee.name : 'none' }</small>
                 <button type="button" className="btn btn-default" onClick={this.deleteItem}><i className="fa fa-times"></i></button>
                 <button type="button" className="btn btn-default" onClick={this.markDone}><i className="fa fa-check"></i></button>
             </li>
