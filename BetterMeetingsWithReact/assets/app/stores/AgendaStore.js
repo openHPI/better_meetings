@@ -4,13 +4,29 @@ var FluxAgendaConstants = require('../constants/FluxAgendaConstants');
 var _ = require('underscore');
 
 // Define initial data
-var _agenda = [], _selected = null, _member = [], _hasStarted = false, _timer = 100;
+var _agenda = [], _selected = null, _member = [], _hasStarted = false, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
 	_agenda = data.agenda;
 	_selected = data.agenda[0];
 	_member = data.member;
+	_timer = data.timer;
+
+	getDoneItems();
+}
+
+// Method to create the _selected.todoList_done
+function getDoneItems () {
+	for (var i = 0; i < _agenda.length; i++) {
+		
+		_agenda[i]['todoList_done'] = [];
+
+		for (var j = 0; j < _agenda[i].todoList.length; j++) {
+			if(_agenda[i].todoList[j].done)
+				_agenda[i].todoList_done.push(_agenda[i].todoList[j]);
+		}
+	}
 }
 
 // Method to set the currently selected agenda item
@@ -19,14 +35,14 @@ function setSelected (index) {
 		_selected = _agenda[index];
 }
 
-// Method to add a task to the todolist
+// Method to add a task to the todoList
 function addTask (item) {
 	item.id = _selected.todoList.length.toString();
 	item.author = "Lando";
 	_selected.todoList.push(item);	
 }
 
-// Method to remove a task from the todolist
+// Method to remove a task from the todoList
 function removeTask (index) {
 	if(index >= 0)
 		_selected.todoList.splice(index, 1);
@@ -35,11 +51,13 @@ function removeTask (index) {
 // Method to mark a task as done
 function markTaskAsDone (index) {
 	if (index >= 0){
+		_selected.todoList[index].done = true;
 		_selected.todoList_done.push(_selected.todoList[index]);
 		_selected.todoList.splice(index, 1);
 	}
 }
 
+// Method to start the meeting
 function startMeeting (data) {
 	_hasStarted = true;
 }
