@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  identity: 'todoitem',
+  identity: 'todoitem',GET /todoitem/1
 
   attributes: {
   	todoItemID: {
@@ -24,6 +24,9 @@ module.exports = {
   		type: 'string',
   		required: false,
   	},
+    owner: {
+      model: 'agendaitem'
+    },
   	assignee: {
   		type: 'integer',
   		required: false

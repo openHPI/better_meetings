@@ -15,11 +15,11 @@ module.exports = {
   	},
   	adminMembers: {
   		collection: 'meetingadmin',
-  		via: 'owner',
+  		via: 'meetings',
   	},
   	guestMembers: {
       collection: 'meetingguest',
-      via: 'owner',
+      via: 'meetings',
   	}
   }
 };

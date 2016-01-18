@@ -11,6 +11,12 @@ module.exports = {
 
   attributes: {
 
+  		meetings: {
+  			collection: 'meetinggroup',
+  			via: 'guestMembers',
+  			dominant: true
+  		}
+
   }
 };
 
