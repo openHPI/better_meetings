@@ -7,7 +7,15 @@
 
 module.exports = {
 
+	indentity: 'meetingguest',
+
   attributes: {
+
+  		meetings: {
+  			collection: 'meetinggroup',
+  			via: 'guestMembers',
+  			dominant: true
+  		}
 
   }
 };

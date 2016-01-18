@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  identity: 'agendaitem',
+
   attributes: {
   	agendaItemID: {
   		type: 'integer',
@@ -23,8 +25,8 @@ module.exports = {
   		required: false,
   	},
   	todos: {
-  		type: 'array',
-  		required: false,
+  		collection: 'todoitem',
+  		via: 'owner',
   	},
   	done: {
   		type: 'boolean',

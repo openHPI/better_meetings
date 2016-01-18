@@ -7,18 +7,19 @@
 
 module.exports = {
 
+  identity: 'meetinggroup',
+
   attributes: {
-  	meetingID: {
-  		type: 'integer',
-  		required: true
+  	meeting: {
+      model: 'meeting',
   	},
   	adminMembers: {
-  		type: 'array',
-  		required: true,
+  		collection: 'meetingadmin',
+  		via: 'meetings',
   	},
   	guestMembers: {
-  		type: 'array',
-  		required: false
+      collection: 'meetingguest',
+      via: 'meetings',
   	}
   }
 };
