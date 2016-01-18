@@ -1,4 +1,3 @@
-var FluxTodoListActions = require('../actions/FluxTodoListActions');
 var FluxAgendaActions = require('../actions/FluxAgendaActions');
 
 module.exports = {
