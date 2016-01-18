@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  identity: 'todoitem',GET /todoitem/1
+  identity: 'todoitem',
 
   attributes: {
   	todoItemID: {

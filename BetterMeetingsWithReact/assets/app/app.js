@@ -8,7 +8,11 @@ var FluxMeetingApp = require('./components/FluxMeetingApp.react');
 // Load Mock Product Data into localStorage
 ProductData.init();
 
-// Load 
+// Load
+/*io.socket.on('connect', MeetingDataAPI.getMeetingData());
+io.socket.on('disconnect', function(){
+    console.log('Lost connection to server');
+});*/
 MeetingDataAPI.getMeetingData();
 
 React.render(
