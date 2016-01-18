@@ -10,17 +10,16 @@ module.exports = {
   identity: 'meetinggroup',
 
   attributes: {
-  	meetingID: {
-  		type: 'integer',
-  		required: true
+  	meeting: {
+      model: 'meeting',
   	},
   	adminMembers: {
-  		type: 'array',
-  		required: true,
+  		collection: 'meetingadmin',
+  		via: 'owner',
   	},
   	guestMembers: {
-  		type: 'array',
-  		required: false
+      collection: 'meetingguest',
+      via: 'owner',
   	}
   }
 };

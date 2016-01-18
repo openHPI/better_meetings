@@ -16,8 +16,7 @@ module.exports = {
   		autoIncrement: true
   	},
   	members: {
-  		collection: 'person',
-  		required: true,
+  		model: 'meetinggroup'
   	},
   	topics: {
   		type: 'array',
