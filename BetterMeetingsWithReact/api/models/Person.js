@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  identity: 'person',
+
   attributes: {
   	personID: {
   		type: 'integer',

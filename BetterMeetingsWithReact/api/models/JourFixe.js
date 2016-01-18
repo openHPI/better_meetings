@@ -7,6 +7,8 @@
 
 module.exports = {
 
+	identity: 'jourfixe',
+
   attributes: {
 
   }

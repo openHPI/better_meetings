@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  identity: 'agendaitem',
+
   attributes: {
   	agendaItemID: {
   		type: 'integer',

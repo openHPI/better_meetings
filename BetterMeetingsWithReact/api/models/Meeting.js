@@ -7,6 +7,8 @@
 
 module.exports = {
 
+	identity: 'meeting',
+
   attributes: {
   	meetingID: {
   		type: 'integer',
@@ -14,7 +16,7 @@ module.exports = {
   		autoIncrement: true
   	},
   	members: {
-  		type: 'array',
+  		collection: 'person',
   		required: true,
   	},
   	topics: {
@@ -33,7 +35,6 @@ module.exports = {
   		type: 'integer',
   		required: true,
   	}
-
   }
 };
 

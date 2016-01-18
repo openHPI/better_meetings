@@ -7,6 +7,8 @@
 
 module.exports = {
 
+	identityt: 'meetingadmin',
+
   attributes: {
 
   }

@@ -7,6 +7,8 @@
 
 module.exports = {
 
+	indentity: 'meetingguest',
+
   attributes: {
 
   }

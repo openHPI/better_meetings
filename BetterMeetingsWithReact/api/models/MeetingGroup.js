@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  identity: 'meetinggroup',
+
   attributes: {
   	meetingID: {
   		type: 'integer',
