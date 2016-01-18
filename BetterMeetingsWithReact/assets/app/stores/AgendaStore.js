@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var FluxAgendaConstants = require('../constants/FluxAgendaConstants');
 var _ = require('underscore');
+// var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
 var _agenda = [], _selected = null, _member = [], _hasStarted = false, _timer = 0;
@@ -126,6 +127,7 @@ AppDispatcher.register(function(payload) {
 		// Respond to TODO_ADD action
 		case FluxAgendaConstants.TODO_ADD:
 			addTask(action.data);
+			// MeetingDataAPI.postTodo(action.data);
 			break;
 
 		// Respond to TODO_REMOVE action
