@@ -9,10 +9,7 @@ var FluxMeetingApp = require('./components/FluxMeetingApp.react');
 ProductData.init();
 
 // Load
-/*io.socket.on('connect', MeetingDataAPI.getMeetingData());
-io.socket.on('disconnect', function(){
-    console.log('Lost connection to server');
-});*/
+// MeetingDataAPI.subscribeAndListen();
 MeetingDataAPI.getMeetingData();
 
 React.render(

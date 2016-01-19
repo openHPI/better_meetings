@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var FluxAgendaConstants = require('../constants/FluxAgendaConstants');
+var FluxServerConstants = require('../constants/FluxServerConstants');
 var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
@@ -123,6 +124,26 @@ AppDispatcher.register(function(payload) {
 	var text;
 
 	switch(action.actionType) {
+
+		// Respond Server actions
+
+		case FluxServerConstants.DATA_RECEIVE:
+			loadAgenda(action.data);
+			break;
+
+		case FluxServerConstants.MEETING_START:
+			startMeeting();
+			break;
+
+		case FluxServerConstants.TODO_CREATE:
+			addTask(action.data);
+			break;
+
+		case FluxServerConstants.TODO_DESTROY:
+			var agendaIndex = _agenda.indexOf(action.data.owner);
+			var taskIndex = _agenda[agendaIndex].indexOf(action.data);
+			removeTask(taskIndex);
+			break;
 
 		// Respond to TODO_ADD action
 		case FluxAgendaConstants.TODO_ADD:
