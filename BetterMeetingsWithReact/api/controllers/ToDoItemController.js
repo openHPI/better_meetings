@@ -23,7 +23,7 @@ module.exports = {
   },
 
   update: function(req,res) {
-    var todoID = req.param("id", null);
+    var todoID = req.param("todoItemID", null);
 
     ToDoItem.findOne(todoID).done(function(err,model) {
       if (req.method == "POST" && req.param("ToDoItem",null) != null) {
@@ -43,6 +43,17 @@ module.exports = {
       }
     })
   },
+
+  delete: function(req,res) {
+    var todoID = req.param("todoItemID", null);
+
+    ToDoItem.findOne(todoID).done(function(err,user) {
+      user.destroy(function(err) {
+        res.send("Success");
+      });
+    });
+  },
+
 
 
 
