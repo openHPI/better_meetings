@@ -24,7 +24,10 @@ module.exports = {
   	assignedMeetings: {
   		type: 'array',
   		required: false
-  	}
+  	},
+    todos: {
+      model: 'todoitem'
+    }
   }
 };
 
