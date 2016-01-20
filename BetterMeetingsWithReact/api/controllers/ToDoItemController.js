@@ -28,8 +28,12 @@ module.exports = {
     ToDoItem.findOne(todoID).done(function(err,model) {
       if (req.method == "POST" && req.param("ToDoItem",null) != null) {
         var item = req.param("ToDoItem",null);
+        model.title = item.title;
+        model.description = item.description;
+        model.owner = item.owner;
         model.assignee = item.assignee;
         model.author = item.author;
+        model.done = item.done;
 
         model.save(function(err) {
           if (err) {
