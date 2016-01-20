@@ -8,6 +8,20 @@
 module.exports = {
 	
 
+  create: function(req,res) {
+    if (req.method=="POST"&&req.param("ToDoItem",null)!=null) {
+      ToDoItem.create(req.param("ToDoItem")).done(function(err,model) {
+        if (err) {
+          res.send("Error");
+        } else {
+          res.send("Success");
+        }
+      });
+    } else {
+      res.render('person/create');
+    }
+  },
+
 
   /**
    * `ToDoItemController.setAssignee()`
@@ -38,12 +52,5 @@ module.exports = {
     });
   }
 
-  addToDo: function (req, res) {
-    return res.join({
-      status: '100',
-      comment: 'ToDo was added to datastore',
-      todoID: '5',
-    })
-  }
 };
 
