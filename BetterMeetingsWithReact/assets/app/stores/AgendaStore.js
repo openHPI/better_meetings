@@ -40,7 +40,6 @@ function setSelected (index) {
 // Method to add a task to the todoList
 function addTask (item) {
 	item.id = _selected.todoList.length.toString();
-	item.author = "Lando";
 	_selected.todoList.push(item);	
 }
 
@@ -147,6 +146,8 @@ AppDispatcher.register(function(payload) {
 
 		// Respond to TODO_ADD action
 		case FluxAgendaConstants.TODO_ADD:
+			action.data['owner'] = _selected;
+			action.data['author'] = 'Lando';
 			addTask(action.data);
 			// MeetingDataAPI.postTask(action.data);
 			break;

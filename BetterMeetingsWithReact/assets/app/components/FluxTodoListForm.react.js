@@ -9,17 +9,19 @@ var FluxTaskForm = React.createClass({
 
     // Add item to list via Actions
     addItem: function(event) {
-        var text = jQuery('#todo-input').val();
+        var title = jQuery('#todo-title').val();
+        var description = (jQuery('#todo-description').val() !== '') ? jQuery('#todo-description').val() : null;
 
-        if (!text) {
+        if (!title) {
             return;
         }
-        var item = { title: text, assignee: this.state.assignee };
+        var item = { title: title, description: description, assignee: this.state.assignee, done: false };
         FluxAgendaActions.addToList(item);
 
-        jQuery('#todo-input').val("");
-        jQuery('#assign-autocomplete').val("");
-        jQuery('#assign-input').val("");
+        jQuery('#todo-title').val('');
+        jQuery('#todo-description').val('');
+        jQuery('#assign-autocomplete').val('');
+        jQuery('#assign-input').val('');
         jQuery('#newListElementModal').modal('hide');
     },
 
@@ -35,8 +37,10 @@ var FluxTaskForm = React.createClass({
                         <div className="modal-body">
                             <form>
                                 <fieldset className="form-group">
-                                    <label>Comment:</label>
-                                    <textarea className="form-control" rows="5" id="todo-input"></textarea>
+                                    <label>Title:</label>
+                                    <input id="todo-title" type="text" />
+                                    <label>Description:</label>
+                                    <textarea className="form-control" rows="5" id="todo-description"></textarea>
                                 </fieldset>
                                 <div className="assign-input-container">
                                     <input id="assign-input" type="text" onChange={this._onChange} onKeyUp={this._onKeyUp} />
