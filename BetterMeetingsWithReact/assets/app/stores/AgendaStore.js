@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _agenda = [], _selected = null, _member = [], _hasStarted = false, _timer = 0;
+var _agenda = [], _selected = null, _collapsed = -1, _member = [], _hasStarted = false, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
@@ -33,8 +33,10 @@ function getDoneItems () {
 
 // Method to set the currently selected agenda item
 function setSelected (index) {
-	if(index >= 0)
+	if(index >= 0) {
 		_selected = _agenda[index];
+		_collapsed = -1;
+	}
 }
 
 // Method to add a task to the todoList
@@ -51,11 +53,15 @@ function removeTask (index) {
 
 // Method to mark a task as done
 function markTaskAsDone (index) {
-	if (index >= 0){
+	if (index >= 0) {
 		_selected.todoList[index].done = true;
 		_selected.todoList_done.push(_selected.todoList[index]);
 		_selected.todoList.splice(index, 1);
 	}
+}
+
+function collapseItem (index) {
+	_collapsed = index;
 }
 
 // Method to start the meeting
@@ -73,6 +79,11 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 	// Return selected agenda item
 	getSelected: function() {
 		return _selected;
+	},
+
+	// Return collapsed index of todoitem 
+	getCollapsed: function() {
+		return _collapsed;
 	},
 
 	// Return member
@@ -161,6 +172,10 @@ AppDispatcher.register(function(payload) {
 		// Respond to TODO_DONE action
 		case FluxAgendaConstants.TODO_DONE:
 			markTaskAsDone(action.data);
+			break;
+
+		case FluxAgendaConstants.TODO_COLLAPSE:
+			collapseItem(action.data);
 			break;
 
 		// Respond to MEMBER_PRESENT

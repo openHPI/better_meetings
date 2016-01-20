@@ -43,6 +43,13 @@ var FluxAgendaActions = {
 		})
 	},
 
+	collapsTodoItem: function(index) {
+		AppDispatcher.handleAction({
+			actionType: FluxAgendaConstants.TODO_COLLAPSE,
+			data: index
+		})
+	},
+
 	// Mark a member as present
 	markAsPresent: function(index) {
 		AppDispatcher.handleAction({
