@@ -21,6 +21,7 @@ var FluxAgendaDetails = React.createClass({
 
     render: function(){
         var selected = this.props.selected;
+        var collapsed = this.props.collapsed;
         var items = this.props.selected.todoList;
         var done = this.props.selected.todoList_done;
         var member = this.props.member;
@@ -33,7 +34,7 @@ var FluxAgendaDetails = React.createClass({
                     <p>{selected.description}</p>
                 </div>
                 <div className="flux-todolist">
-                    <FluxTodoList items={items} member={member} />
+                    <FluxTodoList items={items} collapsed={collapsed} member={member} />
                     <FluxTodoListDone items={done} />
                 </div>
                 <button type="button" className="btn btn-default" onClick={this.selectPrevious}>

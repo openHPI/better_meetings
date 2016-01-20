@@ -6,6 +6,7 @@ module.exports = keyMirror({
 	TODO_ADD: null,				// Adds item to list
 	TODO_REMOVE: null,			// Remove item from list
 	TODO_DONE: null,			// Mark item as done
+	TODO_COLLAPSE: null,		// 
 	MEMBER_PRESENT: null,		// Mark Member as present
 	MEMBER_ABSENT: null,		// Mark Member as absent
 	SET_SELECTED: null,			// Selects a agenda item

@@ -5,7 +5,11 @@ var FluxAgendaActions = require('../actions/FluxAgendaActions');
 var FluxTodoListItem = React.createClass({
 
     getInitialState: function() {
-        return {collapsed: false};
+        return {
+            title: this.props.item.title,
+            description: this.props.item.description,
+            editing: true
+        };
     },
 
     // Remove item from list via action
@@ -22,7 +26,7 @@ var FluxTodoListItem = React.createClass({
         var item = this.props.item;
         var index = this.props.index;
         var todoContentStyle = {
-            display: (this.state.collapsed) ? 'block' : 'none'
+            display: (this.props.collapsed) ? 'block' : 'none'
         };
         
         return(
@@ -42,8 +46,12 @@ var FluxTodoListItem = React.createClass({
 
     _onDoubleClick: function(event) {
         event.preventDefault();
-        this.setState({collapsed: !this.state.collapsed});
+        if(this.props.collapsed)
+            FluxAgendaActions.collapsTodoItem(-1);
+        else
+            FluxAgendaActions.collapsTodoItem(this.props.index);
     }
+
 });
 
 module.exports = FluxTodoListItem;

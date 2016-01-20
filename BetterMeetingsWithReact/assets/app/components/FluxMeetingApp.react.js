@@ -14,6 +14,7 @@ function getTodoListState () {
 		timer: AgendaStore.getTimer(),
 		agenda: AgendaStore.getAgenda(),
 		selectedAgendaItem: AgendaStore.getSelected(),
+		collapesedTodoItem: AgendaStore.getCollapsed(),
 		member: AgendaStore.getMember(),
 		total: AgendaStore.getAgendaTotal(),
 		index: AgendaStore.getAgendaIndex()
@@ -47,7 +48,7 @@ var FluxMeetingApp = React.createClass({
 					<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div className="row">
 							<div className="col-md-9 col-lg-9">
-								<FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} member={this.state.member} />
+								<FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
 							</div>
 							<div className="col-md-3 col-lg-3">
 								<div className="row">
