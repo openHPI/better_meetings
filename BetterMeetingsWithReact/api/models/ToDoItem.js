@@ -27,6 +27,10 @@ module.exports = {
     owner: {
       model: 'agendaitem'
     },
+    author: {
+      type: 'person',
+      via: 'todos',
+    }
   	assignee: {
   		type: 'integer',
   		required: false

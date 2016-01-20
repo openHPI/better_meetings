@@ -37,5 +37,13 @@ module.exports = {
       todo: 'setDone() is not implemented yet!'
     });
   }
+
+  addToDo: function (req, res) {
+    return res.join({
+      status: '100',
+      comment: 'ToDo was added to datastore',
+      todoID: '5',
+    })
+  }
 };
 
