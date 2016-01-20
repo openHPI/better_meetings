@@ -30,7 +30,7 @@ module.exports = {
     author: {
       type: 'person',
       via: 'todos',
-    }
+    },
   	assignee: {
   		type: 'integer',
   		required: false
