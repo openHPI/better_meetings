@@ -48,6 +48,14 @@ module.exports = {
     })
   },
 
+  view: function(req,res) {
+    var todoID = req.param("todoItemID", null);
+
+    ToDoItem.findOne(todoID).done(function(err,model) {
+      res.render('meeting/view', {'model':model});
+    });
+  },
+
   delete: function(req,res) {
     var todoID = req.param("todoItemID", null);
 
