@@ -72,8 +72,8 @@ module.exports = {
 		});
 	},
 
-	_deleteTask: function(data) {
-		io.socket.delete('/todoitem/' + data.todoItemID, function (data, jwres) {
+	_deleteTask: function(index) {
+		io.socket.delete('/todoitem/' + index, function (data, jwres) {
   			console.log(data);
 		});
 	}
