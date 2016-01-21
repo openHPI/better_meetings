@@ -7,8 +7,7 @@ module.exports = keyMirror({
 	TODO_REMOVE: null,			// Remove item from list
 	TODO_DONE: null,			// Mark item as done
 	TODO_COLLAPSE: null,		// 
-	MEMBER_PRESENT: null,		// Mark Member as present
-	MEMBER_ABSENT: null,		// Mark Member as absent
+	MEMBER_ADD: null,			// Adds a member to membergroup
 	SET_SELECTED: null,			// Selects a agenda item
 	REVEICE_DATA: null			// Loads agenda data
 })

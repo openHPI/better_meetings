@@ -50,19 +50,10 @@ var FluxAgendaActions = {
 		})
 	},
 
-	// Mark a member as present
-	markAsPresent: function(index) {
+	addMember: function(data) {
 		AppDispatcher.handleAction({
-			actionType: FluxAgendaConstants.MEMBER_PRESENT,
-			data: index
-		})
-	},
-
-	// Mark a member as absent
-	markAsAbsent: function(index) {
-		AppDispatcher.handleAction({
-			actionType: FluxAgendaConstants.MEMBER_ABSENT,
-			data: index
+			actionType: FluxAgendaConstants.MEMBER_ADD,
+			data: data
 		})
 	},
 

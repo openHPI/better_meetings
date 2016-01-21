@@ -12,6 +12,8 @@ var FluxAgendaUpload = require('./FluxAgendaUpload.react');
 
 function getTodoListState () {
 	return {
+		user: AgendaStore.getUser(),
+		canEdit: AgendaStore.getCanEdit(),
 		hasStarted: AgendaStore.hasStarted(),
 		timer: AgendaStore.getTimer(),
 		agenda: AgendaStore.getAgenda(),
@@ -73,7 +75,7 @@ var FluxMeetingApp = React.createClass({
 								<div className="row">
 									<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 										<div className="flux-todolist">
-						                    <FluxTodoList items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
+						                    <FluxTodoList items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
 						                    <FluxTodoListDone items={this.state.selectedAgendaItem.todoList_done} />
 						                </div>
 									</div>
@@ -82,7 +84,7 @@ var FluxMeetingApp = React.createClass({
 						</div>
 						<div className="row">
 							<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-								<FluxMemberTable member={this.state.member} />
+								<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
 							</div>
 						</div>
 					</div>

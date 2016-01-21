@@ -6,6 +6,11 @@ var FluxMemberTable = React.createClass({
 
     render: function(){
         var member = this.props.member;
+        var canEdit = this.props.canEdit;
+
+        var editStyle = {
+            display: (this.props.canEdit) ? 'inline-block' : 'none'
+        };
 
         return(
             <div className="flux-memberlist-list">
@@ -16,7 +21,7 @@ var FluxMemberTable = React.createClass({
                         )
                     })}
                     <li>
-                        <button type="button" id="flux-memberlist-button" className="" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-plus-square-o"></i></button> 
+                        <button type="button" id="flux-memberlist-button" className="" data-toggle="modal" data-target="#newListElementModal" style={editStyle}><i className="fa fa-plus-square-o"></i></button> 
                     </li>
                 </ul>
             </div>
