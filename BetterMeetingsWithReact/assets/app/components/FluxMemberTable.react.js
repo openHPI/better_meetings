@@ -9,19 +9,16 @@ var FluxMemberTable = React.createClass({
 
         return(
             <div className="flux-memberlist-list">
-                <h3>Attendees</h3>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Present</th>
-                        <th>Absent</th>
-                    </tr>
+                <ul>
                     {Object.keys(member).map(function(index){
                         return (
                             <FluxMemberTableData attendee={member[index]} index={index} />
                         )
                     })}
-                </table>
+                    <li>
+                        <button type="button" id="flux-memberlist-button" className="close" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-plus-square-o"></i></button> 
+                    </li>
+                </ul>
             </div>
         );
     }

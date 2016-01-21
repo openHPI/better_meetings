@@ -1,8 +1,5 @@
 var React = require('react');
 var FluxAgendaActions = require('../actions/FluxAgendaActions');
-var FluxTodoList = require('./FluxTodoList.react');
-var FluxTodoListDone = require('./FluxTodoListDone.react');
-var FluxAgendaProgress = require('./FluxAgendaProgress.react');
 
 // Flux todolist view
 var FluxAgendaDetails = React.createClass({
@@ -33,10 +30,10 @@ var FluxAgendaDetails = React.createClass({
                     <h4>Description:</h4>
                     <p>{selected.description}</p>
                 </div>
-                <div className="flux-todolist">
-                    <FluxTodoList items={items} collapsed={collapsed} member={member} />
-                    <FluxTodoListDone items={done} />
-                </div>
+                <form action="#" method="post" enctype="multipart/form-data">
+                    <input name="Datei" type="file" size="50" accept="text/*, application/pdf" /> 
+                    <button type="button" className="btn btn-default"><i className="fa fa-upload"></i></button>
+                </form>
                 <button type="button" className="btn btn-default" onClick={this.selectPrevious}>
                     <i className="fa fa-caret-left"></i>
                 </button>

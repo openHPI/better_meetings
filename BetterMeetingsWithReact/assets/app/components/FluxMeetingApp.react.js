@@ -1,10 +1,12 @@
 var React = require('react');
 var AgendaStore = require('../stores/AgendaStore');
 var FluxAgendaDetails = require('./FluxAgendaDetails.react');
-var FluxAgendaDetailsFlyleaf = require('./FluxAgendaDetailsFlyleaf.react');
+var FluxAgendaFlyleaf = require('./FluxAgendaFlyleaf.react');
 var FluxAgenda = require('./FluxAgenda.react');
 var FluxMemberTable = require('./FluxMemberTable.react');
 var FluxAgendaTimer = require('./FluxAgendaTimer.react');
+var FluxTodoList = require('./FluxTodoList.react');
+var FluxTodoListDone = require('./FluxTodoListDone.react');
 var FluxAgendaProgress = require('./FluxAgendaProgress.react');
 var FluxAgendaUpload = require('./FluxAgendaUpload.react');
 
@@ -47,28 +49,40 @@ var FluxMeetingApp = React.createClass({
 				<div className="row">
 					<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div className="row">
-							<div className="col-md-9 col-lg-9">
-								<FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
+							<div className="col-md-12 col-lg-12">
+								<FluxAgendaProgress total={this.state.total} index={this.state.index} />
 							</div>
-							<div className="col-md-3 col-lg-3">
+						</div>
+						<div className="row">
+							<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
+								<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-md-8 col-lg-8">
 								<div className="row">
-									<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<FluxMemberTable member={this.state.member} />
+									<div className="col-md-4 col-lg-4">
+										<FluxAgenda items={this.state.agenda} selected={this.state.selectedAgendaItem} />
+									</div>
+									<div className="col-md-8 col-lg-8">
+										<FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
 									</div>
 								</div>
+							</div>
+							<div className="col-md-4 col-lg-4">
 								<div className="row">
 									<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
+										<div className="flux-todolist">
+						                    <FluxTodoList items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
+						                    <FluxTodoListDone items={this.state.selectedAgendaItem.todoList_done} />
+						                </div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div className="row">
-							<div className="col-md-9 col-lg-9">
-								<FluxAgendaProgress total={this.state.total} index={this.state.index} />
-							</div>
-							<div className="col-md-3 col-lg-3">
-								<FluxAgendaUpload />
+							<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<FluxMemberTable member={this.state.member} />
 							</div>
 						</div>
 					</div>
@@ -81,15 +95,10 @@ var FluxMeetingApp = React.createClass({
 				<div className="row">
 					<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div className="row">
-							<div className="col-md-9 col-lg-9">
-								<FluxAgendaDetailsFlyleaf selected={this.state.selectedAgendaItem} member={this.state.member} />
+							<div className="col-md-8 col-lg-8">
+								<FluxAgendaFlyleaf selected={this.state.selectedAgendaItem} member={this.state.member} />
 							</div>
-							<div className="col-md-3 col-lg-3">
-								<div className="row">
-									<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<FluxMemberTable member={this.state.member} />
-									</div>
-								</div>
+							<div className="col-md-4 col-lg-4">
 								<div className="row">
 									<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 										<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
