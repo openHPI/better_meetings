@@ -25,10 +25,12 @@ var FluxAgendaDetails = React.createClass({
 
         return(
             <div className="flux-agendaDetails-container">
-                <h1 className="flux-agendaDetails-header">{selected.title}</h1>
                 <div className="flux-agendaDetails-description">
-                    <h4>Description:</h4>
+                    <h4>Description</h4>
                     <p>{selected.description}</p>
+                </div>
+                <div className="flux-agendaDetails-subitems">
+                    <h4>Subitems</h4>
                 </div>
                 <form action="#" method="post" enctype="multipart/form-data">
                     <input name="Datei" type="file" size="50" accept="text/*, application/pdf" /> 

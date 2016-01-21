@@ -4,13 +4,22 @@ var FluxTodoListDoneItem = require('./FluxTodoListDoneItem.react');
 // Flux todolist view
 var FluxTodoListDone = React.createClass({
 
+    getInitialState: function() {
+        return { visible: false };
+    },
+
     render: function(){
+
         var items = this.props.items;
-        if (items.length > 0) {
-            return(
+
+        var listStyle = {
+            display: (this.state.visible) ? 'block' : 'none'
+        }
+
+        return(
                     <div className="flux-todolistdone-list">
-                        <h3>Already done</h3>
-                        <ol>
+                        <h4 onDoubleClick={this._onDoubleClick}>Done: {items.length}</h4>
+                        <ol style={listStyle}>
                             {Object.keys(items).map(function(index){
                                 return (
                                     <FluxTodoListDoneItem item={items[index]} index={index} />
@@ -18,14 +27,13 @@ var FluxTodoListDone = React.createClass({
                             })}
                         </ol>
                     </div>
-            );
-        }
-        else {
-            return(
-                <div className="flux-todolistdone-list"></div>
-            );
-        }
+        );
+    },
+
+    _onDoubleClick: function() {
+        this.setState({ visible: !this.state.visible });
     }
+
 });
 
 module.exports = FluxTodoListDone;

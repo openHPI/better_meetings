@@ -19,6 +19,7 @@ a:hover {
 .navbar {
   border-bottom: 1px solid @grey;
   border-radius: 0px;
+  margin-bottom: 0px;
 }
 .navbar-brand {
   color: @black;
@@ -49,6 +50,17 @@ a:hover {
 .fa-user {
   padding-right: 5px;
 }
+
+/*===============================
+=            FLYLEAF            =
+===============================*/
+
+.flux-agendaDetailsFlyleaf-container {
+  h1 {
+    text-align: center;
+  }
+}
+
 /*==============================
 =            AGENDA            =
 ==============================*/
@@ -62,8 +74,11 @@ a:hover {
       color: grey;
     }
     .agenda-item.active h3 {
-        color: black;
-        font-size: 34px;
+      color: black;
+      font-size: 34px;
+    }
+    .agenda-item:hover {
+      color: black;
     }
   }
 /*==============================

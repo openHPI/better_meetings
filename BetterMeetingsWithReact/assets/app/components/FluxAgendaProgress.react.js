@@ -17,7 +17,6 @@ var FluxAgendaProgress = React.createClass({
 				    	{Math.round(percentage)}% Complete
 					</div>
 				</div>
-				<h4>{index + 1} / {total}</h4>
 			</div>
 		);
 	}

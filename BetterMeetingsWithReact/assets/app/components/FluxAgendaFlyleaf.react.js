@@ -12,7 +12,7 @@ var FluxAgendaDetailsFlyleaf = React.createClass({
 
         return(
             <div className="flux-agendaDetailsFlyleaf-container">
-                <h1>Ein Meeting mit Better Meetings, ist ein besseres Meeting</h1>
+                <h1>Ein Meeting mit Better Meetings ist ein besseres Meeting</h1>
                 <button onClick={this.startMeeting}>Starte das Meeting</button>
             </div>
         );

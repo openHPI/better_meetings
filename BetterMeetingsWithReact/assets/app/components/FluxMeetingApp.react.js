@@ -95,23 +95,18 @@ var FluxMeetingApp = React.createClass({
 				<div className="row">
 					<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div className="row">
-							<div className="col-md-8 col-lg-8">
-								<FluxAgendaFlyleaf selected={this.state.selectedAgendaItem} member={this.state.member} />
-							</div>
-							<div className="col-md-4 col-lg-4">
-								<div className="row">
-									<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
-									</div>
-								</div>
+							<div className="col-md-12 col-lg-12">
+								<FluxAgendaProgress total={this.state.total} index={-1} />
 							</div>
 						</div>
 						<div className="row">
-							<div className="col-md-9 col-lg-9">
-								<FluxAgendaProgress total={this.state.total} index={-1} />
+							<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
+								<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
 							</div>
-							<div className="col-md-3 col-lg-3">
-								<FluxAgendaUpload />
+						</div>
+						<div className="row">
+							<div className="col-md-8 col-lg-8">
+								<FluxAgendaFlyleaf selected={this.state.selectedAgendaItem} member={this.state.member} />
 							</div>
 						</div>
 					</div>
