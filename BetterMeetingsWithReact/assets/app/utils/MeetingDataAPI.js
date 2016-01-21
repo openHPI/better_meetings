@@ -17,6 +17,7 @@ module.exports = {
 	},
 
 	subscribeAndListen: function() {
+
 		io.socket.on('connect', function() {
 			console.log('Connected to server');
 			getMeetingData();
@@ -28,7 +29,7 @@ module.exports = {
 
 		io.socket.get('/todoitem', function (resData, jwres) {
 			console.log('Subscribed to' + resData);
-		})
+		});
 
 		io.socket.on('todoitem', function onServerSentEvent (msg) {
 
@@ -52,7 +53,26 @@ module.exports = {
 		    }
 
 		});
+
+		io.socket.get('/meetinggroup', function(resData, jwres) {
+			console.log('Subscribed to ' +  resData);
+		});
+
+		io.socket.on('meetinggroup', function onServerSentEvent (msg) {
+
+			switch(msg.verb) {
+
+				case 'updated':
+				_updateMember
+				break;
+
+				default:
+					return; // ignore any ...
+			}
+		});
 	},
+
+	// Todoitem
 
 	_receiveTask: function(data) {
 		FluxServerActions.createTask(data);
@@ -76,5 +96,11 @@ module.exports = {
 		io.socket.delete('/todoitem/' + index, function (data, jwres) {
   			console.log(data);
 		});
+	},
+
+	// Member 
+
+	_updateMember: function(data) {
+		// nyi
 	}
 }
