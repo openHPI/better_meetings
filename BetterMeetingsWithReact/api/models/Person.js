@@ -1,33 +1,79 @@
 /**
-* Person.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * Person.js
+ *
+ * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @docs        :: http://sailsjs.org/#!documentation/models
+ */
 
 module.exports = {
 
   identity: 'person',
 
   attributes: {
-  	personID: {
-  		type: 'integer',
-  		autoIncrement: true,
-  		required: true,
-  		primaryKey: true
-  	},
-  	displayName: {
-  		type: 'integer',
-  		unique: true,
-  		required: true
-  	},
-  	assignedMeetings: {
-  		type: 'array',
-  		required: false
-  	},
+    email: {
+      type: 'string',
+      email: true,
+      required: true
+    },
+    password: {
+      type: 'string',
+      required: true
+    },
+    displayName: {
+      type: 'string',
+      unique: true,
+      required: true
+    },
+    assignedMeetings: {
+      type: 'array',
+      required: false
+    },
     todos: {
       model: 'todoitem'
     }
+  },
+
+  /**
+   * Create a new user using the provided inputs,
+   * but encrypt the password first.
+   *
+   * @param  {Object}   inputs
+   *                     • name     {String}
+   *                     • email    {String}
+   *                     • password {String}
+   * @param  {Function} cb
+   */
+
+  signup: function (inputs, cb) {
+    // Create a person
+    person.create({
+        displayName: inputs.name,
+        email: inputs.email,
+        // TODO: But encrypt the password first
+        password: inputs.password
+      })
+      .exec(cb);
+  },
+
+
+  /**
+   * Check validness of a login using the provided inputs.
+   * But encrypt the password first.
+   *
+   * @param  {Object}   inputs
+   *                     • email    {String}
+   *                     • password {String}
+   * @param  {Function} cb
+   */
+
+  attemptLogin: function (inputs, cb) {
+    // Create a person
+    person.findOne({
+        email: inputs.email,
+        // TODO: But encrypt the password first
+        password: inputs.password
+      })
+      .exec(cb);
   }
 };
 

@@ -7,15 +7,18 @@
  * @docs        :: http://sailsjs.org/#!/documentation/concepts/Policies
  *
  */
-module.exports = function(req, res, next) {
+module.exports = function (req, res, next) {
 
-  // User is allowed, proceed to the next policy, 
-  // or if this is the last policy, the controller
-  if (req.session.authenticated) {
-    return next();
+  // If `req.session.me` exists, that means the user is logged in.
+  if (req.session.me) return next();
+
+  // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
+  // send a 401 response letting the user agent know they need to login to
+  // access this endpoint.
+  if (req.wantsJSON) {
+    return res.send(401);
   }
 
-  // User is not allowed
-  // (default res.forbidden() behavior can be overridden in `config/403.js`)
-  return res.forbidden('You are not permitted to perform this action.');
+  // Otherwise if this is an HTML-wanting browser, do a redirect.
+  return res.redirect('/login');
 };
