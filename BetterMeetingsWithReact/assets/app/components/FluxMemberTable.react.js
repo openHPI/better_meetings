@@ -1,5 +1,6 @@
 var React = require('react');
 var FluxMemberTableData = require('./FluxMemberTableData.react');
+var FluxMemberForm = require('./FluxMemberForm.react');
 
 // Flux todolist view
 var FluxMemberTable = React.createClass({
@@ -21,9 +22,10 @@ var FluxMemberTable = React.createClass({
                         )
                     })}
                     <li>
-                        <button type="button" id="flux-memberlist-button" className="" data-toggle="modal" data-target="#newListElementModal" style={editStyle}><i className="fa fa-plus-square-o"></i></button> 
+                        <button type="button" id="flux-memberlist-button" className="close" data-toggle="modal" data-target="#newMemberModal" style={editStyle}><i className="fa fa-plus-square-o"></i></button> 
                     </li>
                 </ul>
+                <FluxMemberForm />
             </div>
         );
     }

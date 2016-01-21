@@ -166,6 +166,9 @@ AppDispatcher.register(function(payload) {
 			removeTask(taskIndex);
 			break;
 
+		case FluxServerConstants.MEMBER_CREATE:
+			addMember(action.data);
+
 		// Respond Client actions
 
 		case FluxAgendaConstants.TODO_ADD:

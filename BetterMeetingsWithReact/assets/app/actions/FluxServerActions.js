@@ -34,6 +34,14 @@ var FluxServerActions = {
 			data: item
 		})
 	},
+
+	// Add member to members
+	createMember: function(item) {
+		AppDispatcher.handleAction({
+			actionType: FluxServerActions.MEMBER_CREATE,
+			data: item
+		})
+	}
 };
 
 module.exports = FluxServerActions;

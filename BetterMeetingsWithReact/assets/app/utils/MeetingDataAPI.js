@@ -62,9 +62,17 @@ module.exports = {
 
 			switch(msg.verb) {
 
+				case 'created':
+					_receiveMember(msg.data);
+					break;
+
 				case 'updated':
-				_updateMember
-				break;
+					_updateMember
+					break;
+
+				case 'destroyed':
+					_destroyMember(msg.data);
+					break;
 
 				default:
 					return; // ignore any ...
@@ -100,7 +108,21 @@ module.exports = {
 
 	// Member 
 
+	_receiveMember: function(data) {
+		FluxServerActions.createMember(data);
+	},
+
 	_updateMember: function(data) {
 		// nyi
+	},
+
+	_destroyMember: function(data) {
+		FluxServerActions.destroyMember;
+	},
+
+	_postMember: function(data) {
+		io.socket.post('/meetinggroup/meetingguest', data, function (data, jwres) {
+			console.log(data);
+		});
 	}
 }
