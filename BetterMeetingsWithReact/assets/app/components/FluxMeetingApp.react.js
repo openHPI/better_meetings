@@ -48,18 +48,18 @@ var FluxMeetingApp = React.createClass({
 
 		if (this.state.hasStarted) {
 			return (
-				<div className="row">
-					<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div className="content">
+					<div className="container-fluid">
 						<div className="row">
-							<div className="col-md-12 col-lg-12">
-								<FluxAgendaProgress total={this.state.total} index={this.state.index} />
-							</div>
+							<FluxAgendaProgress total={this.state.total} index={this.state.index} />
 						</div>
 						<div className="row">
 							<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
 								<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
 							</div>
 						</div>
+					</div>
+					<div className="container">
 						<div className="row">
 							<div className="col-md-8 col-lg-8">
 								<div className="row">
@@ -94,18 +94,18 @@ var FluxMeetingApp = React.createClass({
 
 		else {
 			return (
-				<div className="row">
-					<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div className="content">
+					<div className="container-fluid">
 						<div className="row">
-							<div className="col-md-12 col-lg-12">
-								<FluxAgendaProgress total={this.state.total} index={-1} />
-							</div>
+							<FluxAgendaProgress total={this.state.total} index={-1} />
 						</div>
 						<div className="row">
 							<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
 								<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
 							</div>
 						</div>
+					</div>
+					<div className="container">
 						<div className="row">
 							<div className="col-md-8 col-lg-8">
 								<FluxAgendaFlyleaf selected={this.state.selectedAgendaItem} member={this.state.member} />
