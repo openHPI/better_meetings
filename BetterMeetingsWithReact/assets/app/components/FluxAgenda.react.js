@@ -14,11 +14,11 @@ var FluxAgenda = React.createClass({
 			<div className="flux-agenda-container">
 				<div className="flux-agenda-list">
 					<ul>
-                        <FluxAgendaItem items={items} index={selectedIndex - 1} selected={selected} />
-                        <FluxAgendaItem items={items} index={selectedIndex} selected={selected} />
-                        <FluxAgendaItem items={items} index={selectedIndex + 1} selected={selected} />
-                        <FluxAgendaItem items={items} index={selectedIndex + 2} selected={selected} />
-                        <FluxAgendaItem items={items} index={selectedIndex + 3} selected={selected} />
+                        <FluxAgendaItem items={items} index={selectedIndex - 1} level={1} />
+                        <FluxAgendaItem items={items} index={selectedIndex} level={0} />
+                        <FluxAgendaItem items={items} index={selectedIndex + 1} level={1} />
+                        <FluxAgendaItem items={items} index={selectedIndex + 2} level={2} />
+                        <FluxAgendaItem items={items} index={selectedIndex + 3} level={3} />
                     </ul>
                 </div>
 			</div>

@@ -4,14 +4,14 @@ var FluxAgendaActions = require('../actions/FluxAgendaActions');
 // Flux todolist view
 var FluxAgendaDetails = React.createClass({
 
-    selectPrevious: function(event) {
+    selectPrevious: function() {
         var index = (this.props.items.indexOf(this.props.selected) - 1);
         var index = (0 > index) ? (this.props.items.length-1) : index;
         FluxAgendaActions.selectAgendaItem(index);
     },
 
     // Select next agenda item
-    selectNext: function(event) {
+    selectNext: function() {
         var index = (this.props.items.indexOf(this.props.selected) + 1) % this.props.items.length;
         FluxAgendaActions.selectAgendaItem(index);
     },
@@ -24,7 +24,7 @@ var FluxAgendaDetails = React.createClass({
         var member = this.props.member;
 
         return(
-            <div className="flux-agendaDetails-container">
+            <div className="flux-agendaDetails-container" onKeyDown={this._onKeyDown}>
                 <div className="flux-agendaDetails-description">
                     <h4>Description</h4>
                     <p>{selected.description}</p>
@@ -46,6 +46,7 @@ var FluxAgendaDetails = React.createClass({
             </div>
         );
     }
+    
 });
 
 module.exports = FluxAgendaDetails;
