@@ -5,7 +5,8 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "babel-cli": "^6.4.0",
+    "babel": "^6.3.26",
+    "babel-cli": "^6.4.5",
     "babelify": "^6.4.0",
     "bootstrap": "^3.3.6",
     "ejs": "~0.8.4",
