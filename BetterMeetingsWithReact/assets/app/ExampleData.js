@@ -84,6 +84,150 @@ module.exports = {
               }
             ],
             done: false
+          },
+          {
+            id: '3',
+            title: 'Präsentation',
+            description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam",
+            todoList: [
+              {
+                id: '0',
+                title: 'Task1',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '1',
+                title: 'Task2',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '2',
+                title: 'Task3',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '3',
+                title: 'Task4',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              }
+            ],
+            done: false
+          },
+          {
+            id: '4',
+            title: 'Klausur',
+            description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam",
+            todoList: [
+              {
+                id: '0',
+                title: 'Task1',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '1',
+                title: 'Task2',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '2',
+                title: 'Task3',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '3',
+                title: 'Task4',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              }
+            ],
+            done: false
+          },
+          {
+            id: '5',
+            title: 'PEM',
+            description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam",
+            todoList: [
+              {
+                id: '0',
+                title: 'Task1',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '1',
+                title: 'Task2',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '2',
+                title: 'Task3',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '3',
+                title: 'Task4',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              }
+            ],
+            done: false
+          },
+          {
+            id: '6',
+            title: 'Urlaub',
+            description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam",
+            todoList: [
+              {
+                id: '0',
+                title: 'Task1',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '1',
+                title: 'Task2',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '2',
+                title: 'Task3',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              },
+              {
+                id: '3',
+                title: 'Task4',
+                author: 'Lando',
+                assignee: null,
+                done: false
+              }
+            ],
+            done: false
           }
         ],
         

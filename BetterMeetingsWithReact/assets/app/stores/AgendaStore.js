@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _user = null, _canEdit = false, _agenda = [], _selected = null, _collapsed = -1, _member = [], _hasStarted = false, _timer = 0;
+var _user = null, _canEdit = true, _agenda = [], _selected = null, _collapsed = -1, _member = [], _hasStarted = false, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
