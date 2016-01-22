@@ -18,7 +18,6 @@ var FluxAgenda = React.createClass({
                         <FluxAgendaItem items={items} index={selectedIndex} level={0} />
                         <FluxAgendaItem items={items} index={selectedIndex + 1} level={1} />
                         <FluxAgendaItem items={items} index={selectedIndex + 2} level={2} />
-                        <FluxAgendaItem items={items} index={selectedIndex + 3} level={3} />
                     </ul>
                 </div>
 			</div>
