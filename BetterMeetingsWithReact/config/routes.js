@@ -45,11 +45,19 @@ module.exports.routes = {
   '/meeting': {
     view: 'meeting'
   },
+  '/user': {
+    view: 'user'
+  },
+  '/user/create': {
+    controller: 'user',
+    action: 'create'
+  },
 
   // Endpoints
   'post /login': 'PersonController.login',
   'post /signup': 'PersonController.signup',
   '/logout': 'PersonController.logout',
+  'post /User': 'UserController.create',
 
 
   /***************************************************************************
