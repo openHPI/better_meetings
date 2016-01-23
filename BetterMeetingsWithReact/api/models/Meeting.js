@@ -14,6 +14,14 @@ module.exports = {
   	members: {
   		model: 'meetinggroup',
   	},
+    title: {
+      type: 'string',
+      required: true,
+    },
+    description: {
+      type: 'string',
+      required: false,
+    },
   	topics: {
   		model: 'agendaitem',
   		via: 'meeting',
