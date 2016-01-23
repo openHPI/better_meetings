@@ -10,10 +10,6 @@ module.exports = {
 	identity: 'User',
 
    attributes: {
-   	id: {
-   		type: 'int',
-   		autoIncrement: true,
-   	},
   		name: {
   			type: 'string'
   		},

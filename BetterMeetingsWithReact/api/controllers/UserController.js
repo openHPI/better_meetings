@@ -16,8 +16,9 @@ create: function(req,res) {
 	  if (nameSent ){
 
 		  User.create({name: nameSent}).exec(function createCB(err,created){
-                                    console.log(err);
-			  	User.publishCreate({
+                                    if (err) console.log('Fehler: ',err);
+
+                                    User.publishCreate({
 			  	     	id: created.id,
 			  	     	name: created.name,
 			  	     });

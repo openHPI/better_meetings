@@ -32,39 +32,45 @@ var socket = io.connect();
 	io.socket.on('connect', function socketConnected() {
 		console.log('socket session: ' + this.id);
 
-		io.socket.get('/user/create');
-		io.socket.on('message', receiveUserDataFromServer);
+		io.socket.get('/user/create/');
+		io.socket.on('user', function(user) {
+                     console.log('Daten-Inventur: ' + JSON.parse(JSON.stringify(user)));
+                     console.dir(user);
+                     receiveUserDataFromServer(user);
+                  });
 
 	});
 
-         io.socket.get('/users/viewAll', function poulateList(items) {
-            console.log(items);
-         });
+
 
 
 window.socket = socket;
 
-function receiveUserDataFromServer(message) {
+function receiveUserDataFromServer(user) {
 
-	console.log('Neuer User: ' + message);
+	console.log('Neuer User: ' + user);
 
-         var newUserName = message.name;
+         var newUserName = user.name;
 
-         updateUserListInDom(newUserName,message);
+         updateUserListInDom(newUserName,user);
 
 
 }
 
-function updateUserListInDom (newUserName,message) {
+function updateUserListInDom (newUserName,user) {
    var page = document.location.pathname;
-
+   console.log('Paging aktiv');
    page = page.replace(/(\/)$/, '');
 
    switch (page) {
       case '/user':
 
-         if (message.verb === 'update') {
-            AttendeesBlock.updateList(newUserName, message);
+         if (user.verb === 'created') {
+            AttendeesBlock.addItemToList(newUserName, user);
+         }
+         // BM-Team: Destroy habe ich nch nicht  richtig umgesetzt, ist aber nur ein Fromsache
+         if (user.verb === 'destroy') {
+            AttendeesBlock.updateList(newUserName, user);
          }
          break;
    }
@@ -72,8 +78,10 @@ function updateUserListInDom (newUserName,message) {
 
 var AttendeesBlock = {
 
-   updateList: function(name, message) {
-      $('#user-list').append('<li>'+ name + ' </li>');
+   addItemToList: function(name, user) {
+      console.log('Bauarbeiter aktiv');
+      var data = user.data;
+      jQuery('#user-list').append('<li>'+ data.name + ' Test</li>');
    }
 }
 
