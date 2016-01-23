@@ -8,7 +8,43 @@
 module.exports = {
 	
 
+  create: function (req,res) {
+    sails.log('Creation started');
+    var displayname = req.param('displayname');
+    var password = req.param('password');
+    var email = req.param('email');
 
+    if (displayname && password && email) {
+      MeetingAdmin.create({
+        displayname:    displayname,
+        password:       password,
+        email:          email,
+      }).exec( function createMeetingAdmin(err,cre) {
+        if (err) {
+          sails.log('[bm-error] meetingadmin not created' + err);
+        } else {
+          sails.log('[success] meetingadmin created: ' + cre.displayname);
+          // return res.view('meetingadmins', {
+          //   users: cre,
+          // });
+        }
+      })
+    }
+  },
+
+  viewAll: function(req,res) {
+
+    MeetingAdmin.find().exec(function displayMeetingAdminList(err,items) {
+      if (err) return res.serverError(err);
+
+      sails.log('Admins:' + items);
+
+      return res.view('meetingadmins', {
+        users: items,
+      });
+    });
+
+  },
   /**
    * `MeetingAdminController.createMeeting()`
    */
@@ -76,6 +112,44 @@ module.exports = {
     return res.json({
       todo: 'finishToDoItem() is not implemented yet!'
     });
-  }
+  },
+
+  exampledata: function(req,res) {
+    sails.log('generation started');
+      var admin1 = {
+          'email': 'test1@hpi.de',
+          'password': 'password',
+          'displayName': 'TestAdmin 1',
+          };
+      var admin2 = {
+          'email': 'test2@hpi.de',
+          'password': 'password',
+          'displayName': 'TestAdmin 2',
+          };
+      var admin3 = {
+          'email': 'test3@hpi.de',
+          'password': 'password',
+          'displayName': 'TestAdmin 3',
+          };
+      var meetingAdmins = {
+        'param': [admin1,admin2,admin3],
+      }
+
+      sails.log(meetingAdmins);
+        
+
+      for (var i = 0; i < meetingAdmins.length; i++) {
+        sails.log('Runde: ' + i);
+        MeetingAdminController.create(meetingAdmins[i], function(err,cre) {
+          if (err) {
+            sails.log('Fehler');
+          } else {
+            sails.log('erfolg');
+          }
+        });
+
+      };
+    return res.send('Toll');
+  },
 };
 
