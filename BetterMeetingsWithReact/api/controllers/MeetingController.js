@@ -6,20 +6,55 @@
  */
 
 module.exports = {
-	
+
+/*=================================================================================
+=            create meeting instance and associated model 
+=            instances and doing a pubsub for realtime (Radscheit)              =
+=================================================================================*/
+  
 	create: function(req,res) {
-    if (req.method == "POST" && req.param( "Meeting" , null ) != null ) {
-      Meeting.create( req.param("Meeting") ).done( function( err , model ) {
-        if ( err ) {
-          res.send("Error");
-        } else {
-          res.send("Success");
-        }
+
+    var members = req.param('meetinggroup');
+    var topics = req.param('topics');
+    var jourfixe = req.param('jourfixe');
+    var url = generateurl();
+    var timer = req.param('timer');
+
+    if (members && topics && jourfixe && url && timer) {
+
+      Meeting.create({
+        members: members,
+        topics: topics,
+        jourFixe: jourfixe,
+        url: url,
+        timer: timer,
+      }).exec( function createMeeting(err,cre) {
+        if (err) console.log('[bm-error] meeting not created: ' + err);
+
+        Meeting.publishCreate({
+          id:       cre.id,
+          topics:   cre.topics,
+          jourfixe: cre.jourFixe,
+          url:      cre.url,
+          timer:    cre.timer,
+        });
+
+        return res.json({
+          notice: '[bm-success] meeting ' + cre.title + 'created',
+        });
       });
-    } else {
-      res.render('meeting/view');
-    }
+    } else if ( req.isSocket ) {
+
+      Meeting.watch(req);
+      console.log('[bm-success] client with socket ' + sails.socket.id(req) + 'is istening to meeting.')
+    }; 
   },
+
+
+
+/*==================================================================
+=            update meeting model instances (Radscheit)            =
+===================================================================*/
 
   update: function(req,res) {
     var todoID = req.param("meetingID", null);
@@ -45,36 +80,27 @@ module.exports = {
     })
   },
 
-  view: function(req,res) {
-    var todoID = req.param("meetingID", null);
+/*===================================================================
+=            feed a view for meeting instances and the 
+             other associated model instances (Radscheit)            =
+===================================================================*/
 
-    Meeting.findOne(todoID).done(function(err,model) {
-      res.render('meeting/view', {'model':model});
-    });
+  view: function(req,res) {
+
   },
+
+/*===========================================================================
+=            destroy instances of meeting model and clear the 
+             other model tables from its belongings. (Radscheit)             =
+===========================================================================*/
+
+
+
 
   delete: function(req,res) {
-    var todoID = req.param("MeetingID", null);
 
-    Meeting.findOne(todoID).done(function(err,user) {
-      user.destroy(function(err) {
-        res.send("Success");
-      });
-    });
   },
 
-  generateurl: function () {
-    var s = "";
-      while(s.length<8&&8>0){
-        var r = Math.random();
-        s+= (r<0.1?Math.floor(r*100):String.fromCharCode(Math.floor(r*26) + (r>0.5?97:65)));
-      }
-    return res.json({
-      url: s,
-    })
-  },
-
-  showMeetingDetails: function (req, res) {}
     
 };
 
