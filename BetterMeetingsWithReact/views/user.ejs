@@ -6,4 +6,9 @@
 <br>
 <br>
 <br>
-<ul id="user-list"><li>Test</li></ul>
+<ul id="user-list">
+   <% _.each(users, function(user) { %>
+      <li><%= user.name %></li>
+   <% }) %>
+
+</ul>

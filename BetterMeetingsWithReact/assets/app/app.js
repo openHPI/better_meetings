@@ -33,19 +33,48 @@ var socket = io.connect();
 		console.log('socket session: ' + this.id);
 
 		io.socket.get('/user/create');
-		io.socket.on('user', receiveUserDataFromServer);
-	})
-	
+		io.socket.on('message', receiveUserDataFromServer);
+
+	});
+
+         io.socket.get('/users/viewAll', function poulateList(items) {
+            console.log(items);
+         });
+
 
 window.socket = socket;
 
-function receiveUserDataFromServer(user) {
+function receiveUserDataFromServer(message) {
 
-	console.log('Neuer User: ' + user);
+	console.log('Neuer User: ' + message);
 
-	if (user.model === 'user') {
-		$('#user-list').append('<li>'+ user.name + ' (' + user.userID + ')</li>');
-	}
+         var newUserName = message.name;
+
+         updateUserListInDom(newUserName,message);
+
+
+}
+
+function updateUserListInDom (newUserName,message) {
+   var page = document.location.pathname;
+
+   page = page.replace(/(\/)$/, '');
+
+   switch (page) {
+      case '/user':
+
+         if (message.verb === 'update') {
+            AttendeesBlock.updateList(newUserName, message);
+         }
+         break;
+   }
+}
+
+var AttendeesBlock = {
+
+   updateList: function(name, message) {
+      $('#user-list').append('<li>'+ name + ' </li>');
+   }
 }
 
 

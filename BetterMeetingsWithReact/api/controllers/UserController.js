@@ -6,19 +6,21 @@
  */
 
 module.exports = {
-	
+
 create: function(req,res) {
-	  
-	  var nameSent = req.param('name');
 
-	  if (nameSent && req.isSocket){
+	var nameSent = req.param('name');
+         console.log(req.param);
+         console.log(nameSent);
 
-		  User.create({name: params.name}).exec(function createCB(err,created){
+	  if (nameSent ){
 
+		  User.create({name: nameSent}).exec(function createCB(err,created){
+                                    console.log(err);
 			  	User.publishCreate({
 			  	     	id: created.id,
 			  	     	name: created.name,
-			  	     });	
+			  	     });
 		     return res.json({
 		       notice: 'Created user with name ' + created.name
 		     });
@@ -29,22 +31,38 @@ create: function(req,res) {
 		         console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'users\'.');
 
 		} else {
-					console.log('view')
+			res.send('view')
 		         //res.view();
+
        }
-	   
-	   
-	      
-	    
-	
+
+
+
+
+
 	},
 	view: function(req,res) {
-	  var userID = req.param("userID", null);
 
-	  User.findOne(userID).done(function(err,model) {
-	    res.render('user', {'model':model});
-	  });
-	},
+           User.findOne(id).exec(function displayList(err, items) {
+               console.log(items);
+               res.response = items;
+               res.render('user', {'model': 'User'});
+
+          })
+         },
+
+         viewAll: function(req,res) {
+
+           User.find().exec(function displayList(err, items) {
+               if (err) return res.serverError(err);
+
+               console.log(items);
+               return res.view('user', {
+                  users: items,}
+                  );
+
+          })
+         },
 
 	delete: function(req,res) {
 	  var userID = req.param("userID", null);
