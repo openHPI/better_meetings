@@ -14,9 +14,9 @@ module.exports = {
 
   create: function(req,res) {
 
-    var meeting = req.param('meeting'),
-    var title = req.param('title'),
-    var description = req.param('description'),
+    var meeting = req.param('meeting');
+    var title = req.param('title');
+    var description = req.param('description');
     // var todos = req.param('todos'),
 
     if ( meeting && title && description && todos ) {
@@ -27,9 +27,18 @@ module.exports = {
         description:  description,
         //todos:      todos,
       }).exec( function createAgendaItem(err,cre) {
-        if (err) console.log('[bm-error] agendaitem not created: ' err);
+        if (err) console.log('[bm-error] agendaitem not created: ' + err);
         
         console.log('[bm-success] agendaitem ' + cre.title + 'created');
+
+        /**
+        
+          TODO:
+          - add watch for realtime view
+          - add a redirect to a view if needed
+        
+         */
+        
       });
     };
 
@@ -42,9 +51,9 @@ module.exports = {
 
   bulkcreate: function(req,res) {
 
-    var meeting = req.param('meeting'),
-    var title = req.param('title'),
-    var description = req.param('description'),
+    var meeting = req.param('meeting');
+    var title = req.param('title');
+    var description = req.param('description');
     // var todos = req.param('todos'),
 
     if ( meeting && title && description && todos ) {
@@ -55,7 +64,7 @@ module.exports = {
         description:  description,
         //todos:      todos,
       }).exec( function createAgendaItem(err,cre) {
-        if (err) console.log('[bm-error] agendaitem not created: ' err);
+        if (err) console.log('[bm-error] agendaitem not created: ' + err);
         
         console.log('[bm-success] agendaitem ' + cre.title + 'created');
       });
