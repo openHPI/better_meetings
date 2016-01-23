@@ -6,10 +6,9 @@
 window.React = require('react');
 global.jQuery = require('jquery');
 var bootstrap = require('bootstrap');
-var socketIOClient = require('socket.io-client');
-var sailsIOClient = require('sails.io.js');
 var ProductData = require('./ExampleData');
-var MeetingDataAPI = require('./utils/MeetingExampleDataAPI');
+var MeetingDataAPI = require('./utils/MeetingDataAPI');
+var MeetingExampleDataAPI = require('./utils/MeetingExampleDataAPI');
 var FluxMeetingApp = require('./components/FluxMeetingApp.react');
 
 
@@ -20,16 +19,7 @@ ProductData.init();
 =            do socket connect and basic behaviours            =
 ==============================================================*/
 
-var io = sailsIOClient(socketIOClient);
-var socket = io.connect();
-
-	io.sails.url = 'http://localhost:1337';
-
-	if (typeof console != 'undefined') {
-		console.log('Connecting to Sails');
-	}
-
-	io.socket.on('connect', function socketConnected() {
+/*	io.socket.on('connect', function socketConnected() {
 		console.log('socket session: ' + this.id);
 
 		io.socket.get('/user/create/');
@@ -37,14 +27,9 @@ var socket = io.connect();
                      console.log('Daten-Inventur: ' + JSON.parse(JSON.stringify(user)));
                      console.dir(user);
                      receiveUserDataFromServer(user);
-                  });
+   });
 
-	});
-
-
-
-
-window.socket = socket;
+});
 
 function receiveUserDataFromServer(user) {
 
@@ -53,7 +38,6 @@ function receiveUserDataFromServer(user) {
          var newUserName = user.name;
 
          updateUserListInDom(newUserName,user);
-
 
 }
 
@@ -83,14 +67,16 @@ var AttendeesBlock = {
       var data = user.data;
       jQuery('#user-list').append('<li>'+ data.name + ' Test</li>');
    }
-}
+}*/
+
 
 
 /*===============================================================
 =            assign dom elements for react rendering            =
 ===============================================================*/
 
-MeetingDataAPI.getMeetingData();
+MeetingExampleDataAPI.getMeetingData();
+MeetingDataAPI.subscribeAndListen();
 
 React.render(
 	<FluxMeetingApp />,

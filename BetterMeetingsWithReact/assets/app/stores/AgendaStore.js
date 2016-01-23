@@ -61,6 +61,10 @@ function markTaskAsDone (index) {
 	}
 }
 
+function addMember (member) {
+	_member.push(member);
+}
+
 function collapseItem (index) {
 	_collapsed = index;
 }
@@ -193,6 +197,8 @@ AppDispatcher.register(function(payload) {
 
 		case FluxAgendaConstants.MEMBER_ADD:
 			addMember(action.data);
+			MeetingDataAPI.postMember(action.data);
+			MeetingDataAPI.postUser(action.data);
 			break;
 		
 		// Respond to RECEIVE_DATA action

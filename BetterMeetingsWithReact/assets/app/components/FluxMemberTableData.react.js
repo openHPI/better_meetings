@@ -19,7 +19,7 @@ var FluxMemberTableData = React.createClass({
         var attendee = this.props.attendee;
 
         return (
-            <li id="flux-membertableRow" className={(attendee.status !== undefined) ? "flux-membertableRow " + attendee.status : "flux-membertableRow"} >
+            <li id="flux-membertableRow" className="flux-membertableRow">
                 <i className="fa fa-user"></i>{attendee.name}
             </li>
         )

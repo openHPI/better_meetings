@@ -235,24 +235,21 @@ module.exports = {
           {
             id: '0',
             name: 'Lando',
-            surname: 'Löper',
             eMail: 'lando.loeper@student.hpi.de'
           },
           {
             id: '1',
             name: 'Hans',
-            surname: 'Peter',
             eMail: 'hans.peter@student.hpi.de'
           },
           {
             id: '2',
             name: 'Matthias',
-            surname: 'Radscheit',
             eMail: 'matthias.radscheitr@student.hpi.de'
-          },{
+          },
+          {
             id: '3',
             name: 'Max',
-            surname: 'Mustermann',
             eMail: 'max.mustermann@student.hpi.de'
           }
         ],

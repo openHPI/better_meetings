@@ -63,15 +63,14 @@ var FluxTaskForm = React.createClass({
             var suggestions = [];
             var input = event.target.value;
 
-            this.props.member.forEach(function (element, index) {
+            this.props.member.forEach(function (member, index) {
 
-                var substring = (element.name + ' ' + element.surname).substring(0, input.length);
-                if(input === substring)
-                    suggestions.push(element);
+                if(input === member.name.substring(0, input.length))
+                    suggestions.push(member);
             });
 
             if(suggestions.length > 0)
-                document.getElementById('assign-autocomplete').value = suggestions[0].name + ' ' + suggestions[0].surname;
+                document.getElementById('assign-autocomplete').value = suggestions[0].name;
             else
                 document.getElementById('assign-autocomplete').value = '';
 
@@ -85,7 +84,7 @@ var FluxTaskForm = React.createClass({
 
     _onKeyUp: function(event) {
         if(event.keyCode === 13) {
-            document.getElementById('assign-input').value= this.state.autocomplete[0].name + ' ' + this.state.autocomplete[0].surname;
+            document.getElementById('assign-input').value= this.state.autocomplete[0].name;
             this.setState({ assignee: this.state.autocomplete[0] });
         }
     }

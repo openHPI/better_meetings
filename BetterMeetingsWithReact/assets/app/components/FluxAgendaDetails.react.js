@@ -12,8 +12,11 @@ var FluxAgendaDetails = React.createClass({
 
     // Select next agenda item
     selectNext: function() {
-        var index = (this.props.items.indexOf(this.props.selected) + 1) % this.props.items.length;
-        FluxAgendaActions.selectAgendaItem(index);
+        var index = (this.props.items.indexOf(this.props.selected) + 1);
+        if(index < this.props.items.length)
+            FluxAgendaActions.selectAgendaItem(index);
+        else
+            FluxAgendaActions.selectAgendaItem(0);
     },
 
     render: function(){

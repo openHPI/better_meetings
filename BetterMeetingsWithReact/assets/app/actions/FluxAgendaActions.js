@@ -50,6 +50,7 @@ var FluxAgendaActions = {
 		})
 	},
 
+	// 
 	addMember: function(data) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.MEMBER_ADD,
