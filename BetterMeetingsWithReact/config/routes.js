@@ -57,12 +57,23 @@ module.exports.routes = {
     controller: 'user',
     action: 'viewAll'
   },
+  '/meeting/insert-examples/': {
+    controller: 'meeting',
+    action: 'insertExampleData'
+  },
 
   // Endpoints
   'post /login': 'PersonController.login',
   'post /signup': 'PersonController.signup',
   '/logout': 'PersonController.logout',
   'post /User': 'UserController.create',
+
+  // endpoints for meeting controller
+  'POST /meeting/create': 'MeetingController.create',
+
+  // endpoints for agendaitem controller
+  'POST /topic/create': 'AgendaItemController.create',
+  'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
 
 
   /***************************************************************************
