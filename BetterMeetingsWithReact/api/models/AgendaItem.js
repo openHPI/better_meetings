@@ -10,13 +10,11 @@ module.exports = {
   identity: 'agendaitem',
 
   attributes: {
-  	agendaItemID: {
-  		type: 'integer',
-  		primaryKey: true,
-  		autoIncrement: true,
-  		required: true
-  	},
-  	title: {
+
+  	meeting: {
+      model: 'meeting',
+    },
+    title: {
   		type: 'string',
   		required: true,	
   	},
@@ -32,6 +30,7 @@ module.exports = {
   		type: 'boolean',
   		required: false
   	}
+
   }
 };
 

@@ -10,17 +10,13 @@ module.exports = {
 	identity: 'meeting',
 
   attributes: {
-  	meetingID: {
-  		type: 'integer',
-  		primaryKey: true,
-  		autoIncrement: true
-  	},
+
   	members: {
-  		model: 'meetinggroup'
+  		model: 'meetinggroup',
   	},
   	topics: {
-  		type: 'array',
-  		required: false,
+  		model: 'agendaitem',
+  		via: 'meeting',
   	},
   	jourFixe: {
   		type: 'integer',
@@ -34,6 +30,7 @@ module.exports = {
   		type: 'integer',
   		required: true,
   	}
+
   }
 };
 
