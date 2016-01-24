@@ -61,12 +61,16 @@ module.exports.routes = {
     controller: 'meeting',
     action: 'insertExampleData'
   },
-  '/meetingadmin/': {
-    controller: 'MeetingAdmin',
+  '/person/': {
+    controller: 'person',
     action: 'viewAll',
   },
-  '/meetingadmin/exampledata': {
-    controller: 'MeetingAdmin',
+  '/person/create': {
+    controller: 'person',
+    action: 'create',
+  },
+  '/person/exampledata': {
+    controller: 'person',
     action: 'exampledata',
   },
 
@@ -80,7 +84,7 @@ module.exports.routes = {
   'POST /meeting/create': 'MeetingController.create',
 
   // endpoints for meeting controller
-  'POST /meetingadmin/create': 'MeetingAdminController.create',
+  'POST /person/create': 'PersonController.create',
 
   // endpoints for agendaitem controller
   'POST /topic/create': 'AgendaItemController.create',

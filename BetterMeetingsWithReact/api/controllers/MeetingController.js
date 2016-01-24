@@ -101,6 +101,10 @@ module.exports = {
 
   },
 
+  insertExampleData: function(req,res) {
+    Exampledataservice.generateExampleMeetings();
+  },
+
     
 };
 

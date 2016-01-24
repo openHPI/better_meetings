@@ -7,6 +7,162 @@
 
 module.exports = {
 
+    create: function (req,res) {
+      sails.log('Creation started');
+      sails.log(req.param('displayname'));
+      var displayname = req.param('displayname');
+      var password = req.param('password');
+      var email = req.param('email');
+
+      if (displayname && password && email) {
+        person.create({
+          displayname:    displayname,
+          password:       password,
+          email:          email,
+        }).exec( function createPerson(err,cre) {
+          if (err) {
+            sails.log('person not created' + err);
+          } else {
+            sails.log('person created: ' + cre.displayname);
+
+          }
+        })
+      } else {
+        sails.log('person not created: few params');
+      }
+    },
+
+    viewAll: function(req,res) {
+
+      person.find().exec(function displayPersonList(err,items) {
+        if (err) return res.serverError(err);
+
+        sails.log('Admins:' + items);
+
+        return res.view('person', {
+          users: items,
+        });
+      });
+
+    },
+    /**
+     * `MeetingAdminController.createMeeting()`
+     */
+    createMeeting: function (req, res) {
+      return res.json({
+        todo: 'createMeeting() is not implemented yet!'
+      });
+    },
+
+
+    /**
+     * `MeetingAdminController.deleteMeeting()`
+     */
+    deleteMeeting: function (req, res) {
+      return res.json({
+        todo: 'deleteMeeting() is not implemented yet!'
+      });
+    },
+
+
+    /**
+     * `MeetingAdminController.createJourFixe()`
+     */
+    createJourFixe: function (req, res) {
+      return res.json({
+        todo: 'createJourFixe() is not implemented yet!'
+      });
+    },
+
+
+    /**
+     * `MeetingAdminController.deleteJourFixe()`
+     */
+    deleteJourFixe: function (req, res) {
+      return res.json({
+        todo: 'deleteJourFixe() is not implemented yet!'
+      });
+    },
+
+
+    /**
+     * `MeetingAdminController.startJourFixe()`
+     */
+    startJourFixe: function (req, res) {
+      return res.json({
+        todo: 'startJourFixe() is not implemented yet!'
+      });
+    },
+
+
+    /**
+     * `MeetingAdminController.endJourFixe()`
+     */
+    endJourFixe: function (req, res) {
+      return res.json({
+        todo: 'endJourFixe() is not implemented yet!'
+      });
+    },
+
+
+    /**
+     * `MeetingAdminController.finishToDoItem()`
+     */
+    finishToDoItem: function (req, res) {
+      return res.json({
+        todo: 'finishToDoItem() is not implemented yet!'
+      });
+    },
+
+    exampledata: function(req,res) {
+      
+  sails.log('generation started');
+          var admin1 = {
+              'email': 'test1@hpi.de',
+              'password': 'password',
+              'displayName': 'TestAdmin 1',
+              };
+          var admin2 = {
+              'email': 'test2@hpi.de',
+              'password': 'password',
+              'displayName': 'TestAdmin 2',
+              };
+          var admin3 = {
+              'email': 'test3@hpi.de',
+              'password': 'password',
+              'displayName': 'TestAdmin 3',
+              };
+          var meetingAdmins = [admin1,admin2,admin3];
+          
+
+          sails.log(meetingAdmins);
+          sails.log(meetingAdmins.length);
+            
+
+          for (var i = 0; i < 3; i++) {
+            sails.log('Runde: ' + i);
+            var displayname =    meetingAdmins[i].displayName;
+            var password =      meetingAdmins[i].password;
+            var email =          meetingAdmins[i].email;
+            person.create({
+              displayname:    displayname,
+              password:       password,
+              email:          email,
+            }).exec( function createMeetingAdmin(err,cre) {
+              if (err) {
+                sails.log('meetingadmin not created' + err);
+              } else {
+                sails.log('meetingadmin created: ' + cre.displayName);
+                // return res.view('meetingadmins', {
+                //   users: cre,
+                // });
+              }
+            })
+
+          };
+        return res.send('Toll');  
+      },
+
   /**
    * `PersonController.login()`
    */

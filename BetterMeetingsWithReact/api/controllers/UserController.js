@@ -52,18 +52,18 @@ create: function(req,res) {
           })
          },
 
-         viewAll: function(req,res) {
+   viewAll: function(req,res) {
 
-           User.find().exec(function displayList(err, items) {
-               if (err) return res.serverError(err);
+     User.find().exec(function displayList(err, items) {
+         if (err) return res.serverError(err);
 
-               console.log(items);
-               return res.view('user', {
-                  users: items,}
-                  );
+         console.log(items);
+         return res.view('user', {
+            users: items,}
+            );
 
-          })
-         },
+    })
+   },
 
 	delete: function(req,res) {
 	  var userID = req.param("userID", null);

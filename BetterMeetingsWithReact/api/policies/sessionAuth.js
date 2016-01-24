@@ -20,5 +20,7 @@ module.exports = function (req, res, next) {
   }
 
   // Otherwise if this is an HTML-wanting browser, do a redirect.
-  return res.redirect('/login');
+   // return res.redirect('/login');
+   // 
+   return next();
 };

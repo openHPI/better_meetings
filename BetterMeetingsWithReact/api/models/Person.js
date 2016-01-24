@@ -10,6 +10,7 @@ module.exports = {
   identity: 'person',
 
   attributes: {
+    
     email: {
       type: 'string',
       email: true,
@@ -19,18 +20,18 @@ module.exports = {
       type: 'string',
       required: true
     },
-    displayName: {
+    displayname: {
       type: 'string',
-      unique: true,
       required: true
-    },
-    assignedMeetings: {
-      type: 'array',
-      required: false
     },
     todos: {
       model: 'todoitem'
-    }
+    },
+    meetings: {
+        collection: 'meetinggroup',
+        via: 'members',
+        dominant: true
+    },
   },
 
   /**

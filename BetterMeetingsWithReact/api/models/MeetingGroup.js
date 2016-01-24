@@ -13,14 +13,10 @@ module.exports = {
   	meeting: {
       model: 'meeting',
   	},
-  	adminMembers: {
-  		collection: 'meetingadmin',
+  	members: {
+  		collection: 'person',
   		via: 'meetings',
   	},
-  	guestMembers: {
-      collection: 'meetingguest',
-      via: 'meetings',
-  	}
   }
 };
 
