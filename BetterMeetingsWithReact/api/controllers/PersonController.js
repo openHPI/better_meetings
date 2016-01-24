@@ -116,51 +116,8 @@ module.exports = {
 
     exampledata: function(req,res) {
       
-  sails.log('generation started');
-          var admin1 = {
-              'email': 'test1@hpi.de',
-              'password': 'password',
-              'displayName': 'TestAdmin 1',
-              };
-          var admin2 = {
-              'email': 'test2@hpi.de',
-              'password': 'password',
-              'displayName': 'TestAdmin 2',
-              };
-          var admin3 = {
-              'email': 'test3@hpi.de',
-              'password': 'password',
-              'displayName': 'TestAdmin 3',
-              };
-          var meetingAdmins = [admin1,admin2,admin3];
-          
+      ExampledataService.generateExamplePersons(req,res);
 
-          sails.log(meetingAdmins);
-          sails.log(meetingAdmins.length);
-            
-
-          for (var i = 0; i < 3; i++) {
-            sails.log('Runde: ' + i);
-            var displayname =    meetingAdmins[i].displayName;
-            var password =      meetingAdmins[i].password;
-            var email =          meetingAdmins[i].email;
-            person.create({
-              displayname:    displayname,
-              password:       password,
-              email:          email,
-            }).exec( function createMeetingAdmin(err,cre) {
-              if (err) {
-                sails.log('meetingadmin not created' + err);
-              } else {
-                sails.log('meetingadmin created: ' + cre.displayName);
-                // return res.view('meetingadmins', {
-                //   users: cre,
-                // });
-              }
-            })
-
-          };
-        return res.send('Toll');  
       },
 
   /**
