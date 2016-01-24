@@ -61,7 +61,7 @@ module.exports.routes = {
     controller: 'meeting',
     action: 'insertExampleData'
   },
-  '/person/': {
+  '/person/viewAll': {
     controller: 'person',
     action: 'viewAll',
   },

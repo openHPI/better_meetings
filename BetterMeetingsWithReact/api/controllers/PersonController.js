@@ -26,7 +26,16 @@ module.exports = {
             sails.log('person created: ' + cre.displayname);
 
           }
+          person.publishCreate({
+            id: cre.id,
+            displayname: cre.displayname,
+            password: cre.password,
+            email: cre.email
+          });
         })
+      } else if (req.isSocket){
+             person.watch(req);
+             console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'person\'.');
       } else {
         sails.log('person not created: few params');
       }

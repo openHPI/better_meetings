@@ -62,6 +62,8 @@ function markTaskAsDone (index) {
 }
 
 function addMember (member) {
+	console.log('New member: ' + member);
+	member['name'] = member.displayname;
 	_member.push(member);
 }
 
@@ -196,9 +198,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxAgendaConstants.MEMBER_ADD:
-			addMember(action.data);
 			MeetingDataAPI.postMember(action.data);
-			MeetingDataAPI.postUser(action.data);
 			break;
 		
 		// Respond to RECEIVE_DATA action

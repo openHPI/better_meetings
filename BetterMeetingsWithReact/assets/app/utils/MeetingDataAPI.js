@@ -43,7 +43,8 @@ module.exports = {
 			});
 
 			io.socket.get('/todoitem', function (resData, jwres) {
-				console.log('Subscribed to ' + resData);
+				console.log('Subscribed to Todoitem');
+				console.log(jwres);
 			});
 
 			// Subscribe to meetinggroup
@@ -66,7 +67,32 @@ module.exports = {
 			});
 
 			io.socket.get('/meetinggroup', function(resData, jwres) {
-				console.log('Subscribed to ' +  resData);
+				console.log('Subscribed to Meetinggroup');
+				console.log(jwres);
+			});
+
+			// Subscribe to person
+
+			io.socket.on('person', function onServerSentEvent (msg) {
+				
+				switch(msg.verb) {
+
+					case 'created':
+						_receiveMember(msg.data);
+						break;
+
+					case 'destroyed':
+						_destroyMember(msg.data);
+						break;
+
+					default:
+						return; // ignore any ...
+				}
+			});
+
+			io.socket.get('/person', function (resData, jwres) {
+				console.log('Subscribe to Person');
+				console.log(jwres);
 			});
 
 		});
@@ -107,8 +133,8 @@ module.exports = {
 	},
 
 	postTask: function(data) {
-		io.socket.post('/todoitem', data, function (data, jwres) {
-  			console.log(data);
+		io.socket.post('/todoitem', data, function (resData) {
+  			console.log(resData);
 		});
 	},
 
@@ -129,16 +155,9 @@ module.exports = {
 	},
 
 	postMember: function(data) {
-		io.socket.post('/meetinggroup/meetingguest', data, function (data, jwres) {
-			console.log(data);
-		});
-	},
-
-	// Test
-
-	postUser: function(data) {
-		io.socket.get('/user/create/?name=' + data.name, data, function(resData) {
-			console.log(resData);
+		io.socket.post('/person/create', data, function (data, jwres) {
+			console.log(jwres);
 		});
 	}
+
 }
