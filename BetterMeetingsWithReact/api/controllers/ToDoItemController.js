@@ -53,7 +53,7 @@ module.exports = {
       todoitem.watch(req);
       console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'todoitem\'.');
    }
-  }
+  },
 
   view: function(req,res) {
     var todoID = req.param("todoItemID", null);
