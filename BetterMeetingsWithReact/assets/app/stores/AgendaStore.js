@@ -61,8 +61,8 @@ function markTaskAsDone (index) {
 	}
 }
 
+// Method to add a member
 function addMember (member) {
-	console.log('New member: ' + member);
 	member['name'] = member.displayname;
 	_member.push(member);
 }
@@ -174,6 +174,7 @@ AppDispatcher.register(function(payload) {
 
 		case FluxServerConstants.MEMBER_CREATE:
 			addMember(action.data);
+			break;
 
 		// Respond Client actions
 

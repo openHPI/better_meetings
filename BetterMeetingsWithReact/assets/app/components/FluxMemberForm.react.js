@@ -11,6 +11,7 @@ var FluxMemberForm = React.createClass({
         if (!name) {
             return;
         }
+        
         var item = { displayname: name, email: email, password: 'password' };
         FluxAgendaActions.addMember(item);
 

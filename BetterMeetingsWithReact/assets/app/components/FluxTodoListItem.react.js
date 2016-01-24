@@ -8,7 +8,6 @@ var FluxTodoListItem = React.createClass({
         return {
             title: this.props.item.title,
             description: this.props.item.description,
-            editing: true
         };
     },
 
@@ -33,7 +32,7 @@ var FluxTodoListItem = React.createClass({
         var todoContentStyle = {
             display: (this.props.collapsed) ? 'block' : 'none'
         };
-        
+
         return(
             <li key={index} className="todo-item" onDoubleClick={this._onDoubleClick}>
                 <p className="todo-title">{item.title}</p>

@@ -38,7 +38,7 @@ var FluxServerActions = {
 	// Add member to members
 	createMember: function(item) {
 		AppDispatcher.handleAction({
-			actionType: FluxServerActions.MEMBER_CREATE,
+			actionType: FluxServerConstants.MEMBER_CREATE,
 			data: item
 		})
 	}

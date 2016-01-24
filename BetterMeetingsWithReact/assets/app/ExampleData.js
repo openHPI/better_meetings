@@ -236,21 +236,6 @@ module.exports = {
             id: '0',
             name: 'Lando',
             eMail: 'lando.loeper@student.hpi.de'
-          },
-          {
-            id: '1',
-            name: 'Hans',
-            eMail: 'hans.peter@student.hpi.de'
-          },
-          {
-            id: '2',
-            name: 'Matthias',
-            eMail: 'matthias.radscheitr@student.hpi.de'
-          },
-          {
-            id: '3',
-            name: 'Max',
-            eMail: 'max.mustermann@student.hpi.de'
           }
         ],
         timer: 360

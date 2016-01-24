@@ -1,6 +1,6 @@
 var socketIOClient = require('socket.io-client');
 var sailsIOClient = require('sails.io.js');
-var FluxAgendaActions = require('../actions/FluxServerActions');
+var FluxServerActions = require('../actions/FluxServerActions');
 
 var io = sailsIOClient(socketIOClient);
 var socket = io.connect();
@@ -25,7 +25,7 @@ module.exports = {
 			    switch(msg.verb) {
 
 			        case 'created':
-			        	_receiveTask(msg.data);
+			        	FluxServerActions.createTask(data);
 						break;
 
 					case 'updated':
@@ -33,7 +33,7 @@ module.exports = {
 						break;
 
 					case 'destroyed':
-						_destroyTask(msg.data);
+						FluxServerActions.destroyTask(data);
 						break;
 
 			        default:
@@ -42,10 +42,7 @@ module.exports = {
 
 			});
 
-			io.socket.get('/todoitem', function (resData, jwres) {
-				console.log('Subscribed to Todoitem');
-				console.log(jwres);
-			});
+			io.socket.get('/todoitem', function (resData, jwres) {});
 
 			// Subscribe to meetinggroup
 
@@ -66,40 +63,28 @@ module.exports = {
 				}
 			});
 
-			io.socket.get('/meetinggroup', function(resData, jwres) {
-				console.log('Subscribed to Meetinggroup');
-				console.log(jwres);
-			});
+			io.socket.get('/meetinggroup', function(resData, jwres) {});
 
 			// Subscribe to person
 
+			io.socket.get('/person/create/', function(resData, jwres) {});
 
+            io.socket.on('person', function (msg) {
 
-			io.socket.get('/person/create/', function(resData) {
-                                 console.log('Subscribed to person create');
-                                 console.log(resData);
-                              });
+                switch(msg.verb) {
 
-                           io.socket.on('person', function (msg) {
-                              console.log('listener aktiv');
-                              // var page = document.location.pathname;
-                              // console.log('Paging aktiv');
-                              // page = page.replace(/(\/)$/, '');
-                              switch(msg.verb) {
+                	case 'created':
+                    	FluxServerActions.createMember(msg.data);
+                    	break;
 
-                                 case 'created':
-                                    console.log('create event');
-                                    _receiveMember(msg.data);
-                                    break;
+                	case 'destroyed':
+                    	_destroyMember(msg.data);
+                		break;
 
-                                 case 'destroyed':
-                                    _destroyMember(msg.data);
-                                    break;
-
-                                 default:
-                                    return; // ignore any ...
-                              }
-                           });
+                	default:
+                    	return; // ignore any ...
+                }
+            });
 
 		});
 
@@ -126,18 +111,6 @@ module.exports = {
 
 	// Todoitem
 
-	_receiveTask: function(data) {
-		FluxServerActions.createTask(data);
-	},
-
-	_updateTask: function(data) {
-		// nyi
-	},
-
-	_destroyTask: function(data) {
-		FluxServerActions.destroyTask(data);
-	},
-
 	postTask: function(data) {
 		io.socket.post('/todoitem', data, function (resData) {
   			console.log(resData);
@@ -151,14 +124,6 @@ module.exports = {
 	},
 
 	// Member
-
-	_receiveMember: function(data) {
-		FluxServerActions.createMember(data);
-	},
-
-	_destroyMember: function(data) {
-		FluxServerActions.destroyMember;
-	},
 
 	postMember: function(data) {
 		io.socket.post('/person/create', data, function (data, jwres) {

@@ -12,7 +12,7 @@ var FluxMemberTable = React.createClass({
         var editStyle = {
             display: (this.props.canEdit) ? 'inline-block' : 'none'
         };
-
+        
         return(
             <div className="flux-memberlist-list">
                 <ul>
