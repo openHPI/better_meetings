@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	
+
 
   create: function(req,res) {
     if (req.method == "POST" && req.param( "ToDoItem" , null ) != null ) {
@@ -47,6 +47,13 @@ module.exports = {
       }
     })
   },
+
+  subscribe: function(req,res) {
+   if (req.isSocket) {
+      todoitem.watch(req);
+      console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'todoitem\'.');
+   }
+  }
 
   view: function(req,res) {
     var todoID = req.param("todoItemID", null);
