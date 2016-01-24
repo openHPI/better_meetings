@@ -36,7 +36,7 @@ module.exports = {
 						_destroyTask(msg.data);
 						break;
 
-			        default: 
+			        default:
 			        	return; // ignore any unrecognized messages
 			    }
 
@@ -73,32 +73,38 @@ module.exports = {
 
 			// Subscribe to person
 
-			io.socket.on('person', function onServerSentEvent (msg) {
-				
-				switch(msg.verb) {
 
-					case 'created':
-						_receiveMember(msg.data);
-						break;
 
-					case 'destroyed':
-						_destroyMember(msg.data);
-						break;
+			io.socket.get('/person/create/', function(resData) {
+                                 console.log('Subscribed to person create');
+                                 console.log(resData);
+                              });
 
-					default:
-						return; // ignore any ...
-				}
-			});
+                           io.socket.on('person', function (msg) {
+                              console.log('listener aktiv');
+                              // var page = document.location.pathname;
+                              // console.log('Paging aktiv');
+                              // page = page.replace(/(\/)$/, '');
+                              switch(msg.verb) {
 
-			io.socket.get('/person', function (resData, jwres) {
-				console.log('Subscribe to Person');
-				console.log(jwres);
-			});
+                                 case 'created':
+                                    console.log('create event');
+                                    _receiveMember(msg.data);
+                                    break;
+
+                                 case 'destroyed':
+                                    _destroyMember(msg.data);
+                                    break;
+
+                                 default:
+                                    return; // ignore any ...
+                              }
+                           });
 
 		});
 
-		io.socket.on('disconnect', function() { 
-			console.log('Lost connection to server'); 
+		io.socket.on('disconnect', function() {
+			console.log('Lost connection to server');
 		});
 
 	},
@@ -144,7 +150,7 @@ module.exports = {
 		});
 	},
 
-	// Member 
+	// Member
 
 	_receiveMember: function(data) {
 		FluxServerActions.createMember(data);

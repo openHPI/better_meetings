@@ -61,11 +61,11 @@ module.exports.routes = {
     controller: 'meeting',
     action: 'insertExampleData'
   },
-  '/person/viewAll': {
+  '/person/': {
     controller: 'person',
     action: 'viewAll',
   },
-  '/person/create': {
+  '/person/create/': {
     controller: 'person',
     action: 'create',
   },

@@ -19,19 +19,19 @@ module.exports = {
           displayname:    displayname,
           password:       password,
           email:          email,
-        }).exec( function createPerson(err,cre) {
+        }).exec( function createPerson(err,created) {
           if (err) {
             sails.log('person not created' + err);
           } else {
-            sails.log('person created: ' + cre.displayname);
+            sails.log('person created: ' + created.displayname);
+             person.publishCreate({
+               id: created.id,
+               displayname: created.displayname,
+               password: created.password,
+               email: created.email
+             });
 
           }
-          person.publishCreate({
-            id: cre.id,
-            displayname: cre.displayname,
-            password: cre.password,
-            email: cre.email
-          });
         })
       } else if (req.isSocket){
              person.watch(req);
@@ -124,7 +124,7 @@ module.exports = {
     },
 
     exampledata: function(req,res) {
-      
+
       ExampledataService.generateExamplePersons(req,res);
 
       },
