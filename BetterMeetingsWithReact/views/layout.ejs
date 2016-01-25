@@ -33,7 +33,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <% if (req.session.me) { %>
-          <li><a href="#"><i class="fa fa-user"></i>Lando</a></li>
+          <li><a href="#"><i class="fa fa-user"></i>
+              <%= req.session.me.displayName %>
+            </a></li>
 
           <li class="dropdown">
             <a href="#" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Open HPI <span
@@ -55,6 +57,7 @@
     </div><!-- /.container-fluid -->
   </nav>
 </header>
+
 <div class="modal fade" tabindex="-1" role="dialog" id="loginModal">
   <div class="modal-dialog">
     <div class="modal-content">
