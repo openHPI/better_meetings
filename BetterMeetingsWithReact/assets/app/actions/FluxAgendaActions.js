@@ -63,6 +63,13 @@ var FluxAgendaActions = {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.MEETING_START
 		})
+	},
+
+	// End the Meeting
+	endMeeting: function() {
+		AppDispatcher.handleAction({
+			actionType: FluxAgendaConstants.MEETING_END
+		})
 	}
 };
 

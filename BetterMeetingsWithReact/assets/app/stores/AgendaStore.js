@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _user = null, _canEdit = true, _agenda = [], _selected = null, _collapsed = -1, _member = [], _hasStarted = false, _timer = 0;
+var _user = null, _canEdit = true, _agenda = [], _selected = null, _collapsed = -1, _member = [], _meetingStatus = 0, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
@@ -71,11 +71,6 @@ function collapseItem (index) {
 	_collapsed = index;
 }
 
-// Method to start the meeting
-function startMeeting (data) {
-	_hasStarted = true;
-}
-
 // Extend AgendaStore with EventEmitter to add eventing capabilities
 var AgendaStore = _.extend({}, EventEmitter.prototype, {
 
@@ -109,8 +104,8 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 	},
 
 	// Return hasStarted
-	hasStarted: function() {
-		return _hasStarted;
+	getMeetingStatus: function() {
+		return _meetingStatus;
 	},
 
 	// Return timer
@@ -156,10 +151,6 @@ AppDispatcher.register(function(payload) {
 
 		case FluxServerConstants.DATA_RECEIVE:
 			loadAgenda(action.data);
-			break;
-
-		case FluxServerConstants.MEETING_START:
-			startMeeting();
 			break;
 
 		case FluxServerConstants.TODO_CREATE:
@@ -214,7 +205,12 @@ AppDispatcher.register(function(payload) {
 
 		// Respond to MEETING_START
 		case FluxAgendaConstants.MEETING_START:
-			startMeeting();
+			_meetingStatus = 1;
+			break;
+
+		// Respond to MEETING_END
+		case FluxAgendaConstants.MEETING_END:
+			_meetingStatus = 2;
 			break;
 
 		default:
