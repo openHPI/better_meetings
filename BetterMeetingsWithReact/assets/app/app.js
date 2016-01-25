@@ -1,11 +1,21 @@
 /*==============================================================
-=            add components to render by browserify            =
+=            add dependencies to render by browserify            =
 ==============================================================*/
 
 
 window.React = require('react');
 global.jQuery = require('jquery');
-// var bootstrap = require('bootstrap');
+var bootstrap = require('bootstrap');
+var bsSelect = require('../js/dependencies/bootstrap-select.min.js');
+var nifty = require('../js/dependencies/nifty.min.js');
+var niftydemo = require('../js/dependencies/nifty-demo.min.js');
+var uipanels = require('../js/dependencies/ui-panels.js');
+// var switchery = require('../js/dependencies/switchery.min.js');
+
+/*==============================================
+=            add app frontend logic            =
+==============================================*/
+
 var ProductData = require('./ExampleData');
 var MeetingDataAPI = require('./utils/MeetingDataAPI');
 var MeetingExampleDataAPI = require('./utils/MeetingExampleDataAPI');
