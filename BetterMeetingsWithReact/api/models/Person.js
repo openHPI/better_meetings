@@ -10,7 +10,7 @@ module.exports = {
   identity: 'person',
 
   attributes: {
-    
+
     email: {
       type: 'string',
       email: true,
@@ -20,7 +20,7 @@ module.exports = {
       type: 'string',
       required: true
     },
-    displayname: {
+    displayName: {
       type: 'string',
       required: true
     },
@@ -48,7 +48,7 @@ module.exports = {
   signup: function (inputs, cb) {
     // Create a person
     person.create({
-        displayName: inputs.name,
+        displayName: inputs.displayName,
         email: inputs.email,
         // TODO: But encrypt the password first
         password: inputs.password

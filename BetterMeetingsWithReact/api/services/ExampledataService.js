@@ -6,7 +6,7 @@
 module.exports = {
 
     generateExamplePersons: function (req,res) {
-    	
+
         var admin1 = {
             'email': 'test1@hpi.de',
             'password': 'password',
@@ -25,19 +25,19 @@ module.exports = {
         var meetingAdmins = [admin1,admin2,admin3];
 
         for (var i = 0; i < 3; i++) {
-          var displayname =    meetingAdmins[i].displayName;
+          var displayName =    meetingAdmins[i].displayName;
           var password =      meetingAdmins[i].password;
           var email =          meetingAdmins[i].email;
-          
+
           person.create({
-            displayname:    displayname,
+            displayName:    displayName,
             password:       password,
             email:          email,
           }).exec( function createMeetingAdmin(err,cre) {
             if (err) {
               sails.log('person not created' + err);
             } else {
-              sails.log('person created: ' + cre.displayname);
+              sails.log('person created: ' + cre.displayName);
               // return res.view('meetingadmins', {
               //   users: cre,
               // });
@@ -45,12 +45,12 @@ module.exports = {
           })
 
         };
-      return res.send('Toll');  
-      
+      return res.send('Toll');
+
     },
 
     generateExampleTopics: function (req,res) {
-    	
+
       var topic1 = {
          'meeting': 1,
          'title': 'Topic 1',
@@ -66,14 +66,14 @@ module.exports = {
          'title': 'Topic 1',
          'description': 'Lorem Ipsum Dolor.',
          };
-     
+
       var topics = [topic1,topic2,topic3];
 
      	for (var i = 0; i < 3; i++) {
        	var meeting = meetingAdmins[i].meeting;
        	var title = meetingAdmins[i].title;
        	var description = meetingAdmins[i].description;
-       
+
        	agendaitem.create({
          	meeting:    	meeting,
          	title:       	title,
@@ -82,16 +82,16 @@ module.exports = {
          	if (err) {
            		sails.log('person not created' + err);
          	} else {
-           		sails.log('person created: ' + cre.displayname);
+           		sails.log('person created: ' + cre.displayName);
          	}
        	})
      	};
-      return res.send('Toll');  
-      
+      return res.send('Toll');
+
     },
 
     generateExampleMeeting: function (req,res) {
-    	
+
       var meeting1 = {
          'title': 'Testmeeting',
          'description': 'Lorem ipsum dolor.',
@@ -100,9 +100,9 @@ module.exports = {
          'url': UrlService.generateurl(),
          'timer': 600,
       };
-   
 
-     
+
+
       var title = meeting1.title;
       var description = meeting1.description;
       var topics = meeting1.topics;
@@ -127,8 +127,8 @@ module.exports = {
            // });
          }
        });
-   return res.redirect('/meeting/' + url);  
-      
+   return res.redirect('/meeting/' + url);
+
     },
 
 };
