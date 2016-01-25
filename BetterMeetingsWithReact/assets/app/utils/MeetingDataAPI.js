@@ -15,7 +15,7 @@ module.exports = {
 		io.socket.on('connect', function() {
 			console.log('Connected to server');
 			console.log('socket session: ' + this.id);
-			// _getMeetingData();
+			// this._getMeetingData();
 
 			// Subscribe to todoitem
 

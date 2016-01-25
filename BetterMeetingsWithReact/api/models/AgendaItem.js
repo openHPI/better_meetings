@@ -11,8 +11,9 @@ module.exports = {
 
   attributes: {
 
-  	meeting: {
-      model: 'meeting',
+  	meetingseries: {
+      model: 'meetingseries',
+      required: true,
     },
     title: {
   		type: 'string',
@@ -28,7 +29,7 @@ module.exports = {
   	},
   	done: {
   		type: 'boolean',
-  		required: false
+  		required: false,
   	}
 
   }

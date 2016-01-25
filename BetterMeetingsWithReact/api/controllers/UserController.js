@@ -39,7 +39,7 @@ create: function(req,res) {
 
 	},
 	view: function(req,res) {
-
+		
            User.findOne(id).exec(function displayList(err, items) {
                console.log(items);
                res.response = items;

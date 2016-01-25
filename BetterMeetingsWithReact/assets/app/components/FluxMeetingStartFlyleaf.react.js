@@ -2,7 +2,7 @@ var React = require('react');
 var FluxAgendaActions = require('../actions/FluxAgendaActions');
 
 // Flux todolist view
-var FluxAgendaDetailsFlyleaf = React.createClass({
+var FluxMeetingStartFlyleaf = React.createClass({
 
     startMeeting: function() {
         FluxAgendaActions.startMeeting();
@@ -19,4 +19,4 @@ var FluxAgendaDetailsFlyleaf = React.createClass({
     }
 });
 
-module.exports = FluxAgendaDetailsFlyleaf;
+module.exports = FluxMeetingStartFlyleaf;

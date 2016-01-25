@@ -6,7 +6,7 @@ var FluxAgendaProgress = React.createClass({
 	render: function () {
 		var index = this.props.index;
 		var total = this.props.total;
-		var percentage =  (index >= 0) ? (index + 1) / total * 100 : 0;
+		var percentage =  (index >= 0) ? index / total * 100 : 0;
 
 		var progressbarStyle = { width: percentage.toString() + '%'};
 

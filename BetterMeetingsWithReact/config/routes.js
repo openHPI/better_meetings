@@ -69,7 +69,7 @@ module.exports.routes = {
     controller: 'person',
     action: 'create',
   },
-  'get /person/edit': {
+  'get /person/update': {
     view: 'edit_person'
   },
   '/person/exampledata': {
@@ -91,7 +91,7 @@ module.exports.routes = {
 
   // endpoints for meeting controller
   'POST /person/create': 'PersonController.create',
-  'POST /person/edit': 'PersonController.edit',
+  'POST /person/update': 'PersonController.update',
 
   // endpoints for agendaitem controller
   'POST /topic/create': 'AgendaItemController.create',
