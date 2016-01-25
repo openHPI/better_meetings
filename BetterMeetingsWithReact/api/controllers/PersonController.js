@@ -149,7 +149,7 @@ module.exports = {
       // Go ahead and log this person in as well.
       // We do this by "remembering" the person in the session.
       // Subsequent requests from this person agent will have `req.session.me` set.
-      req.session.me = person.id;
+      req.session.me = person;
 
       // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
       // send a 200 response letting the person agent know the signup was successful.
