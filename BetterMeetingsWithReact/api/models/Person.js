@@ -28,9 +28,9 @@ module.exports = {
       model: 'todoitem'
     },
     meetings: {
-        collection: 'meetinggroup',
-        via: 'members',
-        dominant: true
+      collection: 'meetingseries',
+      via: 'members',
+      dominant: true
     },
   },
 

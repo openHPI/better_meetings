@@ -73,38 +73,12 @@ module.exports = {
     });
   },
 
+  viewAll: function(req,res) {
 
-
-
-
-  /**
-   * `ToDoItemController.setAssignee()`
-   */
-  setAssignee: function (req, res) {
-    return res.json({
-      todo: 'setAssignee() is not implemented yet!'
-    });
   },
 
+  displayAll: function (req,res) {
 
-  /**
-   * `ToDoItemController.isDone()`
-   */
-  isDone: function (req, res) {
-    return res.json({
-      todo: 'isDone() is not implemented yet!'
-    });
-  },
-
-
-  /**
-   * `ToDoItemController.setDone()`
-   */
-  setDone: function (req, res) {
-    return res.json({
-      todo: 'setDone() is not implemented yet!'
-    });
   }
-
 };
 

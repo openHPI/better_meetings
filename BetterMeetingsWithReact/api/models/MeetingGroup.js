@@ -13,9 +13,9 @@ module.exports = {
   	meeting: {
       model: 'meeting',
   	},
-  	members: {
-  		collection: 'person',
-  		via: 'meetings',
+  members: {
+  	collection: 'person',
+  	via: 'meetings',
   	},
   }
 };

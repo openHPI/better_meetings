@@ -29,17 +29,13 @@ create: function(req,res) {
 		} else if (req.isSocket){
 
 		         User.watch(req);
-		         console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'users\'.');
+		         console.log('User with socket id ' + sails.sockets.id(req)+' is now subscribed to the model class \'users\'.');
 
 		} else {
 			res.send('view')
 		         //res.view();
 
        }
-
-
-
-
 
 	},
 	view: function(req,res) {
@@ -62,7 +58,7 @@ create: function(req,res) {
             users: items,}
             );
 
-    })
+    });
    },
 
 	delete: function(req,res) {
@@ -80,7 +76,7 @@ create: function(req,res) {
 		User.find(function storedUsers(err,users) {
 			User.subscribe(req.socket);
 			User.subscribe(req.socket, users);
-		})
+		});
 	}
 };
 

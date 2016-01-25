@@ -14,15 +14,15 @@ module.exports = {
 
   create: function(req,res) {
 
-    var meeting = req.param('meeting');
+    var meetingseries = req.param('meetingseries');
     var title = req.param('title');
     var description = req.param('description');
     // var todos = req.param('todos'),
 
-    if ( meeting && title && description && todos ) {
+    if ( meetingseries && title && description && todos ) {
 
       AgendaItem.create({
-        meeting:      meeting,
+        meetingseries:      meetingseries,
         title:        title,
         description:  description,
         //todos:      todos,
@@ -51,15 +51,15 @@ module.exports = {
 
   bulkcreate: function(req,res) {
 
-    var meeting = req.param('meeting');
+    var meetingseries = req.param('meetingseries');
     var title = req.param('title');
     var description = req.param('description');
     // var todos = req.param('todos'),
 
-    if ( meeting && title && description && todos ) {
+    if ( meetingseries && title && description && todos ) {
 
       AgendaItem.create({
-        meeting:      meeting,
+        meetingseries:      meetingseries,
         title:        title,
         description:  description,
         //todos:      todos,

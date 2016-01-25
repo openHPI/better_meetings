@@ -35,9 +35,9 @@ module.exports = {
         })
       } else if (req.isSocket){
              person.watch(req);
-             console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'person\'.');
+             console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
       } else {
-        sails.log('person not created: few params');
+          sails.log('person not created: few params');
       }
     },
 
@@ -54,73 +54,22 @@ module.exports = {
       });
 
     },
-    /**
-     * `MeetingAdminController.createMeeting()`
-     */
-    createMeeting: function (req, res) {
-      return res.json({
-        todo: 'createMeeting() is not implemented yet!'
-      });
+
+
+    delete: function(req,res) {
+
     },
 
+    update: function (req,res) {
 
-    /**
-     * `MeetingAdminController.deleteMeeting()`
-     */
-    deleteMeeting: function (req, res) {
-      return res.json({
-        todo: 'deleteMeeting() is not implemented yet!'
-      });
     },
 
+    view: function(req, res) {
 
-    /**
-     * `MeetingAdminController.createJourFixe()`
-     */
-    createJourFixe: function (req, res) {
-      return res.json({
-        todo: 'createJourFixe() is not implemented yet!'
-      });
     },
 
+    displayAll: function (req,res) {
 
-    /**
-     * `MeetingAdminController.deleteJourFixe()`
-     */
-    deleteJourFixe: function (req, res) {
-      return res.json({
-        todo: 'deleteJourFixe() is not implemented yet!'
-      });
-    },
-
-
-    /**
-     * `MeetingAdminController.startJourFixe()`
-     */
-    startJourFixe: function (req, res) {
-      return res.json({
-        todo: 'startJourFixe() is not implemented yet!'
-      });
-    },
-
-
-    /**
-     * `MeetingAdminController.endJourFixe()`
-     */
-    endJourFixe: function (req, res) {
-      return res.json({
-        todo: 'endJourFixe() is not implemented yet!'
-      });
-    },
-
-
-    /**
-     * `MeetingAdminController.finishToDoItem()`
-     */
-    finishToDoItem: function (req, res) {
-      return res.json({
-        todo: 'finishToDoItem() is not implemented yet!'
-      });
     },
 
     exampledata: function(req,res) {
@@ -198,11 +147,31 @@ module.exports = {
   },
 
   /**
+   * `PersonController.readMeetingSeries()`
+   */
+  readMeetingSeries: function (req, res) {
+    return res.json({
+      todo: 'readMeeting() is not implemented yet!'
+    });
+  },
+
+
+  /**
+   * `PersonController.updateMeetingSeries()`
+   */
+  updateMeetingSeries: function (req, res) {
+    return res.json({
+      todo: 'updateMeeting() is not implemented yet!'
+    });
+  },
+
+
+  /**
    * `PersonController.readMeeting()`
    */
   readMeeting: function (req, res) {
     return res.json({
-      todo: 'readMeeting() is not implemented yet!'
+      todo: 'readJourfixe() is not implemented yet!'
     });
   },
 
@@ -211,26 +180,6 @@ module.exports = {
    * `PersonController.updateMeeting()`
    */
   updateMeeting: function (req, res) {
-    return res.json({
-      todo: 'updateMeeting() is not implemented yet!'
-    });
-  },
-
-
-  /**
-   * `PersonController.readJourfixe()`
-   */
-  readJourfixe: function (req, res) {
-    return res.json({
-      todo: 'readJourfixe() is not implemented yet!'
-    });
-  },
-
-
-  /**
-   * `PersonController.updateJourFixe()`
-   */
-  updateJourFixe: function (req, res) {
     return res.json({
       todo: 'updateJourFixe() is not implemented yet!'
     });

@@ -57,8 +57,8 @@ module.exports.routes = {
     controller: 'user',
     action: 'viewAll',
   },
-  '/meeting/insert-examples/': {
-    controller: 'meeting',
+  '/meetingseries/insert-examples/': {
+    controller: 'meetingseries',
     action: 'insertExampleData'
   },
   '/person/': {
@@ -81,7 +81,7 @@ module.exports.routes = {
   'post /User': 'UserController.create',
 
   // endpoints for meeting controller
-  'POST /meeting/create': 'MeetingController.create',
+  'POST /meetingseries/create': 'MeetingSeriesController.create',
 
   // endpoints for meeting controller
   'POST /person/create': 'PersonController.create',

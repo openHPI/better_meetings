@@ -1,7 +1,7 @@
 /**
- * MeetingController
+ * MeetingGuestController
  *
- * @description :: Server-side logic for managing Meetings
+ * @description :: Server-side logic for managing Meetingguests
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
