@@ -186,7 +186,7 @@ module.exports = {
 
     // Attempt to signup a person using the provided parameters
     person.signup({
-      name: req.param('name'),
+      displayName: req.param('displayName'),
       email: req.param('email'),
       password: req.param('password')
     }, function (err, person) {
