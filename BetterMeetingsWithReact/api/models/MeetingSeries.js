@@ -12,7 +12,7 @@ module.exports = {
   attributes: {
   	members: {
   		collection: 'person',
-  		via: 'meetings',
+  		via: 'assignedMeetings',
   	},
     admins: {
       collection: 'person',

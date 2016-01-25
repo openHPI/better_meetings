@@ -77,8 +77,7 @@ module.exports = {
 
   },
 
-  displayAll: function (req,res) {
-
-  }
+  // displayAll: function (req,res) {
+  // }
 };
 

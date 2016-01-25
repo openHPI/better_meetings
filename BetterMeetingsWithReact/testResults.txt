@@ -5,5 +5,5 @@
       √ should return -1 when the value is not present
 
 
-  1 passing (34ms)
+  1 passing (9ms)
 

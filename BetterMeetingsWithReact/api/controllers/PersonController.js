@@ -22,9 +22,9 @@ module.exports = {
           email:          email,
         }).exec( function createPerson(err,created) {
           if (err) {
-            sails.log('Person not created' + err);
+            console.log('Person not created' + err);
           } else {
-            sails.log('Created Person: ' + created.displayname);
+            console.log('Created Person: ' + created.displayname);
             person.publishCreate({
               id: created.id,
               displayName: created.displayname,
@@ -43,20 +43,28 @@ module.exports = {
       }
     },
 
+    view: function(req, res) {
+      Person.findOne(id).exec(function displayList(err, items) {
+        console.log(items);
+        res.response = items;
+        res.render('person', {'model': 'person'});
+
+      });
+    },
+
     viewAll: function(req,res) {
 
       person.find().exec(function displayPersonList(err, items) {
         if (err) return res.serverError(err);
-
         sails.log('person:' + items);
-
+        Person.subscribe(req.socket);
+        Person.subscribe(req.socket, items);
         return res.view('person', {
           users: items,
         });
       });
 
     },
-
 
     delete: function(req,res) {
       var personID = req.param("personID", null);
@@ -70,23 +78,56 @@ module.exports = {
 
     update: function (req,res) {
 
-    },
+    sails.log('Update started');
+    sails.log(req.param('displayname'));
+    var displayname = req.param('displayname');
+    var password = req.param('password');
+    var email = req.param('email');
+    var todos = req.param('todos');
+    var assignedMeetings = req.param('assignedMeetings');
+    var createdMeetings = req.param('createdMeetings');
 
-    view: function(req, res) {
-      Person.findOne(id).exec(function displayList(err, items) {
-        console.log(items);
-               res.response = items;
-               res.render('person', {'model': 'Person'});
-
-          })
-    },
-
-    displayAll: function (req,res) {
-      Person.find(function storedPersons(err, persons) {
-        Person.subscribe(req.socket);
-        Person.subscribe(req.socket, persons);
+    if (displayname && password && email && todos && assignedMeetings && createdMeetings && req.isSocket) {
+      person.update({
+        displayName:      displayname,
+        password:         password,
+        email:            email,
+        todos:            todos,
+        assignedMeetings: assignedMeetings,
+        createdMeetings:  createdMeetings,
+      }).exec(function updatePerson(err, updated) {
+        if (err) {
+          console.log('Person not updated ' + err);
+          //res.redirect('/person/edit');
+        } else if (!updated) {
+          console.log('Update error for Person ' + err);
+          //res.redirect('/person/edit');
+        } else {
+          console.log('Updated Person: ' + updated.displayname);
+          person.publishUpdate({
+            id: updated.id,
+            displayName: updated.displayname,
+            password: updated.password,
+            email: updated.email,
+            todos: updated.todos,
+            assignedMeetings: updated.assignedMeetings,
+            createdMeetings: updated.createdMeetings,
+          });
+        }
       });
+    } else {
+        res.send('person');
+        //res.redirect('/person/view/'+id);
+        console.log('Person not updated: too few parameters');
+      }
     },
+
+    // displayAll: function (req,res) {
+    //   Person.find(function storedPersons(err, persons) {
+    //     Person.subscribe(req.socket);
+    //     Person.subscribe(req.socket, persons);
+    //   });
+    // },
 
     exampledata: function(req,res) {
 
