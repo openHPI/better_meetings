@@ -69,9 +69,9 @@ module.exports.routes = {
     controller: 'person',
     action: 'create',
   },
-  'get /person/update': {
-    view: 'edit_person'
-  },
+  // 'get /person/update': {
+  //   view: 'edit_person'
+  // },
   '/person/exampledata': {
     controller: 'person',
     action: 'exampledata',

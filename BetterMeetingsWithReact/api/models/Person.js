@@ -20,7 +20,7 @@ module.exports = {
       type: 'string',
       required: false
     },
-    displayName: {
+    name: {
       type: 'string',
       required: false
     },
@@ -35,6 +35,9 @@ module.exports = {
     createdMeetings: {
       collection: 'meetingseries',
       via: 'admins'
+    },
+    isAdmin: {
+      type: 'boolean',
     },
   },
 

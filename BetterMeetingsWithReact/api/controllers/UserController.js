@@ -39,7 +39,7 @@ create: function(req,res) {
 
 	},
 	view: function(req,res) {
-		
+
            User.findOne(id).exec(function displayList(err, items) {
                console.log(items);
                res.response = items;
@@ -66,6 +66,10 @@ create: function(req,res) {
 
 	  User.findOne(userID).done(function(err,user) {
 	    user.destroy(function(err) {
+	    	if (err) {
+          		sails.log('Error while deleting user');
+          		res.send("Error");
+        }
 	      res.send("Success");
 	    });
 	  });
@@ -77,6 +81,13 @@ create: function(req,res) {
 			User.subscribe(req.socket);
 			User.subscribe(req.socket, users);
 		});
-	}
+	},
+
+	subscribe: function(req,res) {
+   		if (req.isSocket) {
+      		user.watch(req);
+      		console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'user\'.');
+   		}
+  	},
 };
 

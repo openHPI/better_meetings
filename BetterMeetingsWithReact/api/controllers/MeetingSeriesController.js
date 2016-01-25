@@ -13,41 +13,43 @@ module.exports = {
 =================================================================================*/
   
 	create: function(req,res) {
+    
+    var admins = req.param('admins');
+    var title = req.param('title'); 
+    var meeting = req.param('meeting'); 
+    var url = req.param('url'); 
+    var timer = req.param('timer'); 
 
-    var members = req.param('meetingseries');
-    var topics = req.param('topics');
-    var meeting = req.param('meeting');
-    var url = generateurl();
-    var timer = req.param('timer');
-
-    if (members && topics && meeting && url && timer) {
+    if (admins && title && meeting && url && timer) {
 
       MeetingSeries.create({
-        members: members,
-        topics: topics,
+        admins: admins,
+        title: title,
         meeting: meeting,
         url: url,
         timer: timer,
-      }).exec( function createMeeting(err,cre) {
-        if (err) console.log('[bm-error] meeting not created: ' + err);
-
-        MeetingSeries.publishCreate({
-          id:       cre.id,
-          topics:   cre.topics,
-          meeting: cre.meeting,
-          url:      cre.url,
-          timer:    cre.timer,
-        });
-
-        return res.json({
-          notice: '[bm-success] meeting ' + cre.title + 'created',
-        });
-      });
-    } else if ( req.isSocket ) {
-
-      MeetingSeries.watch(req);
-      console.log('[bm-success] client with socket ' + sails.socket.id(req) + 'is istening to meeting.')
-    }; 
+      }).exec( function createMeetingSeries(err, created) {
+        if (err) {
+          console.log('[bm-error] meetingseries not created: ' + err);
+        } else {
+            console.log('Created MeetingSeries: ' + created.title);
+            meetingseries.publishCreate({
+              id: created.id,
+              admins: created.admins,
+              title: created.title,
+              meeting: created.meeting,
+              url: created.url,
+              timer: created.timer,
+             });
+          }
+        })
+      } else if (req.isSocket){
+             meetingSeries.watch(req);
+             sails.log('MeetingSeries with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meetingseries\'.');
+      } else {
+          res.send('meetingseries');
+          console.log('MeetingSeries not created: too few parameters');
+      }
   },
 
 
@@ -57,27 +59,55 @@ module.exports = {
 ===================================================================*/
 
   update: function(req,res) {
-    var todoID = req.param("meetingID", null);
+    sails.log('Update started');
+    sails.log(req.param('title'));
+    var admins = req.param('admins');
+    var title = req.param('title'); 
+    var meeting = req.param('meeting'); 
+    var url = req.param('url'); 
+    var timer = req.param('timer');
+    var members = req.param('members');
+    var description = req.param('description');
+    var topics = req.param('topics');
 
-    MeetingSeries.findOne(todoID).done(function(err,model) {
-      if (req.method == "POST" && req.param("MeetingSeries",null) != null) {
-        var item = req.param("MeetingSeries",null);
-        model.members = item.members;
-        model.topics = item.topics;
-        model.meeting = item.meeting;
-        model.timer = item.timer;
+    if (admins && title && meeting && url && timer && members && description && topics && req.isSocket) {
+      meetingseries.update({
+        admins: admins,
+        title: title,
+        meeting: meeting,
+        url: url,
+        timer: timer,
+        members: members,
+        description: description,
+        topics: topics,
 
-        model.save(function(err) {
-          if (err) {
-            res.send("Error");
-          } else {
-            res.send("Success");
-          }
-        });
-      } else {
-        res.render('meetingseries/view',{'model':model});
+      }).exec(function updateMeetingSeries(err, updated) {
+        if (err) {
+          console.log('MeetingSeries not updated ' + err);
+          //res.redirect('/meetingseries/edit');
+        } else if (!updated) {
+          console.log('Update error for MeetingSeries ' + err);
+          //res.redirect('/meetingseries/edit');
+        } else {
+          console.log('Updated MeetingSeries: ' + updated.title);
+          meetingseries.publishUpdate({
+            id: updated.id,
+            admins: updated.admins,
+            title: updated.title,
+            meeting: updated.meeting,
+            url: updated.url,
+            timer: updated.timer,
+            members: updated.members,
+            description: updated.description,
+            topics: updated.topics,
+          });
+        }
+      });
+    } else {
+        res.send('meetingseries');
+        //res.redirect('/meetingseries/view/'+id);
+        console.log('MeetingSeries not updated: too few parameters');
       }
-    })
   },
 
 /*===================================================================
@@ -86,7 +116,13 @@ module.exports = {
 ===================================================================*/
 
   view: function(req,res) {
+    //meetingSeries.watch(req);
+    MeetingSeries.findOne(id).exec(function displayList(err, items) {
+        console.log(items);
+        res.response = items;
+        res.render('meetingseries', {'model': 'meetingseries'});
 
+      });
   },
 
 /*===========================================================================
@@ -94,11 +130,37 @@ module.exports = {
              other model tables from its belongings. (Radscheit)             =
 ===========================================================================*/
 
-
-
-
   delete: function(req,res) {
+    var meetingSeriesID = req.param("meetingSeriesID", null);
 
+    MeetingSeries.findOne(meetingSeriesID).done(function(err, meetingseries) {
+      meetingseries.destroy(function(err) {
+        if (err) {
+          sails.log('Error while deleting meetingseries');
+          res.send("Error");
+        }
+        res.send("Success");
+      });
+    });
+  },
+
+  // viewAll: function(req,res) {
+  //     meetingseries.find().exec(function displayMeetingSeriesList(err, items) {
+  //       if (err) return res.serverError(err);
+  //       sails.log('meetingseries:' + items);
+  //       MeetingSeries.subscribe(req.socket);
+  //       MeetingSeries.subscribe(req.socket, items);
+  //       return res.view('meetingseries', {
+  //         users: items,
+  //       });
+  //     });
+  //   },
+
+  subscribe: function(req,res) {
+    if (req.isSocket) {
+      meetingseries.watch(req);
+      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meetingseries\'.');
+    }  
   },
 
   insertExampleData: function(req,res) {
