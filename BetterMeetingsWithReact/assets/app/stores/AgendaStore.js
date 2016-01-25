@@ -40,12 +40,6 @@ function setSelected (index) {
 	}
 }
 
-// Method to add a task to the todoList
-function addTask (item) {
-	item.id = _selected.todoList.length.toString();
-	_selected.todoList.push(item);
-}
-
 // Method to remove a task from the todoList
 function removeTask (index) {
 	if(index >= 0)
@@ -59,16 +53,6 @@ function markTaskAsDone (index) {
 		_selected.todoList_done.push(_selected.todoList[index]);
 		_selected.todoList.splice(index, 1);
 	}
-}
-
-// Method to add a member
-function addMember (member) {
-	member['name'] = member.displayName;
-	_member.push(member);
-}
-
-function collapseItem (index) {
-	_collapsed = index;
 }
 
 // Extend AgendaStore with EventEmitter to add eventing capabilities
@@ -154,7 +138,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_CREATE:
-			addTask(action.data);
+			_selected.todoList.push(item);
 			break;
 
 		case FluxServerConstants.TODO_DESTROY:
@@ -164,7 +148,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.MEMBER_CREATE:
-			addMember(action.data);
+			_member.push(member);
 			break;
 
 		// Respond Client actions
@@ -172,13 +156,11 @@ AppDispatcher.register(function(payload) {
 		case FluxAgendaConstants.TODO_ADD:
 			action.data['owner'] = _selected;
 			action.data['author'] = _user;
-			addTask(action.data);
-			// MeetingDataAPI.postTask(action.data);
+			MeetingDataAPI.postTask(action.data);
 			break;
 
 		case FluxAgendaConstants.TODO_REMOVE:
-			removeTask(action.data);
-			// MeetingDataAPI.deleteTask(action.data);
+			MeetingDataAPI.deleteTask(action.data);
 			break;
 
 		case FluxAgendaConstants.TODO_DONE:
@@ -186,29 +168,25 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxAgendaConstants.TODO_COLLAPSE:
-			collapseItem(action.data);
+			_collapsed = index;
 			break;
 
 		case FluxAgendaConstants.MEMBER_ADD:
 			MeetingDataAPI.postMember(action.data);
 			break;
 
-		// Respond to RECEIVE_DATA action
 		case FluxAgendaConstants.RECEIVE_DATA:
 			loadAgenda(action.data);
 			break;
 
-		// Respond to SET_SELECTED action
 		case FluxAgendaConstants.SET_SELECTED:
 			setSelected(action.data);
 			break;
 
-		// Respond to MEETING_START
 		case FluxAgendaConstants.MEETING_START:
 			_meetingStatus = 1;
 			break;
 
-		// Respond to MEETING_END
 		case FluxAgendaConstants.MEETING_END:
 			_meetingStatus = 2;
 			break;

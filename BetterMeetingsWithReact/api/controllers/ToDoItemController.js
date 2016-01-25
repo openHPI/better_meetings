@@ -34,9 +34,6 @@ module.exports = {
 
         }
       })
-    } else if (req.isSocket){
-           todoitem.watch(req);
-           sails.log('ToDoItem with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'todoitem\'.');
     } else {
         res.send('todoitem');
         console.log('ToDoItem not created: too few parameters');

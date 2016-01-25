@@ -90,12 +90,19 @@ module.exports.routes = {
   'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
   // endpoints for meeting controller
+  'GET /person/subscribe': 'PersonController.subscribe',
   'POST /person/create': 'PersonController.create',
   'POST /person/update': 'PersonController.update',
 
   // endpoints for agendaitem controller
   'POST /topic/create': 'AgendaItemController.create',
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
+
+  // endpoints for todoitem
+  'GET /todoitem/subscribe': 'TodoItemController.subscribe',
+  'POST /todoitem/create': 'TodoItemController.create',
+  'POST /todoitem/update': 'TodoItemController.update',
+  'POST /todoitem/delete': 'TodoItemController.delete',
 
 
   /***************************************************************************

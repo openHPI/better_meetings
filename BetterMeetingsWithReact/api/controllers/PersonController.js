@@ -34,13 +34,17 @@ module.exports = {
 
           }
         })
-      } else if (req.isSocket){
-             person.watch(req);
-             sails.log('Person with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
       } else {
           res.send('person');
           console.log('Person not created: too few parameters');
       }
+    },
+
+    subscribe: function(req,res) {
+     if (req.isSocket) {
+        person.watch(req);
+        console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
+     }
     },
 
     view: function(req, res) {
