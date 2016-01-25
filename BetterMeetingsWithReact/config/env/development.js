@@ -21,4 +21,8 @@ module.exports = {
   //   connection: 'someMongodbServer'
   // }
 
+
+  // port:80,
+  // explicitHost: 'http://bettermeetings'
+
 };

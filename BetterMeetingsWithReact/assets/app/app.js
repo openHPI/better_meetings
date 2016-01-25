@@ -5,7 +5,7 @@
 
 window.React = require('react');
 global.jQuery = require('jquery');
-var bootstrap = require('bootstrap');
+// var bootstrap = require('bootstrap');
 var ProductData = require('./ExampleData');
 var MeetingDataAPI = require('./utils/MeetingDataAPI');
 var MeetingExampleDataAPI = require('./utils/MeetingExampleDataAPI');
