@@ -73,6 +73,10 @@ module.exports.routes = {
     controller: 'person',
     action: 'exampledata',
   },
+  '/admin/create/' : {
+    controller: 'meetingadmin',
+    action: 'create'
+  },
 
   // Endpoints
   'post /login': 'PersonController.login',
