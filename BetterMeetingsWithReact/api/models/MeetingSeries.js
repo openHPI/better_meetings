@@ -14,6 +14,11 @@ module.exports = {
   		collection: 'person',
   		via: 'meetings',
   	},
+    admins: {
+      collection: 'person',
+      via: 'createdMeetings',
+      dominant: true
+    },
   	title: {
       	type: 'string',
      	required: true,

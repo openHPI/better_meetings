@@ -6,76 +6,93 @@
  */
 
 module.exports = {
+// if just email + displayname are provided, it's a guest
+// if nothing is provided, it's also a guest
+    create: function (req,res) {
+      sails.log('Creation started');
+      sails.log(req.param('displayname'));
+      var displayname = req.param('displayname');
+      var password = req.param('password');
+      var email = req.param('email');
 
-  create: function (req, res) {
-    sails.log('Creation started');
-    sails.log(req.param('displayName'));
-    var displayName = req.param('displayName');
-    var password = req.param('password');
-    var email = req.param('email');
+      if (displayname && password && email) {
+        person.create({
+          displayName:    displayname,
+          password:       password,
+          email:          email,
+        }).exec( function createPerson(err,created) {
+          if (err) {
+            sails.log('Person not created' + err);
+          } else {
+            sails.log('Created Person: ' + created.displayname);
+            person.publishCreate({
+              id: created.id,
+              displayName: created.displayname,
+              password: created.password,
+              email: created.email
+             });
 
-    if (displayName && password && email) {
-      person.create({
-        displayName: displayName,
-        password: password,
-        email: email,
-      }).exec(function createPerson(err, created) {
-        if (err) {
-          sails.log('person not created' + err);
-        } else {
-          sails.log('person created: ' + created.displayName);
-          person.publishCreate({
-            id: created.id,
-            displayName: created.displayName,
-            password: created.password,
-            email: created.email
-          });
-        }
-      })
-    } else if (req.isSocket) {
-      person.watch(req);
-      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
-    } else {
-      sails.log('person not created: few params');
-    }
-  },
+          }
+        })
+      } else if (req.isSocket){
+             person.watch(req);
+             sails.log('Person with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
+      } else {
+          res.send('person');
+          console.log('Person not created: too few parameters');
+      }
+    },
 
-  viewAll: function (req, res) {
+    viewAll: function(req,res) {
 
-    person.find().exec(function displayPersonList(err, items) {
-      if (err) return res.serverError(err);
+      person.find().exec(function displayPersonList(err, items) {
+        if (err) return res.serverError(err);
 
-      sails.log('Admins:' + items);
+        sails.log('person:' + items);
 
-      return res.view('person', {
-        users: items,
+        return res.view('person', {
+          users: items,
+        });
       });
-    });
 
-  },
+    },
 
 
-  delete: function (req, res) {
+    delete: function(req,res) {
+      var personID = req.param("personID", null);
 
-  },
+      Person.findOne(personID).done(function(err, person) {
+        person.destroy(function(err) {
+          res.send("Success");
+        });
+      });
+    },
 
-  update: function (req, res) {
+    update: function (req,res) {
 
-  },
+    },
 
-  view: function (req, res) {
+    view: function(req, res) {
+      Person.findOne(id).exec(function displayList(err, items) {
+        console.log(items);
+               res.response = items;
+               res.render('person', {'model': 'Person'});
 
-  },
+          })
+    },
 
-  displayAll: function (req, res) {
+    displayAll: function (req,res) {
+      Person.find(function storedPersons(err, persons) {
+        Person.subscribe(req.socket);
+        Person.subscribe(req.socket, persons);
+      });
+    },
 
-  },
+    exampledata: function(req,res) {
 
-  exampledata: function (req, res) {
+      ExampledataService.generateExamplePersons(req,res);
 
-    ExampledataService.generateExamplePersons(req, res);
-
-  },
+      },
 
   /**
    * `PersonController.login()`
@@ -118,7 +135,6 @@ module.exports = {
    */
   signup: function (req, res) {
 
-
     // Attempt to signup a person using the provided parameters
     person.signup({
       displayName: req.param('displayName'),
@@ -144,22 +160,26 @@ module.exports = {
       // Otherwise if this is an HTML-wanting browser, redirect to /welcome.
       return res.redirect('/');
     });
-
   },
 
-  /**
-   * `PersonController.readMeetingSeries()`
-   */
+  createMeetingSeries: function (req, res) {
+      return res.json({
+        todo: 'createMeetingSeries() is not implemented yet!'
+      });
+  },
+
+  deleteMeetingSeries: function (req, res) {
+      return res.json({
+        todo: 'deleteMeetingSeries() is not implemented yet!'
+      });
+  },
+
   readMeetingSeries: function (req, res) {
     return res.json({
       todo: 'readMeeting() is not implemented yet!'
     });
   },
 
-
-  /**
-   * `PersonController.updateMeetingSeries()`
-   */
   updateMeetingSeries: function (req, res) {
     return res.json({
       todo: 'updateMeeting() is not implemented yet!'
@@ -176,14 +196,58 @@ module.exports = {
     });
   },
 
+  createMeeting: function (req, res) {
+      return res.json({
+        todo: 'createMeeting() is not implemented yet!'
+      });
+  },
 
-  /**
-   * `PersonController.updateMeeting()`
-   */
+  deleteMeeting: function (req, res) {
+      return res.json({
+        todo: 'deleteMeeting() is not implemented yet!'
+      });
+  },
+
   updateMeeting: function (req, res) {
     return res.json({
       todo: 'updateJourFixe() is not implemented yet!'
     });
-  }
+  },
+
+  setAssignee: function (req, res) {
+    return res.json({
+      todo: 'setAssignee() is not implemented yet!'
+    });
+  },
+
+  isDone: function (req, res) {
+      return res.json({
+        todo: 'isDone() is not implemented yet!'
+      });
+  },
+
+  setDone: function (req, res) {
+      return res.json({
+        todo: 'setDone() is not implemented yet!'
+      });
+  },
+
+  startMeeting: function (req, res) {
+      return res.json({
+        todo: 'startMeeting() is not implemented yet!'
+      });
+  },
+
+  endMeeting: function (req, res) {
+      return res.json({
+        todo: 'endMeeting() is not implemented yet!'
+      });
+  },
+
+  finishToDoItem: function (req, res) {
+      return res.json({
+        todo: 'finishToDoItem() is not implemented yet!'
+      });
+  },
 };
 

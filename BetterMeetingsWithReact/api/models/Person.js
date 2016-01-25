@@ -14,23 +14,27 @@ module.exports = {
     email: {
       type: 'string',
       email: true,
-      required: true
+      required: false
     },
     password: {
       type: 'string',
-      required: true
+      required: false
     },
     displayName: {
       type: 'string',
-      required: true
+      required: false
     },
     todos: {
       model: 'todoitem'
     },
-    meetings: {
-      collection: 'meetingseries',
-      via: 'members',
+    assignedMeetings: { // former meetings
+      collection: 'meeting',
+      via: 'attendees',
       dominant: true
+    },
+    createdMeetings: {
+      collection: 'meetingseries',
+      via: 'admins'
     },
   },
 
