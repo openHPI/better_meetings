@@ -17,7 +17,7 @@ module.exports = {
 
       if (displayname && password && email) {
         person.create({
-          displayname:    displayname,
+          displayName:    displayname,
           password:       password,
           email:          email,
         }).exec( function createPerson(err,created) {
@@ -27,7 +27,7 @@ module.exports = {
             sails.log('Created Person: ' + created.displayname);
             person.publishCreate({
               id: created.id,
-              displayname: created.displayname,
+              displayName: created.displayname,
               password: created.password,
               email: created.email
              });
@@ -137,7 +137,7 @@ module.exports = {
 
     // Attempt to signup a person using the provided parameters
     person.signup({
-      name: req.param('name'),
+      displayName: req.param('displayName'),
       email: req.param('email'),
       password: req.param('password')
     }, function (err, person) {
