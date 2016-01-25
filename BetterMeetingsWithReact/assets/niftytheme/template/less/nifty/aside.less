@@ -1,0 +1,382 @@
+
+
+/* ASIDE */
+/* ===================================== */
+#container {
+    #aside-container{
+        padding:0 20px;
+        background-color: @aside-bright-bg;
+        position: relative;
+        top:0px;
+        z-index: 3;
+        .nano-content{
+            position: static;
+            outline: none
+        }
+        .nano-pane{
+            display: none !important;
+        }
+    }
+    #aside {
+        .list-link li a:not(.btn){
+            color: darken(@aside-dark-color,18%);
+            &:hover{
+                color: @aside-dark-color;
+            }
+        }
+    }
+}
+
+#aside{
+    background-color: @aside-dark-bg;
+    color: @aside-dark-color;
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -webkit-transform : translateZ(0);
+    .transition(all .5s);
+    a:not(.btn):not(.btn-link){
+        color: inherit;
+    }
+    &.aside-xs-in{
+        max-height: none;
+        overflow: hidden;
+        margin-bottom: 70px;
+    }
+    .bord-all,
+    .bord-top,
+    .bord-btm,
+    .bord-left,
+    .bord-rgt,
+    .bord-hor,
+    .bord-ver,
+    .list-divider{
+        border-color:lighten(@aside-dark-bg,3%);
+    }
+    .btn-link{
+        color: @aside-dark-color;
+    }
+    .text-muted{
+        color: lighten(@aside-dark-bg,35%);
+    }
+}
+
+
+& when (@aside-tabs){
+
+    /* Aside with tabs */
+    /* ===================================== */
+    #aside{
+        #aside-container &{
+            .nav-tabs{
+                &.nav-justified > li{
+                    display: table-cell;
+                    width: 1%
+                }
+                li:not(active){
+                    a{
+                        border-radius: 0;
+                        border: 0;
+                        border-bottom:1px solid rgba(0,0,0,0.05);
+                        background-color: darken(@aside-dark-bg,3%);
+                        color: rgba(255,255,255,.5);
+                        padding : 20px 0;
+                    }
+                }
+                li:first-child > a{
+                    border-left: 0;
+                }
+                li:last-child > a{
+                    border-right: 0;
+                }
+                .active{
+                    a{
+                        border-left:1px solid rgba(0,0,0,0.1);
+                        border-right:1px solid rgba(0,0,0,0.1);
+                        border-bottom: 1px solid transparent;
+                        background-color: transparent;
+                        color: inherit !important;
+                    }
+                    .badge{
+                        opacity: 1
+                    }
+                }
+                .badge{
+                    opacity: .5
+                }
+            }
+            .tab-content{
+                padding:10px 0;
+            }
+        }
+        .nav-tabs a i{
+            font-size: 1.35em;
+        }
+        #container.aside-bright &{
+            .nav-tabs {
+                li:not(.active) a{
+                    background-color: darken(@aside-bright-bg,5%);
+                    color: rgba(0,0,0,.15);
+                }
+            }
+        }
+    }
+}
+
+
+
+/* ASIDE - RESPONSIVE LAYOUT */
+/* ===================================== */
+@media (max-width: 760px){
+    #aside.aside-xs-in{
+        margin-top:-90px
+    }
+    #container.mainnav-in #aside-container{
+        left: @mainnav-lg-width;
+        right: auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px){
+    #container.mainnav-sm.aside-left.aside-in{
+        #aside-container{
+            left: @mainnav-sm-width;
+            right:auto
+        }
+        #content-container, #footer{
+            padding-left: @mainnav-lg-width;
+        }
+    }
+    div#container.mainnav-lg.aside-left.aside-in{
+        #content-container, #footer{
+            padding-left: @mainnav-lg-width;
+            text-align: left
+        }
+    }
+}
+@media (min-width: 768px){
+    #aside{
+        max-height: none;
+        padding-top: @navbar-height;
+        visibility: visible;
+        background-color: @aside-dark-bg;
+        height: 100%;
+        &.aside-xs-in{
+            max-height: none
+        }
+    }
+
+    #container{
+        #aside-container{
+            padding: 0;
+            background-color: @aside-bright-bg;
+            position: absolute;
+            width: @aside-width;
+            height: auto;
+            left: auto;
+            right: -@aside-width;
+            top:0;
+            bottom: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            visibility: hidden;
+            z-index: 3;
+            .nano-content{
+                position: absolute
+            }
+        }
+        #content-container, #footer{
+            padding-right: 0
+        }
+        &.aside-in{
+            #content-container, #footer{
+                padding-right: @aside-width;
+            }
+            &.aside-left{
+                #content-container, #footer{
+                    padding-left: @aside-width;
+                    padding-right: 0;
+                }
+                &.mainnav-lg{
+                    #content-container, #footer{
+                        padding-left: @mainnav-lg-width+@aside-width;
+                        padding-right: 0
+                    }
+                    #aside-container{
+                        left: @mainnav-lg-width;
+                        right: auto
+                    }
+                }
+                &.mainnav-sm{
+                    #content-container, #footer{
+                        padding-left: @mainnav-sm-width+@aside-width;
+                        padding-right: 0
+                    }
+                    #aside-container{
+                        left: @mainnav-sm-width;
+                        right:auto;
+                    }
+                }
+                &.mainnav-in{
+                    #aside-container{
+                        left: @mainnav-lg-width;
+                        right:auto;
+                    }
+                }
+
+            }
+        }
+        &.mainnav-in{
+            &:not(.slide) #footer, & #content-container{
+                padding-right: 0
+            }
+        }
+    }
+
+
+    /* ASIDE - TOGGLE HIDE/SHOW */
+    /* ===================================== */
+    #container{
+        &.aside-in {
+            #aside-container{
+                left: auto;
+                right: 0;
+            }
+            &.aside-left{
+                &.mainnav-in{
+                    #aside-container{
+                        left: @mainnav-lg-width;
+                        right: auto;
+                    }
+                }
+            }
+
+        }
+        &.aside-left #aside-container, &.aside-in.aside-left #aside-container{
+            left: 0;
+            right: auto
+        }
+        &.aside-left{
+            &.mainnav-sm{
+                #aside-container{
+                    left:(0 - @aside-width) + @mainnav-sm-width;
+                }
+                #content-container, #footer{
+                    padding-left:@mainnav-sm-width
+                }
+            }
+            &.mainnav-out{
+                &:not(.aside-in) #aside-container{
+                    left: -@mainnav-lg-width;
+                }
+            }
+        }
+    }
+
+    /* ASIDE - FIXED POSITION */
+    /* ===================================== */
+    #container{
+        &.aside-fixed{
+            #aside-container{
+                position: fixed;
+            }
+            #aside{
+                height: 100%;
+                .nano-content{
+                    position: absolute;
+                }
+            }
+            &:not(.navbar-fixed){
+                #aside-container.affix{
+                    top: 0 - @navbar-height;
+                    position: fixed;
+                    &-top{
+                        top: 0;
+                        position: absolute
+                    }
+                }
+            }
+
+        }
+    }
+    #container{
+        &.aside-in{
+            #aside{
+                padding-top: @navbar-height;
+            }
+            #content-container, &:not(.mainnav-in) #footer{
+                padding-right: @aside-width;
+            }
+            &.aside-left{
+                #content-container, #footer{
+                    padding-left: @aside-width;
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+
+
+}
+
+
+/* ASIDE : BRIGHT COLOR THEMES */
+/* ===================================== */
+#container{
+    &.aside-bright{
+        #aside{
+            background-color: @aside-bright-bg;
+            border-color: darken(@aside-bright-bg, 5%);
+            color: @aside-bright-color;
+            & when (lightness(@mainnav-bg) >= 70%){
+                border: 1px solid darken(@body-bg, 7.5%);
+            }
+            & when (lightness(@body-bg) >= 95%){
+                border: 1px solid darken(@body-bg, 7.5%);
+            }
+            .text-light{
+                color : @body-color;
+            }
+            .bord-all,
+            .bord-top,
+            .bord-btm,
+            .bord-lft,
+            .bord-rgt,
+            .bord-hor,
+            .bord-ver,
+            .list-divider{
+                border-color: darken(@aside-bright-bg, 3%);
+            }
+            .text-muted{
+                color : lighten(@body-color,30%);
+            }
+            .progress{
+                background-color: darken(@aside-bright-bg, 10%);
+            }
+            .list-link li a:not(.btn){
+                color: lighten(@aside-bright-color,5%);
+                &:hover{
+                    color: @aside-bright-color
+                }
+            }
+            a:not(.btn){
+                color: @aside-bright-color;
+                &:hover, &:focus{
+                    color: darken(@aside-bright-color,10%);
+                }
+            }
+            .btn-link{
+                color: @aside-bright-color;
+            }
+            > .nano{
+
+            }
+        }
+
+    }
+
+}
+
+

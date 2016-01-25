@@ -22,7 +22,7 @@ function loadAgenda (data) {
 // Method to create the _selected.todoList_done
 function getDoneItems () {
 	for (var i = 0; i < _agenda.length; i++) {
-		
+
 		_agenda[i]['todoList_done'] = [];
 
 		for (var j = 0; j < _agenda[i].todoList.length; j++) {
@@ -43,7 +43,7 @@ function setSelected (index) {
 // Method to add a task to the todoList
 function addTask (item) {
 	item.id = _selected.todoList.length.toString();
-	_selected.todoList.push(item);	
+	_selected.todoList.push(item);
 }
 
 // Method to remove a task from the todoList
@@ -63,7 +63,7 @@ function markTaskAsDone (index) {
 
 // Method to add a member
 function addMember (member) {
-	member['name'] = member.displayname;
+	member['name'] = member.displayName;
 	_member.push(member);
 }
 
@@ -93,7 +93,7 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 		return _selected;
 	},
 
-	// Return collapsed index of todoitem 
+	// Return collapsed index of todoitem
 	getCollapsed: function() {
 		return _collapsed;
 	},
@@ -192,7 +192,7 @@ AppDispatcher.register(function(payload) {
 		case FluxAgendaConstants.MEMBER_ADD:
 			MeetingDataAPI.postMember(action.data);
 			break;
-		
+
 		// Respond to RECEIVE_DATA action
 		case FluxAgendaConstants.RECEIVE_DATA:
 			loadAgenda(action.data);

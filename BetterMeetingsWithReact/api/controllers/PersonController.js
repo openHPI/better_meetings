@@ -6,7 +6,8 @@
  */
 
 module.exports = {
-
+// if just email + displayname are provided, it's a guest
+// if nothing is provided, it's also a guest
     create: function (req,res) {
       sails.log('Creation started');
       sails.log(req.param('displayname'));
@@ -16,37 +17,38 @@ module.exports = {
 
       if (displayname && password && email) {
         person.create({
-          displayname:    displayname,
+          displayName:    displayname,
           password:       password,
           email:          email,
         }).exec( function createPerson(err,created) {
           if (err) {
-            sails.log('person not created' + err);
+            sails.log('Person not created' + err);
           } else {
-            sails.log('person created: ' + created.displayname);
-             person.publishCreate({
-               id: created.id,
-               displayname: created.displayname,
-               password: created.password,
-               email: created.email
+            sails.log('Created Person: ' + created.displayname);
+            person.publishCreate({
+              id: created.id,
+              displayName: created.displayname,
+              password: created.password,
+              email: created.email
              });
 
           }
         })
       } else if (req.isSocket){
              person.watch(req);
-             console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
+             sails.log('Person with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
       } else {
-          sails.log('person not created: few params');
+          res.send('person');
+          console.log('Person not created: too few parameters');
       }
     },
 
     viewAll: function(req,res) {
 
-      person.find().exec(function displayPersonList(err,items) {
+      person.find().exec(function displayPersonList(err, items) {
         if (err) return res.serverError(err);
 
-        sails.log('Admins:' + items);
+        sails.log('person:' + items);
 
         return res.view('person', {
           users: items,
@@ -57,7 +59,13 @@ module.exports = {
 
 
     delete: function(req,res) {
+      var personID = req.param("personID", null);
 
+      Person.findOne(personID).done(function(err, person) {
+        person.destroy(function(err) {
+          res.send("Success");
+        });
+      });
     },
 
     update: function (req,res) {
@@ -65,11 +73,19 @@ module.exports = {
     },
 
     view: function(req, res) {
+      Person.findOne(id).exec(function displayList(err, items) {
+        console.log(items);
+               res.response = items;
+               res.render('person', {'model': 'Person'});
 
+          })
     },
 
     displayAll: function (req,res) {
-
+      Person.find(function storedPersons(err, persons) {
+        Person.subscribe(req.socket);
+        Person.subscribe(req.socket, persons);
+      });
     },
 
     exampledata: function(req,res) {
@@ -121,7 +137,7 @@ module.exports = {
 
     // Attempt to signup a person using the provided parameters
     person.signup({
-      name: req.param('name'),
+      displayName: req.param('displayName'),
       email: req.param('email'),
       password: req.param('password')
     }, function (err, person) {
@@ -133,7 +149,7 @@ module.exports = {
       // Go ahead and log this person in as well.
       // We do this by "remembering" the person in the session.
       // Subsequent requests from this person agent will have `req.session.me` set.
-      req.session.me = person.id;
+      req.session.me = person;
 
       // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
       // send a 200 response letting the person agent know the signup was successful.
@@ -146,19 +162,24 @@ module.exports = {
     });
   },
 
-  /**
-   * `PersonController.readMeetingSeries()`
-   */
+  createMeetingSeries: function (req, res) {
+      return res.json({
+        todo: 'createMeetingSeries() is not implemented yet!'
+      });
+  },
+
+  deleteMeetingSeries: function (req, res) {
+      return res.json({
+        todo: 'deleteMeetingSeries() is not implemented yet!'
+      });
+  },
+
   readMeetingSeries: function (req, res) {
     return res.json({
       todo: 'readMeeting() is not implemented yet!'
     });
   },
 
-
-  /**
-   * `PersonController.updateMeetingSeries()`
-   */
   updateMeetingSeries: function (req, res) {
     return res.json({
       todo: 'updateMeeting() is not implemented yet!'
@@ -175,14 +196,58 @@ module.exports = {
     });
   },
 
+  createMeeting: function (req, res) {
+      return res.json({
+        todo: 'createMeeting() is not implemented yet!'
+      });
+  },
 
-  /**
-   * `PersonController.updateMeeting()`
-   */
+  deleteMeeting: function (req, res) {
+      return res.json({
+        todo: 'deleteMeeting() is not implemented yet!'
+      });
+  },
+
   updateMeeting: function (req, res) {
     return res.json({
       todo: 'updateJourFixe() is not implemented yet!'
     });
-  }
+  },
+
+  setAssignee: function (req, res) {
+    return res.json({
+      todo: 'setAssignee() is not implemented yet!'
+    });
+  },
+
+  isDone: function (req, res) {
+      return res.json({
+        todo: 'isDone() is not implemented yet!'
+      });
+  },
+
+  setDone: function (req, res) {
+      return res.json({
+        todo: 'setDone() is not implemented yet!'
+      });
+  },
+
+  startMeeting: function (req, res) {
+      return res.json({
+        todo: 'startMeeting() is not implemented yet!'
+      });
+  },
+
+  endMeeting: function (req, res) {
+      return res.json({
+        todo: 'endMeeting() is not implemented yet!'
+      });
+  },
+
+  finishToDoItem: function (req, res) {
+      return res.json({
+        todo: 'finishToDoItem() is not implemented yet!'
+      });
+  },
 };
 
