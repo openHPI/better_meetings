@@ -18,5 +18,9 @@ module.exports = {
       collection: 'person',
       via: 'assignedMeetings',
     },
+    isInitialCreation: {
+    	type: 'boolean',
+    	required: true,
+    },
   }
 };

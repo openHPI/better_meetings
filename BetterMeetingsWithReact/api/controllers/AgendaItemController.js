@@ -34,7 +34,7 @@ module.exports = {
         }  
       });
     } else if (req.isSocket) {
-      agendaitem.watch(req);
+      agendaItem.watch(req);
       sails.log('AgendaItem with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'agendaitem\'.');
     } else {
       res.send('agendaitem');
@@ -93,7 +93,7 @@ module.exports = {
           //res.redirect('/agendaitem/edit');
         } else {
           console.log('Updated AgendaItem: ' + updated.title);
-          agendaitem.publishUpdate({
+          AgendaItem.publishUpdate({
             id: updated.id,
             meetingseries: updated.meetingseries,
             title: updated.title,
@@ -111,7 +111,7 @@ module.exports = {
   },
 
   view: function(req,res) {
-      AgendaItem.watch(req);
+      //agendaItem.watch(req);
       AgendaItem.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;
@@ -124,13 +124,33 @@ module.exports = {
 
     AgendaItem.findOne(agendaItemID).done(function(err, agendaitem) {
       agendaitem.destroy(function(err) {
+        if (err) {
+            sails.log('Error while deleting agendaitem');
+            res.send("Error");
+          }
         res.send("Success");
       });
     });
   },
 
   // viewAll: function(req,res) {
+  //   agendaitem.find().exec(function displayAgendaItemList(err, items) {
+  //     if (err) return res.serverError(err);
+  //     sails.log('person:' + items);
+  //     AgendaItem.subscribe(req.socket);
+  //     AgendaItem.subscribe(req.socket, items);
+  //     return res.view('agendaitem', {
+  //       users: items,
+  //     });
+  //   });
   // },
+
+  subscribe: function(req,res) {
+    if (req.isSocket) {
+      agendaitem.watch(req);
+      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'agendaitem\'.');
+   }
+  },
 
   isDone: function (req, res) {
     return res.json({

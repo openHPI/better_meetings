@@ -6,28 +6,28 @@
  */
 
 module.exports = {
-// if just email + displayname are provided, it's a guest
+// if just email + name are provided, it's a guest
 // if nothing is provided, it's also a guest
     create: function (req,res) {
       sails.log('Creation started');
-      sails.log(req.param('displayname'));
-      var displayname = req.param('displayname');
+      sails.log(req.param('name'));
+      var name = req.param('name');
       var password = req.param('password');
       var email = req.param('email');
 
-      if (displayname && password && email) {
+      if (name && password && email) {
         person.create({
-          displayName:    displayname,
+          name:           name,
           password:       password,
           email:          email,
         }).exec( function createPerson(err,created) {
           if (err) {
             console.log('Person not created' + err);
           } else {
-            console.log('Created Person: ' + created.displayname);
+            console.log('Created Person: ' + created.name);
             person.publishCreate({
               id: created.id,
-              displayName: created.displayname,
+              name: created.name,
               password: created.password,
               email: created.email
              });
@@ -44,6 +44,7 @@ module.exports = {
     },
 
     view: function(req, res) {
+      //person.watch(req);
       Person.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;
@@ -71,6 +72,10 @@ module.exports = {
 
       Person.findOne(personID).done(function(err, person) {
         person.destroy(function(err) {
+          if (err) {
+            sails.log('Error while deleting person');
+            res.send("Error");
+          }
           res.send("Success");
         });
       });
@@ -79,22 +84,24 @@ module.exports = {
     update: function (req,res) {
 
     sails.log('Update started');
-    sails.log(req.param('displayname'));
-    var displayname = req.param('displayname');
+    sails.log(req.param('name'));
+    var name = req.param('name');
     var password = req.param('password');
     var email = req.param('email');
     var todos = req.param('todos');
     var assignedMeetings = req.param('assignedMeetings');
     var createdMeetings = req.param('createdMeetings');
+    var isAdmin = req.param('isAdmin');
 
-    if (displayname && password && email && todos && assignedMeetings && createdMeetings && req.isSocket) {
+    if (name && password && email && todos && assignedMeetings && createdMeetings && isAdmin && req.isSocket) {
       person.update({
-        displayName:      displayname,
+        name:      name,
         password:         password,
         email:            email,
         todos:            todos,
         assignedMeetings: assignedMeetings,
         createdMeetings:  createdMeetings,
+        isAdmin:          isAdmin,
       }).exec(function updatePerson(err, updated) {
         if (err) {
           console.log('Person not updated ' + err);
@@ -103,15 +110,16 @@ module.exports = {
           console.log('Update error for Person ' + err);
           //res.redirect('/person/edit');
         } else {
-          console.log('Updated Person: ' + updated.displayname);
+          console.log('Updated Person: ' + updated.name);
           person.publishUpdate({
             id: updated.id,
-            displayName: updated.displayname,
+            name: updated.name,
             password: updated.password,
             email: updated.email,
             todos: updated.todos,
             assignedMeetings: updated.assignedMeetings,
             createdMeetings: updated.createdMeetings,
+            isAdmin: updated.isAdmin,
           });
         }
       });
@@ -178,7 +186,7 @@ module.exports = {
 
     // Attempt to signup a person using the provided parameters
     person.signup({
-      displayName: req.param('displayName'),
+      name: req.param('name'),
       email: req.param('email'),
       password: req.param('password')
     }, function (err, person) {
@@ -290,5 +298,13 @@ module.exports = {
         todo: 'finishToDoItem() is not implemented yet!'
       });
   },
+
+  subscribe: function(req,res) {
+    if (req.isSocket) {
+      person.watch(req);
+      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
+    }
+  },
+
 };
 

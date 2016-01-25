@@ -9,6 +9,38 @@ module.exports = {
 
 	create: function(req, res) {
 
+		var topics = req.param('topics');
+		var attendees = req.param('attendees');
+		var isInitialCreation = req.param('isInitialCreation');
+		
+		if (isInitialCreation === false) {
+			
+			if (displayname && password && email) {
+			  meeting.create({
+			    topics: 			topics,
+			    attendees: 			attendees,
+			    isInitialCreation: 	isInitialCreation,
+			  }).exec( function createMeeting(err,created) {
+			    if (err) {
+			      console.log('Meeting not created' + err);
+			    } else {
+			      console.log('Created Meeting');
+			      meeting.publishCreate({
+			        id: 				created.id,
+			        topics: 			created.topics,
+			        attendees: 			created.attendees,
+			        isInitialCreation: 	created.isInitialCreation,
+			       });
+			    }
+			  });
+			} 
+		} else if (req.isSocket){
+		       meeting.watch(req);
+		       sails.log('Meeting with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meeting\'.');
+		} else {
+		    res.send('meeting');
+		    console.log('Meeting not created: too few parameters');
+		}
 	},
 	
 	delete: function(req,res) {
@@ -16,6 +48,10 @@ module.exports = {
 
 		Meeting.findOne(meetingID).done(function(err, meeting) {
 		  meeting.destroy(function(err) {
+		  	if (err) {
+            sails.log('Error while deleting meeting');
+            res.send("Error");
+          }
 		    res.send("Success");
 		  });
 		});
@@ -26,11 +62,13 @@ module.exports = {
 		sails.log('Update started');
 		var topics = req.param('topics');
 		var attendees = req.param('attendees');
+		var isInitialCreation = req.param('isInitialCreation');
 
-		if (topics && attendees && req.isSocket) {
+		if (topics && attendees && isInitialCreation && req.isSocket) {
 		  meeting.update({
-		    topics:      topics,
-		    attendees:   attendees,
+		    topics:      		topics,
+		    attendees:   		attendees,
+		    isInitialCreation: 	isInitialCreation,
 		  }).exec(function updateMeeting(err, updated) {
 		    if (err) {
 		      console.log('Meeting not updated ' + err);
@@ -44,6 +82,7 @@ module.exports = {
 		        id: updated.id,
 		        topics: updated.topics,
 		        attendees: updated.attendees,
+		        isInitialCreation: updated.isInitialCreation,
 		      });
 		    }
 		  });
@@ -55,7 +94,7 @@ module.exports = {
 	},
 
 	view: function(req, res) {
-		Meeting.watch(req);
+		//meeting.watch(req);
 		Meeting.findOne(id).exec(function displayList(err, items) {
 		  console.log(items);
 		  res.response = items;
@@ -75,6 +114,13 @@ module.exports = {
 		//   });
 		// });
 	// },
+
+	subscribe: function(req,res) {
+	 	if (req.isSocket) {
+	    	meeting.watch(req);
+	    	console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meeting\'.');
+	 	}
+	},
 
 	getAttendees: function(req, res) {
 
