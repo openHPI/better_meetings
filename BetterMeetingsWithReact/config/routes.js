@@ -42,7 +42,7 @@ module.exports.routes = {
   'get /signup': {
     view: 'signup'
   },
-  '/meeting': {
+  'get /meeting': {
     view: 'meeting'
   },
   '/user': {
@@ -53,7 +53,7 @@ module.exports.routes = {
     controller: 'user',
     action: 'create'
   },
-   '/user/viewAll': {
+  '/user/viewAll': {
     controller: 'user',
     action: 'viewAll',
   },
@@ -76,7 +76,7 @@ module.exports.routes = {
     controller: 'person',
     action: 'exampledata',
   },
-  '/admin/create/' : {
+  '/admin/create/': {
     controller: 'meetingadmin',
     action: 'create'
   },
@@ -89,6 +89,9 @@ module.exports.routes = {
 
   // endpoints for meeting controller
   'POST /meetingseries/create': 'MeetingSeriesController.create',
+  'POST /meetingseries/update': 'MeetingSeriesController.update',
+  'POST /meetingseries/view': 'MeetingSeriesController.view',
+  'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
   // endpoints for meeting controller
   'POST /person/create': 'PersonController.create',
