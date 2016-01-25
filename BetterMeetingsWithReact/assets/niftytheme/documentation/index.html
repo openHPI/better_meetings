@@ -1,0 +1,3128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Documentation - Nifty - Responsive admin Template </title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="../template/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="../template/css/nifty.min.css" rel="stylesheet">
+        <link href="../template/plugins/animate-css/animate.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/monokai.css" rel="stylesheet">
+
+        <!--Open Sans Font [ OPTIONAL ] -->
+         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
+
+        <!-- Custom styles for documentation -->
+        <link href="css/documentation.css" rel="stylesheet">
+    </head>
+<body>
+<div id="container">
+    <div id="content-container">
+    <div id="docs-header">
+        <h1 class="h3 mar-no text-thin">Documentation</h1>
+    </div>
+    <div class="nano">
+        <div id="docs-menu" class="nano-content">
+            <ul class="nav list-group list-unstyled">
+                <li><a href="#nifty-intro" class="list-item-md">Contact Us</a></li>
+                <li><a href="#introduction" class="list-item-md">Introduction</a></li>
+                <li><a href="#docs-quick-tips" class="list-item-md">Quick Tips</a></li>
+                <li><a href="#fileFolderStructure" class="list-item-md">File and Folder Structure</a></li>
+                <li><a href="#docs-less" class="list-item-md">LESS Files</a></li>
+                <li><a href="#template" class="list-item-md">Template</a></li>
+                <li><a href="#docs-anim" class="list-item-md">Animation</a></li>
+                <li><a href="#content-navbar" class="list-item-md">Navbar</a></li>
+                <li class="hassub">
+                    <a href="#" class="list-item-md">Navigation</a>
+                    <ul class="list-group list-unstyled list-sub">
+                        <li><a href="#nav-colex" class="list-item-md">Collapsing/Expanding</a></li>
+                        <li><a href="#nav-offcanvas" class="list-item-md">Off Canvas</a></li>
+                        <li><a href="#nav-fixed" class="list-item-md">Fixed Position</a></li>
+                        <li><a href="#nav-short" class="list-item-md">Shortcuts</a></li>
+                        <li><a href="#nav-widget" class="list-item-md">Widgets</a></li>
+                    </ul>
+                </li>
+                <li class="hassub">
+                    <a href="#" class="list-item-md">Aside</a>
+                    <ul class="list-group list-unstyled list-sub">
+                        <li><a href="#docs-aside-visibility" class="list-item-md">Visibility</a></li>
+                        <li><a href="#docs-aside-aligned" class="list-item-md">Aligned</a></li>
+                        <li><a href="#docs-aside-fixed" class="list-item-md">Fixed Position</a></li>
+                        <li><a href="#docs-aside-themes" class="list-item-md">Themes</a></li>
+                    </ul>
+                </li>
+                <li><a href="#docs-footer" class="list-item-md">Footer</a></li>
+                <li><a href="#docs-ui-btn" class="list-item-md">Buttons</a></li>
+                <li class="hassub">
+                    <a href="#" class="list-item-md">Exclusive Plugins</a>
+                    <ul class="list-group list-unstyled list-sub">
+                        <li><a href="#docs-scroll-top" class="list-item-md">Nifty Scroll to top</a></li>
+                        <li><a href="#docs-panel-removal" class="list-item-md">Nifty Panel removal</a></li>
+                        <li><a href="#docs-overlay" class="list-item-md">Nifty Overlay</a></li>
+                        <li><a href="#docs-noty" class="list-item-md">Nifty Notification</a></li>
+                        <li><a href="#docs-check" class="list-item-md">Nifty Check</a></li>
+                        <li><a href="#docs-lang" class="list-item-md">Nifty Language Selector</a></li>
+                    </ul>
+                </li>
+                <li><a href="#docs-3rd-plugins" class="list-item-md">Third Party Plugins &amp; Credits</a></li>
+            </ul>
+        </div>
+
+        <div class="docs-content" data-target="#docs-menu" data-spy="scroll">
+            <div id="nifty-intro" class="docs-section">
+                <h1>Nifty</h1>
+                <div class="text-bold">Responsive Admin Template</div>
+                <small>Version: v2.2.3</small>
+                <hr>
+                <div class="bg-gray-light pad-all mar-top text-center">
+                    Thank you very much for purchasing this theme.
+                </div>
+
+                <br>
+
+                <div class="text-center bg-dark pad-all">
+                    <h2><i class="fa fa-question-circle fa-3x"></i></h2>
+                    <h4>Have a question ?</h4>
+                    <p>If you have any questions or issues that are beyond the scope of this documentation, please feel free to email us.</p>
+                    <small class="pad-top">* Support is offered exclusively through the contact form</small>
+                    <hr>
+                    <a href="https://wrapbootstrap.com/user/ThemeOn"  target="_blank" class="btn btn-info">Contact Us</a>
+
+                </div>
+
+
+                <br>
+                <hr>
+                <br>
+
+
+                <h3>Change Logs</h3>
+
+                <h5>Version 2.2.3</h5>
+                 <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> UI and CSS transitions</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Documentation</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Noftification plugin</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Navigation toggle button issue on mobile device</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Minor CSS issues</li>
+                </ul>
+
+
+
+                <h5>Version 2.2.2</h5>
+                <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Documentation</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Navigation with Ajax Support</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Checkboxes and radio button component</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Initialization issues on some framework.</li>
+                </ul>
+
+
+                <h5>Version 2.2.1</h5>
+                <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Remove Fade-in effect when a page has loaded</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Aside issue on small screen</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Minor CSS issues</li>
+                </ul>
+
+                <h5>Version 2.2</h5>
+                <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> Bootstrap to version 3.3.2</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> FontAwesome to version 4.3.0</li>
+
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Two column timeline.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Static tables page</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Bootstrap tables page</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> New DataTables plugin</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> New FooTable plugin</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> New FullCalendar plugin</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> New Maps plugin</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> 9 new color themes</li>
+
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> UI and CSS transitions</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Checkboxes and radio plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Megamenu plugin for touch devices.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Fresh flat color themes</li>
+
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Issue with scrolling items on touch devices</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Minor CSS issue</li>
+                </ul>
+
+                <h5>Version 2.1</h5>
+                <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Getting Started sample.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Header design.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Plugin compatibility.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Change folder structure and HTML code slightly.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> MetisMenu plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> Switchery plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> EasyPieChart plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> Chosen plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> Pace plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> Datepicker plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> MaskInput plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> Bootstrap DataTable plugin.</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Off-canvas navigation and aside issue.</li>
+                </ul>
+
+                <h5>Version 2.0.1</h5>
+                <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Add more widgets to Dashboard</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-info">Improved</span> Clean and fresh flat color themes</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Collapsed navigation doesn't show menu sub-items on the iPad</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Minor CSS and js Issues</li>
+                </ul>
+
+                <h5>Version 2.0</h5>
+                <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-purple">Updated</span> Upgraded Bootstrap to version 3.3.1</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> To-do List</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> New statistics widgets</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> User profile widgets</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> New weather Widgets</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Pricing table</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Mega menu</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> New page loading theme</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Add page layouts</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> List group page</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> Progressbar Page</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-success">Added</span> jQuery cookie</li>
+                    <li class="list-group-item list-item-sm">- User can make best theme by mix the style and color</li>
+                    <li class="list-group-item list-item-sm">- Remember user's favourite theme and apply it to all pages</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Speed improvements</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Progressbar with label</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Tab direction</li>
+                    <li class="list-group-item list-item-sm"><span class="label label-warning">Fixed</span> Minor bugs in design</li>
+                </ul>
+                <br>
+
+                <h5>Version 1.0</h5>
+                <ul class="list-group bg-trans">
+                    <li class="list-group-item list-item-sm"><span class="label label-mint">Release</span> Initial release</li>
+                </ul>
+            </div>
+
+
+
+            <div class="docs-section">
+                <h1 id="introduction" class="docs-spy">Introduction</h1>
+                <hr>
+                <p>
+                <strong>Nifty</strong> is  is flat admin template for multi-purpose usage built with the latest version of <span class="text-purple text-semibold">Bootstrap v3.3.2.</span><br>
+                Its main focus is simplicity while providing the most commonly used elements and widgets on web apps across devices and browsers, and it will be extended in the future updates with newer plugins and pages.</p>
+                <br>
+                <h3>Getting Started</h3>
+                <p>To get you started with Nifty theme, you should be familiar with <a target="_blank" href="http://www.getbootstrap.com" class="btn-link text-semibold">Twitter Bootstrap</a>.
+                Start with this basic HTML template, or modify <a href="../get-started/index.html" class="text-semibold btn-link">these examples</a>.</p>
+                <p>Use <strong>Chrome Developer Tools (Chrome), Firebug (Firefox)</strong> or similar plugins to analyze the code. To get a deeper understanding of the code, open the HTML and JS files and read through the commented code.</p>
+            </div>
+            <div class="docs-section">
+                <h1 id="docs-quick-tips" class="docs-spy">Quick Tips</h1>
+                <hr>
+                <p>
+                <ul class="list-group list-unstyled">
+                    <li class="pad-btm">
+                        <h4>Mobile First</h4>
+                        The default CSS styles work great in mobiles. The responsive CSS code alter the styles in larger resolutions.
+                    </li>
+                    <li class="pad-btm">
+                        <h4>ID and Class name</h4>
+                        You may remove all ID or Class names which contain <code>demo-</code>, they are only used for demonstration.
+                    </li>
+                    <li class="pad-btm">
+                        <h4>Plugins</h4>
+                        Feel free to remove the plugins you won't use (along with their style).
+                    </li>
+                    <li class="pad-btm">
+                        <h4>jQuery selectors</h4>
+                        The main selector has been cached and used in all of plugins.<br>
+                        To improve performance and load time, you don't need to create a new variable to get the main selector, just call the variables.
+                        <br>
+                        <table class="table table-bordered table-striped mar-top">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Selectors</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>nifty.window</td>
+                                    <td><code>$('window')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.body</td>
+                                    <td><code>$('body')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.document</td>
+                                    <td><code>$('document')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.bodyHtml</td>
+                                    <td><code>$('body, html')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.container</td>
+                                    <td><code>$('#container')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.contentContainer</td>
+                                    <td><code>$('#content-container')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.navbar</td>
+                                    <td><code>$('#navbar')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.mainNav</td>
+                                    <td><code>$('#mainnav-container')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.aside</td>
+                                    <td><code>$('#aside-container')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.footer</td>
+                                    <td><code>$('#footer')</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.scrollTop</td>
+                                    <td><code>$('#scroll-top')</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <li class="pad-btm">
+                        <h4>Useful functions</h4>
+                        List of useful functions might help you.
+                        <br>
+                        <table class="table table-bordered table-striped mar-top">
+                            <thead>
+                                <tr>
+                                    <th>Function name</th>
+                                    <th>Returning value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>nifty.screenSize</td>
+                                    <td><code>xs</code> <code>sm</code> <code>md</code> <code>lg</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.isMobile</td>
+                                    <td><code>true</code> or <code>false</code></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.transition</td>
+                                    <td>To test whether or not the browser supports transition properties ? <span class="text-muted">// Return :<code>true</code>  or <code>false</code></span></td>
+                                </tr>
+                                <tr>
+                                    <td>nifty.randomInt</td>
+                                    <td><p>To generate random numbers in a selected range (<code>min</code> and <code>max</code>). </p> Example : <code>var randomNumber = nifty.randomInt(2,10)</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>
+                        <h4>User Names</h4>
+                        All user names used in the template are fictional and only used for demostration. They were randomly generated at <a href="http://uinames.com/" class="btn-link text-semibold">uinames.com</a>.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="docs-section">
+                <h1 id="fileFolderStructure" class="docs-spy">File and Folder Structure</h1>
+                <hr>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Folder Name</th>
+                            <th>What it Contains</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Documentation</td>
+                            <td>This documentation page with it's assets.</td>
+                        </tr>
+                        <tr>
+                            <td>Get Started</td>
+                            <td>Samples that will help you start developing.</td>
+                        </tr>
+                        <tr>
+                            <td>Template</td>
+                            <td>Most of the main CSS, JavaScript and images.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child">css</td>
+                            <td>Main CSS stylesheets.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child2">demo</td>
+                            <td>Stylesheet for demonstration purposes.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child">fonts</td>
+                            <td><a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" class="btn-link">Font Awesome</a></td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child">img</td>
+                            <td>Main images for demonstration purposes.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child">js</td>
+                            <td>Main JavaScript files.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child2">demo</td>
+                            <td>Sample script for demonstration purposes.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child">less</td>
+                            <td>LESS sources for generating the CSS-files.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child2">nifty</td>
+                            <td>Complete layout- and element-styling</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child2">themes</td>
+                            <td>Folder that contains all the available color themes.</td>
+                        </tr>
+                        <tr>
+                            <td class="fol-child">plugins</td>
+                            <td>JavaScript and partial images for all 3rd-party plugins.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="docs-section">
+                <h2 id="docs-less" class="docs-spy">LESS Files</h2>
+                <hr>
+                <h3>Files and Structure</h3>
+                <br>
+                <h4>less/nifty</h4>
+                <p>Folder that contains all main styles of the template. </p>
+                <br>
+                <h4>less/themes</h4>
+                <p>Folder that contains all the available color themes. Each file contains predefined variables with the colors of each theme. A file can be imported in <code>/less/nifty.less</code> to change the active color theme by overwriting the default variables which are set in <code>less/variables.less</code>. </p>
+                <br>
+                <h4>less/variables.less</h4>
+                <p>This is the variables file. From here you can set various variables to easily change the colors or other template options.</p>
+                <br>
+                <h4>less/nifty.less</h4>
+                <p>This is the only Less file that needs to be included in the template since it imports all required files. Here you can import a separate color theme file from <code>less/themes/</code> folder, to overwrite the default color variables and change the active color theme. </p>
+                <br>
+                <h4>less/themes/themes.less</h4>
+                <p>This is the themes file. It contains classes that can be used to alter the color, the background color or the border color of an element individually. It contains main colors of all the available themes. </p>
+                <br>
+                <hr>
+                <h3>Recompile LESS</h3>
+                <p>First of all you should be aware of the structure from the LESS-file.</p>
+                <p>So you will see that whenever you change a file in <code>less</code> you must only recompile <code>less/nifty.less</code> because it imports all other files. Same with <code>less/variables.less</code>. Save the compiled less as <code>css/nifty.css</code>.</p>
+                <p><span class="text-semibold">Remember : </span> If you make changes directly in the CSS and/ or LESS-files from Nifty, it will be hard to update if I release an update. So I would recommend to create a new CSS/ LESS-file for this purpose.</p>
+                <hr>
+                <h3>Color Themes</h3>
+                <p>You must only recompile <code>less/themes/themes-*/*.less</code>. To create your own, simply copy-paste one of the existing, give it a new name and alter the colors to match your preference.</p>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="docs-section">
+                <h1 id="template" class="docs-spy">Template</h1>
+                <hr>
+                <p>
+                    All template files have a fixed structure consisting of
+                    <code>navbar</code>, <code>mainnav</code> and <code>content</code>,
+                    while for <code>aside</code> and <code>footer</code> is just extra if you need it.
+                </p>
+
+
+                <div class="img-holder mar-btm">
+                    <img src="images/template.jpg" alt="images">
+                </div>
+            </div>
+
+            <div class="docs-section">
+                <h1 id="docs-anim" class="docs-spy">Animation</h1>
+                <hr>
+                <p>There are several animations in Nifty admin template.<br>
+Simply add class name <code>effect</code> in the <code>#container</code>, if necessary combined with transition function names.</p><br>
+
+                <p>If you want to disable animations in navigation and sidebar , simply by removing the class <code>.effect</code> and the transition function names on the <code>#container</code>.</p>
+                <br>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 250px;">Transition function name</th>
+                            <th>Class name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ease</td>
+                            <td><code>.effect</code></td>
+                        </tr>
+                        <tr>
+                            <td>easeInQuart</td>
+                            <td><code>.easeInQuart</code></td>
+                        </tr>
+                        <tr>
+                            <td>easeOutQuart</td>
+                            <td><code>.easeOutQuart</code></td>
+                        </tr>
+                        <tr>
+                            <td>easeInBack</td>
+                            <td><code>.easeInBack</code></td>
+                        </tr>
+                        <tr>
+                            <td>easeOutBack</td>
+                            <td><code>.easeOutBack</code></td>
+                        </tr>
+                        <tr>
+                            <td>easeInOutBack</td>
+                            <td><code>.easeInOutBack</code></td>
+                        </tr>
+                        <tr>
+                            <td>steps</td>
+                            <td><code>.steps</code></td>
+                        </tr>
+                        <tr>
+                            <td>jumping</td>
+                            <td><code>.jumping</code></td>
+                        </tr>
+                        <tr>
+                            <td>rubber</td>
+                            <td><code>.rubber</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-warning">
+                    <p class="alert-message">Because there are many mobile devices with low hardware. We do not activate some features animations on mobile devices.</p>
+                </div>
+                <div class="alert alert-info media fade in">
+                    <p class="alert-message">Please have a look at the <a href="http://daneden.github.io/animate.css/" target="_blank" class="alert-link">Animate.css</a>, for animation on bootbox modal etc..</p>
+                </div>
+            </div>
+
+
+            <div class="docs-section">
+                <h1 id="content-navbar" class="docs-spy">Navbar</h1>
+                <hr>
+                <p>There are 2 options <code>static</code> and <code>fixed</code> for navbar.</p>
+                <p>The default is static position, add class <code>.navbar-fixed</code> to the <code>#container</code> to make it fixed to top.</p>
+
+<pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="navbar-fixed">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+            </div>
+
+
+
+
+            <div class="docs-section">
+                <h1 id="nav-colex" class="docs-spy">Navigation</h1>
+                <hr>
+                <h3 id="">Collapsing/Expanding Navigation</h3>
+                <p>For small screen sizes, the navigation will only be visible if activated by the top right menu icon. This is especially handy for distraction-free mobile reading. </p>
+                <p>To start page with expanded navigation you need to add the class <code>.mainnav-lg</code> to <code>#container</code>, or class <code>.mainnav-sm</code> to collapsed the navigation by default.</p>
+                <br>
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="mainnav-lg">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+<br>
+                <h5>Via JavaScript</h5>
+                <pre class="prettyprint">$.niftyNav('collapse');
+
+$.niftyNav('expand');</pre>
+                <br>
+
+                <h5>Toggle Collapsing/Expanding</h5>
+                <pre class="prettyprint">$.niftyNav('colExpToggle');</pre>
+            </div>
+
+
+
+
+
+
+            <div class="docs-section">
+                <h3 id="nav-offcanvas" class="docs-spy">Off Canvas Navigation</h3>
+                <hr>
+                <p>The navigation that responsively goes off canvas, similar to an app style menu also can be revealed in many creative ways.</p>
+
+                <h4>1. Push</h4>
+                <p>Use class <code>.mainnav-in</code> to show the navigation or <code>.mainnav-out</code> to hide the navigation by default.</p>
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="mainnav-in">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+<br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyNav('pushToggle');
+
+$.niftyNav('pushIn');
+
+$.niftyNav('pushOut');
+</pre>
+                <hr class="divider">
+
+
+                <h4>2. Slide in on top</h4>
+                <p>Use class <code>.mainnav-in</code> to show the navigation or <code>.mainnav-out</code> to hide the navigation by default.</p>
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="slide mainnav-in">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+<br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyNav('slideToggle');
+
+$.niftyNav('slideIn');
+
+$.niftyNav('slideOut');
+</pre>
+
+                <hr class="divider">
+
+
+
+                <h4>3. Reveal</h4>
+                <p>Use class <code>.mainnav-in</code> to show the navigation or <code>.mainnav-out</code> to hide the navigation by default.</p>
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="reveal mainnav-in">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+<br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyNav('revealToggle');
+
+$.niftyNav('revealIn');
+
+$.niftyNav('revealOut');
+</pre>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="docs-section">
+                <h3 id="nav-fixed" class="docs-spy">Fixed Position</h3>
+                <hr>
+                <p>
+                    <span class="label label-info">Static</span> As you scroll down the site, so does the main menu
+                </p>
+                <p>
+                    <span class="label label-success">Fixed</span> As you scroll down the site, the main menu stays fixed in place,
+                    so that it's always displaying, no matter where you are on the page.
+                </p>
+
+                <p>Add class <code>.mainnav-fixed</code> to <code>#container</code> to make the navigation in fixed position by default.</p>
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="mainnav-fixed">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+<br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyNav('fixedPosition');
+
+$.niftyNav('staticPosition');
+
+$.niftyNav('togglePosition');
+</pre>
+            </div>
+
+
+
+
+
+
+            <div class="docs-section">
+                <h3 id="nav-short" class="docs-spy">Shortcuts</h3>
+                <hr>
+                <h4>Add more buttons</h4>
+                <p>Add more buttons on the navigation, it supports up to six buttons.</p>
+                <div class="pad-ver"><img src="images/short-2.jpg" alt="image"></div>
+
+
+                <h5>HTML</h5>
+<pre class="prettyprint">
+&lt;div id="mainnav-shortcut">
+    &lt;ul class="list-unstyled">
+
+        &lt;!-- Shortcut buttton-->
+        &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        &lt;li class="col-xs-3" data-content="Button 1">
+            &lt;a class="shortcut-grid" href="#" >
+                &lt;i class="fa fa-music">&lt;/i>
+            &lt;/a>
+        &lt;/li>
+
+
+        &lt;!-- Shortcut buttton-->
+        &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        &lt;li class="col-xs-3" data-content="Button 2">
+            &lt;a href="#" class="shortcut-grid">
+                &lt;i class="fa fa-star">&lt;/i>
+            &lt;/a>
+        &lt;/li>
+
+
+        &lt;!-- Shortcut buttton-->
+        &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        &lt;li class="col-xs-3" data-content="Button 3">
+            &lt;a href="#" class="shortcut-grid">
+                &lt;i class="fa fa-video-camera">&lt;/i>
+            &lt;/a>
+        &lt;/li>
+
+
+        &lt;!-- Shortcut buttton-->
+        &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        &lt;li class="col-xs-3" data-content="Button 4">
+            &lt;a href="#" class="shortcut-grid">
+                &lt;i class="fa fa-user">&lt;/i>
+            &lt;/a>
+        &lt;/li>
+
+    &lt;/ul>
+&lt;/div>
+</pre>
+
+                <br>
+                <hr>
+
+                <br>
+
+                <h4>Use DIV Tag</h4>
+                <p>Use div tags instead of an anchor.</p>
+                <div class="pad-ver"><img src="images/short-3.jpg" alt="image"></div>
+
+                <h5>HTML</h5>
+
+<pre class="prettyprint">
+&lt;div id="mainnav-shortcut">
+    &lt;ul class="list-unstyled">
+
+        &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        &lt;li class="col-xs-4" data-content="Music files">
+            &lt;div class="shortcut-grid">
+                &lt;i class="hide-sm fa fa-music">&lt;/i>
+                &lt;span class="text-lg">32&lt;/span>
+            &lt;/div>
+        &lt;/li>
+
+
+        &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        &lt;li class="col-xs-4" data-content="25,343 Files">
+            &lt;div class="shortcut-grid">
+                &lt;i class="fa fa-video-camera">&lt;/i>
+            &lt;/div>
+        &lt;/li>
+
+        &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        &lt;li class="col-xs-4" data-content="Favorites">
+            &lt;div class="shortcut-grid">
+                &lt;i class="hide-sm fa fa-star">&lt;/i>
+                &lt;span class="text-lg">255K&lt;/span>
+            &lt;/div>
+        &lt;/li>
+
+    &lt;/ul>
+&lt;/div>
+</pre>
+
+
+
+            </div>
+
+
+
+
+            <div class="docs-section">
+                <h3 id="nav-widget" class="docs-spy">Widgets</h3>
+                <hr>
+                <p>You can put a small widget to the navigation.</p>
+                <br>
+
+                <h5>HTML</h5>
+<pre class="prettyprint">
+&lt;div class="mainnav-widget">
+    &lt;div class="show-small">
+        &lt;!-- Show the button/icon on collapsed navigation -->
+    &lt;/div>
+
+    &lt;div class="hide-small mainnav-widget-content">
+        &lt;!-- Widget content here -->
+    &lt;/div>
+&lt;/div>
+</pre>
+            </div>
+
+
+
+            <div class="docs-section">
+                <h1 id="docs-aside-visibility" class="docs-spy">Aside</h1>
+                <hr>
+                <h3>Visibility</h3>
+                <p>The visibility function let you show or hide the aside.</p>
+                <br>
+
+                <h5>HTML</h5>
+<pre class="prettyprint">&lt;body>
+    &lt;div id="container" class="aside-in">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+                <br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyAside('show');
+
+$.niftyAside('hide');
+
+$.niftyAside('toggleHideShow');
+</pre>
+                <hr class="divider">
+                <h3 id="docs-aside-aligned" class="docs-spy">Aligned</h3>
+                <hr>
+                <p>Add class <code>.aside-left</code> to <code>#container</code> to show the aside on the left side.</p>
+                <br>
+
+                <h5>HTML</h5>
+<pre class="prettyprint">&lt;body>
+    &lt;div id="container" class="aside-left">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre><br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyAside('alignLeft');
+
+$.niftyAside('alignRight');
+
+$.niftyAside('toggleAlign');
+</pre>
+
+                <hr class="divider">
+                <h3 id="docs-aside-fixed" class="docs-spy">Fixed Position</h3>
+                <hr>
+                <p>Add class <code>.aside-fixed</code> to <code>#container</code> for fixed position by default.</p>
+                <br>
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="aside-fixed">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+<br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyAside('fixedPosition');
+
+$.niftyAside('staticPosition');
+
+$.niftyAside('togglePosition');
+</pre>
+                <hr class="divider">
+                <h3 id="docs-aside-themes" class="docs-spy">Themes</h3>
+                <hr>
+                <p>Add class <code>.aside-bright</code> to <code>#container</code> to use the bright theme.</p>
+                <br>
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="aside-bright">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+<br>
+                <h5>Via JavaScript</h5>
+<pre class="prettyprint">
+$.niftyAside('brightTheme');
+
+$.niftyAside('darkTheme');
+
+$.niftyAside('toggleTheme');
+</pre>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="docs-section">
+                <h1 id="docs-footer" class="docs-spy">Footer</h1>
+                <hr>
+                <p>There are 2 options <code>static</code> and <code>fixed</code></p>
+                <p>The default is static position, add the class name <code>.footer-fixed</code> to <code>#container</code> to make it fixed.</p>
+                <br>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;body>
+    &lt;div id="container" class="footer-fixed">
+    ...
+    ...
+    &lt;/div>
+&lt;/body>
+</pre>
+            </div>
+
+
+            <div class="docs-section">
+                <h1 id="docs-ui-btn" class="docs-spy">UI Elements</h1>
+                <hr>
+                <h2>Buttons</h2>
+                <h3>General</h3>
+                <div class="alert alert-info media fade in">
+                    <p class="alert-message">Please have a look at the <a class="alert-link" target="_blank" href="http://getbootstrap.com/css/#buttons">Bootstrap 3 documentation section "Buttons"</a>.</p>
+                </div>
+
+                <br>
+                <h3>Extended</h3>
+                <hr>
+                <h4>Colored</h4>
+                <br>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <button class="btn btn-mint">Mint</button>
+                    <button class="btn btn-pink">Pink</button>
+                    <button class="btn btn-purple">Purple</button>
+                    <button class="btn btn-dark">Dark</button>
+                </div>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;button class="btn btn-mint">Mint&lt;/button>
+
+&lt;button class="btn btn-pink">Pink&lt;/button>
+
+&lt;button class="btn btn-purple">Purple&lt;/button>
+
+&lt;button class="btn btn-dark">Dark&lt;/button>
+</pre>
+
+
+                <hr class="divider">
+                <h4>Rounded</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <button class="btn btn-mint btn-rounded">Mint</button>
+                    <button class="btn btn-pink btn-rounded">Pink</button>
+                    <button class="btn btn-purple btn-rounded">Purple</button>
+                    <button class="btn btn-dark btn-rounded">Dark</button>
+                </div>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;button class="btn btn-mint btn-rounded">Mint&lt;/button>
+
+&lt;button class="btn btn-pink btn-rounded">Pink&lt;/button>
+
+&lt;button class="btn btn-purple btn-rounded">Purple&lt;/button>
+
+&lt;button class="btn btn-dark btn-rounded">Dark&lt;/button>
+</pre>
+
+
+
+
+
+                <hr class="divider">
+                <h4>Labeled</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <button class="btn btn-primary btn-labeled icon-lg fa fa-shopping-cart">Primary</button>
+                    <button class="btn btn-danger btn-labeled btn-rounded icon-lg fa fa-times">Danger</button>
+                </div>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;button class="btn btn-primary btn-labeled icon-lg fa fa-shopping-cart">Primary&lt;/button>
+
+&lt;button class="btn btn-danger btn-labeled btn-rounded icon-lg fa fa-times">Danger&lt;/button>
+</pre>
+
+
+
+
+
+                <hr class="divider">
+                <h4>Icon buttons</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <button class="btn btn-success btn-icon icon-lg fa fa-star"></button>
+                    <button class="btn btn-primary btn-icon btn-circle icon-lg fa fa-shopping-cart"></button>
+                </div>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;button class="btn btn-success btn-icon icon-lg fa fa-star">&lt;/button>
+
+&lt;button class="btn btn-primary btn-icon btn-circle icon-lg fa fa-shopping-cart">&lt;/button>
+</pre>
+
+
+
+
+
+
+                <hr class="divider">
+                <h4>Hover buttons</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <button class="btn btn-default btn-hover-purple">Purple</button>
+                    <button class="btn btn-default btn-hover-info btn-rounded">Info</button>
+                </div>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;button class="btn btn-default btn-hover-purple">Purple&lt;/button>
+
+&lt;button class="btn btn-default btn-hover-info btn-rounded">Info&lt;/button>
+</pre>
+
+
+
+                <hr class="divider">
+                <h4>Pressed Buttons</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <button class="btn btn-default btn-active-success">Success</button>
+                    <button class="btn btn-default btn-active-pink btn-rounded">Pink</button>
+                </div>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;button class="btn btn-default btn-active-success">Success&lt;/button>
+
+&lt;button class="btn btn-default btn-active-pink btn-rounded">Pink&lt;/button>
+</pre>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="docs-section">
+                <h1 id="docs-scroll-top" class="docs-spy">Exclusive Plugin</h1>
+                <h2 >Nifty Scroll to top</h2>
+                <hr>
+                <p>Create a new button with id <code>#scroll-top</code></p>
+                <br>
+                <h5>Example</h5>
+<button id="scroll-top" class="btn in" style="position: static">
+    <i class="fa fa-chevron-up"></i>
+</button>
+
+                <hr>
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">&lt;button id="scroll-top" class="btn">
+    &lt;i class="fa fa-chevron-up">&lt;/i>
+&lt;/button></pre>
+            </div>
+
+
+
+
+            <div class="docs-section">
+                <h2 id="docs-panel-removal" class="docs-spy">Nifty Panel Removal</h2>
+                <hr>
+                <p>Add <code>data-dismiss="panel"</code> to your close button to automatically give a panel close functionality.</p>
+                <br>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="panel panel-dark panel-colorful">
+                            <!-- Panel heading -->
+                            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                            <div class="panel-heading">
+                                <div class="panel-control">
+                                    <button data-dismiss="panel" class="btn btn-default">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <h3 class="panel-title">Panel Title</h3>
+                            </div>
+
+                            <!-- Panel body -->
+                            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                            <div class="panel-body">
+                                <h4>Panel body</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-primary panel-bordered">
+                            <!-- Panel heading -->
+                            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                            <div class="panel-heading">
+                                <div class="panel-control">
+                                    <button data-dismiss="panel" class="btn btn-default">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <h3 class="panel-title">Panel Title</h3>
+                            </div>
+
+                            <!-- Panel body -->
+                            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                            <div class="panel-body">
+                                <h4>Panel body</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-purple panel-colorful">
+                            <!-- Panel heading -->
+                            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                            <div class="panel-heading">
+                                <div class="panel-control">
+                                    <button data-dismiss="panel" class="btn btn-default">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                                <h3 class="panel-title">Panel Title</h3>
+                            </div>
+
+                            <!-- Panel body -->
+                            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                            <div class="panel-body">
+                                <h4>Panel body</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">
+&lt;div class="panel panel-default">
+
+    &lt;!-- Panel heading -->
+    &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    &lt;div class="panel-heading">
+        &lt;div class="panel-control">
+
+            &lt;!-- Close button -->
+            &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            &lt;button data-dismiss="panel" class="btn btn-default">
+                &lt;i class="fa fa-times">&lt;/i>
+            &lt;/button>
+
+
+        &lt;/div>
+        &lt;h3 class="panel-title">Panel Title&lt;/h3>
+    &lt;/div>
+
+
+    &lt;!-- Panel body -->
+    &lt;!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    &lt;div class="panel-body">
+        &lt;!-- Content here -->
+    &lt;/div>
+&lt;/div>
+</pre>
+            </div>
+
+
+
+
+            <div id="demo-sec-overlay" class="docs-section">
+                <h2 id="docs-overlay" class="docs-spy">Nifty Overlay</h2>
+                <hr>
+                <p>Create a button with <code>data-target="#yourTargetID"</code> and initialize via javascript.</p>
+                <br>
+                <h5>Example</h5>
+                <div id="demo-panel-overlay" class="panel panel-success panel-bordered">
+
+                    <!-- Panel heading -->
+                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <div class="panel-heading">
+                        <div class="panel-control">
+
+                            <button id="demo-panel-overlay-btn" data-target="#demo-panel-overlay" class="demo-overlay-btn btn btn-default">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+
+                        </div>
+                        <h3 class="panel-title">Show in this panel</h3>
+                    </div>
+
+                    <!-- Panel body -->
+                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <div class="collapse in">
+                        <div class="panel-body">
+                        <h4>Panel body</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <button data-target="#demo-sec-overlay" class="demo-overlay-btn btn btn-lg btn-warning btn-labeled fa fa-refresh" autocomplete="off">
+                    Show in this section
+                </button>
+
+                <hr>
+                <h5>HTML</h5>
+<pre class="prettyprint linenums">
+&lt;button id="myButton" data-target="#targetID" class="btn" autocomplete="off">
+    Button Title
+&lt;/button></pre>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myButton').niftyOverlay().on('click', function(){
+
+    $(this).niftyOverlay('show');
+
+    //Do something....
+
+    if("success"){
+        $(this).niftyOverlay('hide');
+    }
+
+});
+</pre>
+            </div>
+            <div class="docs-section">
+                <h4>With Title and description</h4>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div id="demo-overlay-title" class="panel pad-all">
+                            <h4>Content Title</h4>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                            <div class="mar-top">
+                                <button id="demo-overlay-btn-2" data-target="#demo-overlay-title" class="btn btn-mint btn-labeled fa fa-refresh" autocomplete="off">
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div id="demo-overlay-desc" class="panel pad-all">
+                            <h4>Content Title</h4>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                            <div class="mar-top">
+                                <button id="demo-overlay-btn-3" data-target="#demo-overlay-desc" class="btn btn-pink btn-labeled fa fa-refresh" autocomplete="off">
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myButton').niftyOverlay({
+    title: 'Loading...'
+});
+
+
+$('#myButton').niftyOverlay({
+    title: 'Loading...',
+    desc: 'Please wait while the content is load.'
+});
+</pre>
+
+            </div>
+
+
+
+
+            <div class="docs-section">
+                <h4>Icon Color</h4>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div id="demo-overlay-ico-color" class="panel pad-all">
+                            <h4>Content Title</h4>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                            <div class="mar-top">
+                                <button id="demo-overlay-btn-4" data-target="#demo-overlay-ico-color" class="btn btn-mint btn-labeled fa fa-refresh" autocomplete="off">
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div id="demo-overlay-ico-color-2" class="panel pad-all">
+                            <h4>Content Title</h4>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                            <div class="mar-top">
+                                <button id="demo-overlay-btn-5" data-target="#demo-overlay-ico-color-2" class="btn btn-pink btn-labeled fa fa-refresh" autocomplete="off">
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myButton').niftyOverlay({
+    iconColor: 'text-danger'
+});
+
+
+$('#myButton').niftyOverlay({
+    iconColor: 'text-purple'
+});
+</pre>
+
+            </div>
+
+
+
+            <div class="docs-section">
+                <h4>Icon Class</h4>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div id="demo-overlay-ico-class" class="panel pad-all">
+                            <h4>Content Title</h4>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                            <div class="mar-top">
+                                <button id="demo-overlay-btn-6" data-target="#demo-overlay-ico-class" class="btn btn-mint btn-labeled fa fa-refresh" autocomplete="off">
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div id="demo-overlay-ico-class-2" class="panel pad-all">
+                            <h4>Content Title</h4>
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                            <div class="mar-top">
+                                <button id="demo-overlay-btn-7" data-target="#demo-overlay-ico-class-2" class="btn btn-pink btn-labeled fa fa-refresh" autocomplete="off">
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myButton').niftyOverlay({
+    iconClass: 'fa fa-paint-brush fa-3x animated infinite wobble'
+});
+
+
+$('#myButton').niftyOverlay({
+    iconClass: 'fa fa-heart fa-3x animated infinite rubberBand'
+});
+</pre>
+
+            </div>
+
+
+
+            <div class="docs-section">
+                <h2 id="docs-noty" class="docs-spy">Nifty Notification</h2>
+                <hr>
+                <h4>Options</h4>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 150px;">Name</th>
+                            <th style="width: 150px;">Type</th>
+                            <th style="width: 150px;">Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>type</td>
+                            <td>string</td>
+                            <td>primary</td>
+                            <td>The type of notification. Example <code>primary</code> <code>info</code> <code>success</code> <code>warning</code> <code>danger</code> <code>mint</code> <code>purple</code> <code>pink</code> <code>dark</code></td>
+                        </tr>
+                        <tr>
+                            <td>icon</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Icon class names</td>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>The title of notification</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>The message of notification</td>
+                        </tr>
+                        <tr>
+                            <td>closeBtn</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Show or hide the close button.</td>
+                        </tr>
+                        <tr>
+                            <td>container</td>
+                            <td>string</td>
+                            <td>page</td>
+                            <td>This option is particularly useful in that it allows you to position the notification. <br> Example : <code>page</code> <code>floating</code> <code>"specified target name"</code></td>
+                        </tr>
+                        <tr>
+                            <td>floating: { <br> position <br> } </td>
+                            <td>string</td>
+                            <td>top-right</td>
+                            <td>Floating position.<br> Currently only supports "top-right". We will make further development for the next version.</td>
+                        </tr>
+                        <tr>
+                            <td>floating: { <br> animationIn <br> } </td>
+                            <td>string</td>
+                            <td>bounceInDown</td>
+                            <td>Apply a CSS animation to the notification</td>
+                        </tr>
+                        <tr>
+                            <td>floating: { <br> animationOut <br> } </td>
+                            <td>string</td>
+                            <td>bounceOutUp</td>
+                            <td>Apply a CSS animation to the notification</td>
+                        </tr>
+                        <tr>
+                            <td>html</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Insert HTML into the notification.  If false, jQuery's text method will be used to insert content into the DOM.</td>
+                        </tr>
+                        <tr>
+                            <td>focus</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Scroll to the notification.</td>
+                        </tr>
+                        <tr>
+                            <td>timer</td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>To enable the "auto close" notofication, please specify the time to show the notification before it closed.<br>Value is in milliseconds. (0 to disable the autoclose.)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <div class="docs-section">
+                <h4>Floating</h4>
+                <h5>Example</h5>
+
+                <button id="demo-noty-floating" class="btn btn-primary">Floating</button>
+                <hr>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$.niftyNoty({
+    type: "success",
+    container : "floating",
+    title : "You have've got 30 Messages",
+    message : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+    closeBtn : false,
+    timer : 5000
+});
+</pre>
+
+            </div>
+
+
+            <div class="docs-section">
+                <h4>Page Alert</h4>
+                <h5>Example</h5>
+                <button id="demo-noty-page" class="btn btn-danger">Page Alert</button>
+                <hr>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$.niftyNoty({
+    type: 'danger',
+    icon : 'fa fa-bolt fa-2x',
+    container : 'page',
+    title : 'Server Load Limited',
+    message : 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+});
+</pre>
+
+            </div>
+
+
+
+            <div class="docs-section">
+                <h4>Penel Alert</h4>
+                <h5>Example</h5>
+                <div id="demo-panel-alert" class="panel">
+
+                    <!-- Panel heading -->
+                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel Title</h3>
+                    </div>
+
+                    <!-- Panel body -->
+                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                    <div class="collapse in">
+                        <div class="panel-body">
+                        <h4>Panel body</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="demo-noty-panel" class="btn btn-primary">Add Alert</button>
+                <hr>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$.niftyNoty({
+    type: 'info',
+    container : '#targetID',
+    html : '&lt;h4 class="alert-title">Oh snap! You got an error!&lt;/h4>&lt;p class="alert-message">Change this and that and try again. Duis mollis, est non commodo luctus.&lt;/p>&lt;div class="mar-top">&lt;button type="button" class="btn btn-info" data-dismiss="noty">Close this notification&lt;/button>&lt;/div>',
+    closeBtn : false
+});
+</pre>
+
+            </div>
+            <div class="docs-section">
+                <h4>Events</h4>
+                <hr>
+                <p>Nifty's Notification class exposes a few events for hooking into alert functionality.</p>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 250px;">Event Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>onShow</td>
+                            <td>This event fires immediately when the show instance method is called.</td>
+                        </tr>
+                        <tr>
+                            <td>onShown</td>
+                            <td>This event is fired when the modal has been made visible to the user (will wait for CSS transitions to complete).</td>
+                        </tr>
+                        <tr>
+                            <td>onHide</td>
+                            <td>This event is fired immediately when the hide instance method has been called.</td>
+                        </tr>
+                        <tr>
+                            <td>onHidden</td>
+                            <td>This event is fired when the notification has finished being hidden from the user (will wait for CSS transitions to complete).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <h5>Example</h5>
+
+                <button id="demo-noty-onshow" class="btn btn-purple">onShow</button>
+                <button id="demo-noty-onshown" class="btn btn-danger">onShown</button>
+                <button id="demo-noty-onhide" class="btn btn-warning">onHide</button>
+                <button id="demo-noty-onhidden" class="btn btn-info">onHidden</button>
+                <hr>
+<h5>Javascript</h5>
+<pre class="prettyprint linenums">
+// onShow
+$.niftyNoty({
+    type: 'purple',
+    container : 'floating',
+    title : 'onShow Callback',
+    message : 'This event fires immediately when the show instance method is called.',
+    closeBtn : false,
+    timer : 2000,
+    onShow:function(){
+        alert("onShow Callback");
+    }
+});
+
+
+
+// onShown
+$.niftyNoty({
+    type: 'danger',
+    container : 'floating',
+    title : 'onShown Callback',
+    message : 'This event is fired when the modal has been made visible to the user (will wait for CSS transitions to complete).',
+    closeBtn : false,
+    timer : 2000,
+    onShown:function(){
+        alert("onShown Callback");
+    }
+});
+
+
+
+// onHide
+$.niftyNoty({
+    type: 'warning',
+    container : 'floating',
+    title : 'onHide Callback',
+    message : 'This event is fired immediately when the hide instance method has been called.',
+    closeBtn : false,
+    timer : 2000,
+    onHide:function(){
+        alert("onHide Callback");
+    }
+});
+
+
+
+// onHidden
+$.niftyNoty({
+    type: 'info',
+    container : 'floating',
+    title : 'onHidden Callback',
+    message : 'This event is fired when the notification has finished being hidden from the user (will wait for CSS transitions to complete).',
+    closeBtn : false,
+    timer : 2000,
+    onHidden:function(){
+        alert("onHidden Callback");
+    }
+});
+</pre>
+            </div>
+
+
+
+            <div class="docs-section">
+                <h2 id="docs-check" class="docs-spy">Nifty Check</h2>
+                <hr>
+                <h3>Checkboxes</h3>
+                <br>
+                <h5>Example</h5>
+                <div class="pad-ver">
+
+                    <label class="form-checkbox form-normal active">
+                    <input type="checkbox" checked> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-checkbox form-normal">
+                    <input type="checkbox"> Option 2
+                    </label>
+
+                    <label class="form-checkbox form-normal">
+                    <input type="checkbox"> Option 3
+                    </label>
+
+                </div>
+                <hr>
+                <div class="pad-ver">
+
+                    <label class="form-checkbox form-icon active">
+                    <input type="checkbox" checked> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-checkbox form-icon">
+                    <input type="checkbox"> Option 2
+                    </label>
+
+                    <label class="form-checkbox form-icon">
+                    <input type="checkbox"> Option 3
+                    </label>
+
+                </div>
+                <hr>
+                <div class="pad-ver">
+
+                    <label class="form-checkbox form-icon btn btn-success">
+                    <input type="checkbox" checked> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-checkbox form-icon btn btn-warning">
+                    <input type="checkbox"> Option 2
+                    </label>
+
+                    <label class="form-checkbox form-icon btn btn-danger">
+                    <input type="checkbox"> Option 3
+                    </label>
+
+                </div>
+                <hr>
+                <div class="pad-ver">
+
+                    <label class="form-checkbox form-icon btn btn-mint btn-labeled active">
+                    <input type="checkbox" checked> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-checkbox form-icon btn btn-info btn-labeled">
+                    <input type="checkbox"> Option 2
+                    </label>
+
+                    <label class="form-checkbox form-icon btn btn-dark btn-labeled">
+                    <input type="checkbox"> Option 3
+                    </label>
+
+                </div>
+
+                <h5>HTML</h5>
+                <div id="docs-check-cb-html" class="collapse">
+<pre class="prettyprint linenums">&lt;!-- DEFAULT CHECKBOXES -->
+&lt;!--===================================================-->
+
+&lt;label class="form-checkbox form-normal active">
+    &lt;input type="checkbox" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-checkbox form-normal">
+    &lt;input type="checkbox"> Option 2
+&lt;/label>
+
+&lt;label class="form-checkbox form-normal">
+    &lt;input type="checkbox"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+
+
+
+
+&lt;!-- CHECKBOXES USING THE FONT AWESOME ICON -->
+&lt;!--===================================================-->
+
+&lt;label class="form-checkbox form-icon active">
+    &lt;input type="checkbox" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 2
+&lt;/label>
+
+&lt;label class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+
+
+
+
+&lt;!-- CHECKBOXES LABELED -->
+&lt;!--===================================================-->
+
+&lt;label class="form-checkbox form-icon btn btn-success">
+    &lt;input type="checkbox" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-checkbox form-icon btn btn-warning">
+    &lt;input type="checkbox"> Option 2
+&lt;/label>
+
+&lt;label class="form-checkbox form-icon btn btn-danger">
+    &lt;input type="checkbox"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+
+
+
+
+
+&lt;!-- CHECKBOXES LABELED WITH A DARK BACKGROUND -->
+&lt;!--===================================================-->
+
+&lt;label class="form-checkbox form-icon btn btn-mint btn-labeled active">
+    &lt;input type="checkbox" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-checkbox form-icon btn btn-info btn-labeled">
+    &lt;input type="checkbox"> Option 2
+&lt;/label>
+
+&lt;label class="form-checkbox form-icon btn btn-dark btn-labeled">
+    &lt;input type="checkbox"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+</pre>
+
+            </div>
+            <button data-toggle="collapse" data-target="#docs-check-cb-html" class="btn btn-default">HTML Code</button>
+            </div>
+
+            <div class="docs-section">
+                <h3>Radio Buttons</h3>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+
+                    <label class="form-radio form-normal active">
+                    <input type="radio" checked name="def-w-label"> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-radio form-normal">
+                    <input type="radio" name="def-w-label"> Option 2
+                    </label>
+
+                    <label class="form-radio form-normal">
+                    <input type="radio" name="def-w-label"> Option 3
+                    </label>
+
+
+                </div>
+                <hr>
+                <div class="pad-ver">
+
+                    <label class="form-radio form-icon active">
+                    <input type="radio" checked name="ico-w-label"> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-radio form-icon">
+                    <input type="radio" name="ico-w-label"> Option 2
+                    </label>
+
+                    <label class="form-radio form-icon">
+                    <input type="radio" name="ico-w-label"> Option 3
+                    </label>
+
+
+                </div>
+                <hr>
+                <div class="pad-ver">
+
+                    <label class="form-radio form-icon btn btn-success active">
+                    <input type="radio" checked name="btn-w-label"> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-radio form-icon btn btn-warning">
+                    <input type="radio" name="btn-w-label"> Option 2
+                    </label>
+
+                    <label class="form-radio form-icon btn btn-danger">
+                    <input type="radio" name="btn-w-label"> Option 3
+                    </label>
+
+                </div>
+                <hr>
+                <div class="pad-ver">
+
+
+                    <label class="form-radio form-icon btn btn-mint btn-labeled active">
+                    <input type="radio" checked name="btn-ex-label-2"> Option 1 (pre-checked)
+                    </label>
+
+                    <label class="form-radio form-icon btn btn-info btn-labeled">
+                    <input type="radio" name="btn-ex-label-2"> Option 2
+                    </label>
+
+                    <label class="form-radio form-icon btn btn-dark btn-labeled">
+                    <input type="radio" name="btn-ex-label-2"> Option 3
+                    </label>
+
+
+
+                </div>
+
+                <h5>HTML</h5>
+                <div id="docs-check-rd-html" class="collapse">
+<pre class="prettyprint linenums">&lt;!-- DEFAULT RADIO BUTTONS -->
+&lt;!--===================================================-->
+
+&lt;label class="form-radio form-normal active">
+    &lt;input type="radio" name="def-w-label" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-radio form-normal">
+    &lt;input type="radio" name="def-w-label"> Option 2
+&lt;/label>
+
+&lt;label class="form-radio form-normal">
+    &lt;input type="radio" name="def-w-label"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+
+
+
+
+&lt;!-- RADIO BUTTONS WITH ICON -->
+&lt;!--===================================================-->
+
+&lt;label class="form-radio form-icon active">
+    &lt;input type="radio" name="ico-w-label" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-radio form-icon">
+    &lt;input type="radio" name="ico-w-label"> Option 2
+&lt;/label>
+
+&lt;label class="form-radio form-icon">
+    &lt;input type="radio" name="ico-w-label"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+
+
+
+
+&lt;!-- RADIO BUTTONS LABELED -->
+&lt;!--===================================================-->
+
+&lt;label class="form-radio form-icon btn btn-success active">
+    &lt;input type="radio" name="btn-w-label" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-radio form-icon btn btn-warning">
+    &lt;input type="radio" name="btn-w-label"> Option 2
+&lt;/label>
+
+&lt;label class="form-radio form-icon btn btn-danger">
+    &lt;input type="radio" name="btn-w-label"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+
+
+
+
+
+&lt;!-- RADIO BUTTONS LABELED WITH A DARK BACKGROUND  -->
+&lt;!--===================================================-->
+
+&lt;label class="form-radio form-icon btn btn-mint btn-labeled active">
+    &lt;input type="radio" name="btn-ex-label-2" checked> Option 1 (pre-checked)
+&lt;/label>
+
+&lt;label class="form-radio form-icon btn btn-info btn-labeled">
+    &lt;input type="radio" name="btn-ex-label-2"> Option 2
+&lt;/label>
+
+&lt;label class="form-radio form-icon btn btn-dark btn-labeled">
+    &lt;input type="radio" name="btn-ex-label-2"> Option 3
+&lt;/label>
+
+&lt;!--===================================================-->
+
+</pre>
+
+
+
+
+                </div>
+                <button data-toggle="collapse" data-target="#docs-check-rd-html" class="btn btn-default">HTML Code</button>
+            </div>
+
+
+
+            <div class="docs-section">
+                <h3>Methods</h3>
+                <h4>Get State</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="pad-ver">
+                            <label id="docs-check-cb-getstate" class="form-checkbox form-icon">
+                                <input type="checkbox"> Option 1
+                            </label>
+                            <p id="docs-check-cb-getstate-txt" class="pad-top"></p>
+                        </div>
+
+                        <button id="docs-check-cb-getstate-btn" class="btn btn-success">Get state</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="pad-ver clearfix">
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd-getstate" class="form-radio form-icon">
+                                    <input type="radio" name="ischecked"> Option 1
+                                </label>
+                                <p id="docs-check-rd-getstate-txt" class="pad-top"></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd-getstate2" class="form-radio form-icon">
+                                    <input type="radio" name="ischecked"> Option 2
+                                </label>
+                                <p id="docs-check-rd-getstate2-txt" class="pad-top"></p>
+                            </div>
+                        </div>
+
+                        <button id="docs-check-rd-getstate-btn" class="btn btn-success">Get state</button>
+                    </div>
+                </div>
+                <hr>
+
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;label id="myCheckbox" class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 1
+&lt;/label>
+
+&lt;label id="myRadio" class="form-radio form-icon">
+    &lt;input type="radio" name="radioExample"> Option 1
+&lt;/label></pre>
+                <br>
+                <h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myCheckbox').niftyCheck('isChecked')
+
+$('#myRadio').niftyCheck('isChecked')
+</pre>
+            </div>
+
+
+            <div class="docs-section">
+                <h4>Toggle</h4>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="pad-ver">
+                            <label id="docs-check-toggle" class="form-checkbox form-icon">
+                                <input type="checkbox"> Option 1
+                            </label>
+                        </div>
+                        <br>
+                        <button id="docs-check-toggle-btn" class="btn btn-primary">Toggle</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <h4>Radio buttons</h4>
+                        <p>For the moment we do not support this method on radio buttons. We keep doing the development for the next version.</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;label id="myCheckbox" class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 1
+&lt;/label></pre>
+                <br>
+                <h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myCheckBox').niftyCheck('toggle')
+</pre>
+            </div>
+
+
+
+            <div class="docs-section">
+                <h4>Toggle On</h4>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="pad-ver">
+                            <label id="docs-check-toggle-on" class="form-checkbox form-icon">
+                                <input type="checkbox"> Option 1
+                            </label>
+                        </div>
+                        <br>
+                        <button id="docs-check-toggle-on-btn" class="btn btn-warning">Toggle On</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <h4>Radio buttons</h4>
+                        <p>For the moment we do not support this method on radio buttons. We keep doing the development for the next version.</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;label id="myCheckbox" class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 1
+&lt;/label></pre>
+                <br>
+                <h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myCheckBox').niftyCheck('toggleOn')
+</pre>
+            </div>
+
+            <div class="docs-section">
+                <h4>Toggle Off</h4>
+                <h5>Example</h5>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="pad-ver">
+                            <label id="docs-check-toggle-off" class="form-checkbox form-icon">
+                                <input type="checkbox"> Option 1
+                            </label>
+                        </div>
+                        <br>
+                        <button id="docs-check-toggle-off-btn" class="btn btn-purple">Toggle Off</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <h4>Radio buttons</h4>
+                        <p>For the moment we do not support this method on radio buttons. We keep doing the development for the next version.</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;label id="myCheckbox" class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 1
+&lt;/label></pre>
+                <br>
+                <h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myCheckBox').niftyCheck('toggleOff')
+</pre>
+            </div>
+
+
+            <div class="docs-section">
+                <h3>Events</h3>
+                <h4>Checked</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="row" style="height:100px">
+                    <div class="col-xs-6">
+                        <div class="pad-ver">
+                            <label id="docs-check-cb-oncheck" class="form-checkbox form-icon">
+                                <input type="checkbox"> Option 1
+                            </label>
+                            <p id="docs-check-cb-oncheck-txt" class="pad-top"></p>
+                        </div>
+
+
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="pad-ver clearfix">
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd-oncheck" class="form-radio form-icon">
+                                    <input type="radio" name="oncheck"> Option 1
+                                </label>
+                                <p id="docs-check-rd-oncheck-txt" class="pad-top"></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd2-oncheck" class="form-radio form-icon">
+                                    <input type="radio" name="oncheck"> Option 2
+                                </label>
+                                <p id="docs-check-rd2-oncheck-txt" class="pad-top"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;label id="myCheckbox" class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 1
+&lt;/label>
+
+&lt;label id="myRadio" class="form-radio form-icon">
+    &lt;input type="radio" name="radioExample"> Option 1
+&lt;/label></pre>
+                <br>
+                <h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myCheckbox').on('nifty.ch.checked', function(){
+    // do something...
+});
+
+
+$('#myRadio').on('nifty.ch.checked', function(){
+    // do something...
+});
+</pre>
+            </div>
+
+            <div class="docs-section">
+                <h4>Unchecked</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="row" style="height:100px">
+                    <div class="col-xs-6">
+                        <div class="pad-ver">
+                            <label id="docs-check-cb-onuncheck" class="form-checkbox form-icon">
+                                <input type="checkbox"> Option 1
+                            </label>
+                            <p id="docs-check-cb-onuncheck-txt" class="pad-top"></p>
+                        </div>
+
+
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="pad-ver clearfix">
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd-onuncheck" class="form-radio form-icon active">
+                                    <input type="radio" name="onuncheck" checked> Option 1
+                                </label>
+                                <p id="docs-check-rd-onuncheck-txt" class="pad-top"></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd2-onuncheck" class="form-radio form-icon">
+                                    <input type="radio" name="onuncheck"> Option 2
+                                </label>
+                                <p id="docs-check-rd2-onuncheck-txt" class="pad-top"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;label id="myCheckbox" class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 1
+&lt;/label>
+
+&lt;label id="myRadio" class="form-radio form-icon">
+    &lt;input type="radio" name="radioExample"> Option 1
+&lt;/label></pre>
+                <br>
+                <h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myCheckbox').on('nifty.ch.unchecked', function(){
+    // do something...
+});
+
+
+$('#myRadio').on('nifty.ch.unchecked', function(){
+    // do something...
+});
+</pre>
+            </div>
+
+
+
+
+
+            <div class="docs-section">
+                <h4>Changed</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="row" style="height:100px">
+                    <div class="col-xs-6">
+                        <div class="pad-ver">
+                            <label id="docs-check-cb-change" class="form-checkbox form-icon">
+                                <input type="checkbox"> Option 1
+                            </label>
+                            <p id="docs-check-cb-change-txt" class="pad-top"></p>
+                        </div>
+
+
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="pad-ver clearfix">
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd-change" class="form-radio form-icon active">
+                                    <input type="radio" name="change" checked> Option 1
+                                </label>
+                                <p id="docs-check-rd-change-txt" class="pad-top"></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <label id="docs-check-rd2-change" class="form-radio form-icon">
+                                    <input type="radio" name="change"> Option 2
+                                </label>
+                                <p id="docs-check-rd2-change-txt" class="pad-top"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+
+                <h5>HTML</h5>
+                <pre class="prettyprint linenums">&lt;label id="myCheckbox" class="form-checkbox form-icon">
+    &lt;input type="checkbox"> Option 1
+&lt;/label>
+
+&lt;label id="myRadio" class="form-radio form-icon">
+    &lt;input type="radio" name="radioExample"> Option 1
+&lt;/label></pre>
+                <br>
+                <h5>Javascript</h5>
+<pre class="prettyprint linenums">
+$('#myCheckbox').on('change', function(){
+    // do something...
+});
+
+
+$('#myRadio').on('change', function(){
+    // do something...
+});
+</pre>
+            </div>
+
+
+
+
+            <div class="docs-section">
+                <h2 id="docs-lang" class="docs-spy">Nifty Language Selector</h2>
+                <hr>
+                <h3>Usage</h3>
+                <br>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <div class="dropdown">
+
+                        <!--SELECTED-->
+                        <!--===================================================-->
+                        <a id="demo-lang-switch" class="lang-selector dropdown-toggle btn btn-default" href="#" data-toggle="dropdown">
+                            <span class="lang-selected">
+                                <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                <span class="lang-id">EN</span>
+                                <span class="lang-name">English</span>
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                        <!--ENGLISH-->
+                        <!--===================================================-->
+                        <li>
+                            <a href="#" class="active">
+                                <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                <span class="lang-id">EN</span><span class="lang-name">English</span>
+                            </a>
+                        </li>
+
+                        <!--FRANCE-->
+                        <!--===================================================-->
+                        <li>
+                            <a href="#">
+                                <img class="lang-flag" src="../template/img/flags/france.png" alt="English">
+                                <span class="lang-id">FR</span>
+                                <span class="lang-name">Fran&ccedil;ais</span>
+                            </a>
+                        </li>
+
+                        <!--GERMANY-->
+                        <!--===================================================-->
+                        <li>
+                            <a href="#">
+                                <img class="lang-flag" src="../template/img/flags/germany.png" alt="English">
+                                <span class="lang-id">DE</span>
+                                <span class="lang-name">Deutsch</span>
+                            </a>
+                        </li>
+
+                        <!--ITALY-->
+                        <!--===================================================-->
+                        <li>
+                            <a href="#">
+                                <img class="lang-flag" src="../template/img/flags/italy.png" alt="English">
+                                <span class="lang-id">IT</span>
+                                <span class="lang-name">Italiano</span>
+                            </a>
+                        </li>
+
+                        <!--SPAIN-->
+                        <!--===================================================-->
+                        <li>
+                            <a href="#">
+                                <img class="lang-flag" src="../template/img/flags/spain.png" alt="English">
+                                <span class="lang-id">ES</span>
+                                <span class="lang-name">Espa&ntilde;ol</span>
+                            </a>
+                        </li>
+                        <!--===================================================-->
+
+                        </ul>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5>HTML</h5>
+
+                <pre class="prettyprint linenums">&lt;div class="dropdown">
+
+    &lt;!--SELECTED-->
+    &lt;!--===================================================-->
+    &lt;a id="myLanguageSelector" class="lang-selector dropdown-toggle btn btn-default" href="#" data-toggle="dropdown">
+        &lt;span class="lang-selected">
+            &lt;img class="lang-flag" src="...path to img..." alt="English">
+            &lt;span class="lang-id">EN&lt;/span>
+            &lt;span class="lang-name">English&lt;/span>
+        &lt;/span>
+    &lt;/a>
+
+    &lt;ul class="dropdown-menu">
+
+        &lt;!--ENGLISH-->
+        &lt;!--===================================================-->
+        &lt;li>
+            &lt;a href="#" class="active">
+                &lt;img class="lang-flag" src="...path to img..." alt="English">
+                &lt;span class="lang-id">EN&lt;/span>
+                &lt;span class="lang-name">English&lt;/span>
+            &lt;/a>
+        &lt;/li>
+
+        &lt;!--FRANCE-->
+        &lt;!--===================================================-->
+        &lt;li>
+            &lt;a href="#">
+                &lt;img class="lang-flag" src="...path to img..." alt="Fran&ccedil;ais">
+                &lt;span class="lang-id">FR&lt;/span>
+                &lt;span class="lang-name">Fran&ccedil;ais&lt;/span>
+            &lt;/a>
+        &lt;/li>
+
+        ...
+
+        ...
+
+    &lt;/ul>
+&lt;/div>
+</pre>
+
+            <hr>
+            <h5>Javascript</h5>
+<pre class="prettyprint linenums">$('#myLanguageSelector').niftyLanguage();
+</pre><br>
+
+            <hr>
+            <h3>Options</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>dynamicMode</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>By giving value <code>false</code> mean, when you click on one of the languages it will automatically go to a specific url. <br>Make sure you enter correct url in the anchor.  <code>&lt;a href="somePage.html">&lt;/a></code></td>
+                    </tr>
+                    <tr>
+                        <td>selectedOn</td>
+                        <td>string </td>
+                        <td>null</td>
+                        <td>Automatically select one of the languages when first initializing the elements.</td>
+                    </tr>
+                    <tr>
+                        <td>onChange</td>
+                        <td>string || function</td>
+                        <td>null</td>
+                        <td>This event is fired when the language has been changed.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            </div>
+
+            <div class="docs-section">
+            <h4>Normal Mode</h4>
+            <hr>
+            <h5>Example</h5>
+                <div class="pad-ver">
+                    <div class="dropdown">
+
+                        <!--SELECTED-->
+                        <!--===================================================-->
+                        <a id="docs-lang-dynamic" class="lang-selector dropdown-toggle btn btn-warning" href="#" data-toggle="dropdown">
+                        <span class="lang-selected">
+                            <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                            <span class="lang-id">EN</span>
+                            <span class="lang-name">English</span>
+                        </span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <!--ENGLISH-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="language.html" class="active">
+                                    <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                    <span class="lang-id">EN</span>
+                                    <span class="lang-name">English</span>
+                                </a>
+                            </li>
+
+                            <!--FRANCE-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="language.html">
+                                    <img class="lang-flag" src="../template/img/flags/france.png" alt="Fran&ccedil;ais">
+                                    <span class="lang-id">FR</span>
+                                    <span class="lang-name">Fran&ccedil;ais</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h5>Javascript</h5>
+
+                <pre class="prettyprint linenums">$('#myLanguageSelector').niftyLanguage({
+    dynamicMode : false
+});
+</pre>
+
+            </div>
+
+
+            <div class="docs-section">
+            <h4>Auto Selected</h4>
+            <hr>
+            <h5>Example</h5>
+                <div class="pad-ver">
+                    <div class="dropdown">
+
+                        <!--SELECTED-->
+                        <!--===================================================-->
+                        <a id="docs-lang-autosel" class="lang-selector dropdown-toggle btn btn-mint" href="#" data-toggle="dropdown">
+                            <span class="lang-selected">
+
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <!--ENGLISH-->
+                            <!--===================================================-->
+                            <li>
+                                <a id="lang-en" href="#" class="active">
+                                    <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                    <span class="lang-id">EN</span>
+                                    <span class="lang-name">English</span>
+                                </a>
+                            </li>
+
+                            <!--FRANCE-->
+                            <!--===================================================-->
+                            <li>
+                                <a id="lang-fr" href="#">
+                                    <img class="lang-flag" src="../template/img/flags/france.png" alt="Fran&ccedil;ais">
+                                    <span class="lang-id">FR</span>
+                                    <span class="lang-name">Fran&ccedil;ais</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                                    <hr>
+
+                <h5>HTML</h5>
+
+                <pre class="prettyprint linenums">&lt;div class="dropdown">
+
+    &lt;!--SELECTED-->
+    &lt;!--===================================================-->
+    &lt;a id="myLanguageSelector" class="lang-selector dropdown-toggle" href="#" data-toggle="dropdown">
+        &lt;span class="lang-selected">
+            // Leave it blank.
+        &lt;/span>
+    &lt;/a>
+
+    &lt;ul class="dropdown-menu">
+
+        &lt;!--ENGLISH-->
+        &lt;!--===================================================-->
+        &lt;li>
+            &lt;a id="lang-en" href="#">
+                &lt;img class="lang-flag" src="...path to img..." alt="English">
+                &lt;span class="lang-id">EN&lt;/span>
+                &lt;span class="lang-name">English&lt;/span>
+            &lt;/a>
+        &lt;/li>
+
+        &lt;!--FRANCE-->
+        &lt;!--===================================================-->
+        &lt;li>
+            &lt;a id="lang-fr" href="#">
+                &lt;img class="lang-flag" src="...path to img..." alt="Fran&ccedil;ais">
+                &lt;span class="lang-id">FR&lt;/span>
+                &lt;span class="lang-name">Fran&ccedil;ais&lt;/span>
+            &lt;/a>
+        &lt;/li>
+
+        ...
+
+        ...
+
+    &lt;/ul>
+&lt;/div>
+</pre>
+
+                <h5>Javascript</h5>
+
+                <pre class="prettyprint linenums">$('#myLanguageSelector').niftyLanguage({
+    selectedOn : '#lang-fr'
+});
+</pre>
+
+            </div>
+            <div class="docs-section">
+                <h3>Events</h3>
+                <h4>onChange</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <div class="dropdown">
+
+                        <!--SELECTED-->
+                        <!--===================================================-->
+                        <a id="docs-lang-onchange" class="lang-selector dropdown-toggle btn btn-info" href="#" data-toggle="dropdown">
+                            <span class="lang-selected">
+                                <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                <span class="lang-id">EN</span>
+                                <span class="lang-name">English</span>
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <!--ENGLISH-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="#" class="active">
+                                    <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                    <span class="lang-id">EN</span>
+                                    <span class="lang-name">English</span>
+                                </a>
+                            </li>
+
+                            <!--FRANCE-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="#">
+                                    <img class="lang-flag" src="../template/img/flags/france.png" alt="Fran&ccedil;ais">
+                                    <span class="lang-id">FR</span>
+                                    <span class="lang-name">Fran&ccedil;ais</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <h5>Javascript</h5>
+
+                <pre class="prettyprint linenums">$('#myLanguageSelector').niftyLanguage({
+    onChange:function(e){
+        alert('ID : ' + e.id + ' - Language : ' + e.name )
+    }
+});
+</pre>
+
+            </div>
+
+
+            <div class="docs-section">
+                <h3 id="method-lang">Methods</h3>
+                <h4>getSelected</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <div class="dropdown">
+
+                        <!--SELECTED-->
+                        <!--===================================================-->
+                        <a id="docs-lang-getsel" class="lang-selector dropdown-toggle btn btn-purple" href="#" data-toggle="dropdown">
+                            <span class="lang-selected">
+                                <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                <span class="lang-id">EN</span>
+                                <span class="lang-name">English</span>
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <!--ENGLISH-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="#" class="active">
+                                    <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                    <span class="lang-id">EN</span>
+                                    <span class="lang-name">English</span>
+                                </a>
+                            </li>
+
+                            <!--FRANCE-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="#">
+                                    <img class="lang-flag" src="../template/img/flags/france.png" alt="Fran&ccedil;ais">
+                                    <span class="lang-id">FR</span>
+                                    <span class="lang-name">Fran&ccedil;ais</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-center">
+                    <div class="col-xs-4">
+                        <p id="doc-lang-getid-txt" style="height:2em"></p>
+                        <button id="doc-lang-getid-btn" class="btn btn-success">Get selected ID</button>
+                    </div>
+                    <div class="col-xs-4">
+                        <p id="doc-lang-getname-txt" style="height:2em"></p>
+                        <button id="doc-lang-getname-btn" class="btn btn-primary">Get selected Name</button>
+                    </div>
+                    <div class="col-xs-4">
+                        <p id="doc-lang-getsel-txt" style="height:2em"></p>
+                        <button id="doc-lang-getsel-btn" class="btn btn-danger">Get selected</button>
+                    </div>
+                </div>
+                <hr>
+                <h5>Javascript</h5>
+
+                <pre class="prettyprint linenums">$('#myLanguageSelector').niftyLanguage('getSelectedID');
+
+$('#myLanguageSelector').niftyLanguage('getSelectedName');
+
+$('#myLanguageSelector').niftyLanguage('getSelected');
+</pre>
+
+            </div>
+
+
+
+            <div class="docs-section">
+                <h4>Disabled</h4>
+                <hr>
+                <h5>Example</h5>
+                <div class="pad-ver">
+                    <div class="dropdown">
+
+                        <!--SELECTED-->
+                        <!--===================================================-->
+                        <a id="docs-lang-disabled" class="lang-selector dropdown-toggle btn btn-pink" href="#" data-toggle="dropdown">
+                            <span class="lang-selected">
+                                <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                <span class="lang-id">EN</span>
+                                <span class="lang-name">English</span>
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <!--ENGLISH-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="#" class="active">
+                                    <img class="lang-flag" src="../template/img/flags/united-kingdom.png" alt="English">
+                                    <span class="lang-id">EN</span>
+                                    <span class="lang-name">English</span>
+                                </a>
+                            </li>
+
+                            <!--FRANCE-->
+                            <!--===================================================-->
+                            <li>
+                                <a href="#">
+                                    <img class="lang-flag" src="../template/img/flags/france.png" alt="Fran&ccedil;ais">
+                                    <span class="lang-id">FR</span>
+                                    <span class="lang-name">Fran&ccedil;ais</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                    <button id="doc-lang-enable-btn" class="btn btn-success">Enable</button>
+                    <button id="doc-lang-disable-btn" class="btn btn-danger">Disable</button>
+
+                </div>
+                <hr>
+                <h5>Javascript</h5>
+
+                <pre class="prettyprint linenums">$('#myLanguageSelector').niftyLanguage('setEnable');
+
+$('#myLanguageSelector').niftyLanguage('setDisable');
+</pre>
+
+            </div>
+
+
+            <div>
+                <h1 id="docs-3rd-plugins" class="docs-spy">Third Party Plugins &amp; Credits</h1>
+                <hr>
+                <p>I've used the following frameworks, fonts, icons, images and scripts as listed. My thanks goes to all the authors!</p>
+                <br>
+                <h4>Frameworks</h4>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td style="width: 200px;">Bootstrap 3.3.2</td>
+                            <td><a href="http://getbootstrap.com/" target="_blank" class="btn-link">http://getbootstrap.com/</a></td>
+                            <td style="width:50%">Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web.</td>
+                        </tr>
+                        <tr style="width:50%">
+                            <td>jQuery 2.1.1</td>
+                            <td><a href="http://jquery.com/" target="_blank" class="btn-link">http://jquery.com/</a></td>
+                            <td>jQuery is a fast, small, and feature-rich JavaScript library.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <br>
+                <h4>Font</h4>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td style="width: 200px;">Google Web Fonts (Open Sans)</td>
+                            <td><a href="http://www.google.com/fonts/specimen/Open+Sans" target="_blank" class="btn-link">http://www.google.com/fonts/specimen/Open+Sans</a></td>
+                            <td style="width:50%">Open Sans is a humanist sans serif typeface designed by Steve Matteson, Type Director of Ascender Corp.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <h4>Icon</h4>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td style="width: 200px;">Font Awesome</td>
+                            <td><a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" class="btn-link">http://fortawesome.github.io/Font-Awesome/</a></td>
+                            <td style="width:50%">Font Awesome gives you scalable vector icons that can instantly be customized — size, color, drop shadow, and anything that can be done with the power of CSS.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <h4>Images</h4>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td style="width: 200px;">Unsplash</td>
+                            <td><a href="https://unsplash.com/" target="_blank" class="btn-link">https://unsplash.com/</a></td>
+                            <td style="width:50%">High-resolution stock photos</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <br>
+                <h4>Scripts</h4>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td style="width: 200px;">Animate.css</td>
+                            <td><a href="http://daneden.github.io/animate.css/" target="_blank" class="btn-link">http://daneden.github.io/animate.css/</a></td>
+                            <td style="width:50%">A cross-browser library of CSS animations. As easy to use as an easy thing.</td>
+                        </tr>
+                        <tr>
+                            <td>Bootbox</td>
+                            <td><a href="http://bootboxjs.com/" target="_blank" class="btn-link">http://bootboxjs.com/</a></td>
+                            <td>Bootbox.js is a small JavaScript library which allows you to create programmatic dialog boxes using Bootstrap modals, without having to worry about creating, managing or removing any of the required DOM elements or JS event handlers.</td>
+                        </tr>
+                        <tr>
+                            <td>Bootstrap Datepicker</td>
+                            <td><a href="http://eternicode.github.io/bootstrap-datepicker/" target="_blank" class="btn-link">http://eternicode.github.io/bootstrap-datepicker/</a></td>
+                            <td>Bootstrap-datepicker provides a flexible datepicker widget in the Twitter bootstrap style.</td>
+                        </tr>
+                        <tr>
+                            <td>Bootstrap Select</td>
+                            <td><a href="http://silviomoreto.github.io/bootstrap-select/" target="_blank" class="btn-link">http://silviomoreto.github.io/bootstrap-select/</a></td>
+                            <td>A custom select for @twitter bootstrap using button dropdown.</td>
+                        </tr>
+                        <tr>
+                            <td>Bootstrap Table</td>
+                            <td><a href="http://bootstrap-table.wenzhixin.net.cn/" target="_blank" class="btn-link">http://bootstrap-table.wenzhixin.net.cn/</a></td>
+                            <td>Bootstrap table displays data in a tabular format and offers rich support to radio, checkbox, sort, pagination and so on. </td>
+                        </tr>
+                        <tr>
+                            <td>Bootstrap Tagsinput</td>
+                            <td><a href="http://timschlechter.github.io/bootstrap-tagsinput/examples/" target="_blank" class="btn-link">http://timschlechter.github.io/bootstrap-tagsinput/examples/</a></td>
+                            <td>jQuery plugin providing a Twitter Bootstrap user interface for managing tags</td>
+                        </tr>
+                        <tr>
+                            <td>Bootstrap Timepicker</td>
+                            <td><a href="http://jdewit.github.io/bootstrap-timepicker/" target="_blank" class="btn-link">http://jdewit.github.io/bootstrap-timepicker/</a></td>
+                            <td>Easily select a time for a text input using your mouse or keyboards arrow keys.</td>
+                        </tr>
+                        <tr>
+                            <td>Bootstrap Validator</td>
+                            <td><a href="http://bootstrapvalidator.com/" target="_blank" class="btn-link">http://bootstrapvalidator.com/</a></td>
+                            <td>Best jQuery plugin to validate form fields Designed to use with Bootstrap 3+</td>
+                        </tr>
+                        <tr>
+                            <td>Bootstrap Wizard</td>
+                            <td><a href="http://vadimg.com/twitter-bootstrap-wizard-example/" target="_blank" class="btn-link">http://vadimg.com/twitter-bootstrap-wizard-example/</a></td>
+                            <td>This twitter bootstrap plugin builds a wizard out of a formatter tabbable structure.</td>
+                        </tr>
+                        <tr>
+                            <td>Chosen</td>
+                            <td><a href="http://harvesthq.github.io/chosen/" target="_blank" class="btn-link">http://harvesthq.github.io/chosen/</a></td>
+                            <td>Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly.</td>
+                        </tr>
+                        <tr>
+                            <td>DataTables</td>
+                            <td><a href="http://www.datatables.net/" target="_blank" class="btn-link">http://www.datatables.net/</a></td>
+                            <td>DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, and will add advanced interaction controls to any HTML table.</td>
+                        </tr>
+                        <tr>
+                            <td>Dropzone</td>
+                            <td><a href="http://www.dropzonejs.com/" target="_blank" class="btn-link">http://www.dropzonejs.com/</a></td>
+                            <td>DropzoneJS is an open source library that provides drag'n'drop file uploads with image previews.</td>
+                        </tr>
+                        <tr>
+                            <td>Easy Pie Chart</td>
+                            <td><a href="http://rendro.github.io/easy-pie-chart/" target="_blank" class="btn-link">http://rendro.github.io/easy-pie-chart/</a></td>
+                            <td>Easy pie chart is a jQuery plugin that uses the canvas element to render simple pie charts for single values.</td>
+                        </tr>
+                        <tr>
+                            <td>FastClick</td>
+                            <td><a href="https://github.com/ftlabs/fastclick" target="_blank" class="btn-link">https://github.com/ftlabs/fastclick</a></td>
+                            <td>FastClick is a simple, easy-to-use library for eliminating the 300ms delay between a physical tap and the firing of a click event on mobile browsers.</td>
+                        </tr>
+                        <tr>
+                            <td>Flot Charts</td>
+                            <td><a href="http://www.flotcharts.org/" target="_blank" class="btn-link">http://www.flotcharts.org/</a></td>
+                            <td>Flot is a pure JavaScript plotting library for jQuery, with a focus on simple usage, attractive looks and interactive features.</td>
+                        </tr>
+                        <tr>
+                            <td>Font Awesome</td>
+                            <td><a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" class="btn-link">http://fortawesome.github.io/Font-Awesome/</a></td>
+                            <td>Font Awesome gives you scalable vector icons that can instantly be customized — size, color, drop shadow, and anything that can be done with the power of CSS.</td>
+                        </tr>
+                        <tr>
+                            <td>Foo Table</td>
+                            <td><a href="http://fooplugins.com/plugins/footable-jquery/" target="_blank" class="btn-link">http://fooplugins.com/plugins/footable-jquery/</a></td>
+                            <td>FooTable is a jQuery plugin that aims to make HTML tables on smaller devices look awesome – No matter how many columns of data you may have in them.</td>
+                        </tr>
+                        <tr>
+                            <td>Full Calendar</td>
+                            <td><a href="http://fullcalendar.io/" target="_blank" class="btn-link">http://fullcalendar.io/</a></td>
+                            <td>FullCalendar is a jQuery plugin that provides a full-sized, drag &amp; drop event calendar like the one below. It uses AJAX to fetch events on-the-fly and is easily configured to use your own feed format. It is visually customizable with a rich API.</td>
+                        </tr>
+                        <tr>
+                            <td>Gauge.js</td>
+                            <td><a href="http://bernii.github.io/gauge.js/" target="_blank" class="btn-link">http://bernii.github.io/gauge.js/</a></td>
+                            <td>100% native and cool looking animated JavaScript/CoffeScript gauge.</td>
+                        </tr>
+                        <tr>
+                            <td>GMaps.js</td>
+                            <td><a href="http://hpneo.github.io/gmaps/" target="_blank" class="btn-link">http://hpneo.github.io/gmaps/</a></td>
+                            <td>Gmaps.js allows you to use the potential of Google Maps in a simple way. No more extensive documentation or large amount of code.</td>
+                        </tr>
+                        <tr>
+                            <td>jQuery resizeEnd</td>
+                            <td><a href="https://github.com/giuseppeg/jQuery-resizeEnd" target="_blank" class="btn-link">https://github.com/giuseppeg/jQuery-resizeEnd</a></td>
+                            <td>A resizeEnd event for jQuery.</td>
+                        </tr>
+                        <tr>
+                            <td>Masked Input</td>
+                            <td><a href="http://digitalbush.com/projects/masked-input-plugin/" target="_blank" class="btn-link">http://digitalbush.com/projects/masked-input-plugin/</a></td>
+                            <td>This is a masked input plugin for the jQuery javascript library. It allows a user to more easily enter fixed width input where you would like them to enter the data in a certain format (dates,phone numbers, etc).</td>
+                        </tr>
+                        <tr>
+                            <td>MetisMenu</td>
+                            <td><a href="http://demo.onokumus.com/metisMenu/" target="_blank" class="btn-link">http://demo.onokumus.com/metisMenu/</a></td>
+                            <td>Easy menu jQuery plugin for Twitter Bootstrap 3</td>
+                        </tr>
+                        <tr>
+                            <td>MorrisJS</td>
+                            <td><a href="http://morrisjs.github.io/morris.js/" target="_blank" class="btn-link">http://morrisjs.github.io/morris.js/</a></td>
+                            <td>Good-looking charts shouldn't be difficult </td>
+                        </tr>
+                        <tr>
+                            <td>NanoScrollerJS</td>
+                            <td><a href="http://jamesflorentino.github.io/nanoScrollerJS/" target="_blank" class="btn-link">http://jamesflorentino.github.io/nanoScrollerJS/</a></td>
+                            <td>nanoScroller.js is a jQuery plugin that offers a simplistic way of implementing Mac OS X Lion-styled scrollbars for your website.</td>
+                        </tr>
+                        <tr>
+                            <td>noUiSlider</td>
+                            <td><a href="http://refreshless.com/nouislider/" target="_blank" class="btn-link">http://refreshless.com/nouislider/</a></td>
+                            <td>noUiSlider is a range slider without bloat. It offers a ton off features, and it is as small, lightweight and minimal as possible.</td>
+                        </tr>
+                        <tr>
+                            <td>Pace</td>
+                            <td><a href="http://github.hubspot.com/pace/" target="_blank" class="btn-link">http://github.hubspot.com/pace/</a></td>
+                            <td>Automatic page load progress bar.</td>
+                        </tr>
+                        <tr>
+                            <td>Prettify</td>
+                            <td><a href="https://code.google.com/p/google-code-prettify/" target="_blank" class="btn-link">https://code.google.com/p/google-code-prettify/</a></td>
+                            <td>A Javascript module and CSS file that allows syntax highlighting of source code snippets in an html page. </td>
+                        </tr>
+                        <tr>
+                            <td>Skycons</td>
+                            <td><a href="http://darkskyapp.github.io/skycons/" target="_blank" class="btn-link">http://darkskyapp.github.io/skycons/</a></td>
+                            <td>Skycons is a set of ten animated weather glyphs, procedurally generated by JavaScript using the HTML5 canvas tag.</td>
+                        </tr>
+                        <tr>
+                            <td>Sparkline</td>
+                            <td><a href="http://omnipotent.net/jquery.sparkline/#s-about" target="_blank" class="btn-link">http://omnipotent.net/jquery.sparkline/#s-about</a></td>
+                            <td>This jQuery plugin generates sparklines (small inline charts) directly in the browser using data supplied either inline in the HTML, or via javascript.</td>
+                        </tr>
+                        <tr>
+                            <td>Summernote</td>
+                            <td><a href="http://summernote.org/" target="_blank" class="btn-link">http://summernote.org/</a></td>
+                            <td>Super Simple WYSIWYG Editor on Bootstrap</td>
+                        </tr>
+                        <tr>
+                            <td>Switchery</td>
+                            <td><a href="http://abpetkov.github.io/switchery/" target="_blank" class="btn-link">http://abpetkov.github.io/switchery/</a></td>
+                            <td>Switchery is a simple component that helps you turn your default HTML checkbox inputs into beautiful iOS 7 style switches in just few simple steps.</td>
+                        </tr>
+                        <tr>
+                            <td>X-editable</td>
+                            <td><a href="http://vitalets.github.io/x-editable/" target="_blank" class="btn-link">http://vitalets.github.io/x-editable/</a></td>
+                            <td>This library allows you to create editable elements on your page. It can be used with any engine (bootstrap, jquery-ui, jquery only) and includes both popup and inline modes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+        <footer>
+            <div class="well well-xs">
+                <p>Once again, thank you so much for purchasing this template. As I said at the beginning, I'd be glad to help you if you have any questions relating to this template. No guarantees, but I'll do my best to assist.</p>
+                <p><strong>Have a nice day and happy coding!</strong></p>
+                <br>
+                <a href="http://www.themeon.net" target="_blank" class="btn-link text-bold">ThemeOn</a>
+            </div>
+        </footer>
+        </div><!--/docs content-->
+    </div>
+    </div>
+</div><!--/.container-->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+<script src="../template/js/jquery-2.1.1.min.js"></script>
+<script src="../template/js/bootstrap.min.js"></script>
+
+
+<!-- Nifty Core -->
+<script src="../template/js/nifty.min.js"></script>
+
+
+<!-- Documentation JS -->
+<script src="js/prettify.js"></script>
+<script src="js/docs.js"></script>
+
+</body>
+</html>
