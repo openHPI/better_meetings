@@ -6,10 +6,11 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _agenda = [], _selected = null, _collapsed = -1, _member = [], _hasStarted = false, _timer = 0;
+var _user = null, _canEdit = true, _agenda = [], _selected = null, _collapsed = -1, _member = [], _hasStarted = false, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
+	_user = 'Lando';
 	_agenda = data.agenda;
 	_selected = data.agenda[0];
 	_member = data.member;
@@ -60,6 +61,12 @@ function markTaskAsDone (index) {
 	}
 }
 
+// Method to add a member
+function addMember (member) {
+	member['name'] = member.displayname;
+	_member.push(member);
+}
+
 function collapseItem (index) {
 	_collapsed = index;
 }
@@ -71,6 +78,16 @@ function startMeeting (data) {
 
 // Extend AgendaStore with EventEmitter to add eventing capabilities
 var AgendaStore = _.extend({}, EventEmitter.prototype, {
+
+	getUser: function() {
+		return _user;
+	},
+
+	// Return boolean if Client can edit
+	getCanEdit: function() {
+		return _canEdit;
+	},
+
 	// Return agenda
 	getAgenda: function() {
 		return _agenda;
@@ -155,21 +172,24 @@ AppDispatcher.register(function(payload) {
 			removeTask(taskIndex);
 			break;
 
-		// Respond to TODO_ADD action
+		case FluxServerConstants.MEMBER_CREATE:
+			addMember(action.data);
+			break;
+
+		// Respond Client actions
+
 		case FluxAgendaConstants.TODO_ADD:
 			action.data['owner'] = _selected;
-			action.data['author'] = 'Lando';
+			action.data['author'] = _user;
 			addTask(action.data);
 			// MeetingDataAPI.postTask(action.data);
 			break;
 
-		// Respond to TODO_REMOVE action
 		case FluxAgendaConstants.TODO_REMOVE:
 			removeTask(action.data);
 			// MeetingDataAPI.deleteTask(action.data);
 			break;
 
-		// Respond to TODO_DONE action
 		case FluxAgendaConstants.TODO_DONE:
 			markTaskAsDone(action.data);
 			break;
@@ -178,14 +198,8 @@ AppDispatcher.register(function(payload) {
 			collapseItem(action.data);
 			break;
 
-		// Respond to MEMBER_PRESENT
-		case FluxAgendaConstants.MEMBER_PRESENT:
-			_member[action.data]['status'] = 'present';
-			break;
-
-		// Respond to MEMBER_ABSENT
-		case FluxAgendaConstants.MEMBER_ABSENT:
-			_member[action.data]['status'] = 'absent';
+		case FluxAgendaConstants.MEMBER_ADD:
+			MeetingDataAPI.postMember(action.data);
 			break;
 		
 		// Respond to RECEIVE_DATA action

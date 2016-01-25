@@ -7,14 +7,10 @@
 
 module.exports = {
 
-	identityt: 'meetingadmin',
+	identity: 'meetingadmin',
 
-  attributes: {
-  		meetings: {
-  			collection: 'meetinggroup',
-  			via: 'adminMembers',
-  			dominant: true
-  		}
-  }
+ 	attributes: {
+
+  	}
 };
 

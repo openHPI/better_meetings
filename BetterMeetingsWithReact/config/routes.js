@@ -45,11 +45,50 @@ module.exports.routes = {
   '/meeting': {
     view: 'meeting'
   },
+  '/user': {
+    controller: 'user',
+    action: 'viewAll'
+  },
+  '/user/create': {
+    controller: 'user',
+    action: 'create'
+  },
+   '/user/viewAll': {
+    controller: 'user',
+    action: 'viewAll',
+  },
+  '/meetingseries/insert-examples/': {
+    controller: 'meetingseries',
+    action: 'insertExampleData'
+  },
+  '/person/': {
+    controller: 'person',
+    action: 'viewAll',
+  },
+  '/person/create/': {
+    controller: 'person',
+    action: 'create',
+  },
+  '/person/exampledata': {
+    controller: 'person',
+    action: 'exampledata',
+  },
 
   // Endpoints
   'post /login': 'PersonController.login',
   'post /signup': 'PersonController.signup',
   '/logout': 'PersonController.logout',
+  'post /User': 'UserController.create',
+
+  // endpoints for meeting controller
+  'POST /meetingseries/create': 'MeetingSeriesController.create',
+
+  // endpoints for meeting controller
+  'POST /person/create': 'PersonController.create',
+
+  // endpoints for agendaitem controller
+  'POST /topic/create': 'AgendaItemController.create',
+  'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
 
 
   /***************************************************************************

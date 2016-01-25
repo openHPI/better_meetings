@@ -11,12 +11,15 @@ var FluxAgendaItem = React.createClass({
 
 	// Render agenda View
 	render: function() {
-		var item = this.props.item;
+		var items = this.props.items;
 		var index = this.props.index;
-		var selected = this.props.selected;
+		var level = this.props.level;
+
+		var item = (0 <= index && index < items.length) ? items[index] : null;
+
 		return (
-            <li key={index} className={"agenda-item" + (item == selected ? " active" : "")} onClick={this.selectItem}>
-                <h3 className="agenda-title">{item.title}</h3>
+            <li key={index} className={"agenda-item level-" + level} onClick={this.selectItem}>
+                <h3 className="agenda-title">{ (item !== null ) ? item.title : "" }</h3>
             </li>
 		)
 	}

@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	
+
 
   create: function(req,res) {
     if (req.method == "POST" && req.param( "ToDoItem" , null ) != null ) {
@@ -48,6 +48,13 @@ module.exports = {
     })
   },
 
+  subscribe: function(req,res) {
+   if (req.isSocket) {
+      todoitem.watch(req);
+      console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'todoitem\'.');
+   }
+  },
+
   view: function(req,res) {
     var todoID = req.param("todoItemID", null);
 
@@ -66,38 +73,12 @@ module.exports = {
     });
   },
 
+  viewAll: function(req,res) {
 
-
-
-
-  /**
-   * `ToDoItemController.setAssignee()`
-   */
-  setAssignee: function (req, res) {
-    return res.json({
-      todo: 'setAssignee() is not implemented yet!'
-    });
   },
 
+  displayAll: function (req,res) {
 
-  /**
-   * `ToDoItemController.isDone()`
-   */
-  isDone: function (req, res) {
-    return res.json({
-      todo: 'isDone() is not implemented yet!'
-    });
-  },
-
-
-  /**
-   * `ToDoItemController.setDone()`
-   */
-  setDone: function (req, res) {
-    return res.json({
-      todo: 'setDone() is not implemented yet!'
-    });
   }
-
 };
 

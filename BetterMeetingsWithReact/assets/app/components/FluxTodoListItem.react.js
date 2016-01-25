@@ -8,7 +8,6 @@ var FluxTodoListItem = React.createClass({
         return {
             title: this.props.item.title,
             description: this.props.item.description,
-            editing: true
         };
     },
 
@@ -25,17 +24,22 @@ var FluxTodoListItem = React.createClass({
     render: function(){
         var item = this.props.item;
         var index = this.props.index;
+        var canEdit = this.props.canEdit;
+
+        var editStyle = {
+            display: (this.props.canEdit) ? 'inline-block' : 'none'
+        };
         var todoContentStyle = {
             display: (this.props.collapsed) ? 'block' : 'none'
         };
-        
+
         return(
             <li key={index} className="todo-item" onDoubleClick={this._onDoubleClick}>
                 <p className="todo-title">{item.title}</p>
                 <small className="todo-author"><i className="fa fa-user"></i>{item.author}</small>
                 <small className="todo-assignee">assigned to: { (item.assignee !== null) ? item.assignee.name : 'none' }</small>
-                <button type="button" className="btn btn-default" onClick={this.deleteItem}><i className="fa fa-times"></i></button>
-                <button type="button" className="btn btn-default" onClick={this.markDone}><i className="fa fa-check"></i></button>
+                <button type="button" className="btn btn-default" onClick={this.deleteItem} style={editStyle}><i className="fa fa-times"></i></button>
+                <button type="button" className="btn btn-default" onClick={this.markDone} style={editStyle}><i className="fa fa-check"></i></button>
                 <div className="todo-content" style={todoContentStyle}>
                     <p>Description:</p>
                     <p className="todo-description">{ (item.description !== undefined && item.description !== null) ? item.description : 'Add description'}</p>

@@ -6,61 +6,82 @@
  */
 
 module.exports = {
-	
+
+/*====================================================================
+=            create single instance of agendaitem (Radscheit)         =
+====================================================================*/
+
+
   create: function(req,res) {
-    if (req.method == "POST" && req.param( "AgendaItem" , null ) != null ) {
-      AgendaItem.create( req.param("AgendaItem") ).done( function( err , model ) {
-        if ( err ) {
-          res.send("Error");
-        } else {
-          res.send("Success");
-        }
+
+    var meetingseries = req.param('meetingseries');
+    var title = req.param('title');
+    var description = req.param('description');
+    // var todos = req.param('todos'),
+
+    if ( meetingseries && title && description && todos ) {
+
+      AgendaItem.create({
+        meetingseries:      meetingseries,
+        title:        title,
+        description:  description,
+        //todos:      todos,
+      }).exec( function createAgendaItem(err,cre) {
+        if (err) console.log('[bm-error] agendaitem not created: ' + err);
+        
+        console.log('[bm-success] agendaitem ' + cre.title + 'created');
+
+        /**
+        
+          TODO:
+          - add watch for realtime view
+          - add a redirect to a view if needed
+        
+         */
+        
       });
-    } else {
-      res.render('meeting/view');
-    }
+    };
+
+  },
+
+/*===============================================================
+=            create instances of agendaitem on bulk (Radscheit)            =
+===============================================================*/
+
+
+  bulkcreate: function(req,res) {
+
+    var meetingseries = req.param('meetingseries');
+    var title = req.param('title');
+    var description = req.param('description');
+    // var todos = req.param('todos'),
+
+    if ( meetingseries && title && description && todos ) {
+
+      AgendaItem.create({
+        meetingseries:      meetingseries,
+        title:        title,
+        description:  description,
+        //todos:      todos,
+      }).exec( function createAgendaItem(err,cre) {
+        if (err) console.log('[bm-error] agendaitem not created: ' + err);
+        
+        console.log('[bm-success] agendaitem ' + cre.title + 'created');
+      });
+    };
+
   },
 
   update: function(req,res) {
-    var todoID = req.param("AgendaItemID", null);
-
-    AgendaItem.findOne(todoID).done(function(err,model) {
-      if (req.method == "POST" && req.param("AgendaItem",null) != null) {
-        var item = req.param("AgendaItem",null);
-        model.title = item.title;
-        model.description = item.description;
-        model.todos = item.todos;
-        model.done = item.done;
-
-        model.save(function(err) {
-          if (err) {
-            res.send("Error");
-          } else {
-            res.send("Success");
-          }
-        });
-      } else {
-        res.render('meeting/view',{'model':model});
-      }
-    })
+   
   },
 
   view: function(req,res) {
-    var todoID = req.param("AgendaItemID", null);
 
-    AgendaItem.findOne(todoID).done(function(err,model) {
-      res.render('meeting/view', {'model':model});
-    });
   },
 
   delete: function(req,res) {
-    var todoID = req.param("AgendaItemID", null);
 
-    AgendaItem.findOne(todoID).done(function(err,user) {
-      user.destroy(function(err) {
-        res.send("Success");
-      });
-    });
   },
 
   /**

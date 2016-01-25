@@ -7,6 +7,77 @@
 
 module.exports = {
 
+    create: function (req,res) {
+      sails.log('Creation started');
+      sails.log(req.param('displayname'));
+      var displayname = req.param('displayname');
+      var password = req.param('password');
+      var email = req.param('email');
+
+      if (displayname && password && email) {
+        person.create({
+          displayname:    displayname,
+          password:       password,
+          email:          email,
+        }).exec( function createPerson(err,created) {
+          if (err) {
+            sails.log('person not created' + err);
+          } else {
+            sails.log('person created: ' + created.displayname);
+             person.publishCreate({
+               id: created.id,
+               displayname: created.displayname,
+               password: created.password,
+               email: created.email
+             });
+
+          }
+        })
+      } else if (req.isSocket){
+             person.watch(req);
+             console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
+      } else {
+          sails.log('person not created: few params');
+      }
+    },
+
+    viewAll: function(req,res) {
+
+      person.find().exec(function displayPersonList(err,items) {
+        if (err) return res.serverError(err);
+
+        sails.log('Admins:' + items);
+
+        return res.view('person', {
+          users: items,
+        });
+      });
+
+    },
+
+
+    delete: function(req,res) {
+
+    },
+
+    update: function (req,res) {
+
+    },
+
+    view: function(req, res) {
+
+    },
+
+    displayAll: function (req,res) {
+
+    },
+
+    exampledata: function(req,res) {
+
+      ExampledataService.generateExamplePersons(req,res);
+
+      },
+
   /**
    * `PersonController.login()`
    */
@@ -76,11 +147,31 @@ module.exports = {
   },
 
   /**
+   * `PersonController.readMeetingSeries()`
+   */
+  readMeetingSeries: function (req, res) {
+    return res.json({
+      todo: 'readMeeting() is not implemented yet!'
+    });
+  },
+
+
+  /**
+   * `PersonController.updateMeetingSeries()`
+   */
+  updateMeetingSeries: function (req, res) {
+    return res.json({
+      todo: 'updateMeeting() is not implemented yet!'
+    });
+  },
+
+
+  /**
    * `PersonController.readMeeting()`
    */
   readMeeting: function (req, res) {
     return res.json({
-      todo: 'readMeeting() is not implemented yet!'
+      todo: 'readJourfixe() is not implemented yet!'
     });
   },
 
@@ -89,26 +180,6 @@ module.exports = {
    * `PersonController.updateMeeting()`
    */
   updateMeeting: function (req, res) {
-    return res.json({
-      todo: 'updateMeeting() is not implemented yet!'
-    });
-  },
-
-
-  /**
-   * `PersonController.readJourfixe()`
-   */
-  readJourfixe: function (req, res) {
-    return res.json({
-      todo: 'readJourfixe() is not implemented yet!'
-    });
-  },
-
-
-  /**
-   * `PersonController.updateJourFixe()`
-   */
-  updateJourFixe: function (req, res) {
     return res.json({
       todo: 'updateJourFixe() is not implemented yet!'
     });

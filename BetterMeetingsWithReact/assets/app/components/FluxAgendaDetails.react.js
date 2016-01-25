@@ -1,22 +1,22 @@
 var React = require('react');
 var FluxAgendaActions = require('../actions/FluxAgendaActions');
-var FluxTodoList = require('./FluxTodoList.react');
-var FluxTodoListDone = require('./FluxTodoListDone.react');
-var FluxAgendaProgress = require('./FluxAgendaProgress.react');
 
 // Flux todolist view
 var FluxAgendaDetails = React.createClass({
 
-    selectPrevious: function(event) {
+    selectPrevious: function() {
         var index = (this.props.items.indexOf(this.props.selected) - 1);
         var index = (0 > index) ? (this.props.items.length-1) : index;
         FluxAgendaActions.selectAgendaItem(index);
     },
 
     // Select next agenda item
-    selectNext: function(event) {
-        var index = (this.props.items.indexOf(this.props.selected) + 1) % this.props.items.length;
-        FluxAgendaActions.selectAgendaItem(index);
+    selectNext: function() {
+        var index = (this.props.items.indexOf(this.props.selected) + 1);
+        if(index < this.props.items.length)
+            FluxAgendaActions.selectAgendaItem(index);
+        else
+            FluxAgendaActions.selectAgendaItem(0);
     },
 
     render: function(){
@@ -27,16 +27,18 @@ var FluxAgendaDetails = React.createClass({
         var member = this.props.member;
 
         return(
-            <div className="flux-agendaDetails-container">
-                <h1 className="flux-agendaDetails-header">{selected.title}</h1>
+            <div className="flux-agendaDetails-container" onKeyDown={this._onKeyDown}>
                 <div className="flux-agendaDetails-description">
-                    <h4>Description:</h4>
+                    <h4>Description</h4>
                     <p>{selected.description}</p>
                 </div>
-                <div className="flux-todolist">
-                    <FluxTodoList items={items} collapsed={collapsed} member={member} />
-                    <FluxTodoListDone items={done} />
+                <div className="flux-agendaDetails-subitems">
+                    <h4>Subitems</h4>
                 </div>
+                <form action="#" method="post" enctype="multipart/form-data">
+                    <input name="Datei" type="file" size="50" accept="text/*, application/pdf" /> 
+                    <button type="button" className="btn btn-default"><i className="fa fa-upload"></i></button>
+                </form>
                 <button type="button" className="btn btn-default" onClick={this.selectPrevious}>
                     <i className="fa fa-caret-left"></i>
                 </button>
@@ -47,6 +49,7 @@ var FluxAgendaDetails = React.createClass({
             </div>
         );
     }
+    
 });
 
 module.exports = FluxAgendaDetails;
