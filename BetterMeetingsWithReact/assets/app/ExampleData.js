@@ -22,14 +22,14 @@ module.exports = {
                 title: 'Task2',
                 author: 'Lando',
                 assignee: null,
-                done: false
+                done: true
               },
               {
                 id: '2',
                 title: 'Task3',
                 author: 'Lando',
                 assignee: null,
-                done: false
+                done: true
               },
               {
                 id: '3',
