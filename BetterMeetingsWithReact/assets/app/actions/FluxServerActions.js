@@ -27,6 +27,14 @@ var FluxServerActions = {
 		})
 	},
 
+	// Update an item
+	updateTask: function(item) {
+		AppDispatcher.handleAction({
+			actionType: FluxServerConstants.TODO_UPDATE,
+			data: item
+		})
+	},
+
 	// Remove item from to-do list
 	destroyTask: function(item) {
 		AppDispatcher.handleAction({

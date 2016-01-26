@@ -40,10 +40,16 @@ function setSelected (index) {
 	}
 }
 
-// Method to remove a task from the todoList
-function removeTask (index) {
-	if(index >= 0)
-		_selected.todoList.splice(index, 1);
+// Method to update a Task
+function updateTask (item) {
+	for (var i = 0; i < _selected.todoList.length; i++) {
+
+		if(_selected.todoList[i].id === item.id) {
+			_selected.todoList[i] = item;
+			if(_selected.todoList[i].done)
+				markTaskAsDone(i);
+		}
+	};
 }
 
 // Method to mark a task as done
@@ -141,10 +147,14 @@ AppDispatcher.register(function(payload) {
 			_selected.todoList.push(item);
 			break;
 
+		case FluxServerConstants.TODO_UPDATE:
+			updateTask(action.data);
+			break;
+
 		case FluxServerConstants.TODO_DESTROY:
 			var agendaIndex = _agenda.indexOf(action.data.owner);
 			var taskIndex = _agenda[agendaIndex].indexOf(action.data);
-			removeTask(taskIndex);
+			_selected.todoList.splice(taskIndex, 1);
 			break;
 
 		case FluxServerConstants.MEMBER_CREATE:
@@ -164,7 +174,8 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxAgendaConstants.TODO_DONE:
-			markTaskAsDone(action.data);
+			action.data.done = true;
+			MeetingDataAPI.updateTask(action.data);
 			break;
 
 		case FluxAgendaConstants.TODO_COLLAPSE:

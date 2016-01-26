@@ -27,16 +27,15 @@ module.exports = {
 			    switch(msg.verb) {
 
 			        case 'created':
-			        	console.log('create todoitem');
-			        	FluxServerActions.createTask(data);
+			        	FluxServerActions.createTask(msg.data);
 						break;
 
 					case 'updated':
-						_updateTask(msg.data);
+						FluxServerActions.updateTask(msg.data)
 						break;
 
 					case 'destroyed':
-						FluxServerActions.destroyTask(data);
+						FluxServerActions.destroyTask(msg.data);
 						break;
 
 			        default:
@@ -94,6 +93,12 @@ module.exports = {
 	postTask: function(data) {
 		io.socket.post('/todoitem/create', data, function (data, jwres) {
   			console.dir(data);
+		});
+	},
+
+	updateTask: function (data) {
+		io.socket.post('/todoitem/update', data, function (data, jwres) {
+			console.dir(data);
 		});
 	},
 
