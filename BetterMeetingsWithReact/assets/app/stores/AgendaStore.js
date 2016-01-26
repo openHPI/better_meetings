@@ -16,7 +16,7 @@ function loadAgenda (data) {
 	_member = data.member;
 	_timer = data.timer;
 
-	getDoneItems();
+	// getDoneItems();
 }
 
 // Method to create the _selected.todoList_done
