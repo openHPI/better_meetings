@@ -34,7 +34,8 @@
         <ul class="nav navbar-nav navbar-right">
           <% if (req.session.me) { %>
           <li><a href="#"><i class="fa fa-user"></i>
-              <%= req.session.me.displayName %>
+              <%= req.session.me.name %>
+              <!--<%= JSON.stringify(req.session.me) %>-->
             </a></li>
 
           <li class="dropdown">
