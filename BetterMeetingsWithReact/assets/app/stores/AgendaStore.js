@@ -46,19 +46,8 @@ function updateTask (item) {
 
 		if(_selected.todoList[i].id === item.id) {
 			_selected.todoList[i] = item;
-			if(_selected.todoList[i].done)
-				markTaskAsDone(i);
 		}
 	};
-}
-
-// Method to mark a task as done
-function markTaskAsDone (index) {
-	if (index >= 0) {
-		_selected.todoList[index].done = true;
-		_selected.todoList_done.push(_selected.todoList[index]);
-		_selected.todoList.splice(index, 1);
-	}
 }
 
 // Extend AgendaStore with EventEmitter to add eventing capabilities
@@ -179,7 +168,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxAgendaConstants.TODO_COLLAPSE:
-			_collapsed = index;
+			_collapsed = (action.data);
 			break;
 
 		case FluxAgendaConstants.MEMBER_ADD:

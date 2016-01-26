@@ -7,7 +7,6 @@ var FluxAgenda = require('./FluxAgenda.react');
 var FluxMemberTable = require('./FluxMemberTable.react');
 var FluxAgendaTimer = require('./FluxAgendaTimer.react');
 var FluxTodoList = require('./FluxTodoList.react');
-var FluxTodoListDone = require('./FluxTodoListDone.react');
 var FluxAgendaProgress = require('./FluxAgendaProgress.react');
 var FluxAgendaUpload = require('./FluxAgendaUpload.react');
 
@@ -103,7 +102,6 @@ var FluxMeetingApp = React.createClass({
 										<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 											<div className="flux-todolist">
 							                    <FluxTodoList items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
-							                    <FluxTodoListDone items={this.state.selectedAgendaItem.todoList_done} />
 							                </div>
 										</div>
 									</div>

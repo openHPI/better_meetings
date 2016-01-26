@@ -36,10 +36,10 @@ var FluxAgendaActions = {
 		})
 	},
 
-	markAsDone: function(index) {
+	markAsDone: function(item) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.TODO_DONE,
-			data: index
+			data: item
 		})
 	},
 
