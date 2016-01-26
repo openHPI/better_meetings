@@ -11,7 +11,7 @@ var FluxTodoListItem = React.createClass({
 
     // Mark an item as done
     markDone: function(event) {
-        FluxAgendaActions.markAsDone(this.props.index);
+        FluxAgendaActions.markAsDone(this.props.item);
     },
 
     render: function(){
