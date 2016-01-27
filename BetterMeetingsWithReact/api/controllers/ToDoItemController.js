@@ -11,15 +11,21 @@ module.exports = {
   create: function(req,res) {
     sails.log('Creation started');
     sails.log(req.param('title'));
-    var todoItemID = req.param('todoItemID');
     var title = req.param('title');
+    var description = req.param.('description');
+    var owner = req.param('owner');
+    var author = req.param('author');
+    var assignee = req.param('assignee');
     var done = req.param('done');
 
-    if (todoItemID && title && done) {
+    if (title && owner && author && done) {
       todoitem.create({
-        todoItemID:   todoItemID,
         title:        title,
-        done:         done,
+        description:  description,
+        owner:        owner,
+        author:       author,
+        assignee:     assignee,
+        done:         done 
       }).exec( function createToDoItem(err,created) {
         if (err) {
           console.log('ToDoItem not created' + err);
@@ -27,9 +33,12 @@ module.exports = {
           console.log('Created ToDoItem: ' + created.title);
           todoitem.publishCreate({
             id: created.id,
-            todoItemID: created.todoItemID,
             title: created.title,
-            done: created.done,
+            description: created.description,
+            owner: created.owner,
+            author: created.author,
+            assignee: assignee,
+            done: created.done
            });
 
         }
