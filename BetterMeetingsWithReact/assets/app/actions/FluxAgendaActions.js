@@ -36,6 +36,7 @@ var FluxAgendaActions = {
 		})
 	},
 
+	// Mark task as done
 	markAsDone: function(item) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.TODO_DONE,
@@ -43,6 +44,7 @@ var FluxAgendaActions = {
 		})
 	},
 
+	// Collapse the item with index
 	collapsTodoItem: function(index) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.TODO_COLLAPSE,
@@ -50,7 +52,7 @@ var FluxAgendaActions = {
 		})
 	},
 
-	// 
+	// Add a member to the meeting
 	addMember: function(data) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.MEMBER_ADD,

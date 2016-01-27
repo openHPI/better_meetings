@@ -126,7 +126,7 @@ AppDispatcher.register(function(payload) {
 
 	switch(action.actionType) {
 
-		// Respond Server actions
+		// Respond to server actions
 
 		case FluxServerConstants.DATA_RECEIVE:
 			loadAgenda(action.data);
@@ -150,7 +150,7 @@ AppDispatcher.register(function(payload) {
 			_member.push(member);
 			break;
 
-		// Respond Client actions
+		// Respond to client actions
 
 		case FluxAgendaConstants.TODO_ADD:
 			action.data['owner'] = _selected;

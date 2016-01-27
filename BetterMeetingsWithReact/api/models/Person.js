@@ -55,7 +55,7 @@ module.exports = {
   signup: function (inputs, cb) {
     // Create a person
     person.create({
-        name: inputs.displayName,
+        name: inputs.name,
         email: inputs.email,
         // TODO: But encrypt the password first
         password: inputs.password
