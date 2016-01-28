@@ -34,7 +34,6 @@ module.exports = {
         }  
       });
     } else if (req.isSocket) {
-      agendaItem.watch(req);
       sails.log('AgendaItem with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'agendaitem\'.');
     } else {
       res.send('agendaitem');
@@ -77,7 +76,7 @@ module.exports = {
     var todos = req.param('todos');
     var done = req.param('done');
 
-    if (meetingseries && title && description && todos && done && req.isSocket) {
+    if (meetingseries && title && description && todos && req.isSocket) {
       agendaitem.update({
         meetingseries:    meetingseries,
         title:            title,
@@ -112,6 +111,8 @@ module.exports = {
 
   view: function(req,res) {
       //agendaItem.watch(req);
+
+      var id = req.param('id'. null);
       AgendaItem.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;

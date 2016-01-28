@@ -28,7 +28,6 @@ module.exports = {
       });
     } else if (req.isSocket) {
 
-      User.watch(req);
       console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'users\'.');
 
     } else {
@@ -39,6 +38,7 @@ module.exports = {
 
   },
   view: function (req, res) {
+    var id = req.param('id', null);
     User.findOne(id).exec(function displayList(err, items) {
       console.log(items);
       res.response = items;

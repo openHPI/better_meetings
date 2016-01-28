@@ -44,7 +44,6 @@ module.exports = {
           }
         })
       } else if (req.isSocket){
-             meetingSeries.watch(req);
              sails.log('MeetingSeries with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meetingseries\'.');
       } else {
           res.send('meetingseries');
@@ -117,6 +116,7 @@ module.exports = {
 
   view: function(req,res) {
     //meetingSeries.watch(req);
+    var id = req.param('id', null);
     MeetingSeries.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;

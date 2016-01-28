@@ -42,13 +42,13 @@ module.exports = {
 
     subscribe: function(req,res) {
      if (req.isSocket) {
-        person.watch(req);
         console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
      }
     },
 
     view: function(req, res) {
       //person.watch(req);
+      var id = req.param('id', null);
       Person.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;
