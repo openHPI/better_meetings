@@ -91,6 +91,7 @@ module.exports = {
 	// Todoitem
 
 	postTask: function(data) {
+		console.dir(data);
 		io.socket.post('/todoitem/create', data, function (data, jwres) {
   			console.dir(data);
 		});
