@@ -10,27 +10,21 @@ module.exports = {
   identity: 'todoitem',
 
   attributes: {
-  	id: {
-  		type: 'integer',
-  		primaryKey: true,
-  		autoIncrement: true,
-  		required: true
-  	},
   	title: {
   		type: 'string',
-  		required: true,	
+  		required: true,
   	},
   	description: {
   		type: 'string',
   		required: false,
   	},
-    owner: {
-      model: 'agendaitem'
-    },
-    author: {
-      type: 'person',
-      via: 'todos',
-    },
+         owner: {
+                  model: 'agendaitem'
+         },
+         author: {
+                  model: 'person',
+                  via: 'todos',
+         },
   	assignee: {
   		type: 'integer',
   		required: false

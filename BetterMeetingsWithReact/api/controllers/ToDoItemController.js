@@ -22,10 +22,10 @@ module.exports = {
       todoitem.create({
         title:        title,
         description:  description,
-        owner:        owner,
+        // owner:        owner,
         author:       author,
         assignee:     assignee,
-        done:         done 
+        done:         done
       }).exec( function createToDoItem(err,created) {
         if (err) {
           console.log('ToDoItem not created' + err);
