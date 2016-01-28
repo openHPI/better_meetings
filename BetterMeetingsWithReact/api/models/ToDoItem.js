@@ -10,7 +10,7 @@ module.exports = {
   identity: 'todoitem',
 
   attributes: {
-  	todoItemID: {
+  	id: {
   		type: 'integer',
   		primaryKey: true,
   		autoIncrement: true,

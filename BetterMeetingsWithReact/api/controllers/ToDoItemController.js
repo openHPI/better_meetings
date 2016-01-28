@@ -18,7 +18,7 @@ module.exports = {
     var assignee = req.param('assignee');
     var done = req.param('done');
 
-    if (title && owner && author && done) {
+    if (title && owner && author) {
       todoitem.create({
         title:        title,
         description:  description,
@@ -52,7 +52,7 @@ module.exports = {
   update: function(req,res) {
     sails.log('Update started');
     sails.log(req.param('title'));
-    var todoItemID = req.param('todoItemID');
+    var id = req.param('id');
     var title = req.param('title');
     var done = req.param('done');
     var description = req.param('description');
@@ -63,7 +63,7 @@ module.exports = {
 
     if (todoItemID && title && done && description && owner && author && assignee && req.isSocket) {
       todoitem.update({
-        todoItemID:   todoItemID,
+        id:           id,
         title:        title,
         done:         done,
         description:  description,
@@ -81,7 +81,6 @@ module.exports = {
           console.log('Updated ToDoItem: ' + updated.title);
           todoitem.publishUpdate({
             id:           updated.id,
-            todoItemID:   updated.todoItemID,
             title:        updated.title,
             done:         updated.done,
             description:  updated.description,

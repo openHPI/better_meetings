@@ -67,6 +67,11 @@ var FluxMeetingApp = React.createClass({
 									<FluxMeetingStartFlyleaf />
 								</div>
 							</div>
+							<div className="row">
+								<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
+								</div>
+							</div>
 						</div>
 					</div>
 				);
@@ -134,6 +139,11 @@ var FluxMeetingApp = React.createClass({
 							<div className="row">
 								<div className="col-md-8 col-lg-8">
 									<FluxMeetingEndFlyleaf />
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
 								</div>
 							</div>
 						</div>
