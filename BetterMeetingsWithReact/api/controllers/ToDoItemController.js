@@ -12,7 +12,7 @@ module.exports = {
     sails.log('Creation started');
     sails.log(req.param('title'));
     var title = req.param('title');
-    var description = req.param.('description');
+    var description = req.param('description');
     var owner = req.param('owner');
     var author = req.param('author');
     var assignee = req.param('assignee');
