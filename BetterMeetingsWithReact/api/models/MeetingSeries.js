@@ -12,8 +12,13 @@ module.exports = {
   attributes: {
   	members: {
   		collection: 'person',
-  		via: 'meetings',
+  		via: 'assignedMeetings',
   	},
+    admins: {
+      collection: 'person',
+      via: 'createdMeetings',
+      dominant: true
+    },
   	title: {
       	type: 'string',
      	required: true,

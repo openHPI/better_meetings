@@ -42,7 +42,7 @@ module.exports.routes = {
   'get /signup': {
     view: 'signup'
   },
-  '/meeting': {
+  'get /meeting': {
     view: 'meeting'
   },
   '/user': {
@@ -53,7 +53,7 @@ module.exports.routes = {
     controller: 'user',
     action: 'create'
   },
-   '/user/viewAll': {
+  '/user/viewAll': {
     controller: 'user',
     action: 'viewAll',
   },
@@ -69,6 +69,9 @@ module.exports.routes = {
     controller: 'person',
     action: 'create',
   },
+  // 'get /person/update': {
+  //   view: 'edit_person'
+  // },
   '/person/exampledata': {
     controller: 'person',
     action: 'exampledata',
@@ -82,13 +85,24 @@ module.exports.routes = {
 
   // endpoints for meeting controller
   'POST /meetingseries/create': 'MeetingSeriesController.create',
+  'POST /meetingseries/update': 'MeetingSeriesController.update',
+  'POST /meetingseries/view': 'MeetingSeriesController.view',
+  'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
   // endpoints for meeting controller
+  'GET /person/subscribe': 'PersonController.subscribe',
   'POST /person/create': 'PersonController.create',
+  'POST /person/update': 'PersonController.update',
 
   // endpoints for agendaitem controller
   'POST /topic/create': 'AgendaItemController.create',
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
+
+  // endpoints for todoitem
+  'GET /todoitem/subscribe': 'TodoItemController.subscribe',
+  'POST /todoitem/create': 'TodoItemController.create',
+  'POST /todoitem/update': 'TodoItemController.update',
+  'POST /todoitem/delete': 'TodoItemController.delete',
 
 
   /***************************************************************************

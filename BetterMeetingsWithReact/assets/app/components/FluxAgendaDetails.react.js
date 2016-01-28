@@ -16,7 +16,7 @@ var FluxAgendaDetails = React.createClass({
         if(index < this.props.items.length)
             FluxAgendaActions.selectAgendaItem(index);
         else
-            FluxAgendaActions.selectAgendaItem(0);
+            FluxAgendaActions.endMeeting();
     },
 
     render: function(){

@@ -40,22 +40,23 @@
         <ul class="nav navbar-nav navbar-right">
           <% if (req.session.me) { %>
           <li><a href="#"><i class="fa fa-user"></i>
-              <%= req.session.me.displayName %>
+              <%= req.session.me.name %>
+              <!--<%= JSON.stringify(req.session.me) %>-->
             </a></li>
 
           <li class="dropdown">
-            <a href="#" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Open HPI <span
+            <a href="#" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">User Verwaltung <span
                 class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Reset Password</a></li>
+              <li><a href="/person/edit">Accountdetails ändern</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="/logout">Logout</a></li>
+              <li><a href="/logout">Ausloggen</a></li>
             </ul>
           </li>
 
           <% } else { %>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/signup">Signup</a></li>
+          <li><a href="/login">Anmelden</a></li>
+          <li><a href="/signup">Registrieren</a></li>
           <% } %>
 
         </ul>

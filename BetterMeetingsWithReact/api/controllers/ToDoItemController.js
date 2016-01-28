@@ -9,49 +9,99 @@ module.exports = {
 
 
   create: function(req,res) {
-    if (req.method == "POST" && req.param( "ToDoItem" , null ) != null ) {
-      ToDoItem.create( req.param("ToDoItem") ).done( function( err , model ) {
-        if ( err ) {
-          res.send("Error");
+    sails.log('Creation started');
+    sails.log(req.param('title'));
+    var title = req.param('title');
+    var description = req.param('description');
+    var owner = req.param('owner');
+    var author = req.param('author');
+    var assignee = req.param('assignee');
+    var done = req.param('done');
+
+    if (title && owner && author && done) {
+      todoitem.create({
+        title:        title,
+        description:  description,
+        owner:        owner,
+        author:       author,
+        assignee:     assignee,
+        done:         done 
+      }).exec( function createToDoItem(err,created) {
+        if (err) {
+          console.log('ToDoItem not created' + err);
         } else {
-          res.send("Success");
+          console.log('Created ToDoItem: ' + created.title);
+          todoitem.publishCreate({
+            id: created.id,
+            title: created.title,
+            description: created.description,
+            owner: created.owner,
+            author: created.author,
+            assignee: assignee,
+            done: created.done
+           });
+
         }
-      });
+      })
     } else {
-      res.render('person/create');
+        res.send('todoitem');
+        console.log('ToDoItem not created: too few parameters');
     }
   },
 
   update: function(req,res) {
-    var todoID = req.param("todoItemID", null);
+    sails.log('Update started');
+    sails.log(req.param('title'));
+    var todoItemID = req.param('todoItemID');
+    var title = req.param('title');
+    var done = req.param('done');
+    var description = req.param('description');
+    var owner = req.param('owner');
+    var author = req.param('author');
+    var assignee = req.param('assignee');
 
-    ToDoItem.findOne(todoID).done(function(err,model) {
-      if (req.method == "POST" && req.param("ToDoItem",null) != null) {
-        var item = req.param("ToDoItem",null);
-        model.title = item.title;
-        model.description = item.description;
-        model.owner = item.owner;
-        model.assignee = item.assignee;
-        model.author = item.author;
-        model.done = item.done;
 
-        model.save(function(err) {
-          if (err) {
-            res.send("Error");
-          } else {
-            res.send("Success");
-          }
-        });
-      } else {
-        res.render('todoitem/update',{'model':model});
+    if (todoItemID && title && done && description && owner && author && assignee && req.isSocket) {
+      todoitem.update({
+        todoItemID:   todoItemID,
+        title:        title,
+        done:         done,
+        description:  description,
+        owner:        owner,
+        author:       author,
+        assignee:     assignee,
+      }).exec(function updateToDoItem(err, updated) {
+        if (err) {
+          console.log('ToDoItem not updated ' + err);
+          //res.redirect('/todoitem/edit');
+        } else if (!updated) {
+          console.log('Update error for ToDoItem ' + err);
+          //res.redirect('/todoitem/edit');
+        } else {
+          console.log('Updated ToDoItem: ' + updated.title);
+          todoitem.publishUpdate({
+            id:           updated.id,
+            todoItemID:   updated.todoItemID,
+            title:        updated.title,
+            done:         updated.done,
+            description:  updated.description,
+            owner:        updated.owner,
+            author:       updated.author,
+            assignee:     updated.assignee,
+          });
+        }
+      });
+    } else {
+        res.send('todoitem');
+        //res.redirect('/todoitem/view/'+id);
+        console.log('ToDoItem not updated: too few parameters');
       }
-    })
   },
 
   subscribe: function(req,res) {
    if (req.isSocket) {
       todoitem.watch(req);
-      console.log('User with socket id '+sails.sockets.id(req)+' is now subscribed to the model class \'todoitem\'.');
+      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'todoitem\'.');
    }
   },
 
@@ -73,12 +123,19 @@ module.exports = {
     });
   },
 
-  viewAll: function(req,res) {
+  // viewAll: function(req,res) {
+  //   todoitem.find().exec(function displayToDoItemList(err, items) {
+  //     if (err) return res.serverError(err);
+  //     sails.log('todoitem:' + items);
+  //     ToDoItem.subscribe(req.socket);
+  //     ToDoItem.subscribe(req.socket, items);
+  //     return res.view('todoitem', {
+  //       users: items,
+  //     });
+  //   });
+  // },
 
-  },
-
-  displayAll: function (req,res) {
-
-  }
+  // displayAll: function (req,res) {
+  // }
 };
 

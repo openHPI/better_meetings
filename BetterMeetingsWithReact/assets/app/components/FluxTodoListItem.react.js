@@ -4,13 +4,6 @@ var FluxAgendaActions = require('../actions/FluxAgendaActions');
 // Flux todolist view
 var FluxTodoListItem = React.createClass({
 
-    getInitialState: function() {
-        return {
-            title: this.props.item.title,
-            description: this.props.item.description,
-        };
-    },
-
     // Remove item from list via action
     deleteItem: function(event) {
         FluxAgendaActions.removeFromList(this.props.index);
@@ -18,7 +11,7 @@ var FluxTodoListItem = React.createClass({
 
     // Mark an item as done
     markDone: function(event) {
-        FluxAgendaActions.markAsDone(this.props.index);
+        FluxAgendaActions.markAsDone(this.props.item);
     },
 
     render: function(){
@@ -34,10 +27,10 @@ var FluxTodoListItem = React.createClass({
         };
 
         return(
-            <li key={index} className="todo-item" onDoubleClick={this._onDoubleClick}>
+            <li key={index} className={ (item.done) ? "todo-item done" : "todo-item" } onDoubleClick={this._onDoubleClick}>
                 <p className="todo-title">{item.title}</p>
                 <small className="todo-author"><i className="fa fa-user"></i>{item.author}</small>
-                <small className="todo-assignee">assigned to: { (item.assignee !== null) ? item.assignee.name : 'none' }</small>
+                <small className="todo-assignee">assigned to: <p>{ (item.assignee !== null) ? item.assignee.name : 'none' }</p></small>
                 <button type="button" className="btn btn-default" onClick={this.deleteItem} style={editStyle}><i className="fa fa-times"></i></button>
                 <button type="button" className="btn btn-default" onClick={this.markDone} style={editStyle}><i className="fa fa-check"></i></button>
                 <div className="todo-content" style={todoContentStyle}>

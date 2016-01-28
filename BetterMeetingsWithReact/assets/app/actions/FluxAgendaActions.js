@@ -36,13 +36,15 @@ var FluxAgendaActions = {
 		})
 	},
 
-	markAsDone: function(index) {
+	// Mark task as done
+	markAsDone: function(item) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.TODO_DONE,
-			data: index
+			data: item
 		})
 	},
 
+	// Collapse the item with index
 	collapsTodoItem: function(index) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.TODO_COLLAPSE,
@@ -50,7 +52,7 @@ var FluxAgendaActions = {
 		})
 	},
 
-	// 
+	// Add a member to the meeting
 	addMember: function(data) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.MEMBER_ADD,
@@ -62,6 +64,13 @@ var FluxAgendaActions = {
 	startMeeting: function() {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.MEETING_START
+		})
+	},
+
+	// End the Meeting
+	endMeeting: function() {
+		AppDispatcher.handleAction({
+			actionType: FluxAgendaConstants.MEETING_END
 		})
 	}
 };

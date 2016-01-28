@@ -10,27 +10,34 @@ module.exports = {
   identity: 'person',
 
   attributes: {
-    
+
     email: {
       type: 'string',
       email: true,
-      required: true
+      required: false
     },
     password: {
       type: 'string',
-      required: true
+      required: false
     },
-    displayname: {
+    name: {
       type: 'string',
-      required: true
+      required: false
     },
     todos: {
       model: 'todoitem'
     },
-    meetings: {
-      collection: 'meetingseries',
-      via: 'members',
+    assignedMeetings: { // former meetings
+      collection: 'meeting',
+      via: 'attendees',
       dominant: true
+    },
+    createdMeetings: {
+      collection: 'meetingseries',
+      via: 'admins'
+    },
+    isAdmin: {
+      type: 'boolean',
     },
   },
 
@@ -48,7 +55,7 @@ module.exports = {
   signup: function (inputs, cb) {
     // Create a person
     person.create({
-        displayName: inputs.name,
+        name: inputs.name,
         email: inputs.email,
         // TODO: But encrypt the password first
         password: inputs.password

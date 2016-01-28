@@ -15,9 +15,11 @@ module.exports = {
 		io.socket.on('connect', function() {
 			console.log('Connected to server');
 			console.log('socket session: ' + this.id);
-			// _getMeetingData();
+			// this._getMeetingData();
 
 			// Subscribe to todoitem
+
+			io.socket.get('/todoitem/subscribe', function (resData, jwres) {});
 
 			io.socket.on('todoitem', function onServerSentEvent (msg) {
 
@@ -25,15 +27,15 @@ module.exports = {
 			    switch(msg.verb) {
 
 			        case 'created':
-			        	FluxServerActions.createTask(data);
+			        	FluxServerActions.createTask(msg.data);
 						break;
 
 					case 'updated':
-						_updateTask(msg.data);
+						FluxServerActions.updateTask(msg.data)
 						break;
 
 					case 'destroyed':
-						FluxServerActions.destroyTask(data);
+						FluxServerActions.destroyTask(msg.data);
 						break;
 
 			        default:
@@ -42,32 +44,9 @@ module.exports = {
 
 			});
 
-			io.socket.get('/todoitem', function (resData, jwres) {});
-
-			// Subscribe to meetinggroup
-
-			io.socket.on('meetinggroup', function onServerSentEvent (msg) {
-
-				switch(msg.verb) {
-
-					case 'created':
-						_receiveMember(msg.data);
-						break;
-
-					case 'destroyed':
-						_destroyMember(msg.data);
-						break;
-
-					default:
-						return; // ignore any ...
-				}
-			});
-
-			io.socket.get('/meetinggroup', function(resData, jwres) {});
-
 			// Subscribe to person
 
-			io.socket.get('/person/create/', function(resData, jwres) {});
+			io.socket.get('/person/subscribe', function(resData, jwres) {});
 
             io.socket.on('person', function (msg) {
 
@@ -112,14 +91,20 @@ module.exports = {
 	// Todoitem
 
 	postTask: function(data) {
-		io.socket.post('/todoitem', data, function (resData) {
-  			console.log(resData);
+		io.socket.post('/todoitem/create', data, function (data, jwres) {
+  			console.dir(data);
+		});
+	},
+
+	updateTask: function (data) {
+		io.socket.post('/todoitem/update', data, function (data, jwres) {
+			console.dir(data);
 		});
 	},
 
 	deleteTask: function(index) {
-		io.socket.delete('/todoitem/' + index, function (data, jwres) {
-  			console.log(data);
+		io.socket.post('/todoitem/delete', index, function (data, jwres) {
+			console.log('Deleted item ' + index);
 		});
 	},
 
@@ -127,7 +112,7 @@ module.exports = {
 
 	postMember: function(data) {
 		io.socket.post('/person/create', data, function (data, jwres) {
-			console.log(jwres);
+			console.dir(data);
 		});
 	}
 

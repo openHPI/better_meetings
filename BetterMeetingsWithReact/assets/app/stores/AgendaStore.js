@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _user = null, _canEdit = true, _agenda = [], _selected = null, _collapsed = -1, _member = [], _hasStarted = false, _timer = 0;
+var _user = null, _canEdit = true, _agenda = [], _selected = null, _collapsed = -1, _member = [], _meetingStatus = 0, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
@@ -16,13 +16,13 @@ function loadAgenda (data) {
 	_member = data.member;
 	_timer = data.timer;
 
-	getDoneItems();
+	// getDoneItems();
 }
 
 // Method to create the _selected.todoList_done
 function getDoneItems () {
 	for (var i = 0; i < _agenda.length; i++) {
-		
+
 		_agenda[i]['todoList_done'] = [];
 
 		for (var j = 0; j < _agenda[i].todoList.length; j++) {
@@ -40,40 +40,14 @@ function setSelected (index) {
 	}
 }
 
-// Method to add a task to the todoList
-function addTask (item) {
-	item.id = _selected.todoList.length.toString();
-	_selected.todoList.push(item);	
-}
+// Method to update a Task
+function updateTask (item) {
+	for (var i = 0; i < _selected.todoList.length; i++) {
 
-// Method to remove a task from the todoList
-function removeTask (index) {
-	if(index >= 0)
-		_selected.todoList.splice(index, 1);
-}
-
-// Method to mark a task as done
-function markTaskAsDone (index) {
-	if (index >= 0) {
-		_selected.todoList[index].done = true;
-		_selected.todoList_done.push(_selected.todoList[index]);
-		_selected.todoList.splice(index, 1);
-	}
-}
-
-// Method to add a member
-function addMember (member) {
-	member['name'] = member.displayname;
-	_member.push(member);
-}
-
-function collapseItem (index) {
-	_collapsed = index;
-}
-
-// Method to start the meeting
-function startMeeting (data) {
-	_hasStarted = true;
+		if(_selected.todoList[i].id === item.id) {
+			_selected.todoList[i] = item;
+		}
+	};
 }
 
 // Extend AgendaStore with EventEmitter to add eventing capabilities
@@ -98,7 +72,7 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 		return _selected;
 	},
 
-	// Return collapsed index of todoitem 
+	// Return collapsed index of todoitem
 	getCollapsed: function() {
 		return _collapsed;
 	},
@@ -109,8 +83,8 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 	},
 
 	// Return hasStarted
-	hasStarted: function() {
-		return _hasStarted;
+	getMeetingStatus: function() {
+		return _meetingStatus;
 	},
 
 	// Return timer
@@ -152,69 +126,69 @@ AppDispatcher.register(function(payload) {
 
 	switch(action.actionType) {
 
-		// Respond Server actions
+		// Respond to server actions
 
 		case FluxServerConstants.DATA_RECEIVE:
 			loadAgenda(action.data);
 			break;
 
-		case FluxServerConstants.MEETING_START:
-			startMeeting();
+		case FluxServerConstants.TODO_CREATE:
+			_selected.todoList.push(item);
 			break;
 
-		case FluxServerConstants.TODO_CREATE:
-			addTask(action.data);
+		case FluxServerConstants.TODO_UPDATE:
+			updateTask(action.data);
 			break;
 
 		case FluxServerConstants.TODO_DESTROY:
 			var agendaIndex = _agenda.indexOf(action.data.owner);
 			var taskIndex = _agenda[agendaIndex].indexOf(action.data);
-			removeTask(taskIndex);
+			_selected.todoList.splice(taskIndex, 1);
 			break;
 
 		case FluxServerConstants.MEMBER_CREATE:
-			addMember(action.data);
+			_member.push(member);
 			break;
 
-		// Respond Client actions
+		// Respond to client actions
 
 		case FluxAgendaConstants.TODO_ADD:
 			action.data['owner'] = _selected;
 			action.data['author'] = _user;
-			addTask(action.data);
-			// MeetingDataAPI.postTask(action.data);
+			MeetingDataAPI.postTask(action.data);
 			break;
 
 		case FluxAgendaConstants.TODO_REMOVE:
-			removeTask(action.data);
-			// MeetingDataAPI.deleteTask(action.data);
+			MeetingDataAPI.deleteTask(action.data);
 			break;
 
 		case FluxAgendaConstants.TODO_DONE:
-			markTaskAsDone(action.data);
+			action.data.done = true;
+			MeetingDataAPI.updateTask(action.data);
 			break;
 
 		case FluxAgendaConstants.TODO_COLLAPSE:
-			collapseItem(action.data);
+			_collapsed = (action.data);
 			break;
 
 		case FluxAgendaConstants.MEMBER_ADD:
 			MeetingDataAPI.postMember(action.data);
 			break;
-		
-		// Respond to RECEIVE_DATA action
+
 		case FluxAgendaConstants.RECEIVE_DATA:
 			loadAgenda(action.data);
 			break;
 
-		// Respond to SET_SELECTED action
 		case FluxAgendaConstants.SET_SELECTED:
 			setSelected(action.data);
 			break;
 
-		// Respond to MEETING_START
 		case FluxAgendaConstants.MEETING_START:
-			startMeeting();
+			_meetingStatus = 1;
+			break;
+
+		case FluxAgendaConstants.MEETING_END:
+			_meetingStatus = 2;
 			break;
 
 		default:

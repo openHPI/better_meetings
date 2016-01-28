@@ -1,12 +1,12 @@
 var React = require('react');
 var AgendaStore = require('../stores/AgendaStore');
 var FluxAgendaDetails = require('./FluxAgendaDetails.react');
-var FluxAgendaFlyleaf = require('./FluxAgendaFlyleaf.react');
+var FluxMeetingStartFlyleaf = require('./FluxMeetingStartFlyleaf.react');
+var FluxMeetingEndFlyleaf = require('./FluxMeetingEndFlyleaf.react');
 var FluxAgenda = require('./FluxAgenda.react');
 var FluxMemberTable = require('./FluxMemberTable.react');
 var FluxAgendaTimer = require('./FluxAgendaTimer.react');
 var FluxTodoList = require('./FluxTodoList.react');
-var FluxTodoListDone = require('./FluxTodoListDone.react');
 var FluxAgendaProgress = require('./FluxAgendaProgress.react');
 var FluxAgendaUpload = require('./FluxAgendaUpload.react');
 
@@ -14,7 +14,7 @@ function getTodoListState () {
 	return {
 		user: AgendaStore.getUser(),
 		canEdit: AgendaStore.getCanEdit(),
-		hasStarted: AgendaStore.hasStarted(),
+		status: AgendaStore.getMeetingStatus(),
 		timer: AgendaStore.getTimer(),
 		agenda: AgendaStore.getAgenda(),
 		selectedAgendaItem: AgendaStore.getSelected(),
@@ -46,75 +46,101 @@ var FluxMeetingApp = React.createClass({
 	// Render our child components, passing state via props
 	render: function() {
 
-		if (this.state.hasStarted) {
-			return (
-				<div className="content">
-					<div className="container-fluid">
-						<div className="row">
-							<FluxAgendaProgress total={this.state.total} index={this.state.index} />
-						</div>
-						<div className="row">
-							<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
-								<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
-							</div>
-						</div>
-					</div>
-					<div className="container">
-						<div className="row">
-							<div className="col-md-8 col-lg-8">
-								<div className="row">
-									<div className="col-md-4 col-lg-4">
-										<FluxAgenda items={this.state.agenda} selected={this.state.selectedAgendaItem} />
-									</div>
-									<div className="col-md-8 col-lg-8">
-										<FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
-									</div>
-								</div>
-							</div>
-							<div className="col-md-4 col-lg-4">
-								<div className="row">
-									<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<div className="flux-todolist">
-						                    <FluxTodoList items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
-						                    <FluxTodoListDone items={this.state.selectedAgendaItem.todoList_done} />
-						                </div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-								<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
-							</div>
-						</div>
-					</div>
-				</div>
-			);
-		} 
+		switch (this.state.status) {
 
-		else {
-			return (
-				<div className="content">
-					<div className="container-fluid">
-						<div className="row">
-							<FluxAgendaProgress total={this.state.total} index={-1} />
+			case 0:
+				return (
+					<div className="content">
+						<div className="container-fluid">
+							<div className="row">
+								<FluxAgendaProgress total={this.state.total} index={-1} />
+							</div>
+							<div className="row">
+								<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
+									<FluxAgendaTimer hasStarted={false} timer={this.state.timer} />
+								</div>
+							</div>
 						</div>
-						<div className="row">
-							<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
-								<FluxAgendaTimer hasStarted={this.state.hasStarted} timer={this.state.timer} />
+						<div className="container">
+							<div className="row">
+								<div className="col-md-8 col-lg-8">
+									<FluxMeetingStartFlyleaf />
+								</div>
 							</div>
 						</div>
 					</div>
-					<div className="container">
-						<div className="row">
-							<div className="col-md-8 col-lg-8">
-								<FluxAgendaFlyleaf selected={this.state.selectedAgendaItem} member={this.state.member} />
+				);
+				break;
+
+			case 1:
+				return (
+					<div className="content">
+						<div className="container-fluid">
+							<div className="row">
+								<FluxAgendaProgress total={this.state.total} index={this.state.index} />
+							</div>
+							<div className="row">
+								<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
+									<FluxAgendaTimer hasStarted={true} timer={this.state.timer} />
+								</div>
+							</div>
+						</div>
+						<div className="container">
+							<div className="row">
+								<div className="col-md-8 col-lg-8">
+									<div className="row">
+										<div className="col-md-4 col-lg-4">
+											<FluxAgenda items={this.state.agenda} selected={this.state.selectedAgendaItem} />
+										</div>
+										<div className="col-md-8 col-lg-8">
+											<FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
+										</div>
+									</div>
+								</div>
+								<div className="col-md-4 col-lg-4">
+									<div className="row">
+										<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+											<div className="flux-todolist">
+							                    <FluxTodoList items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
+							                </div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			);
-		}
+				);
+				break;
+
+			case 2:
+				return (
+					<div className="content">
+						<div className="container-fluid">
+							<div className="row">
+								<FluxAgendaProgress total={this.state.total} index={this.state.total} />
+							</div>
+							<div className="row">
+								<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
+									<FluxAgendaTimer hasStarted={false} timer={this.state.timer} />
+								</div>
+							</div>
+						</div>
+						<div className="container">
+							<div className="row">
+								<div className="col-md-8 col-lg-8">
+									<FluxMeetingEndFlyleaf />
+								</div>
+							</div>
+						</div>
+					</div>
+				);
+				break;
+		} 
 
 	},
 

@@ -12,10 +12,15 @@ module.exports = {
   attributes: {
 
     topics: {
-      collection: 'todoitem'
+      collection: 'agendaitem'
     },
     attendees: {
-      collection: 'person'
-    }
+      collection: 'person',
+      via: 'assignedMeetings',
+    },
+    isInitialCreation: {
+    	type: 'boolean',
+    	required: true,
+    },
   }
 };
