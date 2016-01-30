@@ -70,17 +70,20 @@ module.exports = {
     },
 
     delete: function(req,res) {
-      var personID = req.param("personID", null);
-
-      person.findOne(personID).done(function(err, person) {
-        person.destroy(function(err) {
-          if (err) {
-            sails.log('Error while deleting person');
-            res.send("Error");
-          }
-          res.send("Success");
+      var meetingSeriesID = req.param("meetingSeriesID", null);
+      if (meetingSeriesID && req.isSocket) {
+        MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+          meetingseries.destroy({id: meetingSeriesAnswer.id}).exec(function destroy(err) {
+            if (err) {
+              sails.log('Error while deleting meetingseries');
+              res.send("Error");
+            } else {
+              sails.log("Successfully deleted " + meetingseriesID);
+              meetingseries.publishDestroy({id: meetingSeriesAnswer.id});   
+            }
+          });
         });
-      });
+      }
     },
 
     update: function (req,res) {

@@ -43,17 +43,20 @@ module.exports = {
 	},
 	
 	delete: function(req,res) {
-		var meetingID = req.param("meetingID", null);
-
-		Meeting.findOne(meetingID).done(function(err, meeting) {
-		  meeting.destroy(function(err) {
-		  	if (err) {
-            sails.log('Error while deleting meeting');
-            res.send("Error");
-          }
-		    res.send("Success");
-		  });
-		});
+	  var meetingID = req.param("meetingID", null);
+	  if (meetingID && req.isSocket) {
+	    Meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
+	      meeting.destroy({id: meetingAnswer.id}).exec(function destroy(err) {
+	        if (err) {
+	          sails.log('Error while deleting meeting');
+	          res.send("Error");
+	        } else {
+	          sails.log("Successfully deleted " + meetingID);
+	          meeting.publishDestroy({id: meetingAnswer.id});   
+	        }
+	      });
+	    });
+	  }
 	},
 
 	update: function (req,res) {

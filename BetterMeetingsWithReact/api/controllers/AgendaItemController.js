@@ -122,17 +122,21 @@ module.exports = {
 
   delete: function(req,res) {
     var agendaItemID = req.param("agendaItemID", null);
-
-    AgendaItem.findOne(agendaItemID).done(function(err, agendaitem) {
-      agendaitem.destroy(function(err) {
-        if (err) {
+    if (agendaItemID && req.isSocket) {
+      AgendaItem.findOne(agendaItemID).exec(function findAgendaItem(err, agendaItemAnswer) {
+        agendaitem.destroy({id: agendaItemAnswer.id}).exec(function destroy(err) {
+          if (err) {
             sails.log('Error while deleting agendaitem');
             res.send("Error");
+          } else {
+            sails.log("Successfully deleted " + agendaitemID);
+            agendaitem.publishDestroy({id: agendaItemAnswer.id});   
           }
-        res.send("Success");
+        });
       });
-    });
+    }
   },
+
 
   // viewAll: function(req,res) {
   //   agendaitem.find().exec(function displayAgendaItemList(err, items) {
