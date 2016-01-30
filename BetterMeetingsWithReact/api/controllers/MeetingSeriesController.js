@@ -42,7 +42,7 @@ module.exports = {
               timer: created.timer,
              });
           }
-        })
+        });
       } else if (req.isSocket){
              sails.log('MeetingSeries with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meetingseries\'.');
       } else {

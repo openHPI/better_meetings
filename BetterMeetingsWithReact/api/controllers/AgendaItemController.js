@@ -19,18 +19,24 @@ module.exports = {
     var description = req.param('description');
     // var todos = req.param('todos'),
 
-    if (meetingseries && title && description) {
+    if (meetingseries && title) {
 
       AgendaItem.create({
         meetingseries:      meetingseries,
-        title:        title,
-        description:  description,
-        //todos:      todos,
-      }).exec( function createAgendaItem(err, cre) {
+        title:              title,
+        description:        description,
+        //todos:            todos,
+      }).exec( function createAgendaItem(err, created) {
         if (err) { 
           console.log('[bm-error] agendaitem not created: ' + err);
         } else {
-          console.log('[bm-success] agendaitem ' + cre.title + 'created');
+          console.log('[bm-success] agendaitem ' + created.title + 'created');
+          agendaitem.publishCreate({
+            id:                 created.id,
+            meetingseries:      created.meetingseries,
+            title:              created.title,
+            description:        created.description,
+          });
         }  
       });
     } else if (req.isSocket) {
