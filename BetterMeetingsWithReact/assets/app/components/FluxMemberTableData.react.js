@@ -9,10 +9,16 @@ var FluxMemberTableData = React.createClass({
         var attendee = this.props.attendee;
 
         return (
-            <li id="flux-membertableRow" className="flux-membertableRow">
-                <i className="fa fa-user"></i>{attendee.name}
-            </li>
-        )
+            <a href="#" className="list-group-item">
+                <div className="media-left">
+                    <img className="img-circle img-xs" src="images/av2.png" alt="Profile Picture" />
+                </div>
+                <div className="media-body">
+                	<div className="text-lg">{attendee.name}</div>
+                    <span className="text-muted">{attendee.email}</span>
+                </div>
+            </a>
+        );
     }
 });
 

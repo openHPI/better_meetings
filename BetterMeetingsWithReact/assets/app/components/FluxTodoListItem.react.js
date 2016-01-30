@@ -27,7 +27,7 @@ var FluxTodoListItem = React.createClass({
         };
 
         return(
-            <li key={index} className={ (item.done) ? "todo-item done" : "todo-item" } onDoubleClick={this._onDoubleClick}>
+            <li className="list-group-item" key={index} className={ (item.done) ? "todo-item done" : "todo-item" } onDoubleClick={this._onDoubleClick}>
                 <p className="todo-title">{item.title}</p>
                 <small className="todo-author"><i className="fa fa-user"></i>{item.author}</small>
                 <small className="todo-assignee">assigned to: <p>{ (item.assignee !== null) ? item.assignee.name : 'none' }</p></small>

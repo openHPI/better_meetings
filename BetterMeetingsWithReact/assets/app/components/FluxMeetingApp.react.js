@@ -18,6 +18,7 @@ function getTodoListState () {
 		timer: AgendaStore.getTimer(),
 		agenda: AgendaStore.getAgenda(),
 		selectedAgendaItem: AgendaStore.getSelected(),
+		allTodoItems: AgendaStore.getAllTodoItems(),
 		collapesedTodoItem: AgendaStore.getCollapsed(),
 		member: AgendaStore.getMember(),
 		total: AgendaStore.getAgendaTotal(),
@@ -67,12 +68,8 @@ var FluxMeetingApp = React.createClass({
 									<FluxMeetingStartFlyleaf />
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
-								</div>
-							</div>
 						</div>
+						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
 					</div>
 				);
 				break;
@@ -106,18 +103,14 @@ var FluxMeetingApp = React.createClass({
 									<div className="row">
 										<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 											<div className="flux-todolist">
-							                    <FluxTodoList items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
+							                    <FluxTodoList allItems={this.state.allTodoItems} items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
 							                </div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
-								</div>
-							</div>
 						</div>
+						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
 					</div>
 				);
 				break;
@@ -141,12 +134,8 @@ var FluxMeetingApp = React.createClass({
 									<FluxMeetingEndFlyleaf />
 								</div>
 							</div>
-							<div className="row">
-								<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
-								</div>
-							</div>
 						</div>
+						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
 					</div>
 				);
 				break;
