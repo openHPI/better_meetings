@@ -5,16 +5,24 @@ var FluxTodoListForm = require('./FluxTodoListForm.react');
 // Flux todolist view
 var FluxTodoList = React.createClass({
 
-    render: function(){
-        var allItems = this.props.allItems;
-        var items = this.props.items;
-        var member = this.props.member;
+    renderTodoList: function(items) {
         var collapsedIndex = this.props.collapsed;
         var canEdit = this.props.canEdit;
-
         if (items.length > 0) {
-            return(
-                     <div className="panel panel-secondary panel-colorful">
+            return Object.keys(items).map(function(index){
+                    var collapsed = (collapsedIndex === index) ? true : false;
+                    return (
+                        <FluxTodoListItem item={items[index]} index={index} collapsed={collapsed} canEdit={canEdit} />
+                    );
+            });
+        }
+    },
+
+    render: function() {
+        var member = this.props.member;
+
+        return(
+                    <div className="panel panel-secondary panel-colorful">
                          <div className="panel-heading">
                              <div className="panel-control">
                                  <ul className="nav nav-tabs">
@@ -29,12 +37,7 @@ var FluxTodoList = React.createClass({
                               <div id="demo-tabs-box-1" className="tab-pane fade in active">
                                  <div className="pad-ver">
                                      <ul className="list-group bg-trans list-todo mar-no">
-                                        {Object.keys(items).map(function(index){
-                                            var collapsed = (collapsedIndex === index) ? true : false;
-                                            return (
-                                                <FluxTodoListItem item={items[index]} index={index} collapsed={collapsed} canEdit={canEdit} />
-                                            );
-                                        })}
+                                        {this.renderTodoList(this.props.items)}
                                      </ul>
                                  </div>
                                  <div className="input-group pad-all">
@@ -46,12 +49,7 @@ var FluxTodoList = React.createClass({
                               <div id="demo-tabs-box-2" className="tab-pane fade">
                                  <div className="pad-ver">
                                      <ul className="list-group bg-trans list-todo mar-no">
-                                        {Object.keys(allItems).map(function(index){
-                                            var collapsed = (collapsedIndex === index) ? true : false;
-                                            return (
-                                                <FluxTodoListItem item={allItems[index]} index={index} collapsed={collapsed} canEdit={canEdit} />
-                                            );
-                                        })}
+                                        {this.renderTodoList(this.props.allItems)}
                                      </ul>
                                  </div>
                               </div>
@@ -60,17 +58,7 @@ var FluxTodoList = React.createClass({
                         <FluxTodoListForm member={member} />
                     </div>
 
-            );
-        }
-        else {
-            return(
-                <div className="flux-todolist-list">
-                    <h4>Todo List (empty)</h4>
-                    <button type="button" className="close" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-2x fa-plus-square-o"></i></button>
-                    <FluxTodoListForm member={member} />
-                </div>
-            );
-        }
+        );
     }
 });
 
