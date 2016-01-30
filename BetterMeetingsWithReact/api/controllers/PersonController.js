@@ -48,12 +48,12 @@ module.exports = {
 
     view: function(req, res) {
       //person.watch(req);
+
       var id = req.param('id', null);
       Person.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;
         res.render('person', {'model': 'person'});
-
       });
     },
 
@@ -62,8 +62,6 @@ module.exports = {
       person.find().exec(function displayPersonList(err, items) {
         if (err) return res.serverError(err);
         sails.log('person:' + items);
-        Person.subscribe(req.socket);
-        Person.subscribe(req.socket, items);
         return res.view('person', {
           users: items,
         });
@@ -74,7 +72,7 @@ module.exports = {
     delete: function(req,res) {
       var personID = req.param("personID", null);
 
-      Person.findOne(personID).done(function(err, person) {
+      person.findOne(personID).done(function(err, person) {
         person.destroy(function(err) {
           if (err) {
             sails.log('Error while deleting person');

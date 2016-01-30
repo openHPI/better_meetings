@@ -14,19 +14,23 @@ var FluxMemberTable = React.createClass({
         };
         
         return(
-            <div className="flux-memberlist-list">
-                <ul>
-                    {Object.keys(member).map(function(index){
-                        return (
-                            <FluxMemberTableData attendee={member[index]} index={index} />
-                        )
-                    })}
-                    <li>
-                        <button type="button" id="flux-memberlist-button" className="close" data-toggle="modal" data-target="#newMemberModal" style={editStyle}><i className="fa fa-plus-square-o"></i></button> 
-                    </li>
-                </ul>
-                <FluxMemberForm />
-            </div>
+            <aside id="aside-container">
+               <div id="aside">
+                  <div className="nano">
+                     <div className="nano-content">
+                        <div className="list-group bg-trans">
+                            {Object.keys(member).map(function(index){
+                                return (
+                                    <FluxMemberTableData attendee={member[index]} index={index} />
+                                );
+                            })}
+                        </div>
+                        <button type="button" id="flux-memberlist-button" data-toggle="modal" data-target="#newMemberModal" style={editStyle}><i className="fa fa-plus-square-o"></i></button> 
+                     </div>
+                  </div>
+               </div>
+               <FluxMemberForm />
+            </aside>
         );
     }
 });

@@ -6,13 +6,14 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _user = null, _canEdit = true, _agenda = [], _selected = null, _collapsed = -1, _member = [], _meetingStatus = 0, _timer = 0;
+var _user = null, _canEdit = true, _agenda = [], _selected = null, _allTodos = [], _collapsed = -1, _member = [], _meetingStatus = 0, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
 	_user = 'Lando';
 	_agenda = data.agenda;
 	_selected = data.agenda[0];
+	_allTodos = getAllTodos();
 	_member = data.member;
 	_timer = data.timer;
 
@@ -20,16 +21,14 @@ function loadAgenda (data) {
 }
 
 // Method to create the _selected.todoList_done
-function getDoneItems () {
+function getAllTodos () {
+	var allTodos = [];
 	for (var i = 0; i < _agenda.length; i++) {
 
-		_agenda[i]['todoList_done'] = [];
+		allTodos = allTodos.concat(_agenda[i].todoList);
 
-		for (var j = 0; j < _agenda[i].todoList.length; j++) {
-			if(_agenda[i].todoList[j].done)
-				_agenda[i].todoList_done.push(_agenda[i].todoList[j]);
-		}
 	}
+	return allTodos;
 }
 
 // Method to set the currently selected agenda item
@@ -70,6 +69,11 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 	// Return selected agenda item
 	getSelected: function() {
 		return _selected;
+	},
+
+	// Return all todos
+	getAllTodoItems: function() {
+		return _allTodos;
 	},
 
 	// Return collapsed index of todoitem
