@@ -15,10 +15,23 @@ module.exports = function login(inputs) {
   var req = this.req;
   var res = this.res;
 
+  if (typeof inputs.password === 'undefined' || inputs.password === '') {
+    if (typeof inputs.email === 'undefined' || inputs.email === '') {
+      return res.redirect(inputs.invalidRedirect);
+    } else {
+      if (typeof inputs.name === 'undefined' || inputs.name === '') {
+        return res.redirect('/login/name');
+      } else {
+        return res.redirect(inputs.successRedirect);
+      }
+    }
+  }
+
   // Look up the user
-  person.attemptLogin({
+  person.attemptLoginEmail({
     email: inputs.email,
-    password: inputs.password
+    password: inputs.password,
+    name: inputs.name,
   }, function (err, person) {
     if (err) return res.negotiate(err);
     if (!person) {

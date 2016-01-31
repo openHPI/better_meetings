@@ -58,7 +58,8 @@ module.exports = {
         name: inputs.name,
         email: inputs.email,
         // TODO: But encrypt the password first
-        password: inputs.password
+        password: inputs.password,
+        isAdmin: true,
       })
       .exec(cb);
   },
@@ -74,12 +75,29 @@ module.exports = {
    * @param  {Function} cb
    */
 
-  attemptLogin: function (inputs, cb) {
+  attemptLoginEmail: function (inputs, cb) {
+    // Create a person
+    person.findOne({
+        email: inputs.email
+      })
+      .exec(cb);
+  },
+
+  attemptLoginAdmin: function (inputs, cb) {
     // Create a person
     person.findOne({
         email: inputs.email,
         // TODO: But encrypt the password first
         password: inputs.password
+      })
+      .exec(cb);
+  },
+
+  attemptLoginGuest: function (inputs, cb) {
+    // Create a person
+    person.findOne({
+        name: inputs.name,
+        email: inputs.email
       })
       .exec(cb);
   }

@@ -152,6 +152,7 @@ module.exports = {
 
     // See `api/responses/login.js`
     return res.login({
+      name: req.param('name'),
       email: req.param('email'),
       password: req.param('password'),
       successRedirect: '/',
@@ -188,7 +189,7 @@ module.exports = {
 
     // Attempt to signup a person using the provided parameters
     person.signup({
-      name: req.param('displayName'),
+      name: req.param('name'),
       email: req.param('email'),
       password: req.param('password')
     }, function (err, person) {
