@@ -34,22 +34,39 @@ module.exports = {
 
           }
         })
-      } else {
-          res.send('person');
-          console.log('Person not created: too few parameters');
-      }
-    },
-
-    createGuest: function (req,res) {
-      sails.log('Creation of Guest-Person started');
-      sails.log(req.param('name'));
-      var name = req.param('name');
-      var email = req.param('email');
-
-      if (name && email) {
+      } else if (name && email) {
         person.create({
           name:           name,
           email:          email,
+        }).exec( function createPerson(err,created) {
+          if (err) {
+            console.log('Person not created' + err);
+          } else {
+            console.log('Created Person: ' + created.name);
+            person.publishCreate({
+              id: created.id,
+              name: created.name,
+              email: created.email,
+            });
+          }
+        });
+      } else if (email) {
+        person.create({
+          email:          email,
+        }).exec( function createPerson(err,created) {
+          if (err) {
+            console.log('Person not created' + err);
+          } else {
+            console.log('Created Person: ' + created.name);
+            person.publishCreate({
+              id: created.id,
+              email: created.email,
+            });
+          }
+        });
+      } else if (name) {
+        person.create({
+          name:           name,
         }).exec( function createGuestPerson(err,created) {
           if (err) {
             console.log('Guest-Person not created' + err);
@@ -58,20 +75,15 @@ module.exports = {
             person.publishCreate({
               id: created.id,
               name: created.name,
-              email: created.email
-             });
+            });
 
           }
-        })
-      } else if (name) {
-
-      } else if (email) {
-
+        });
       } else {
         res.send('person');
-        console.log('Guest-Person not created: too few parameters');
+        console.log('Person not created: too few parameters');
       }
-    }, 
+    },
 
     subscribe: function(req,res) {
      if (req.isSocket) {
