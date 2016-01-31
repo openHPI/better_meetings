@@ -17,7 +17,8 @@ module.exports = {
     var meetingseries = req.param('meetingseries');
     var title = req.param('title');
     var description = req.param('description');
-    // var todos = req.param('todos'),
+    var todos = req.param('todos');
+    var subAgendaItems = req.param('subAgendaItems');
 
     if (meetingseries && title) {
 
@@ -25,7 +26,9 @@ module.exports = {
         meetingseries:      meetingseries,
         title:              title,
         description:        description,
-        //todos:            todos,
+        todos:              todos,
+        subAgendaItems:     subAgendaItems,
+
       }).exec( function createAgendaItem(err, created) {
         if (err) { 
           console.log('[bm-error] agendaitem not created: ' + err);
@@ -36,6 +39,8 @@ module.exports = {
             meetingseries:      created.meetingseries,
             title:              created.title,
             description:        created.description,
+            todos:              created.todos,
+            subAgendaItems:     created.subAgendaItems,
           });
         }  
       });
@@ -81,14 +86,16 @@ module.exports = {
     var description = req.param('description');
     var todos = req.param('todos');
     var done = req.param('done');
+    var subAgendaItems = req.param('subAgendaItems');
 
-    if (meetingseries && title && description && todos && req.isSocket) {
+    if (meetingseries && title && description && todos && subAgendaItems && req.isSocket) {
       agendaitem.update({
         meetingseries:    meetingseries,
         title:            title,
         description:      description,
         todos:            todos,
         done:             done,
+        subAgendaItems:   subAgendaItems,
       }).exec(function updateAgendaItem(err, updated) {
         if (err) {
           console.log('AgendaItem not updated ' + err);
@@ -105,6 +112,7 @@ module.exports = {
             description: updated.description,
             todos: updated.todos,
             done: updated.done,
+            subAgendaItems: updated.subAgendaItems,
           });
         }
       });

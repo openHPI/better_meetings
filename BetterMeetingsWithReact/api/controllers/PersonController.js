@@ -9,7 +9,7 @@ module.exports = {
 // if just email + name are provided, it's a guest
 // if nothing is provided, it's also a guest
     create: function (req,res) {
-      sails.log('Creation started');
+      sails.log('Creation of Person started');
       sails.log(req.param('name'));
       var name = req.param('name');
       var password = req.param('password');
@@ -39,6 +39,39 @@ module.exports = {
           console.log('Person not created: too few parameters');
       }
     },
+
+    createGuest: function (req,res) {
+      sails.log('Creation of Guest-Person started');
+      sails.log(req.param('name'));
+      var name = req.param('name');
+      var email = req.param('email');
+
+      if (name && email) {
+        person.create({
+          name:           name,
+          email:          email,
+        }).exec( function createGuestPerson(err,created) {
+          if (err) {
+            console.log('Guest-Person not created' + err);
+          } else {
+            console.log('Created Guest-Person: ' + created.name);
+            person.publishCreate({
+              id: created.id,
+              name: created.name,
+              email: created.email
+             });
+
+          }
+        })
+      } else if (name) {
+
+      } else if (email) {
+
+      } else {
+        res.send('person');
+        console.log('Guest-Person not created: too few parameters');
+      }
+    }, 
 
     subscribe: function(req,res) {
      if (req.isSocket) {
