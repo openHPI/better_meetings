@@ -9,7 +9,7 @@ module.exports = {
 // if just email + name are provided, it's a guest
 // if nothing is provided, it's also a guest
     create: function (req,res) {
-      sails.log('Creation started');
+      sails.log('Creation of Person started');
       sails.log(req.param('name'));
       var name = req.param('name');
       var password = req.param('password');
@@ -40,20 +40,53 @@ module.exports = {
       }
     },
 
+    createGuest: function (req,res) {
+      sails.log('Creation of Guest-Person started');
+      sails.log(req.param('name'));
+      var name = req.param('name');
+      var email = req.param('email');
+
+      if (name && email) {
+        person.create({
+          name:           name,
+          email:          email,
+        }).exec( function createGuestPerson(err,created) {
+          if (err) {
+            console.log('Guest-Person not created' + err);
+          } else {
+            console.log('Created Guest-Person: ' + created.name);
+            person.publishCreate({
+              id: created.id,
+              name: created.name,
+              email: created.email
+             });
+
+          }
+        })
+      } else if (name) {
+
+      } else if (email) {
+
+      } else {
+        res.send('person');
+        console.log('Guest-Person not created: too few parameters');
+      }
+    }, 
+
     subscribe: function(req,res) {
      if (req.isSocket) {
-        person.watch(req);
         console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
      }
     },
 
     view: function(req, res) {
       //person.watch(req);
-      person.findOne(id).exec(function displayList(err, items) {
+
+      var id = req.param('id', null);
+      Person.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;
         res.render('person', {'model': 'person'});
-
       });
     },
 
@@ -70,17 +103,20 @@ module.exports = {
     },
 
     delete: function(req,res) {
-      var personID = req.param("personID", null);
-
-      person.findOne(personID).done(function(err, person) {
-        person.destroy(function(err) {
-          if (err) {
-            sails.log('Error while deleting person');
-            res.send("Error");
-          }
-          res.send("Success");
+      var meetingSeriesID = req.param("meetingSeriesID", null);
+      if (meetingSeriesID && req.isSocket) {
+        MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+          meetingseries.destroy({id: meetingSeriesAnswer.id}).exec(function destroy(err) {
+            if (err) {
+              sails.log('Error while deleting meetingseries');
+              res.send("Error");
+            } else {
+              sails.log("Successfully deleted " + meetingseriesID);
+              meetingseries.publishDestroy({id: meetingSeriesAnswer.id});   
+            }
+          });
         });
-      });
+      }
     },
 
     update: function (req,res) {

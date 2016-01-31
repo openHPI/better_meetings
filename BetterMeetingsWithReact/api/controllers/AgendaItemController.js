@@ -17,24 +17,34 @@ module.exports = {
     var meetingseries = req.param('meetingseries');
     var title = req.param('title');
     var description = req.param('description');
-    // var todos = req.param('todos'),
+    var todos = req.param('todos');
+    var subAgendaItems = req.param('subAgendaItems');
 
-    if (meetingseries && title && description) {
+    if (meetingseries && title) {
 
       AgendaItem.create({
         meetingseries:      meetingseries,
-        title:        title,
-        description:  description,
-        //todos:      todos,
-      }).exec( function createAgendaItem(err, cre) {
+        title:              title,
+        description:        description,
+        todos:              todos,
+        subAgendaItems:     subAgendaItems,
+
+      }).exec( function createAgendaItem(err, created) {
         if (err) { 
           console.log('[bm-error] agendaitem not created: ' + err);
         } else {
-          console.log('[bm-success] agendaitem ' + cre.title + 'created');
+          console.log('[bm-success] agendaitem ' + created.title + 'created');
+          agendaitem.publishCreate({
+            id:                 created.id,
+            meetingseries:      created.meetingseries,
+            title:              created.title,
+            description:        created.description,
+            todos:              created.todos,
+            subAgendaItems:     created.subAgendaItems,
+          });
         }  
       });
     } else if (req.isSocket) {
-      agendaItem.watch(req);
       sails.log('AgendaItem with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'agendaitem\'.');
     } else {
       res.send('agendaitem');
@@ -76,14 +86,16 @@ module.exports = {
     var description = req.param('description');
     var todos = req.param('todos');
     var done = req.param('done');
+    var subAgendaItems = req.param('subAgendaItems');
 
-    if (meetingseries && title && description && todos && done && req.isSocket) {
+    if (meetingseries && title && description && todos && subAgendaItems && req.isSocket) {
       agendaitem.update({
         meetingseries:    meetingseries,
         title:            title,
         description:      description,
         todos:            todos,
         done:             done,
+        subAgendaItems:   subAgendaItems,
       }).exec(function updateAgendaItem(err, updated) {
         if (err) {
           console.log('AgendaItem not updated ' + err);
@@ -100,6 +112,7 @@ module.exports = {
             description: updated.description,
             todos: updated.todos,
             done: updated.done,
+            subAgendaItems: updated.subAgendaItems,
           });
         }
       });
@@ -112,6 +125,8 @@ module.exports = {
 
   view: function(req,res) {
       //agendaItem.watch(req);
+
+      var id = req.param('id'. null);
       AgendaItem.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;
@@ -121,17 +136,21 @@ module.exports = {
 
   delete: function(req,res) {
     var agendaItemID = req.param("agendaItemID", null);
-
-    AgendaItem.findOne(agendaItemID).done(function(err, agendaitem) {
-      agendaitem.destroy(function(err) {
-        if (err) {
+    if (agendaItemID && req.isSocket) {
+      AgendaItem.findOne(agendaItemID).exec(function findAgendaItem(err, agendaItemAnswer) {
+        agendaitem.destroy({id: agendaItemAnswer.id}).exec(function destroy(err) {
+          if (err) {
             sails.log('Error while deleting agendaitem');
             res.send("Error");
+          } else {
+            sails.log("Successfully deleted " + agendaitemID);
+            agendaitem.publishDestroy({id: agendaItemAnswer.id});   
           }
-        res.send("Success");
+        });
       });
-    });
+    }
   },
+
 
   // viewAll: function(req,res) {
   //   agendaitem.find().exec(function displayAgendaItemList(err, items) {

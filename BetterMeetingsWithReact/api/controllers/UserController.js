@@ -28,7 +28,6 @@ module.exports = {
       });
     } else if (req.isSocket) {
 
-      User.watch(req);
       console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'users\'.');
 
     } else {
@@ -39,6 +38,7 @@ module.exports = {
 
   },
   view: function (req, res) {
+    var id = req.param('id', null);
     User.findOne(id).exec(function displayList(err, items) {
       console.log(items);
       res.response = items;
@@ -64,18 +64,21 @@ module.exports = {
     });
   },
 
-  delete: function (req, res) {
+  delete: function(req,res) {
     var userID = req.param("userID", null);
-
-    User.findOne(userID).done(function (err, user) {
-      user.destroy(function (err) {
-        if (err) {
-          sails.log('Error while deleting user');
-          res.send("Error");
-        }
-        res.send("Success");
+    if (userID && req.isSocket) {
+      User.findOne(userID).exec(function findUser(err, userAnswer) {
+        user.destroy({id: userAnswer.id}).exec(function destroy(err) {
+          if (err) {
+            sails.log('Error while deleting user');
+            res.send("Error");
+          } else {
+            sails.log("Successfully deleted " + userID);
+            user.publishDestroy({id: userAnswer.id});   
+          }
+        });
       });
-    });
+    }
   },
 
   displayAll: function (req, res) {

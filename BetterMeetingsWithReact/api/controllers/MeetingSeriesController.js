@@ -42,9 +42,8 @@ module.exports = {
               timer: created.timer,
              });
           }
-        })
+        });
       } else if (req.isSocket){
-             meetingSeries.watch(req);
              sails.log('MeetingSeries with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meetingseries\'.');
       } else {
           res.send('meetingseries');
@@ -117,6 +116,7 @@ module.exports = {
 
   view: function(req,res) {
     //meetingSeries.watch(req);
+    var id = req.param('id', null);
     MeetingSeries.findOne(id).exec(function displayList(err, items) {
         console.log(items);
         res.response = items;
@@ -132,16 +132,19 @@ module.exports = {
 
   delete: function(req,res) {
     var meetingSeriesID = req.param("meetingSeriesID", null);
-
-    MeetingSeries.findOne(meetingSeriesID).done(function(err, meetingseries) {
-      meetingseries.destroy(function(err) {
-        if (err) {
-          sails.log('Error while deleting meetingseries');
-          res.send("Error");
-        }
-        res.send("Success");
+    if (meetingSeriesID && req.isSocket) {
+      MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+        meetingseries.destroy({id: meetingSeriesAnswer.id}).exec(function destroy(err) {
+          if (err) {
+            sails.log('Error while deleting meetingseries');
+            res.send("Error");
+          } else {
+            sails.log("Successfully deleted " + meetingseriesID);
+            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});   
+          }
+        });
       });
-    });
+    }
   },
 
   // viewAll: function(req,res) {

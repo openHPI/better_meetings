@@ -35,7 +35,6 @@ module.exports = {
 			  });
 			} 
 		} else if (req.isSocket){
-		       meeting.watch(req);
 		       sails.log('Meeting with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meeting\'.');
 		} else {
 		    res.send('meeting');
@@ -44,17 +43,20 @@ module.exports = {
 	},
 	
 	delete: function(req,res) {
-		var meetingID = req.param("meetingID", null);
-
-		Meeting.findOne(meetingID).done(function(err, meeting) {
-		  meeting.destroy(function(err) {
-		  	if (err) {
-            sails.log('Error while deleting meeting');
-            res.send("Error");
-          }
-		    res.send("Success");
-		  });
-		});
+	  var meetingID = req.param("meetingID", null);
+	  if (meetingID && req.isSocket) {
+	    Meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
+	      meeting.destroy({id: meetingAnswer.id}).exec(function destroy(err) {
+	        if (err) {
+	          sails.log('Error while deleting meeting');
+	          res.send("Error");
+	        } else {
+	          sails.log("Successfully deleted " + meetingID);
+	          meeting.publishDestroy({id: meetingAnswer.id});   
+	        }
+	      });
+	    });
+	  }
 	},
 
 	update: function (req,res) {
@@ -95,6 +97,7 @@ module.exports = {
 
 	view: function(req, res) {
 		//meeting.watch(req);
+		var id = req.param('id', null);
 		Meeting.findOne(id).exec(function displayList(err, items) {
 		  console.log(items);
 		  res.response = items;
@@ -104,15 +107,15 @@ module.exports = {
 	},
 
 	// viewAll: function(req,res) {
-		// Meeting.find().exec(function displayMeetingList(err, items) {
-		//   if (err) return res.serverError(err);
-		//   sails.log('meeting:' + items);
-		//   Meeting.subscribe(req.socket);
-		//   Meeting.subscribe(req.socket, items);
-		//   return res.view('meeting', {
-		//     users: items,
-		//   });
-		// });
+	// 	Meeting.find().exec(function displayMeetingList(err, items) {
+	// 	  if (err) return res.serverError(err);
+	// 	  sails.log('meeting:' + items);
+	// 	  Meeting.subscribe(req.socket);
+	// 	  Meeting.subscribe(req.socket, items);
+	// 	  return res.view('meeting', {
+	// 	    users: items,
+	// 	  });
+	// 	});
 	// },
 
 	subscribe: function(req,res) {

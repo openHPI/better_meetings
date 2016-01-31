@@ -27,6 +27,9 @@ module.exports = {
   		collection: 'todoitem',
   		via: 'owner',
   	},
+    subAgendaItems: {
+      type: 'array',
+    },
   	done: {
   		type: 'boolean',
   		required: false,

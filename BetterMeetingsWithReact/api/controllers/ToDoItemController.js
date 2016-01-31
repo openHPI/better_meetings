@@ -113,13 +113,20 @@ module.exports = {
   },
 
   delete: function(req,res) {
-    var todoID = req.param("todoItemID", null);
-
-    ToDoItem.findOne(todoID).done(function(err,user) {
-      user.destroy(function(err) {
-        res.send("Success");
+    var meetingSeriesID = req.param("meetingSeriesID", null);
+    if (meetingSeriesID && req.isSocket) {
+      MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+        meetingseries.destroy({id: meetingSeriesAnswer.id}).exec(function destroy(err) {
+          if (err) {
+            sails.log('Error while deleting meetingseries');
+            res.send("Error");
+          } else {
+            sails.log("Successfully deleted " + meetingseriesID);
+            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});   
+          }
+        });
       });
-    });
+    }
   },
 
   // viewAll: function(req,res) {
