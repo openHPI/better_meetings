@@ -22,5 +22,8 @@ module.exports = {
     	type: 'boolean',
     	required: true,
     },
+    startTime: {
+      type: 'datetime',
+    },
   }
 };

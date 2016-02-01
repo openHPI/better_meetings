@@ -86,20 +86,28 @@ module.exports.routes = {
   '/logout': 'PersonController.logout',
   'post /User': 'UserController.create',
 
-  // endpoints for meeting controller
+  // endpoints for meetingserien controller
   'POST /meetingseries/create': 'MeetingSeriesController.create',
   'POST /meetingseries/update': 'MeetingSeriesController.update',
   'POST /meetingseries/view': 'MeetingSeriesController.view',
   'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
+ // endpoints for meeting controller
+  'POST /meeting/create': 'MeetingController.create',
+  'POST /meeting/update': 'MeetingController.update',
+  'POST /meeting/view': 'MeetingController.view',
+  'POST /meeting/delete': 'MeetingController.delete',
+
   // endpoints for meeting controller
   'GET /person/subscribe': 'PersonController.subscribe',
   'POST /person/create': 'PersonController.create',
   'POST /person/update': 'PersonController.update',
+  'POST /person/delete': 'PersonController.delete',
 
   // endpoints for agendaitem controller
   'POST /topic/create': 'AgendaItemController.create',
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
+  'POST /topic/delete': 'AgendaItemController.delete',
 
   // endpoints for todoitem
   'GET /todoitem/subscribe': 'TodoItemController.subscribe',

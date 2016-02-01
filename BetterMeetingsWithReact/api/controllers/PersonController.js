@@ -32,46 +32,58 @@ module.exports = {
             email: created.email
           });
 
-        }
-      })
-    } else {
-      res.send('person');
-      console.log('Person not created: too few parameters');
-    }
-  },
+          }
+        })
+      } else if (name && email) {
+        person.create({
+          name:           name,
+          email:          email,
+        }).exec( function createPerson(err,created) {
+          if (err) {
+            console.log('Person not created' + err);
+          } else {
+            console.log('Created Person: ' + created.name);
+            person.publishCreate({
+              id: created.id,
+              name: created.name,
+              email: created.email,
+            });
+          }
+        });
+      } else if (email) {
+        person.create({
+          email:          email,
+        }).exec( function createPerson(err,created) {
+          if (err) {
+            console.log('Person not created' + err);
+          } else {
+            console.log('Created Person: ' + created.name);
+            person.publishCreate({
+              id: created.id,
+              email: created.email,
+            });
+          }
+        });
+      } else if (name) {
+        person.create({
+          name:           name,
+        }).exec( function createGuestPerson(err,created) {
+          if (err) {
+            console.log('Guest-Person not created' + err);
+          } else {
+            console.log('Created Guest-Person: ' + created.name);
+            person.publishCreate({
+              id: created.id,
+              name: created.name,
+            });
 
-  createGuest: function (req, res) {
-    sails.log('Creation of Guest-Person started');
-    sails.log(req.param('name'));
-    var name = req.param('name');
-    var email = req.param('email');
-
-    if (name && email) {
-      person.create({
-        name: name,
-        email: email,
-      }).exec(function createGuestPerson(err, created) {
-        if (err) {
-          console.log('Guest-Person not created' + err);
-        } else {
-          console.log('Created Guest-Person: ' + created.name);
-          person.publishCreate({
-            id: created.id,
-            name: created.name,
-            email: created.email
-          });
-
-        }
-      })
-    } else if (name) {
-
-    } else if (email) {
-
-    } else {
-      res.send('person');
-      console.log('Guest-Person not created: too few parameters');
-    }
-  },
+          }
+        });
+      } else {
+        res.send('person');
+        console.log('Person not created: too few parameters');
+      }
+    },
 
   subscribe: function (req, res) {
     if (req.isSocket) {
@@ -363,36 +375,31 @@ module.exports = {
       // Otherwise if this is an HTML-wanting browser, redirect to /welcome.
       return res.redirect('/');
     });
-  }
-  ,
+  },
 
   createMeetingSeries: function (req, res) {
-    return res.json({
-      todo: 'createMeetingSeries() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'createMeetingSeries() is not implemented yet!'
+      });
+  },
 
   deleteMeetingSeries: function (req, res) {
-    return res.json({
-      todo: 'deleteMeetingSeries() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'deleteMeetingSeries() is not implemented yet!'
+      });
+  },
 
   readMeetingSeries: function (req, res) {
     return res.json({
       todo: 'readMeeting() is not implemented yet!'
     });
-  }
-  ,
+  },
 
   updateMeetingSeries: function (req, res) {
     return res.json({
       todo: 'updateMeeting() is not implemented yet!'
     });
-  }
-  ,
+  },
 
 
   /**
@@ -402,71 +409,61 @@ module.exports = {
     return res.json({
       todo: 'readJourfixe() is not implemented yet!'
     });
-  }
-  ,
+  },
 
   createMeeting: function (req, res) {
-    return res.json({
-      todo: 'createMeeting() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'createMeeting() is not implemented yet!'
+      });
+  },
 
   deleteMeeting: function (req, res) {
-    return res.json({
-      todo: 'deleteMeeting() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'deleteMeeting() is not implemented yet!'
+      });
+  },
 
   updateMeeting: function (req, res) {
     return res.json({
       todo: 'updateJourFixe() is not implemented yet!'
     });
-  }
-  ,
+  },
 
   setAssignee: function (req, res) {
     return res.json({
       todo: 'setAssignee() is not implemented yet!'
     });
-  }
-  ,
+  },
 
   isDone: function (req, res) {
-    return res.json({
-      todo: 'isDone() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'isDone() is not implemented yet!'
+      });
+  },
 
   setDone: function (req, res) {
-    return res.json({
-      todo: 'setDone() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'setDone() is not implemented yet!'
+      });
+  },
 
   startMeeting: function (req, res) {
-    return res.json({
-      todo: 'startMeeting() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'startMeeting() is not implemented yet!'
+      });
+  },
 
   endMeeting: function (req, res) {
-    return res.json({
-      todo: 'endMeeting() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'endMeeting() is not implemented yet!'
+      });
+  },
 
   finishToDoItem: function (req, res) {
-    return res.json({
-      todo: 'finishToDoItem() is not implemented yet!'
-    });
-  }
-  ,
+      return res.json({
+        todo: 'finishToDoItem() is not implemented yet!'
+      });
+  },
 
   subscribe: function (req, res) {
     if (req.isSocket) {
@@ -474,7 +471,4 @@ module.exports = {
       console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
     }
   }
-
-}
-;
-
+};

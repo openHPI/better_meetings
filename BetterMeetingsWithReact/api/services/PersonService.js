@@ -39,26 +39,26 @@ module.exports = {
 			});
 		} else if (name && email) {
 			// create guest person
-			Person.createGuest({name: name, email: email}).exec(function createGuestPerson(error, createdGuestPerson){
-				if (err) {
-					sails.log("Error while creating Guest-Person in PersonService");
-				} else {
-					sails.log("Successfully created " + createdGuestPerson.name);
-					var personID = createdGuestPerson.id;
-					// add created Person to attendees of meeting
-					Meeting.findOne(meeting).exec(function(err, meetingAnswer) {
-						if (err) {
-							console.log("Error: no correct Meeting found in PersonService");
-						} else {
-							meetingAnswer.update({attendees: personID});
-							sails.log("Successfully added new attendee " + createdGuestPerson.name + " to meeting");
-						}
-					});
-				}
+			Person.findOrCreate({name: name, email: email}).exec(function findCreatePerson(error, createdOrFoundPerson){
+  				if (err) {
+  					sails.log("Error while creating Person in PersonService");
+  				} else {
+  					sails.log("Successfully created or found " + createdOrFoundPerson.name);
+  					var personID = createdOrFoundPerson.id;
+  					// add created/found Person to attendees of meeting
+  					Meeting.findOne(meeting).exec(function(err, meetingAnswer) {
+  						if (err) {
+  							console.log("Error: no correct Meeting found in PersonService");
+  						} else {
+  							meetingAnswer.update({attendees: personID});
+  							sails.log("Successfully added new attendee " + createdOrFoundPerson.name + " to meeting");
+  						}
+  					});
+  				}
 			});
 		} else if (name) {
 			// create guest person
-			Person.createGuest({name: name}).exec(function createGuestPerson(error, createdGuestPerson){
+			Person.create({name: name}).exec(function createGuestPerson(error, createdGuestPerson){
 				if (err) {
 					sails.log("Error while creating Guest-Person in PersonService");
 				} else {
@@ -80,29 +80,29 @@ module.exports = {
 			guestCounter++;
 			var guestName = "Guest" + guestCounter.toString();
 			
-			Person.createGuest({name: guestName, email: email}).exec(function createGuestPerson(error, createdGuestPerson){
-				if (err) {
-					sails.log("Error while creating Guest-Person in PersonService");
-				} else {
-					sails.log("Successfully created " + createdGuestPerson.name);
-					var personID = createdGuestPerson.id;
-					// add created Person to attendees of meeting
-					Meeting.findOne(meeting).exec(function(err, meetingAnswer) {
-						if (err) {
-							console.log("Error: no correct Meeting found in PersonService");
-						} else {
-							meetingAnswer.update({attendees: personID});
-							sails.log("Successfully added new attendee " + createdGuestPerson.name + " to meeting");
-						}
-					});
-				}
+			Person.findOrCreate({email: email}, {email: email, name: guestName}).exec(function findCreatePerson(error, createdOrFoundPerson){
+  				if (err) {
+  					sails.log("Error while creating Person in PersonService");
+  				} else {
+  					sails.log("Successfully created or found " + createdOrFoundPerson.name);
+  					var personID = createdOrFoundPerson.id;
+  					// add created/found Person to attendees of meeting
+  					Meeting.findOne(meeting).exec(function(err, meetingAnswer) {
+  						if (err) {
+  							console.log("Error: no correct Meeting found in PersonService");
+  						} else {
+  							meetingAnswer.update({attendees: personID});
+  							sails.log("Successfully added new attendee " + createdOrFoundPerson.name + " to meeting");
+  						}
+  					});
+  				}
 			});
 		} else {
 			// create guest person, assign a self created name for guest
 			guestCounter++;
 			var guestName = "Guest" + guestCounter.toString();
 			
-			Person.createGuest({name: guestName}).exec(function createGuestPerson(error, createdGuestPerson){
+			Person.create({name: guestName}).exec(function createGuestPerson(error, createdGuestPerson){
 				if (err) {
 					sails.log("Error while creating Guest-Person in PersonService");
 				} else {

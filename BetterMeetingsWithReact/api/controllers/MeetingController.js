@@ -12,14 +12,16 @@ module.exports = {
 		var topics = req.param('topics');
 		var attendees = req.param('attendees');
 		var isInitialCreation = req.param('isInitialCreation');
+		var startTime = req.param('startTime');
 		
 		if (isInitialCreation === false) {
 			
-			if (displayname && password && email) {
+			if (topics && attendees && isInitialCreation && startTime) {
 			  meeting.create({
 			    topics: 			topics,
 			    attendees: 			attendees,
 			    isInitialCreation: 	isInitialCreation,
+			    startTime: 			startTime,
 			  }).exec( function createMeeting(err,created) {
 			    if (err) {
 			      console.log('Meeting not created' + err);
@@ -30,6 +32,7 @@ module.exports = {
 			        topics: 			created.topics,
 			        attendees: 			created.attendees,
 			        isInitialCreation: 	created.isInitialCreation,
+			        startTime: 			created.startTime,
 			       });
 			    }
 			  });
@@ -65,12 +68,14 @@ module.exports = {
 		var topics = req.param('topics');
 		var attendees = req.param('attendees');
 		var isInitialCreation = req.param('isInitialCreation');
+		var startTime = req.param('startTime');
 
-		if (topics && attendees && isInitialCreation && req.isSocket) {
+		if (topics && attendees && isInitialCreation && startTime && req.isSocket) {
 		  meeting.update({
 		    topics:      		topics,
 		    attendees:   		attendees,
 		    isInitialCreation: 	isInitialCreation,
+		    startTime: 			startTime,
 		  }).exec(function updateMeeting(err, updated) {
 		    if (err) {
 		      console.log('Meeting not updated ' + err);
@@ -85,6 +90,7 @@ module.exports = {
 		        topics: updated.topics,
 		        attendees: updated.attendees,
 		        isInitialCreation: updated.isInitialCreation,
+		        startTime: updated.startTime,
 		      });
 		    }
 		  });
@@ -102,7 +108,6 @@ module.exports = {
 		  console.log(items);
 		  res.response = items;
 		  res.render('meeting', {'model': 'meeting'});
-
 		});
 	},
 
@@ -134,11 +139,12 @@ module.exports = {
 	},
 
 	start: function(req, res) {
-
+		
 	},
 
 	end: function(req, res) {
-
+		// send summary email to everyone who provided at least email
+		// delete guests who only provided name or nothing
 	},
 
 };
