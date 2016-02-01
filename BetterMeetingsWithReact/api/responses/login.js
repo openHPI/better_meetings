@@ -17,12 +17,32 @@ module.exports = function login(inputs) {
 
   if (typeof inputs.password === 'undefined' || inputs.password === '') {
     if (typeof inputs.email === 'undefined' || inputs.email === '') {
-      return res.redirect(inputs.invalidRedirect);
+      return res.badRequest('Es wird Ihre E-Mail Adresse benötigt!');
     } else {
       if (typeof inputs.name === 'undefined' || inputs.name === '') {
         return res.redirect('/login/name');
       } else {
-        return res.redirect(inputs.successRedirect);
+        sails.controllers.person.createGuest(req, res);
+        person.attemptLoginGuest({
+          email: inputs.email,
+          name: inputs.name,
+        }, function (err, person) {
+          if (err) return res.negotiate(err);
+
+          if (!person) {
+            if (req.wantsJSON || !inputs.invalidRedirect) {
+              return res.badRequest('Invalid username/password combination.');
+            }
+            return res.redirect(inputs.invalidRedirect);
+          }
+
+          req.session.me = person;
+
+          if (req.wantsJSON || !inputs.successRedirect) {
+            return res.ok();
+          }
+          return res.redirect(inputs.successRedirect);
+        });
       }
     }
   }
