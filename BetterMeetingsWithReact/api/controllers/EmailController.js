@@ -20,7 +20,7 @@ module.exports = {
 			    senderEmail: PW.mail
 			  },
 			  {
-			  	from: "BetterMeetings <"PW.mail">",
+			  	from: "BetterMeetings",
 			    to: req.to,
 			    subject: "Your BetterMeetings Summary",
 			    //html: {path: '..'},
