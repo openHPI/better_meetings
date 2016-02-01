@@ -51,6 +51,10 @@ module.exports.routes = {
   'get /meeting': {
     view: 'meeting'
   },
+  'get /meeting/view': {
+    controller: 'meeting',
+    action: 'view'
+  },
   '/user': {
     controller: 'user',
     action: 'viewAll'
