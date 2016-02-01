@@ -14,7 +14,7 @@ module.exports = {
       ExampledataService.generateExampleMeeting(req, res);
 
       setTimeout(function () {
-        //ExampledataService.generateExampleTopics(req, res);
+        ExampledataService.generateExampleTopics(req, res);
       }, 1000);
     }, 1000);
 

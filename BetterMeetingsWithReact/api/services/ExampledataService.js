@@ -52,41 +52,56 @@ module.exports = {
 
   generateExampleTopics: function (req, res) {
 
-    var topic1 = {
-      'meeting': 1,
-      'title': 'Topic 1',
-      'description': 'Lorem Ipsum Dolor.'
-    };
-    var topic2 = {
-      'meeting': 1,
-      'title': 'Topic 2',
-      'description': 'Lorem Ipsum Dolor.'
-    };
-    var topic3 = {
-      'meeting': 1,
-      'title': 'Topic 3',
-      'description': 'Lorem Ipsum Dolor.'
-    };
-
-    var topics = [topic1, topic2, topic3];
-
-    for (var i = 0; i < 3; i++) {
-      var meeting = topics[i].meeting;
-      var title = topics[i].title;
-      var description = topics[i].description;
-
-      agendaitem.findOrCreate({
-        meeting: meeting,
-        title: title,
-        description: description
-      }).exec(function createAgendaItems(err, cre) {
-        if (err) {
-          sails.log('AgendaItem not created' + err);
+    meetingseries.findOne({
+      title: 'Testmeeting',
+      description: 'Lorem ipsum dolor.'
+    }).exec(function findMeetingSeries(err, cre) {
+      if (err) {
+        sails.log('Topics not created' + err);
+      } else {
+        if (!cre) {
+          sails.log('Topics not created' + err);
         } else {
-          sails.log('AgendaItem created: ' + cre.displayname);
+
+          var topic1 = {
+            'meetingseries': cre,
+            'title': 'Topic 1',
+            'description': 'Lorem Ipsum Dolor.'
+          };
+          var topic2 = {
+            'meetingseries': cre,
+            'title': 'Topic 2',
+            'description': 'Lorem Ipsum Dolor.'
+          };
+          var topic3 = {
+            'meetingseries': cre,
+            'title': 'Topic 3',
+            'description': 'Lorem Ipsum Dolor.'
+          };
+
+          var topics = [topic1, topic2, topic3];
+
+          for (var i = 0; i < 3; i++) {
+            var meetingseries = topics[i].meetingseries;
+            var title = topics[i].title;
+            var description = topics[i].description;
+
+            agendaitem.findOrCreate({
+              meetingseries: meetingseries,
+              title: title,
+              description: description
+            }).exec(function createAgendaItems(err, cre) {
+              if (err) {
+                sails.log('AgendaItem not created' + err);
+              } else {
+                sails.log('AgendaItem created: ' + cre.title);
+              }
+            })
+          }
+
         }
-      })
-    }
+      }
+    });
     //return res.send('Toll');
   },
 
@@ -100,32 +115,32 @@ module.exports = {
 
     person.findOne({
       email: 'test1@hpi.de'
-    }).exec(function findPerson(err, cre) {
+    }).exec(function findPerson(err, admin1) {
       if (err) {
       } else {
-        if (!cre) {
+        if (!admin1) {
         } else {
-          admins.push(cre);
+          admins.push(admin1);
         }
       }
       person.findOne({
         email: 'test2@hpi.de'
-      }).exec(function findPerson(err, cre) {
+      }).exec(function findPerson(err, admin2) {
         if (err) {
         } else {
-          if (!cre) {
+          if (!admin2) {
           } else {
-            admins.push(cre);
+            admins.push(admin2);
           }
         }
         person.findOne({
           email: 'test3@hpi.de'
-        }).exec(function findPerson(err, cre) {
+        }).exec(function findPerson(err, admin3) {
           if (err) {
           } else {
-            if (!cre) {
+            if (!admin3) {
             } else {
-              admins.push(cre);
+              admins.push(admin3);
             }
           }
 
