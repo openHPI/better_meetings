@@ -30,7 +30,9 @@ var FluxAgendaTimer = React.createClass({
     };
 
     return (
-      <div style={divStyles}>{minutes} : {seconds} min</div>
+      <div className="panel panel-colorful panel-info">
+        <h3 className="panel-title" style={divStyles}>{minutes} : {seconds} min</h3>
+      </div>
     );
   }
 

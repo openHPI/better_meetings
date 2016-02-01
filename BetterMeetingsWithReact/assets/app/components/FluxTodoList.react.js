@@ -42,7 +42,7 @@ var FluxTodoList = React.createClass({
                                  </div>
                                  <div className="input-group pad-all">
                                      <span className="input-group-btn">
-                                         <button type="button" className="btn btn-success" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-plus"></i></button>
+                                         <button type="button" className="btn btn-info" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-plus"></i></button>
                                      </span>
                                  </div>
                               </div>
