@@ -33,6 +33,7 @@
     "include-all": "^0.1.6",
     "jquery": "^2.2.0",
     "lodash": "*",
+    "node-markdown": "^0.1.1",
     "node-qr-image": "0.0.1",
     "rc": "^0.5.5",
     "react": "^0.13.3",

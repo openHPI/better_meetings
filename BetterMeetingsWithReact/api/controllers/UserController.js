@@ -49,6 +49,7 @@ module.exports = {
 
   viewAll: function (req, res) {
     var qrcode = QrCodeService.renderQrCode('http://localhost:1337/user', '250');
+    var htmlString = MarkdownService.parseMarkdown("# Dies ist ein H1\n**bold** *italic* [link](http://localhost:1337/)\n\n`code block`\n\n* foo\n* bar");
 
     User.find().exec(function displayList(err, items) {
       if (err) return res.serverError(err);
@@ -58,6 +59,7 @@ module.exports = {
         'user', {
           users: items,
           qr: qrcode,
+          md: htmlString
         }
       );
 
@@ -74,7 +76,7 @@ module.exports = {
             res.send("Error");
           } else {
             sails.log("Successfully deleted " + userID);
-            user.publishDestroy({id: userAnswer.id});   
+            user.publishDestroy({id: userAnswer.id});
           }
         });
       });
