@@ -233,11 +233,9 @@ module.exports = {
 
     person.attemptLoginEmail({
       email: email
-    }, function (err, person) {
-      if (!person) {
-        this.createGuest(req, res);
-
-        person.attemptLoginGuest({
+    }, function (err, user) {
+      if (!user) {
+        person.attemptLoginGuestOrCreate({
           email: email,
           name: name
         }, function (err, person) {
@@ -261,7 +259,7 @@ module.exports = {
           return res.redirect(successRedirect);
         });
       } else {
-        if (person.admin) {
+        if (user.isAdmin) {
           return res.redirect('/login/admin/' + email);
         } else {
           return res.redirect('/login/login');
@@ -283,12 +281,12 @@ module.exports = {
 
       if (!person) {
         // start name modal
-        res.redirect('/login/guest/' + email);
+        return res.redirect('/login/guest/' + email);
       }
 
       if (person.isAdmin) {
         // start admin modal
-        res.redirect('/login/admin/' + email);
+        return res.redirect('/login/admin/' + email);
       } else {
         req.session.me = person;
 
@@ -313,7 +311,7 @@ module.exports = {
 
       if (!person) {
         // start name modal
-        res.redirect('/login/admin/' + email);
+        return res.redirect('/login/admin/' + email);
       }
 
       req.session.me = person;

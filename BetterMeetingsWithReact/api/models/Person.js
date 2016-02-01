@@ -92,9 +92,9 @@ module.exports = {
       .exec(cb);
   },
 
-  attemptLoginGuest: function (inputs, cb) {
+  attemptLoginGuestOrCreate: function (inputs, cb) {
     // Create a person
-    person.findOne({
+    person.findOrCreate({
         name: inputs.name,
         email: inputs.email
       })

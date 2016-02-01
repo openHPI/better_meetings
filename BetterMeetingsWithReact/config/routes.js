@@ -36,12 +36,15 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  //'get /login/admin/:email': {
-  //  view: 'login/admin'
-  //},
-  //'get /login/guest/:email': {
-  //  view: 'login/guest'
-  //},
+  'get /login': {
+    view: 'login/login'
+  },
+  'get /login/admin/:email': {
+    view: 'login/admin'
+  },
+  'get /login/guest/:email': {
+    view: 'login/guest'
+  },
   'get /signup': {
     view: 'signup'
   },
