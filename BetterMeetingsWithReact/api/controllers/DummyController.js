@@ -22,6 +22,6 @@ module.exports = {
   },
 
   deleteAll: function (req, res) {
-
+    res.send("Dummy data deletion is not implemented yet!");
   }
 };
