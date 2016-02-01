@@ -7,35 +7,33 @@
 
 module.exports = {
 
-  sendEmail: function (req, res) {
+	sendEmail: function(req, res) {
 
-    var content = computeEmailContent(req.topics);
+			var content = computeEmailContent(req.topics);
 
-    // sails.hooks.email.send(template, data, options, cb)
-    sails.hooks.email.send(
-      "testEmail",
-      {
-        recipientName: req.recipientName,
-        senderName: "BetterMeetings",
-        senderEmail: "postmaster@youremail.mailgun.org"
-      },
-      {
-        from: "BetterMeetings <postmaster@youremail.mailgun.org>",
-        to: req.to,
-        subject: "Your BetterMeetings Summary",
-        //html: {path: '..'},
-      },
-      function (err) {
-        console.log(err || "Email is sent");
-      }
-    )
+			// sails.hooks.email.send(template, data, options, cb)
+			sails.hooks.email.send(
+			  "testEmail",
+			  {
+			    recipientName: req.recipientName,
+			    senderName: "BetterMeetings",
+			    senderEmail: "postmaster@youremail.mailgun.org"
+			  },
+			  {
+			  	from: "BetterMeetings",
+			    to: req.to,
+			    subject: "Your BetterMeetings Summary",
+			    //html: {path: '..'},
+			  },
+			  function(err) {console.log(err || "Email is sent");}
+			)
 
-    return res.send('Email Test');
-  },
+			return res.send('Email Test');
+	},
 
-  computeEmailContent: function (topics) {
+	computeEmailContent: function(topics) {
 
-  },
+	},
 
 };
 
