@@ -28,8 +28,8 @@ module.exports = {
       required: false,
     },
     topics: {
-      model: 'agendaitem',
-      via: 'meeting',
+      collection: 'agendaitem',
+      via: 'meetingseries',
     },
     meeting: {
       type: 'integer',
