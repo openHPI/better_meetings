@@ -76,6 +76,10 @@ module.exports.routes = {
     controller: 'person',
     action: 'exampledata',
   },
+  '/email': {
+    controller: 'EmailController',
+    action: 'sendEmail',
+  },
 
   // Endpoints
   'post /login': 'PersonController.login',

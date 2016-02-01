@@ -145,6 +145,9 @@ module.exports = {
 	end: function(req, res) {
 		// send summary email to everyone who provided at least email
 		// delete guests who only provided name or nothing
+		for (var attendee in req.attendees) {
+			EmailController.sendEmail({recipientName: attendee.name , to: attendee.email, topics: req.topics});
+		}
 	},
 
 };
