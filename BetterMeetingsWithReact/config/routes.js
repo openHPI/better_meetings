@@ -84,10 +84,6 @@ module.exports.routes = {
   },
   '/dummydata': 'DummyController.loadAll',
   '/dummydata/delete': 'DummyController.loadAll',
-  '/email': {
-    controller: 'EmailController',
-    action: 'sendEmail',
-  },
 
   // Endpoints
   'post /login': 'PersonController.login',

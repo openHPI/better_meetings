@@ -1,13 +1,10 @@
 /**
- * EmailController
- *
- * @description :: Server-side logic for managing Emails
- * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ * EmailService
  */
 
 module.exports = {
 
-	sendEmail: function(req, res) {
+	sendSummary: function(req, res) {
 
 			var content = computeEmailContent(req.topics);
 
