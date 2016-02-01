@@ -8,6 +8,8 @@
 module.exports = {
 
   createFromSeries: function (meetingseries) {
+    console.log(JSON.stringify(meetingseries));
+
     var attendees = [];
     for (var i = 0; i < meetingseries.admins.length; i++) {
       attendees.push(meetingseries.admins[i]);
@@ -18,6 +20,8 @@ module.exports = {
 
     meeting.create({
       topics: meetingseries.topics,
+      title: meetingseries.title,
+      description: meetingseries.description,
       attendees: attendees,
       isInitialCreation: true
     }).exec(function createMeeting(err, created) {
@@ -28,6 +32,8 @@ module.exports = {
         meeting.publishCreate({
           id: created.id,
           topics: created.topics,
+          title: created.topics,
+          description: created.topics,
           attendees: created.attendees,
           isInitialCreation: created.isInitialCreation
         });
@@ -133,7 +139,7 @@ module.exports = {
     //meeting.watch(req);
     var id = req.param('id', null);
     id = 1;
-    meetingseries.find().exec(function displayList(err, items) {
+    meeting.find().exec(function displayList(err, items) {
       console.log(items);
       res.response = items;
       res.render('meeting', {'model': 'meeting'});
