@@ -83,7 +83,7 @@ module.exports.routes = {
     action: 'exampledata',
   },
   '/dummydata': 'DummyController.loadAll',
-  '/dummydata/delete': 'DummyController.loadAll',
+  '/dummydata/delete': 'DummyController.deleteAll',
 
   // Endpoints
   'post /login': 'PersonController.login',
