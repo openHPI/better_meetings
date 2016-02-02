@@ -9,10 +9,10 @@ module.exports = {
 	// automatically adds it to the attendees of the belonging meeting
 	// async.map()
 	createAttendee: function(input) {
-		var name = input.param('name');
-		var password = input.param('password');
-		var email = input.param('email');
-		var meeting = input.param("meeting");
+		var name = input.name
+		var password = input.password;
+		var email = input.email;
+		var meeting = input.meeting;
 
 		if (!meeting) {
 			console.log("Error: No Meeting provided for PersonService");

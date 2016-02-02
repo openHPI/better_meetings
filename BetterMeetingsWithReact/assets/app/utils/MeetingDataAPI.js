@@ -30,6 +30,7 @@ module.exports = {
 						break;
 
 					case 'updated':
+						console.dir(msg.data);
 						FluxServerActions.updateTask(msg.data)
 						break;
 
@@ -83,7 +84,7 @@ module.exports = {
  			agenda = data.meeting.topics;
  			member = data.meeting.attendees;
  			timer = data.meeting.timer;
- 			
+
  			FluxServerActions.receiveMeetingData({id: id, title: title, agenda: agenda, member: member, timer: timer});
 		});
 

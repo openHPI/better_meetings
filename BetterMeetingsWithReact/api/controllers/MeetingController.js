@@ -189,6 +189,15 @@ module.exports = {
     }
   },
 
+  createAttendee: function (req, res) {
+    var name = req.param('name', null);
+    var email = req.param('email', null);
+    var password = req.param('password', null);
+    var id = req.param('id', null);
+    var input = {name: name, email: email, password: password, meeting: id};
+    PersonService.createAttendee(input);
+  },
+
   getAttendees: function (req, res) {
 
   },
