@@ -142,7 +142,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_CREATE:
-			_selected.todos.push(item);
+			_selected.todos.push(action.data);
 			break;
 
 		case FluxServerConstants.TODO_UPDATE:
@@ -157,7 +157,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.MEMBER_CREATE:
-			_member.push(member);
+			_member.push(action.data);
 			break;
 
 		// Respond to client actions

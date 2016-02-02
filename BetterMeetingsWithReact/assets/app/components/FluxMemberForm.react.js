@@ -12,7 +12,7 @@ var FluxMemberForm = React.createClass({
             return;
         }
         
-        var item = { displayname: name, email: email, password: 'password' };
+        var item = { name: name, email: email };
         FluxAgendaActions.addMember(item);
 
         jQuery('#member-name').val('');

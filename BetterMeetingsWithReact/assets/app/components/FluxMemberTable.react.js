@@ -1,6 +1,5 @@
 var React = require('react');
 var FluxMemberTableData = require('./FluxMemberTableData.react');
-var FluxMemberForm = require('./FluxMemberForm.react');
 
 // Flux todolist view
 var FluxMemberTable = React.createClass({
@@ -29,7 +28,6 @@ var FluxMemberTable = React.createClass({
                      </div>
                   </div>
                </div>
-               <FluxMemberForm />
             </aside>
         );
     }
