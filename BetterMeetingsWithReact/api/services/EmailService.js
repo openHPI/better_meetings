@@ -53,7 +53,19 @@ module.exports = {
 	},
 
 	computeEmailContent: function(topics) {
-		var htmlString = MarkdownService.parseMarkdown(topics);
+		var htmlString = "";
+		for (var agendaitem in topics.todos) {
+			htmlString += MarkdownService.parseMarkdown(agendaitem.title) + "\n";
+			htmlString += MarkdownService.parseMarkdown(agendaitem.description) + "\n";
+			htmlString += MarkdownService.parseMarkdown(agendaitem.done) + "\n";
+			for (todoitem in agendaitem.todos) {
+				htmlString += MarkdownService.parseMarkdown(todoitem.title) + "\n";
+				htmlString += MarkdownService.parseMarkdown(todoitem.description) + "\n";
+				htmlString += MarkdownService.parseMarkdown(todoitem.assignee) + "\n";
+				htmlString += MarkdownService.parseMarkdown(todoitem.done) + "\n";
+			}
+		}
+		
 		return htmlString;
 	},
 
