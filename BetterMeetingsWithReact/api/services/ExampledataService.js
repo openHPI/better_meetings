@@ -237,12 +237,7 @@ module.exports = {
         if (!cre) {
           sails.log('Meeting not created' + err);
         } else {
-          DeepPopulateService.populateDeep('meetingseries', cre, 'topics.todos', function (err, newCre) {
-            if (err) {
-              sails.log.error("ERR:", err);
-            }
-            sails.controllers.meeting.createFromSeries(newCre);
-          });
+          sails.controllers.meeting.createFromSeries(cre);
         }
       }
     });
