@@ -117,6 +117,10 @@ module.exports = {
 		io.socket.post('/meeting/createAttendee', data, function (data, jwres) {
 			console.dir(data);
 		});
+	},
+
+	endMeeting: function() {
+		io.socket.get('/meeting/end', function (data, jwres){});
 	}
 
 }
