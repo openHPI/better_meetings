@@ -68,9 +68,10 @@ module.exports = {
     var members = req.param('members');
     var description = req.param('description');
     var topics = req.param('topics');
+    var id = req.param('id');
 
-    if (admins && title && meeting && url && timer && members && description && topics && req.isSocket) {
-      meetingseries.update({
+    if (id && admins && title && meeting && url && timer && members && description && topics && req.isSocket) {
+      meetingseries.update({'id': id}, {
         admins: admins,
         title: title,
         meeting: meeting,
@@ -82,30 +83,29 @@ module.exports = {
 
       }).exec(function updateMeetingSeries(err, updated) {
         if (err) {
-          console.log('MeetingSeries not updated ' + err);
+          sails.log('MeetingSeries not updated ' + err);
           //res.redirect('/meetingseries/edit');
         } else if (!updated) {
-          console.log('Update error for MeetingSeries ' + err);
+          sails.log('Update error for MeetingSeries ' + err);
           //res.redirect('/meetingseries/edit');
         } else {
-          console.log('Updated MeetingSeries: ' + updated.title);
-          meetingseries.publishUpdate({
-            id: updated.id,
-            admins: updated.admins,
-            title: updated.title,
-            meeting: updated.meeting,
-            url: updated.url,
-            timer: updated.timer,
-            members: updated.members,
-            description: updated.description,
-            topics: updated.topics,
+          sails.log('Updated MeetingSeries: ' + updated.title);
+          meetingseries.publishUpdate(id, {
+            admins:       updated.admins,
+            title:        updated.title,
+            meeting:      updated.meeting,
+            url:          updated.url,
+            timer:        updated.timer,
+            members:      updated.members,
+            description:  updated.description,
+            topics:       updated.topics,
           });
         }
       });
     } else {
         res.send('meetingseries');
         //res.redirect('/meetingseries/view/'+id);
-        console.log('MeetingSeries not updated: too few parameters');
+        sails.log('MeetingSeries not updated: too few parameters');
       }
   },
 

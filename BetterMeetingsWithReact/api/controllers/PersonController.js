@@ -142,9 +142,10 @@ module.exports = {
     var assignedMeetings = req.param('assignedMeetings');
     var createdMeetings = req.param('createdMeetings');
     var isAdmin = req.param('isAdmin');
+    var id = req.param('id');
 
-    if (name && password && email && todos && assignedMeetings && createdMeetings && isAdmin && req.isSocket) {
-      person.update({
+    if (id && name && password && email && todos && assignedMeetings && createdMeetings && isAdmin && req.isSocket) {
+      person.update({'id': id}, {
         name: name,
         password: password,
         email: email,
@@ -154,29 +155,28 @@ module.exports = {
         isAdmin: isAdmin,
       }).exec(function updatePerson(err, updated) {
         if (err) {
-          console.log('Person not updated ' + err);
+          sails.log('Person not updated ' + err);
           //res.redirect('/person/edit');
         } else if (!updated) {
-          console.log('Update error for Person ' + err);
+          sails.log('Update error for Person ' + err);
           //res.redirect('/person/edit');
         } else {
-          console.log('Updated Person: ' + updated.name);
-          person.publishUpdate({
-            id: updated.id,
-            name: updated.name,
-            password: updated.password,
-            email: updated.email,
-            todos: updated.todos,
+          sails.log('Updated Person: ' + updated.name);
+          person.publishUpdate(id, {
+            name:             updated.name,
+            password:         updated.password,
+            email:            updated.email,
+            todos:            updated.todos,
             assignedMeetings: updated.assignedMeetings,
-            createdMeetings: updated.createdMeetings,
-            isAdmin: updated.isAdmin,
+            createdMeetings:  updated.createdMeetings,
+            isAdmin:          updated.isAdmin,
           });
         }
       });
     } else {
       res.send('person');
       //res.redirect('/person/view/'+id);
-      console.log('Person not updated: too few parameters');
+      sails.log('Person not updated: too few parameters');
     }
   },
 

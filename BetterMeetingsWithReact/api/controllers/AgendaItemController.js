@@ -87,9 +87,10 @@ module.exports = {
     var todos = req.param('todos');
     var done = req.param('done');
     var subAgendaItems = req.param('subAgendaItems');
+    var id = req.param('id');
 
-    if (meetingseries && title && description && todos && subAgendaItems && req.isSocket) {
-      agendaitem.update({
+    if (id && meetingseries && title && description && todos && subAgendaItems && req.isSocket) {
+      agendaitem.update({'id': id}, {
         meetingseries:    meetingseries,
         title:            title,
         description:      description,
@@ -98,20 +99,19 @@ module.exports = {
         subAgendaItems:   subAgendaItems,
       }).exec(function updateAgendaItem(err, updated) {
         if (err) {
-          console.log('AgendaItem not updated ' + err);
+          sails.log('AgendaItem not updated ' + err);
           //res.redirect('/agendaitem/edit');
         } else if (!updated) {
-          console.log('Update error for Person ' + err);
+          sails.log('Update error for Person ' + err);
           //res.redirect('/agendaitem/edit');
         } else {
-          console.log('Updated AgendaItem: ' + updated.title);
-          AgendaItem.publishUpdate({
-            id: updated.id,
-            meetingseries: updated.meetingseries,
-            title: updated.title,
-            description: updated.description,
-            todos: updated.todos,
-            done: updated.done,
+          sails.log('Updated AgendaItem: ' + updated.title);
+          AgendaItem.publishUpdate(id, {
+            meetingseries:  updated.meetingseries,
+            title:          updated.title,
+            description:    updated.description,
+            todos:          updated.todos,
+            done:           updated.done,
             subAgendaItems: updated.subAgendaItems,
           });
         }
@@ -119,7 +119,7 @@ module.exports = {
     } else {
         res.send('agendaitem');
         //res.redirect('/agendaitem/view/'+id);
-        console.log('AgendaItem not updated: too few parameters');
+        sails.log('AgendaItem not updated: too few parameters');
       }
   },
 

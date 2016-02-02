@@ -1,5 +1,5 @@
 /**
- * PersonController
+ * DummyController
  *
  * @description :: Server-side logic for managing Dummydata
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers

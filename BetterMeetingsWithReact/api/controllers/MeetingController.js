@@ -105,35 +105,35 @@ module.exports = {
     var attendees = req.param('attendees');
     var isInitialCreation = req.param('isInitialCreation');
     var startTime = req.param('startTime');
+    var id = req.param('id');
 
-    if (topics && attendees && isInitialCreation && startTime && req.isSocket) {
-      meeting.update({
+    if (id && topics && attendees && isInitialCreation && startTime && req.isSocket) {
+      meeting.update({'id': id}, {
         topics: topics,
         attendees: attendees,
         isInitialCreation: isInitialCreation,
         startTime: startTime,
       }).exec(function updateMeeting(err, updated) {
         if (err) {
-          console.log('Meeting not updated ' + err);
+          sails.log('Meeting not updated ' + err);
           //res.redirect('/meeting/edit');
         } else if (!updated) {
-          console.log('Update error for Meeting ' + err);
+          sails.log('Update error for Meeting ' + err);
           //res.redirect('/meeting/edit');
         } else {
-          console.log('Updated Meeting: ' + updated.topics);
-          meeting.publishUpdate({
-            id: updated.id,
-            topics: updated.topics,
-            attendees: updated.attendees,
-            isInitialCreation: updated.isInitialCreation,
-            startTime: updated.startTime,
+          sails.log('Updated Meeting: ' + updated.topics);
+          meeting.publishUpdate(id, {
+            topics:             updated.topics,
+            attendees:          updated.attendees,
+            isInitialCreation:  updated.isInitialCreation,
+            startTime:          updated.startTime,
           });
         }
       });
     } else {
       res.send('meeting');
       //res.redirect('/meeting/view/'+id);
-      console.log('Meeting not updated: too few parameters');
+      sails.log('Meeting not updated: too few parameters');
     }
   },
 
