@@ -93,8 +93,7 @@ module.exports = {
 
     }
     //return res.send('Toll');
-  }
-  ,
+  },
 
   generateExampleMeetingSeries: function (req, res) {
 
@@ -170,8 +169,7 @@ module.exports = {
         });
       });
     });
-  }
-  ,
+  },
 
   generateExampleTopics: function (req, res) {
     var topic1 = {
@@ -220,8 +218,7 @@ module.exports = {
         }
       }
     });
-  }
-  ,
+  },
 
   generateExampleTodoItems: function (req, res) {
     var todo1 = {
@@ -274,8 +271,7 @@ module.exports = {
         }
       }
     });
-  }
-  ,
+  },
 
   generateExampleMeeting: function (req, res) {
     meetingseries.findOne({
