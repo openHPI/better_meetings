@@ -26,12 +26,12 @@ var FluxAgendaTimer = React.createClass({
     var minutes = Math.floor(this.state.timer / 60);
     var seconds = this.state.timer - minutes * 60;
     var divStyles = {
-      color: (minutes >= 0) ? 'black' : 'red'
+      color: (minutes >= 0) ? 'white' : 'red'
     };
 
     return (
       <div className="panel panel-colorful panel-info">
-        <h3 className="panel-title" style={divStyles}>{minutes} : {seconds} min</h3>
+        <h3 className="panel-title" id="timer" style={divStyles}>{minutes} : {seconds} min</h3>
       </div>
     );
   }
