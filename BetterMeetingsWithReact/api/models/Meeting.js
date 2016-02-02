@@ -10,7 +10,14 @@ module.exports = {
   identity: 'meeting',
 
   attributes: {
-
+    title: {
+      type: 'string',
+      required: true,
+    },
+    description: {
+      type: 'string',
+      required: false,
+    },
     topics: {
       collection: 'agendaitem'
     },

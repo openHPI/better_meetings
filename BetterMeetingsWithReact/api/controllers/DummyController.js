@@ -11,10 +11,18 @@ module.exports = {
     ExampledataService.generateExamplePersons(req, res);
 
     setTimeout(function () {
-      ExampledataService.generateExampleMeeting(req, res);
+      ExampledataService.generateExampleMeetingSeries(req, res);
 
       setTimeout(function () {
         ExampledataService.generateExampleTopics(req, res);
+
+        setTimeout(function () {
+          ExampledataService.generateExampleTodoItems(req, res);
+
+          setTimeout(function () {
+            ExampledataService.generateExampleMeeting(req, res);
+          }, 1000);
+        }, 1000);
       }, 1000);
     }, 1000);
 
@@ -22,6 +30,6 @@ module.exports = {
   },
 
   deleteAll: function (req, res) {
-
+    res.send("Dummy data deletion is not implemented yet!");
   }
 };

@@ -8,17 +8,17 @@
 module.exports = {
 
 /*=================================================================================
-=            create meetingseries instance and associated model 
+ =            create meetingseries instance and associated model
 =            instances and doing a pubsub for realtime (Radscheit)              =
 =================================================================================*/
-  
+
 	create: function(req,res) {
-    
+
     var admins = req.param('admins');
-    var title = req.param('title'); 
-    var meeting = req.param('meeting'); 
-    var url = req.param('url'); 
-    var timer = req.param('timer'); 
+    var title = req.param('title');
+    var meeting = req.param('meeting');
+    var url = req.param('url');
+    var timer = req.param('timer');
 
     if (admins && title && meeting && url && timer) {
 
@@ -61,9 +61,9 @@ module.exports = {
     sails.log('Update started');
     sails.log(req.param('title'));
     var admins = req.param('admins');
-    var title = req.param('title'); 
-    var meeting = req.param('meeting'); 
-    var url = req.param('url'); 
+    var title = req.param('title');
+    var meeting = req.param('meeting');
+    var url = req.param('url');
     var timer = req.param('timer');
     var members = req.param('members');
     var description = req.param('description');
@@ -110,7 +110,7 @@ module.exports = {
   },
 
 /*===================================================================
-=            feed a view for meetingseries instances and the 
+ =            feed a view for meetingseries instances and the
              other associated model instances (Radscheit)            =
 ===================================================================*/
 
@@ -126,7 +126,7 @@ module.exports = {
   },
 
 /*===========================================================================
-=            destroy instances of meetingseries model and clear the 
+ =            destroy instances of meetingseries model and clear the
              other model tables from its belongings. (Radscheit)             =
 ===========================================================================*/
 
@@ -140,7 +140,7 @@ module.exports = {
             res.send("Error");
           } else {
             sails.log("Successfully deleted " + meetingseriesID);
-            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});   
+            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});
           }
         });
       });
@@ -163,13 +163,13 @@ module.exports = {
     if (req.isSocket) {
       meetingseries.watch(req);
       console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meetingseries\'.');
-    }  
+    }
   },
 
   insertExampleData: function(req,res) {
-    Exampledataservice.generateExampleMeetings();
+    Exampledataservice.generateExampleMeetingSeries();
   },
 
-    
+
 };
 

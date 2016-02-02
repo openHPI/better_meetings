@@ -51,6 +51,10 @@ module.exports.routes = {
   'get /meeting': {
     view: 'meeting'
   },
+  'get /meeting/view': {
+    controller: 'meeting',
+    action: 'view'
+  },
   '/user': {
     controller: 'user',
     action: 'viewAll'
@@ -83,11 +87,7 @@ module.exports.routes = {
     action: 'exampledata',
   },
   '/dummydata': 'DummyController.loadAll',
-  '/dummydata/delete': 'DummyController.loadAll',
-  '/email': {
-    controller: 'EmailController',
-    action: 'sendEmail',
-  },
+  '/dummydata/delete': 'DummyController.deleteAll',
 
   // Endpoints
   'post /login': 'PersonController.login',

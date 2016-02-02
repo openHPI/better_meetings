@@ -41,8 +41,7 @@ module.exports = {
         if (err) {
           sails.log('person not created' + err);
         } else {
-          sails.log('person created: ' + cre.name);
-          sails.log('log in with: email: ' + cre.email + ' and password: ' + cre.password);
+          sails.log('person created: ' + JSON.stringify(cre));
         }
       })
 
@@ -50,64 +49,10 @@ module.exports = {
     //return res.send('Toll');
   },
 
-  generateExampleTopics: function (req, res) {
-
-    meetingseries.findOne({
-      title: 'Testmeeting',
-      description: 'Lorem ipsum dolor.'
-    }).exec(function findMeetingSeries(err, cre) {
-      if (err) {
-        sails.log('Topics not created' + err);
-      } else {
-        if (!cre) {
-          sails.log('Topics not created' + err);
-        } else {
-
-          var topic1 = {
-            'meetingseries': cre,
-            'title': 'Topic 1',
-            'description': 'Lorem Ipsum Dolor.'
-          };
-          var topic2 = {
-            'meetingseries': cre,
-            'title': 'Topic 2',
-            'description': 'Lorem Ipsum Dolor.'
-          };
-          var topic3 = {
-            'meetingseries': cre,
-            'title': 'Topic 3',
-            'description': 'Lorem Ipsum Dolor.'
-          };
-
-          var topics = [topic1, topic2, topic3];
-
-          for (var i = 0; i < 3; i++) {
-            var meetingseries = topics[i].meetingseries;
-            var title = topics[i].title;
-            var description = topics[i].description;
-
-            agendaitem.findOrCreate({
-              meetingseries: meetingseries,
-              title: title,
-              description: description
-            }).exec(function createAgendaItems(err, cre) {
-              if (err) {
-                sails.log('AgendaItem not created' + err);
-              } else {
-                sails.log('AgendaItem created: ' + cre.title);
-              }
-            })
-          }
-
-        }
-      }
-    });
-    //return res.send('Toll');
-  },
-
-  generateExampleMeeting: function (req, res) {
+  generateExampleMeetingSeries: function (req, res) {
 
     var admins = [];
+    var members = [];
     var title = 'Testmeeting';
     var description = 'Lorem ipsum dolor.';
     var url = UrlService.generateurl();
@@ -140,7 +85,7 @@ module.exports = {
           } else {
             if (!admin3) {
             } else {
-              admins.push(admin3);
+              members.push(admin3);
             }
           }
 
@@ -156,7 +101,7 @@ module.exports = {
                   title: title,
                   description: description,
                   admins: admins,
-                  //meeting: meeting,
+                  members: members,
                   url: url,
                   timer: timer
                 }).exec(function createMeetingSeries(err, series) {
@@ -164,12 +109,10 @@ module.exports = {
                     sails.log('MeetingSeries not created' + err);
                   } else {
                     sails.log('MeetingSeries created: ' + series.title);
-                    console.log('/meetingseries/' + series.url);
                   }
                 });
               } else {
-                sails.log('MeetingSeries created: ' + cre.title);
-                console.log('/meetingseries/' + cre.url);
+                sails.log('MeetingSeries created: ' + JSON.stringify(cre));
               }
             }
           });
@@ -178,4 +121,125 @@ module.exports = {
     });
   },
 
+  generateExampleTopics: function (req, res) {
+    meetingseries.findOne({
+      title: 'Testmeeting',
+      description: 'Lorem ipsum dolor.'
+    }).exec(function findMeetingSeries(err, cre) {
+      if (err) {
+        sails.log('Topics not created' + err);
+      } else {
+        if (!cre) {
+          sails.log('Topics not created' + err);
+        } else {
+
+          var topic1 = {
+            'meetingseries': cre,
+            'title': 'Topic 1',
+            'description': 'Lorem Ipsum Dolor.'
+          };
+          var topic2 = {
+            'meetingseries': cre,
+            'title': 'Topic 2',
+            'description': 'Lorem Dolor Ipsum .'
+          };
+          var topic3 = {
+            'meetingseries': cre,
+            'title': 'Topic 3',
+            'description': 'Ipsum Lorem Dolor.'
+          };
+
+          var topics = [topic1, topic2, topic3];
+
+          for (var i = 0; i < 3; i++) {
+            var meetingseries = topics[i].meetingseries;
+            var title = topics[i].title;
+            var description = topics[i].description;
+
+            agendaitem.findOrCreate({
+              meetingseries: meetingseries,
+              title: title,
+              description: description
+            }).exec(function createAgendaItems(err, cre) {
+              if (err) {
+                sails.log('AgendaItem not created' + err);
+              } else {
+                sails.log('AgendaItem created: ' + JSON.stringify(cre));
+              }
+            })
+          }
+        }
+      }
+    });
+  },
+
+  generateExampleTodoItems: function (req, res) {
+    agendaitem.findOne({
+      title: 'Topic 1',
+      description: 'Lorem Ipsum Dolor.'
+    }).exec(function findAgendaItem(err, agendaItem) {
+      if (err) {
+        sails.log('Todos not created' + err);
+      } else {
+        if (!agendaItem) {
+          sails.log('Todos not created' + err);
+        } else {
+          var todo1 = {
+            'done': false,
+            'title': 'Todo 1',
+            'description': 'Lorem Ipsum Dolor.'
+          };
+          var todo2 = {
+            'done': false,
+            'title': 'Todo 2',
+            'description': 'Lorem Dolor Ipsum.'
+          };
+          var todo3 = {
+            'done': true,
+            'title': 'Todo 3',
+            'description': 'Ipsum Lorem Dolor.'
+          };
+
+          var todos = [todo1, todo2, todo3];
+
+          for (var i = 0; i < 3; i++) {
+            var owner = agendaItem;
+            var done = todos[i].done;
+            var title = todos[i].title;
+            var description = todos[i].description;
+
+            todoitem.findOrCreate({
+              owner: owner,
+              done: done,
+              title: title,
+              description: description
+            }).exec(function createTodoItems(err, cre) {
+              if (err) {
+                sails.log('TodoItem not created' + err);
+              } else {
+                sails.log('TodoItem created: ' + JSON.stringify(cre));
+              }
+            })
+          }
+        }
+      }
+    });
+  },
+
+  generateExampleMeeting: function (req, res) {
+    meetingseries.findOne({
+      title: 'Testmeeting',
+      description: 'Lorem ipsum dolor.'
+    }).populateAll().exec(function findMeetingSeries(err, cre) {
+      if (err) {
+        sails.log('Meeting not created' + err);
+      } else {
+        if (!cre) {
+          sails.log('Meeting not created' + err);
+        } else {
+          sails.controllers.meeting.createFromSeries(cre);
+        }
+      }
+    });
+  }
 };
