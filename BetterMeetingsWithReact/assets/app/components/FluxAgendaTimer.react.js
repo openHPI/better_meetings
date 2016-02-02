@@ -11,6 +11,8 @@ var FluxAgendaTimer = React.createClass({
   tick: function() {
     if(this.props.hasStarted)
       this.setState({timer: this.state.timer - 1});
+    else
+      this.setState({timer: this.props.timer});
   },
 
   componentDidMount: function() {

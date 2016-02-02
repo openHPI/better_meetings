@@ -6,10 +6,11 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _user = null, _canEdit = true, _id = null, _title = null, _agenda = [], _selected = null, _allTodos = [], _collapsed = -1, _member = [], _meetingStatus = 0, _timer = 0;
+var _user = null, _canEdit = true, _id = null, _title = null, _agenda = [], _selected = null, _allTodos = [], _collapsed = -1, _member = [], _meetingStatus = 0, _timer = null;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
+
 	_user = 'Lando';
 	_id = data.id;
 	_title = data.title;
@@ -18,8 +19,6 @@ function loadAgenda (data) {
 	_allTodos = getAllTodos();
 	_member = data.member;
 	_timer = data.timer;
-
-	// getDoneItems();
 }
 
 // Method to get All todos
