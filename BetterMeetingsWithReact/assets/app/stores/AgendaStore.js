@@ -146,6 +146,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_UPDATE:
+			console.dir(action.data);
 			updateTask(action.data);
 			break;
 

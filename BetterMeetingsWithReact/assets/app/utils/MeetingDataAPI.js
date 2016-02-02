@@ -78,7 +78,6 @@ module.exports = {
 		var title, agenda, member, timer;
 
 		io.socket.get('/meeting/get', function (data, jwres) {
-			console.dir(data);
 			title = data.meeting.title;
  			agenda = data.meeting.topics;
  			member = data.meeting.attendees;

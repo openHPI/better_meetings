@@ -61,7 +61,7 @@ module.exports = {
     var assignee = req.param('assignee');
 
 
-    if (id && title && done && description && req.isSocket) {
+    if (id && title && description && req.isSocket) {
       todoitem.update({
         id:           id,
         title:        title,
