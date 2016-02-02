@@ -177,16 +177,43 @@ module.exports = {
   },
 
   start: function (req, res) {
-
+    // send an invitation to all meetingseries members
+    var link = UrlService.generateurl();
+    for (var member in req.members) {
+      EmailService.sendInvitation({recipientName: member.name, to: member.email, meetingLink: link});
+    }
   },
 
   end: function (req, res) {
-    // send summary email to everyone who provided at least email
-    // delete guests who only provided name or nothing
-    for (var attendee in req.attendees) {
-      EmailService.sendSummary({recipientName: attendee.name, to: attendee.email, topics: req.topics});
+    // send summary email to everyone who provided at least email, attendees and members
+    // TODO: delete guests who only provided name or nothing
+    //var distinctPersons = [...new Set([...req.attendees, ...req.members])];
+    var distinctPersons = arrayUnion(req.attendees, req.members, arePersonsEqual);
+    for (var distinctPerson in distinctPersons) {
+      if (distinctPerson.email)
+        EmailService.sendSummary({recipientName: distinctPerson.name, to: distinctPerson.email, topics: req.topics});
     }
   },
+
+  arrayUnion: function (arr1, arr2, equalityFunc) {
+      var union = arr1.concat(arr2);
+
+      for (var i = 0; i < union.length; i++) {
+          for (var j = i+1; j < union.length; j++) {
+              if (equalityFunc(union[i], union[j])) {
+                  union.splice(j, 1);
+                  j--;
+              }
+          }
+      }
+      return union;
+  },
+
+  arePersonsEqual: function (p1, p2) {
+      return p1.name === p2.name || p1.email === p2.email;
+  },
+
+  
 
 };
 
