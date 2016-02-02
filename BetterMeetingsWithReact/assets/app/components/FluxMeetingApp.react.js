@@ -90,30 +90,28 @@ var FluxMeetingApp = React.createClass({
 								</div>
 							</div>
 						</div>
-						<div className="container">
-							<div className="row">
-								<div className="col-md-8 col-lg-8">
-									<div className="row">
-										<div className="col-md-4 col-lg-4">
-											<FluxAgenda items={this.state.agenda} selected={this.state.selectedAgendaItem} />
-										</div>
-										<div className="col-md-8 col-lg-8">
-											<FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
-										</div>
-									</div>
-								</div>
-								<div className="col-md-4 col-lg-4">
-									<div className="row">
-										<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<div className="flux-todolist">
-							                    <FluxTodoList allItems={this.state.allTodoItems} items={this.state.selectedAgendaItem.todos} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
-							                </div>
-										</div>
-									</div>
-								</div>
+						<div className="container-fluid">
+              <div className="row">
+                <div className="col-md-4 col-lg-4">
+                  <FluxAgenda items={this.state.agenda} selected={this.state.selectedAgendaItem} />
+                </div>
+                <div className="col-md-8 col-lg-8">
+                  <div className="row">
+                    <div className="col-md-12 col-lg-12">
+                      <FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12 col-lg-12">
+                      <div className="flux-todolist">
+                        <FluxTodoList allItems={this.state.allTodoItems} items={this.state.selectedAgendaItem.todos} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
 							</div>
 						</div>
-						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
+            <FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
 						<FluxMemberForm />
 					</div>
 				);
@@ -144,7 +142,7 @@ var FluxMeetingApp = React.createClass({
 					</div>
 				);
 				break;
-		} 
+		}
 
 	},
 

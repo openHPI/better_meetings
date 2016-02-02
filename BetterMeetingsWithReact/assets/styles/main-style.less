@@ -2,8 +2,8 @@
  * Globals
  */
 //color
-@grey:  #E0E0E0;
-@black:  #000000;
+@grey: #E0E0E0;
+@black: #000000;
 @primary: #0EBFE9;
 @white: #FFFFFF;
 
@@ -13,6 +13,7 @@ a:focus,
 a:hover {
   color: @primary;
 }
+
 /*==============================
 =            HEADER            =
 ==============================*/
@@ -21,26 +22,30 @@ a:hover {
   border-radius: 0px;
   margin-bottom: 0px;
 }
+
 .navbar-brand {
   color: @black;
 }
+
 .dropdown-toggle {
   color: @white;
   background-color: @primary;
   border: none;
   border-radius: 0px;
-  &:hover,&:focus {
+  &:hover, &:focus {
     color: @white;
     background-color: @primary !important;
   }
 }
+
 .icon-bar {
   background-color: @primary;
 }
 
 .brand-title {
-   text-align: center;
+  text-align: center;
 }
+
 /*==============================
 =            FlUX-APP          =
 ==============================*/
@@ -52,9 +57,11 @@ a:hover {
 .fa-check {
   color: green;
 }
+
 .fa-times {
   color: red;
 }
+
 .fa-user {
   padding-right: 5px;
 }
@@ -81,6 +88,16 @@ a:hover {
     .agenda-item {
       padding: 20px;
       color: grey;
+      h3 {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+
+        /* Adds a hyphen where the word breaks */
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+      }
     }
     .agenda-item.level-0 {
       margin-left: 30px;
@@ -137,6 +154,7 @@ a:hover {
     }
   }
 }
+
 /*====================================
 =            TodoList                 =
 ====================================*/
@@ -145,31 +163,35 @@ a:hover {
   font-weight: bold;
   padding-right: 10px;
 }
+
 .todo-author {
   font-weight: 100;
   padding-right: 10px;
 }
+
 /*====================================
 =            TodoListForm            =
 ====================================*/
 
 .assign-input-container {
-    position: relative;
+  position: relative;
 }
+
 #assign-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 11;
-    background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  background: transparent;
 
 }
-#assign-autocomplete{
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: transparent;
-    z-index: 10;
+
+#assign-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 10;
 }
 
 /*=============================
@@ -185,8 +207,6 @@ a:hover {
     text-align: center;
   }
 }
-
-
 
 /*=====  End of Login  ======*/
 
