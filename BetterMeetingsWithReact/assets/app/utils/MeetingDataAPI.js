@@ -75,15 +75,16 @@ module.exports = {
 	// Load todo-list data from server into TodoListStore via Action
 
 	getMeetingData: function() {
-		var title, agenda, member, timer;
+		var id, title, agenda, member, timer;
 
 		io.socket.get('/meeting/get', function (data, jwres) {
+			id = data.meeting.id;
 			title = data.meeting.title;
  			agenda = data.meeting.topics;
  			member = data.meeting.attendees;
  			timer = data.meeting.timer;
  			
- 			FluxServerActions.receiveMeetingData({title: title, agenda: agenda, member: member, timer: timer});
+ 			FluxServerActions.receiveMeetingData({id: id, title: title, agenda: agenda, member: member, timer: timer});
 		});
 
 	},
@@ -112,7 +113,7 @@ module.exports = {
 	// Member
 
 	postMember: function(data) {
-		io.socket.post('/person/create', data, function (data, jwres) {
+		io.socket.post('/meeting/createAttendee', data, function (data, jwres) {
 			console.dir(data);
 		});
 	}
