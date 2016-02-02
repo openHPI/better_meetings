@@ -30,8 +30,8 @@ module.exports = {
 						break;
 
 					case 'updated':
-						console.dir(msg.data);
-						FluxServerActions.updateTask(msg.data)
+						console.log('Updated TodoItem: ' + msg.data);
+						FluxServerActions.updateTask(msg.data);
 						break;
 
 					case 'destroyed':

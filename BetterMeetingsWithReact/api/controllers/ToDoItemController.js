@@ -85,17 +85,17 @@ module.exports = {
 
            } else {
 
-             sails.log('Updated ToDoItem: ' + updated.title);
+             sails.log('Updated ToDoItem: ' + updated[0].title);
 
              console.dir(updated);
 
-             todoitem.publishUpdate(id,{
-               title:        updated.title,
-               done:         updated.done,
-               description:  updated.description,
-               owner:        updated.owner,
-               author:       updated.author,
-               assignee:     updated.assignee,
+             todoitem.publishUpdate(updated[0].id,{
+               title:        updated[0].title,
+               done:         updated[0].done,
+               description:  updated[0].description,
+               owner:        updated[0].owner,
+               author:       updated[0].author,
+               assignee:     updated[0].assignee,
              });
          };
       });
