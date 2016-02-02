@@ -16,7 +16,7 @@ module.exports = {
       email_member1: 'julius@hpi.de'
     },
     meetingseries: {
-      title: 'Internet-Technologies und Systems - Meeting',
+      title: 'Internet-Technologien und Systeme - Meeting',
       description: 'Besprechung aller wichtigen Projekte und Aufgaben'
     },
 

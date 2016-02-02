@@ -51,7 +51,7 @@ module.exports = {
 
   update: function(req,res) {
     sails.log('Update started');
-    sails.log(req.param('title'));
+    sails.log(req.param('title') + " ID: " + req.param('id'));
     var id = req.param('id');
     var title = req.param('title');
     var done = req.param('done');
@@ -59,48 +59,57 @@ module.exports = {
     var owner = req.param('owner');
     var author = req.param('author');
     var assignee = req.param('assignee');
+    sails.log("after param assigmnment");
 
 
     if (id && title && description && req.isSocket) {
-      todoitem.update({
-        id:           id,
-        title:        title,
-        done:         done,
-        description:  description,
-        owner:        owner,
-        author:       author,
-        assignee:     assignee,
+      sails.log("number of params ok");
+      todoitem.update({'id': id},{
+        title:                   title,
+        done:                done,
+        description:       description,
+        owner:               owner,
+        author:               author,
+        assignee:           assignee,
       }).exec(function updateToDoItem(err, updated) {
-        if (err) {
-          console.log('ToDoItem not updated ' + err);
-          //res.redirect('/todoitem/edit');
-        } else if (!updated) {
-          console.log('Update error for ToDoItem ' + err);
-          //res.redirect('/todoitem/edit');
-        } else {
-          console.log('Updated ToDoItem: ' + updated.title);
-          todoitem.publishUpdate({
-            id:           updated.id,
-            title:        updated.title,
-            done:         updated.done,
-            description:  updated.description,
-            owner:        updated.owner,
-            author:       updated.author,
-            assignee:     updated.assignee,
-          });
-        }
+
+           sails.log("exec ok");
+
+           if (err) {
+
+             sails.log('ToDoItem not updated ' + err);
+
+           } else if (!updated) {
+
+             sails.log('Update error for ToDoItem ' + err);
+
+           } else {
+
+             sails.log('Updated ToDoItem: ' + updated.title);
+
+             console.dir(updated);
+
+             todoitem.publishUpdate(id,{
+               title:        updated.title,
+               done:         updated.done,
+               description:  updated.description,
+               owner:        updated.owner,
+               author:       updated.author,
+               assignee:     updated.assignee,
+             });
+         };
       });
     } else {
+        sails.log('ToDoItem not updated: too few parameters');
         res.send('todoitem');
         //res.redirect('/todoitem/view/'+id);
-        console.log('ToDoItem not updated: too few parameters');
       }
   },
 
   subscribe: function(req,res) {
    if (req.isSocket) {
       todoitem.watch(req);
-      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'todoitem\'.');
+      sails.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'todoitem\'.');
    }
   },
 
@@ -122,7 +131,7 @@ module.exports = {
             res.send("Error");
           } else {
             sails.log("Successfully deleted " + meetingseriesID);
-            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});   
+            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});
           }
         });
       });
