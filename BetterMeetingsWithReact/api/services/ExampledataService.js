@@ -90,9 +90,7 @@ module.exports = {
           sails.log('person created: ' + JSON.stringify(cre));
         }
       })
-
     }
-    //return res.send('Toll');
   },
 
   generateExampleMeetingSeries: function (req, res) {
@@ -290,4 +288,3 @@ module.exports = {
     });
   }
 }
-;
