@@ -15,7 +15,7 @@ var FluxTaskForm = React.createClass({
         if (!title) {
             return;
         }
-        var item = { title: title, description: description, assignee: this.state.assignee, done: false };
+        var item = { title: title, description: description, assignee: this.state.assignee.id, done: false };
         FluxAgendaActions.addToList(item);
 
         this.setState({ autocomplete: [], assignee: null });

@@ -147,7 +147,24 @@ module.exports = {
         res.render('meeting', {'model': meeting});
       });
     });
+  },  
+
+  get: function (req, res) {
+    var id = req.param('id', null);
+    id = 1;
+    meeting.findOne({id: id}).populateAll().exec(function displayList(err, cre) {
+      DeepPopulateService.populateDeep('meeting', cre, 'topics.todos', function (err, meeting) {
+        if (err) {
+          sails.log.error("ERR:", err);
+        }
+        //console.log(JSON.stringify(meeting));
+        //res.response = meeting;
+        res.send({'meeting': meeting});
+      });
+    });
   },
+
+
 
   // viewAll: function(req,res) {
   // 	Meeting.find().exec(function displayMeetingList(err, items) {

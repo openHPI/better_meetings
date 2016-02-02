@@ -14,6 +14,7 @@ function getTodoListState () {
 	return {
 		user: AgendaStore.getUser(),
 		canEdit: AgendaStore.getCanEdit(),
+		title: AgendaStore.getTitle(),
 		status: AgendaStore.getMeetingStatus(),
 		timer: AgendaStore.getTimer(),
 		agenda: AgendaStore.getAgenda(),
@@ -65,7 +66,7 @@ var FluxMeetingApp = React.createClass({
 						<div className="container">
 							<div className="row">
 								<div className="col-md-8 col-lg-8">
-									<FluxMeetingStartFlyleaf />
+									<FluxMeetingStartFlyleaf title={this.state.title} />
 								</div>
 							</div>
 						</div>
@@ -103,7 +104,7 @@ var FluxMeetingApp = React.createClass({
 									<div className="row">
 										<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 											<div className="flux-todolist">
-							                    <FluxTodoList allItems={this.state.allTodoItems} items={this.state.selectedAgendaItem.todoList} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
+							                    <FluxTodoList allItems={this.state.allTodoItems} items={this.state.selectedAgendaItem.todos} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
 							                </div>
 										</div>
 									</div>
@@ -131,7 +132,7 @@ var FluxMeetingApp = React.createClass({
 						<div className="container">
 							<div className="row">
 								<div className="col-md-8 col-lg-8">
-									<FluxMeetingEndFlyleaf />
+									<FluxMeetingEndFlyleaf title={this.state.title} />
 								</div>
 							</div>
 						</div>

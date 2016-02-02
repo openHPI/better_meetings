@@ -15,7 +15,6 @@ module.exports = {
 		io.socket.on('connect', function() {
 			console.log('Connected to server');
 			console.log('socket session: ' + this.id);
-			// this._getMeetingData();
 
 			// Subscribe to todoitem
 
@@ -75,16 +74,18 @@ module.exports = {
 
 	// Load todo-list data from server into TodoListStore via Action
 
-	_getMeetingData: function() {
-		var agenda, member, timer;
+	getMeetingData: function() {
+		var title, agenda, member, timer;
 
-		io.socket.get('/meeting/1', function (data, jwres) {
- 			agenda = data.topics;
- 			member = data.member;
- 			timer = data.timer;
+		io.socket.get('/meeting/get', function (data, jwres) {
+			console.dir(data);
+			title = data.meeting.title;
+ 			agenda = data.meeting.topics;
+ 			member = data.meeting.attendees;
+ 			timer = data.meeting.timer;
+ 			
+ 			FluxServerActions.receiveMeetingData({title: title, agenda: agenda, member: member, timer: timer});
 		});
-
-		FluxServerActions.receiveMeetingData({agenda: agenda, member: member, timer: timer});
 
 	},
 

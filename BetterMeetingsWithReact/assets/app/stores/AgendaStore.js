@@ -6,11 +6,12 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _user = null, _canEdit = true, _agenda = [], _selected = null, _allTodos = [], _collapsed = -1, _member = [], _meetingStatus = 0, _timer = 0;
+var _user = null, _canEdit = true, _title = null, _agenda = [], _selected = null, _allTodos = [], _collapsed = -1, _member = [], _meetingStatus = 0, _timer = 0;
 
 // Method to load item data from MeetingDataAPI
 function loadAgenda (data) {
 	_user = 'Lando';
+	_title = data.title;
 	_agenda = data.agenda;
 	_selected = data.agenda[0];
 	_allTodos = getAllTodos();
@@ -20,12 +21,12 @@ function loadAgenda (data) {
 	// getDoneItems();
 }
 
-// Method to create the _selected.todoList_done
+// Method to get All todos
 function getAllTodos () {
 	var allTodos = [];
 	for (var i = 0; i < _agenda.length; i++) {
 
-		allTodos = allTodos.concat(_agenda[i].todoList);
+		allTodos = allTodos.concat(_agenda[i].todos);
 
 	}
 	return allTodos;
@@ -41,10 +42,10 @@ function setSelected (index) {
 
 // Method to update a Task
 function updateTask (item) {
-	for (var i = 0; i < _selected.todoList.length; i++) {
+	for (var i = 0; i < _selected.todos.length; i++) {
 
-		if(_selected.todoList[i].id === item.id) {
-			_selected.todoList[i] = item;
+		if(_selected.todos[i].id === item.id) {
+			_selected.todos[i] = item;
 		}
 	};
 }
@@ -59,6 +60,10 @@ var AgendaStore = _.extend({}, EventEmitter.prototype, {
 	// Return boolean if Client can edit
 	getCanEdit: function() {
 		return _canEdit;
+	},
+
+	getTitle: function() {
+		return _title;
 	},
 
 	// Return agenda
@@ -137,7 +142,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_CREATE:
-			_selected.todoList.push(item);
+			_selected.todos.push(item);
 			break;
 
 		case FluxServerConstants.TODO_UPDATE:
@@ -147,7 +152,7 @@ AppDispatcher.register(function(payload) {
 		case FluxServerConstants.TODO_DESTROY:
 			var agendaIndex = _agenda.indexOf(action.data.owner);
 			var taskIndex = _agenda[agendaIndex].indexOf(action.data);
-			_selected.todoList.splice(taskIndex, 1);
+			_selected.todos.splice(taskIndex, 1);
 			break;
 
 		case FluxServerConstants.MEMBER_CREATE:
@@ -157,8 +162,8 @@ AppDispatcher.register(function(payload) {
 		// Respond to client actions
 
 		case FluxAgendaConstants.TODO_ADD:
-			action.data['owner'] = _selected;
-			action.data['author'] = _user;
+			action.data['owner'] = _selected.id;
+			action.data['author'] = 1;
 			MeetingDataAPI.postTask(action.data);
 			break;
 

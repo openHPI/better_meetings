@@ -22,7 +22,7 @@ module.exports = {
       todoitem.create({
         title:        title,
         description:  description,
-        // owner:        owner,
+        owner:        owner,
         author:       author,
         assignee:     assignee,
         done:         done
@@ -61,7 +61,7 @@ module.exports = {
     var assignee = req.param('assignee');
 
 
-    if (todoItemID && title && done && description && owner && author && assignee && req.isSocket) {
+    if (id && title && done && description && req.isSocket) {
       todoitem.update({
         id:           id,
         title:        title,

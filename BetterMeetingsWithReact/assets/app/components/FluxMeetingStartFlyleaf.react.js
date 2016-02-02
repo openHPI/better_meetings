@@ -9,11 +9,12 @@ var FluxMeetingStartFlyleaf = React.createClass({
     },
 
     render: function(){
+        var title = this.props.title;
 
         return(
             <div className="flux-agendaDetailsFlyleaf-container">
                 <div id="page-title">
-                    <h1>Meeting Title</h1>
+                    <h1>{title}</h1>
                 </div>
                 <button onClick={this.startMeeting}>Starte das Meeting</button>
             </div>

@@ -85,8 +85,8 @@ var AttendeesBlock = {
 =            assign dom elements for react rendering            =
 ===============================================================*/
 
-MeetingExampleDataAPI.getMeetingData();
 MeetingDataAPI.subscribeAndListen();
+MeetingDataAPI.getMeetingData();
 
 React.render(
 	<FluxMeetingApp />,

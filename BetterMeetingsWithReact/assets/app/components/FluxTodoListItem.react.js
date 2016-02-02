@@ -35,8 +35,8 @@ var FluxTodoListItem = React.createClass({
                 <div className="todo-content" style={todoContentStyle}>
                     <p>Description:</p>
                     <p className="todo-description">{ (item.description !== undefined && item.description !== null) ? item.description : 'Add description'}</p>
-                    <small className="todo-author"><i className="fa fa-user"></i>{item.author}</small>
-                    <small className="todo-assignee">assigned to: <p>{ (item.assignee !== null) ? item.assignee.name : 'none' }</p></small>
+                    <small className="todo-author"><i className="fa fa-user"></i>author</small>
+                    <small className="todo-assignee">assigned to: <p>{ (item.assignee !== undefined && item.assignee !== null) ? item.assignee.name : 'none' }</p></small>
                 </div>
             </li>
         );
