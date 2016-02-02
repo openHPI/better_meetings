@@ -10,8 +10,8 @@ var FluxTodoListItem = React.createClass({
     },
 
     // Mark an item as done
-    markDone: function(event) {
-        FluxAgendaActions.markAsDone(this.props.item);
+    toggleDone: function(event) {
+        FluxAgendaActions.toggleDone(this.props.item);
     },
 
     render: function(){
@@ -29,7 +29,7 @@ var FluxTodoListItem = React.createClass({
         return(
             <li className="list-group-item" key={index} className={ (item.done) ? "todo-item done" : "todo-item" } onDoubleClick={this._onDoubleClick}>
                 <label className="form-checkbox form-icon">
-                    <input type="checkbox" onClick={this.markDone} />
+                    <input type="checkbox" onClick={this.toggleDone} />
                     <span>{item.title}</span>
                 </label>
                 <div className="todo-content" style={todoContentStyle}>

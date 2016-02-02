@@ -37,9 +37,9 @@ var FluxAgendaActions = {
 	},
 
 	// Mark task as done
-	markAsDone: function(item) {
+	toggleDone: function(item) {
 		AppDispatcher.handleAction({
-			actionType: FluxAgendaConstants.TODO_DONE,
+			actionType: FluxAgendaConstants.TODO_TOGGLE_DONE,
 			data: item
 		})
 	},

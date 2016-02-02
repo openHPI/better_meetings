@@ -172,8 +172,8 @@ AppDispatcher.register(function(payload) {
 			MeetingDataAPI.deleteTask(action.data);
 			break;
 
-		case FluxAgendaConstants.TODO_DONE:
-			action.data.done = true;
+		case FluxAgendaConstants.TODO_TOGGLE_DONE:
+			action.data.done = !action.data.done;
 			MeetingDataAPI.updateTask(action.data);
 			break;
 
