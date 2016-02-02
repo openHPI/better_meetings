@@ -5,6 +5,7 @@ var FluxMeetingStartFlyleaf = require('./FluxMeetingStartFlyleaf.react');
 var FluxMeetingEndFlyleaf = require('./FluxMeetingEndFlyleaf.react');
 var FluxAgenda = require('./FluxAgenda.react');
 var FluxMemberTable = require('./FluxMemberTable.react');
+var FluxMemberForm = require('./FluxMemberForm.react');
 var FluxAgendaTimer = require('./FluxAgendaTimer.react');
 var FluxTodoList = require('./FluxTodoList.react');
 var FluxAgendaProgress = require('./FluxAgendaProgress.react');
@@ -71,6 +72,7 @@ var FluxMeetingApp = React.createClass({
 							</div>
 						</div>
 						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
+						<FluxMemberForm />
 					</div>
 				);
 				break;
@@ -112,6 +114,7 @@ var FluxMeetingApp = React.createClass({
 							</div>
 						</div>
 						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
+						<FluxMemberForm />
 					</div>
 				);
 				break;
@@ -137,6 +140,7 @@ var FluxMeetingApp = React.createClass({
 							</div>
 						</div>
 						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
+						<FluxMemberForm />
 					</div>
 				);
 				break;
