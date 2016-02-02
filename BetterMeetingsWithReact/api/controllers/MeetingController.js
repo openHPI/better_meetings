@@ -22,7 +22,8 @@ module.exports = {
       description: meetingseries.description,
       attendees: attendees,
       isInitialCreation: true,
-      timer: meetingseries.timer
+      timer: meetingseries.timer,
+      url: UrlService.generateurl()
     }).exec(function createMeeting(err, created) {
       if (err) {
         console.log('Meeting not created' + err);
@@ -35,7 +36,8 @@ module.exports = {
           description: created.topics,
           attendees: created.attendees,
           isInitialCreation: created.isInitialCreation,
-          timer: created.timer
+          timer: created.timer,
+          url: created.url
         });
       }
     });

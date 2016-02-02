@@ -156,7 +156,7 @@ module.exports = {
                   if (err) {
                     sails.log('MeetingSeries not created' + err);
                   } else {
-                    sails.log('MeetingSeries created: ' + series.title);
+                    sails.log('MeetingSeries created: ' + JSON.stringify(series));
                   }
                 });
               } else {

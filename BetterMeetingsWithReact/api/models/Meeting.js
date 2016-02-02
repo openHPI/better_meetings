@@ -35,6 +35,10 @@ module.exports = {
     timer: {
       type: 'integer',
       required: true,
+    },
+    url: {
+      type: 'string',
+      required: true,
     }
   }
 };
