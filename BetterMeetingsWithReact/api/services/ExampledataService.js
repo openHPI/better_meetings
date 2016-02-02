@@ -9,22 +9,66 @@ module.exports = {
     console.log("load all dummy data");
   },
 
-  generateExamplePersons: function (req, res, cb) {
+  conf: {
+    person: {
+      email_admin1: 'alex_admin@hpi.de',
+      email_admin2: 'emma_admin@hpi.de',
+      email_member1: 'julius@hpi.de'
+    },
+    meetingseries: {
+      title: 'Internet-Technologies und Systems - Meeting',
+      description: 'Besprechung aller wichtigen Projekte und Aufgaben'
+    },
+
+    topics: [
+      {
+        title: 'Verlauf Webprogrammierungs Seminar',
+        description: 'Überblick über alle Gruppen / Demo Vorträge'
+      },
+      {
+        title: 'Neue Technologien',
+        description: 'Was gibt es neues in der Welt des Internets?'
+      },
+      {
+        title: 'Ausblick',
+        description: 'Punkte für die nächste Woche'
+      }
+    ],
+    todos: [
+      {
+        title: 'Gruppenkurzfassung',
+        description: 'Vorstellung aller Gruppen und ihrer Projekte'
+      },
+      {
+        title: 'Nutzung des BetterMeeting Tools',
+        description: 'Warum ist das Tool so gut und hilft auf professionellen Niveau?'
+      },
+      {
+        title: 'Demo-Präsentationen',
+        description: 'Planung der Veranstaltung'
+      }
+    ],
+  },
+
+  generateExamplePersons: function (req, res) {
 
     var person1 = {
-      'email': 'test1@hpi.de',
+      'email': this.conf.person.email_admin1,
       'password': 'password',
-      'name': 'TestAdmin 1',
+      'name': 'Alexander',
+      'isAdmin': true
     };
     var person2 = {
-      'email': 'test2@hpi.de',
+      'email': this.conf.person.email_admin2,
       'password': 'password',
-      'name': 'TestAdmin 2',
+      'name': 'Emma',
+      'isAdmin': true
     };
     var person3 = {
-      'email': 'test3@hpi.de',
+      'email': this.conf.person.email_member1,
       'password': 'password',
-      'name': 'TestAdmin 3',
+      'name': 'Julius',
+      'isAdmin': false
     };
     var persons = [person1, person2, person3];
 
@@ -32,11 +76,13 @@ module.exports = {
       var name = persons[i].name;
       var password = persons[i].password;
       var email = persons[i].email;
+      var isAdmin = persons[i].isAdmin;
 
       person.findOrCreate({
         name: name,
         password: password,
-        email: email
+        email: email,
+        isAdmin: isAdmin
       }).exec(function createPerson(err, cre) {
         if (err) {
           sails.log('person not created' + err);
@@ -47,19 +93,23 @@ module.exports = {
 
     }
     //return res.send('Toll');
-  },
+  }
+  ,
 
   generateExampleMeetingSeries: function (req, res) {
 
     var admins = [];
     var members = [];
-    var title = 'Testmeeting';
-    var description = 'Lorem ipsum dolor.';
+    var title = this.conf.meetingseries.title;
+    var description = this.conf.meetingseries.description;
     var url = UrlService.generateurl();
-    var timer = 600;
+    var timer = 3600;
 
+    var email1 = this.conf.person.email_admin1;
+    var email2 = this.conf.person.email_admin2;
+    var email3 = this.conf.person.email_member1;
     person.findOne({
-      email: 'test1@hpi.de'
+      email: email1
     }).exec(function findPerson(err, admin1) {
       if (err) {
       } else {
@@ -68,8 +118,9 @@ module.exports = {
           admins.push(admin1);
         }
       }
+
       person.findOne({
-        email: 'test2@hpi.de'
+        email: email2
       }).exec(function findPerson(err, admin2) {
         if (err) {
         } else {
@@ -79,13 +130,13 @@ module.exports = {
           }
         }
         person.findOne({
-          email: 'test3@hpi.de'
-        }).exec(function findPerson(err, admin3) {
+          email: email3
+        }).exec(function findPerson(err, member1) {
           if (err) {
           } else {
-            if (!admin3) {
+            if (!member1) {
             } else {
-              members.push(admin3);
+              members.push(member1);
             }
           }
 
@@ -119,12 +170,28 @@ module.exports = {
         });
       });
     });
-  },
+  }
+  ,
 
   generateExampleTopics: function (req, res) {
+    var topic1 = {
+      'title': this.conf.topics[0].title,
+      'description': this.conf.topics[0].description
+    };
+    var topic2 = {
+      'title': this.conf.topics[1].title,
+      'description': this.conf.topics[1].description
+    };
+    var topic3 = {
+      'title': this.conf.topics[2].title,
+      'description': this.conf.topics[2].description
+    };
+
+    var topics = [topic1, topic2, topic3];
+
     meetingseries.findOne({
-      title: 'Testmeeting',
-      description: 'Lorem ipsum dolor.'
+      title: this.conf.meetingseries.title,
+      description: this.conf.meetingseries.description
     }).exec(function findMeetingSeries(err, cre) {
       if (err) {
         sails.log('Topics not created' + err);
@@ -133,26 +200,8 @@ module.exports = {
           sails.log('Topics not created' + err);
         } else {
 
-          var topic1 = {
-            'meetingseries': cre,
-            'title': 'Topic 1',
-            'description': 'Lorem Ipsum Dolor.'
-          };
-          var topic2 = {
-            'meetingseries': cre,
-            'title': 'Topic 2',
-            'description': 'Lorem Dolor Ipsum .'
-          };
-          var topic3 = {
-            'meetingseries': cre,
-            'title': 'Topic 3',
-            'description': 'Ipsum Lorem Dolor.'
-          };
-
-          var topics = [topic1, topic2, topic3];
-
           for (var i = 0; i < 3; i++) {
-            var meetingseries = topics[i].meetingseries;
+            var meetingseries = cre;
             var title = topics[i].title;
             var description = topics[i].description;
 
@@ -171,12 +220,31 @@ module.exports = {
         }
       }
     });
-  },
+  }
+  ,
 
   generateExampleTodoItems: function (req, res) {
+    var todo1 = {
+      'done': false,
+      'title': this.conf.todos[0].title,
+      'description': this.conf.todos[0].description
+    };
+    var todo2 = {
+      'done': false,
+      'title': this.conf.todos[1].title,
+      'description': this.conf.todos[1].description
+    };
+    var todo3 = {
+      'done': true,
+      'title': this.conf.todos[2].title,
+      'description': this.conf.todos[2].description
+    };
+
+    var todos = [todo1, todo2, todo3];
+
     agendaitem.findOne({
-      title: 'Topic 1',
-      description: 'Lorem Ipsum Dolor.'
+      'title': this.conf.topics[0].title,
+      'description': this.conf.topics[0].description
     }).exec(function findAgendaItem(err, agendaItem) {
       if (err) {
         sails.log('Todos not created' + err);
@@ -184,24 +252,6 @@ module.exports = {
         if (!agendaItem) {
           sails.log('Todos not created' + err);
         } else {
-          var todo1 = {
-            'done': false,
-            'title': 'Todo 1',
-            'description': 'Lorem Ipsum Dolor.'
-          };
-          var todo2 = {
-            'done': false,
-            'title': 'Todo 2',
-            'description': 'Lorem Dolor Ipsum.'
-          };
-          var todo3 = {
-            'done': true,
-            'title': 'Todo 3',
-            'description': 'Ipsum Lorem Dolor.'
-          };
-
-          var todos = [todo1, todo2, todo3];
-
           for (var i = 0; i < 3; i++) {
             var owner = agendaItem;
             var done = todos[i].done;
@@ -224,12 +274,13 @@ module.exports = {
         }
       }
     });
-  },
+  }
+  ,
 
   generateExampleMeeting: function (req, res) {
     meetingseries.findOne({
-      title: 'Testmeeting',
-      description: 'Lorem ipsum dolor.'
+      'title': this.conf.meetingseries.title,
+      'description': this.conf.meetingseries.description
     }).populateAll().exec(function findMeetingSeries(err, cre) {
       if (err) {
         sails.log('Meeting not created' + err);
@@ -242,4 +293,5 @@ module.exports = {
       }
     });
   }
-};
+}
+;
