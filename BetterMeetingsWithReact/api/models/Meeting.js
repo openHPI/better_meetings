@@ -32,5 +32,13 @@ module.exports = {
     startTime: {
       type: 'datetime',
     },
+    timer: {
+      type: 'integer',
+      required: true,
+    },
+    url: {
+      type: 'string',
+      required: true,
+    }
   }
 };

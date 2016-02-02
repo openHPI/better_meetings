@@ -21,7 +21,9 @@ module.exports = {
       title: meetingseries.title,
       description: meetingseries.description,
       attendees: attendees,
-      isInitialCreation: true
+      isInitialCreation: true,
+      timer: meetingseries.timer,
+      url: UrlService.generateurl()
     }).exec(function createMeeting(err, created) {
       if (err) {
         console.log('Meeting not created' + err);
@@ -33,7 +35,9 @@ module.exports = {
           title: created.topics,
           description: created.topics,
           attendees: created.attendees,
-          isInitialCreation: created.isInitialCreation
+          isInitialCreation: created.isInitialCreation,
+          timer: created.timer,
+          url: created.url
         });
       }
     });
@@ -213,24 +217,23 @@ module.exports = {
   },
 
   arrayUnion: function (arr1, arr2, equalityFunc) {
-      var union = arr1.concat(arr2);
+    var union = arr1.concat(arr2);
 
-      for (var i = 0; i < union.length; i++) {
-          for (var j = i+1; j < union.length; j++) {
-              if (equalityFunc(union[i], union[j])) {
-                  union.splice(j, 1);
-                  j--;
-              }
-          }
+    for (var i = 0; i < union.length; i++) {
+      for (var j = i + 1; j < union.length; j++) {
+        if (equalityFunc(union[i], union[j])) {
+          union.splice(j, 1);
+          j--;
+        }
       }
-      return union;
+    }
+    return union;
   },
 
   arePersonsEqual: function (p1, p2) {
-      return p1.name === p2.name || p1.email === p2.email;
+    return p1.name === p2.name || p1.email === p2.email;
   },
 
-  
 
 };
 
