@@ -8,8 +8,6 @@
 module.exports = {
 
   createFromSeries: function (meetingseries) {
-    console.log(JSON.stringify(meetingseries));
-
     var attendees = [];
     for (var i = 0; i < meetingseries.admins.length; i++) {
       attendees.push(meetingseries.admins[i]);
@@ -139,10 +137,15 @@ module.exports = {
     //meeting.watch(req);
     var id = req.param('id', null);
     id = 1;
-    meeting.find().exec(function displayList(err, items) {
-      console.log(items);
-      res.response = items;
-      res.render('meeting', {'model': 'meeting'});
+    meeting.findOne({id: id}).populateAll().exec(function displayList(err, cre) {
+      DeepPopulateService.populateDeep('meeting', cre, 'topics.todos', function (err, meeting) {
+        if (err) {
+          sails.log.error("ERR:", err);
+        }
+        console.log(JSON.stringify(meeting));
+        res.response = meeting;
+        res.render('meeting', {'model': meeting});
+      });
     });
   },
 

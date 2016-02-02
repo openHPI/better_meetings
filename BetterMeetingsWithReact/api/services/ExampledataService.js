@@ -186,17 +186,17 @@ module.exports = {
         } else {
           var todo1 = {
             'done': false,
-            'title': 'Topic 1',
+            'title': 'Todo 1',
             'description': 'Lorem Ipsum Dolor.'
           };
           var todo2 = {
             'done': false,
-            'title': 'Topic 2',
+            'title': 'Todo 2',
             'description': 'Lorem Dolor Ipsum.'
           };
           var todo3 = {
             'done': true,
-            'title': 'Topic 3',
+            'title': 'Todo 3',
             'description': 'Ipsum Lorem Dolor.'
           };
 
@@ -230,14 +230,19 @@ module.exports = {
     meetingseries.findOne({
       title: 'Testmeeting',
       description: 'Lorem ipsum dolor.'
-    }).exec(function findMeetingSeries(err, cre) {
+    }).populateAll().exec(function findMeetingSeries(err, cre) {
       if (err) {
         sails.log('Meeting not created' + err);
       } else {
         if (!cre) {
           sails.log('Meeting not created' + err);
         } else {
-          sails.controllers.meeting.createFromSeries(cre);
+          DeepPopulateService.populateDeep('meetingseries', cre, 'topics.todos', function (err, newCre) {
+            if (err) {
+              sails.log.error("ERR:", err);
+            }
+            sails.controllers.meeting.createFromSeries(newCre);
+          });
         }
       }
     });
