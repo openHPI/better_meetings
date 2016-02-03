@@ -108,6 +108,7 @@ module.exports.routes = {
   'POST /meeting/view': 'MeetingController.view',
   'POST /meeting/delete': 'MeetingController.delete',
   'GET /meeting/get': 'MeetingController.get',
+  'GET /meeting/end' : 'MeetingController.end', 
 
   // endpoints for meeting controller
   'GET /person/subscribe': 'PersonController.subscribe',
