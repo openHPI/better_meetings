@@ -96,7 +96,8 @@ module.exports = {
     // Create a person
     person.findOrCreate({
         name: inputs.name,
-        email: inputs.email
+        email: inputs.email,
+        isAdmin: false
       })
       .exec(cb);
   }

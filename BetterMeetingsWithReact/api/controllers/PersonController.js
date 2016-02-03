@@ -229,7 +229,7 @@ module.exports = {
     var email = req.param('email');
 
     var invalidRedirect = '/login';
-    var successRedirect = '/';
+    var successRedirect = '/meeting';
 
     person.attemptLoginEmail({
       email: email
@@ -272,7 +272,7 @@ module.exports = {
     console.log('login email..');
 
     var email = req.param('email');
-    var successRedirect = '/';
+    var successRedirect = '/meeting';
 
     person.attemptLoginEmail({
       email: email
@@ -301,7 +301,7 @@ module.exports = {
 
     var email = req.param('email');
     var password = req.param('password');
-    var successRedirect = '/';
+    var successRedirect = '/meeting';
 
     person.attemptLoginAdmin({
       email: email,
