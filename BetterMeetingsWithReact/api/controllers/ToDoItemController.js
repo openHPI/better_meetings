@@ -40,7 +40,6 @@ module.exports = {
             assignee: assignee,
             done: created.done
            });
-
         }
       })
     } else {

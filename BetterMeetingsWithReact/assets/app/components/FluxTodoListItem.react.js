@@ -29,7 +29,7 @@ var FluxTodoListItem = React.createClass({
         return(
             <li className="list-group-item" key={index} className={ (item.done) ? "todo-item done" : "todo-item" } onDoubleClick={this._onDoubleClick}>
                 <label className="form-checkbox form-icon">
-                    <input type="checkbox" onClick={this.toggleDone}/>
+                    <input type="checkbox" onClick={this.toggleDone} checked={item.done}/>
                     <span>{item.title}</span>
                 </label>
                 <div className="todo-content" style={todoContentStyle}>
