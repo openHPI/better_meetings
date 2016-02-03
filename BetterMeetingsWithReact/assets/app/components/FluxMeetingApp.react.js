@@ -85,7 +85,10 @@ var FluxMeetingApp = React.createClass({
 								<FluxAgendaProgress total={this.state.total} index={this.state.index} />
 							</div>
 							<div className="row">
-								<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
+                <div className="col-md-9 col-lg-9">
+                  <h2>{this.state.title}</h2>
+                </div>
+								<div className="col-md-3 col-lg-3">
 									<FluxAgendaTimer hasStarted={true} timer={this.state.timer} />
 								</div>
 							</div>
