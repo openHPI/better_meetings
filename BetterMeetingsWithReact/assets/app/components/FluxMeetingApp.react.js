@@ -11,7 +11,7 @@ var FluxTodoList = require('./FluxTodoList.react');
 var FluxAgendaProgress = require('./FluxAgendaProgress.react');
 var FluxAgendaUpload = require('./FluxAgendaUpload.react');
 
-function getTodoListState () {
+function getMeetingState () {
 	return {
 		user: AgendaStore.getUser(),
 		canEdit: AgendaStore.getCanEdit(),
@@ -33,7 +33,7 @@ var FluxMeetingApp = React.createClass({
 
 	// Get initial state from stores
 	getInitialState: function() {
-		return getTodoListState();
+		return getMeetingState();
 	},
 
 	// Add change listeners to stores
@@ -151,7 +151,7 @@ var FluxMeetingApp = React.createClass({
 
 	// Methode to setState based upon Store changes
 	_onChange: function() {
-		this.setState(getTodoListState());
+		this.setState(getMeetingState());
 	}
 
 });

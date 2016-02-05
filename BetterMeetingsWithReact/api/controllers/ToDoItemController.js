@@ -88,7 +88,8 @@ module.exports = {
 
              console.dir(updated);
 
-             todoitem.publishUpdate(updated[0].id,{
+             todoitem.publishUpdate( updated[0].id,
+             {
                title:        updated[0].title,
                done:         updated[0].done,
                description:  updated[0].description,

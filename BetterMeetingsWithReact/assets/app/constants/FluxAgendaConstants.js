@@ -11,4 +11,4 @@ module.exports = keyMirror({
 	MEMBER_ADD: null,			// Adds a member to membergroup
 	SET_SELECTED: null,			// Selects a agenda item
 	REVEICE_DATA: null			// Loads agenda data
-})
+});
