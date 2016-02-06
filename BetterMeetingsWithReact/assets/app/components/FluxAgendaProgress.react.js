@@ -14,7 +14,7 @@ var FluxAgendaProgress = React.createClass({
 			<div className="flux-agendaProgress-container">
 				<div className="progress">
 					<div id="agenda-progress-bar" className="progress-bar progress-bar-info" role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={progressbarStyle}>
-				    	{Math.round(percentage)}% Complete
+				    	{Math.round(percentage)}%
 					</div>
 				</div>
 			</div>
