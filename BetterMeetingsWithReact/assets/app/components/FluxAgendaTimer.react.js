@@ -27,6 +27,9 @@ var FluxAgendaTimer = React.createClass({
 
     var minutes = Math.floor(this.state.timer / 60);
     var seconds = this.state.timer - minutes * 60;
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
     var divStyles = {
       color: (minutes >= 0) ? 'white' : 'red'
     };
