@@ -14,7 +14,6 @@ var FluxAgendaDetails = React.createClass({
                 </div>
                 <div className="panel-body">
                     <div className="flux-agendaDetails-description">
-                        <h4>Description</h4>
                         <p>{selected.description}</p>
                     </div>
                     <div className="flux-agendaDetails-subitems">
@@ -23,14 +22,14 @@ var FluxAgendaDetails = React.createClass({
                 </div>
                 <div className="panel-footer">
                     <form className="flux-agendaDetails-upload" action="#" method="post" enctype="multipart/form-data">
-                        <input name="Datei" type="file" size="50" accept="text/*, application/pdf" /> 
+                        <input name="Datei" type="file" size="50" accept="text/*, application/pdf" />
                         <button type="button" className="btn btn-default"><i className="fa fa-upload"></i></button>
                     </form>
                 </div>
             </div>
         );
     }
-    
+
 });
 
 module.exports = FluxAgendaDetails;
