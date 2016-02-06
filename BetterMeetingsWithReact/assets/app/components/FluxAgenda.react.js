@@ -25,7 +25,7 @@ var FluxAgenda = React.createClass({
 		var items = this.props.items;
 		var selected = this.props.selected;
 		var selectedIndex = items.indexOf(selected);
-
+    var count = items.length;
 		return (
 			<div className="flux-agenda-container panel">
 				<div className="panel-heading">
@@ -35,7 +35,7 @@ var FluxAgenda = React.createClass({
 							<li><a href="#" onClick={this.selectNext}><i className="fa fa-angle-double-right"></i></a></li>
 						</ul>
 					</div>
-					<h3 className="panel-title">TOPICS</h3>
+					<h3 className="panel-title">TOPICS  <a><span class="badge">{count}</span></a></h3>
 				</div>
 				<div className="flux-agenda-list panel-body">
 					<ul>
