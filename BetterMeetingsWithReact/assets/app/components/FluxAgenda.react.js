@@ -35,7 +35,7 @@ var FluxAgenda = React.createClass({
 							<li><a href="#" onClick={this.selectNext}><i className="fa fa-angle-double-right"></i></a></li>
 						</ul>
 					</div>
-					<h3 className="panel-title">TOPICS  <a><span class="badge">{count}</span></a></h3>
+					<h3 className="panel-title"><span class="badge">{count}</span> Themen</h3>
 				</div>
 				<div className="flux-agenda-list panel-body">
 					<ul>
