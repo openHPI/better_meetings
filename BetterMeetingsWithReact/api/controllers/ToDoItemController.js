@@ -122,16 +122,25 @@ module.exports = {
   },
 
   delete: function(req,res) {
-    var meetingSeriesID = req.param("meetingSeriesID", null);
-    if (meetingSeriesID && req.isSocket) {
-      MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
-        meetingseries.destroy({id: meetingSeriesAnswer.id}).exec(function destroy(err) {
+    var id = req.param("id", null);
+    if (id && req.isSocket) {
+      todoitem.findOne(id).exec(function findMeetingSeries(err, todoitemAnswer) {
+        todoitem.destroy({id: todoitemAnswer.id}).exec(function destroy(err) {
           if (err) {
             sails.log('Error while deleting meetingseries');
             res.send("Error");
           } else {
-            sails.log("Successfully deleted " + meetingseriesID);
-            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});
+            sails.log("Successfully deleted " + id);
+            todoitem.publishDestroy(todoitemAnswer[0].id, undefined, {
+              previous: {
+                title:        todoitemAnswer[0].title,
+                done:         todoitemAnswer[0].done,
+                description:  todoitemAnswer[0].description,
+                owner:        todoitemAnswer[0].owner,
+                author:       todoitemAnswer[0].author,
+                assignee:     todoitemAnswer[0].assignee,
+              }
+            });
           }
         });
       });

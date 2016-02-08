@@ -4,9 +4,17 @@ var FluxAgendaActions = require('../actions/FluxAgendaActions');
 // Flux todolist view
 var FluxTodoListItem = React.createClass({
 
+    collapseItem: function(event) {
+        event.preventDefault();
+        if(this.props.collapsed)
+            FluxAgendaActions.collapsTodoItem(-1);
+        else
+            FluxAgendaActions.collapsTodoItem(this.props.index);
+    },
+
     // Remove item from list via action
     deleteItem: function(event) {
-        FluxAgendaActions.removeFromList(this.props.index);
+        FluxAgendaActions.removeFromList(this.props.item.id);
     },
 
     // Mark an item as done
@@ -19,19 +27,20 @@ var FluxTodoListItem = React.createClass({
         var index = this.props.index;
         var canEdit = this.props.canEdit;
 
-        var editStyle = {
-            display: (this.props.canEdit) ? 'inline-block' : 'none'
-        };
         var todoContentStyle = {
             display: (this.props.collapsed) ? 'block' : 'none'
         };
 
         return(
-            <li className="list-group-item" key={index} className={ (item.done) ? "todo-item done" : "todo-item" } onDoubleClick={this._onDoubleClick}>
+            <li className="list-group-item" key={index} className={ (item.done) ? "todo-item done" : "todo-item" }>
                 <label className="form-checkbox form-icon">
                     <input type="checkbox" onClick={this.toggleDone} checked={item.done}/>
                     <span>{item.title}</span>
                 </label>
+                <div className="todo-control text-right">
+                    <a className="btn btn-xs btn-default add-tooltip" onClick={this.collapseItem} ><i className="fa fa-exclamation-circle"></i></a>
+                    <a className="btn btn-xs btn-danger add-tooltip" onClick={this.deleteItem}><i className="fa fa-times"></i></a>
+                </div>
                 <div className="todo-content" style={todoContentStyle}>
                     <p>Description:</p>
                     <p className="todo-description">{ (item.description !== undefined && item.description !== null) ? item.description : 'Add description'}</p>
@@ -40,14 +49,6 @@ var FluxTodoListItem = React.createClass({
                 </div>
             </li>
         );
-    },
-
-    _onDoubleClick: function(event) {
-        event.preventDefault();
-        if(this.props.collapsed)
-            FluxAgendaActions.collapsTodoItem(-1);
-        else
-            FluxAgendaActions.collapsTodoItem(this.props.index);
     }
 
 });

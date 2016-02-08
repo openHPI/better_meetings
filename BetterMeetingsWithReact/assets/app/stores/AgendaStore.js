@@ -40,14 +40,35 @@ function setSelected (index) {
 	}
 }
 
-// Method to update a Task
-function updateTask (item) {
-	for (var i = 0; i < _selected.todos.length; i++) {
+function updateTask (item, previousItem) {
 
-		if(_selected.todos[i].id === item.id) {
-			_selected.todos[i] = item;
+	var index;
+
+	for (var i = 0; i < _agenda.length; i++) {
+		if( _agenda[i].id === previousItem.owner ){
+			index = _agenda[i].todos.indexOf(previousItem);
+			_agenda[i].todos[index] = item;
+			break;
 		}
-	};
+	}
+
+	index = allTodos.indexOf(previousItem);
+	_allTodos[index] = item;
+}
+
+function deleteTask (item) {
+	var index;
+
+	for (var i = 0; i < _agenda.length; i++) {
+		if( _agenda[i].id === previousItem.owner ){
+			index = _agenda[i].todos.indexOf(previousItem);
+			_agenda[i].todos.splice(index, 1);
+			break;
+		}
+	}
+
+	index = allTodos.indexOf(previousItem);
+	_allTodos.splice(index, 1);
 }
 
 // Extend AgendaStore with EventEmitter to add eventing capabilities
@@ -142,18 +163,15 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_CREATE:
-			_selected.todos.push(action.data);
+			_selected.todos.unshift(action.data);
 			break;
 
 		case FluxServerConstants.TODO_UPDATE:
-			console.dir(action.data);
-			updateTask(action.data);
+			updateTask(action.data.item, action.data.previousItem);
 			break;
 
 		case FluxServerConstants.TODO_DESTROY:
-			var agendaIndex = _agenda.indexOf(action.data.owner);
-			var taskIndex = _agenda[agendaIndex].indexOf(action.data);
-			_selected.todos.splice(taskIndex, 1);
+			deleteTask(action.data);
 			break;
 
 		case FluxServerConstants.MEMBER_CREATE:

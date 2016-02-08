@@ -16,7 +16,7 @@ var FluxAgendaDetails = React.createClass({
                     <div className="flux-agendaDetails-description">
                         <p>{selected.description}</p>
                     </div>
-                    <div className="flux-agendaDetails-subitems">
+                    <div className={ (selected.subitems === undefined && selected.subitems === null) ? "flux-agendaDetails-subitems" : "flux-agendaDetails-subitems hidden-container" }>
                         <h4>Subitems</h4>
                     </div>
                 </div>

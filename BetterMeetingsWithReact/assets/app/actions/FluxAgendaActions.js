@@ -29,10 +29,10 @@ var FluxAgendaActions = {
 	},
 
 	// Remove item from to-do list
-	removeFromList: function(index) {
+	removeFromList: function(id) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.TODO_REMOVE,
-			data: index
+			data: id
 		})
 	},
 

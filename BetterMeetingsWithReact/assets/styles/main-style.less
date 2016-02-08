@@ -14,6 +14,10 @@ a:hover {
   color: @primary;
 }
 
+.hidden-container {
+  display: none;
+}
+
 /*==============================
 =            HEADER            =
 ==============================*/
@@ -52,18 +56,6 @@ a:hover {
 
 .content {
   margin-top: -40px;
-}
-
-.fa-check {
-  color: green;
-}
-
-.fa-times {
-  color: red;
-}
-
-.fa-user {
-  padding-right: 5px;
 }
 
 /*===============================
@@ -170,6 +162,14 @@ a:hover {
 .list-todo {
   list-style-type: none;
   font-size: 2.0em;
+  .todo-item {
+    &:hover {
+      background-color: #f0f2f6; 
+    }
+    .todo-control {
+      float: right;
+    }
+  }
 }
 
 /*====================================

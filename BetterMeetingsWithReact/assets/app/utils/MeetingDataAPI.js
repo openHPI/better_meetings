@@ -31,11 +31,12 @@ module.exports = {
 
 					case 'updated':
 						console.log('Updated TodoItem: ' + msg.data);
-						FluxServerActions.updateTask(msg.data);
+						FluxServerActions.updateTask(msg.data, msg.previous);
 						break;
 
 					case 'destroyed':
-						FluxServerActions.destroyTask(msg.data);
+						console.log('Delete Todoitem: ' + msg.previous);
+						FluxServerActions.destroyTask(msg.previous);
 						break;
 
 			        default:
@@ -105,9 +106,10 @@ module.exports = {
 		});
 	},
 
-	deleteTask: function(index) {
-		io.socket.post('/todoitem/delete', index, function (data, jwres) {
-			console.log('Deleted item ' + index);
+	deleteTask: function(id) {
+		console.log('Delte item with id: ' + id);
+		io.socket.post('/todoitem/delete', id, function (data, jwres) {
+			console.log('Deleted item ' + id);
 		});
 	},
 

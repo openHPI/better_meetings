@@ -28,10 +28,10 @@ var FluxServerActions = {
 	},
 
 	// Update an item
-	updateTask: function(item) {
+	updateTask: function(item, previousItem) {
 		AppDispatcher.handleAction({
 			actionType: FluxServerConstants.TODO_UPDATE,
-			data: item
+			data: { item: item, previousItem: previousItem }
 		})
 	},
 

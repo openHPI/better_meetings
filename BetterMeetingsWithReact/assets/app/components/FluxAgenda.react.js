@@ -25,7 +25,7 @@ var FluxAgenda = React.createClass({
 		var items = this.props.items;
 		var selected = this.props.selected;
 		var selectedIndex = items.indexOf(selected);
-    var count = items.length;
+    	var count = items.length;
 		return (
 			<div className="flux-agenda-container panel">
 				<div className="panel-heading">

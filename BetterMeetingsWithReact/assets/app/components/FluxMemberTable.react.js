@@ -24,7 +24,7 @@ var FluxMemberTable = React.createClass({
                                 );
                             })}
                         </div>
-                        <button type="button" id="flux-memberlist-button" data-toggle="modal" data-target="#newMemberModal" style={editStyle}><i className="fa fa-plus-square-o"></i></button> 
+                        <button type="button" id="flux-memberlist-button" className={ (canEdit) ? "btn btn-info btn-labeled fa fa-plus" : "hidden-container" } data-toggle="modal" data-target="#newMemberModal">Add Guest</button> 
                      </div>
                   </div>
                </div>

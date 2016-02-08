@@ -21,7 +21,20 @@ var FluxAdminApp = React.createClass({
   render: function() {
     return (
     <div className="container">
-      <FluxMeetingseriesList items={this.state.meetingseries} />
+      <div className="boxed">
+        <div id="content-container">
+          <div id="page-title">
+            <h1 className="page-header text-overflow">Dashboard</h1>
+          </div>
+          <div id="page-content">
+            <div className="row">
+              <div className="col-lg-12">
+                <FluxMeetingseriesList items={this.state.meetingseries} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     )
   },
