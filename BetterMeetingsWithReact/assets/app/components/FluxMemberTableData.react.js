@@ -5,13 +5,13 @@ var FluxAgendaActions = require('../actions/FluxAgendaActions');
 var FluxMemberTableData = React.createClass({
 
     render: function(){
-        
+
         var attendee = this.props.attendee;
 
         return (
             <a href="#" className="list-group-item">
                 <div className="media-left">
-                    <img className="img-circle img-xs" src="images/av2.png" alt="Profile Picture" />
+                    <img className="img-circle img-xs" src="/images/av2.png" alt="Profile Picture" />
                 </div>
                 <div className="media-body">
                 	<div className="text-lg">{attendee.name}</div>

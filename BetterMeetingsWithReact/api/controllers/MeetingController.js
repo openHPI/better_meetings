@@ -209,7 +209,7 @@ module.exports = {
 
   start: function (req, res) {
     // send an invitation to all meetingseries members
-    var link = UrlService.generateurl();
+    var link = UrlService.generate_unique_url();
     for (var member in req.members) {
       EmailService.sendInvitation({recipientName: member.name, to: member.email, meetingLink: link});
     }
