@@ -48,15 +48,11 @@ module.exports.routes = {
   'get /signup': {
     view: 'signup'
   },
-  'get /meeting': {
+  'get /meeting/id/:url': {
     view: 'meeting'
   },
   'get /admin': {
     view: 'admin'
-  },
-  'get /meeting/view': {
-    controller: 'meeting',
-    action: 'view'
   },
   '/user': {
     controller: 'user',
@@ -101,14 +97,13 @@ module.exports.routes = {
   'POST /meetingseries/view': 'MeetingSeriesController.view',
   'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
- // endpoints for meeting controller
+  // endpoints for meeting controller
   'POST /meeting/create': 'MeetingController.create',
-  'POST /meeting/createAttendee' : 'MeetingController.createAttendee',
+  'POST /meeting/createAttendee': 'MeetingController.createAttendee',
   'POST /meeting/update': 'MeetingController.update',
-  'POST /meeting/view': 'MeetingController.view',
   'POST /meeting/delete': 'MeetingController.delete',
   'GET /meeting/get': 'MeetingController.get',
-  'GET /meeting/end' : 'MeetingController.end', 
+  'GET /meeting/end': 'MeetingController.end',
 
   // endpoints for meeting controller
   'GET /person/subscribe': 'PersonController.subscribe',
