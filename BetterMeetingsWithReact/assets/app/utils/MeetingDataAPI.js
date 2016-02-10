@@ -10,119 +10,124 @@ io.sails.url = 'http://localhost:1337';
 
 module.exports = {
 
-	subscribeAndListen: function() {
+  subscribeAndListen: function () {
 
-		io.socket.on('connect', function() {
-			console.log('Connected to server');
-			console.log('socket session: ' + this.id);
+    io.socket.on('connect', function () {
+      console.log('Connected to server');
+      console.log('socket session: ' + this.id);
 
-			// Subscribe to todoitem
+      // Subscribe to todoitem
 
-			io.socket.get('/todoitem/subscribe', function (resData, jwres) {});
+      io.socket.get('/todoitem/subscribe', function (resData, jwres) {
+      });
 
-			io.socket.on('todoitem', function onServerSentEvent (msg) {
+      io.socket.on('todoitem', function onServerSentEvent(msg) {
 
-			    // Let's see what the server has to say...
-			    switch(msg.verb) {
+        // Let's see what the server has to say...
+        switch (msg.verb) {
 
-			        case 'created':
-			        	FluxServerActions.createTask(msg.data);
-						break;
+          case 'created':
+            FluxServerActions.createTask(msg.data);
+            break;
 
-					case 'updated':
-						console.log('Updated TodoItem: ' + msg.data);
-						FluxServerActions.updateTask(msg.data, msg.previous);
-						break;
+          case 'updated':
+            console.log('Updated TodoItem: ' + msg.data);
+            FluxServerActions.updateTask(msg.data, msg.previous);
+            break;
 
-					case 'destroyed':
-						console.log('Delete Todoitem: ' + msg.previous);
-						FluxServerActions.destroyTask(msg.previous);
-						break;
+          case 'destroyed':
+            console.log('Delete Todoitem: ' + msg.previous);
+            FluxServerActions.destroyTask(msg.previous);
+            break;
 
-			        default:
-			        	return; // ignore any unrecognized messages
-			    }
+          default:
+            return; // ignore any unrecognized messages
+        }
 
-			});
+      });
 
-			// Subscribe to person
+      // Subscribe to person
 
-			io.socket.get('/person/subscribe', function(resData, jwres) {});
+      io.socket.get('/person/subscribe', function (resData, jwres) {
+      });
 
-            io.socket.on('person', function (msg) {
+      io.socket.on('person', function (msg) {
 
-                switch(msg.verb) {
+        switch (msg.verb) {
 
-                	case 'created':
-                    	FluxServerActions.createMember(msg.data);
-                    	break;
+          case 'created':
+            FluxServerActions.createMember(msg.data);
+            break;
 
-                	case 'destroyed':
-                    	_destroyMember(msg.data);
-                		break;
+          case 'destroyed':
+            _destroyMember(msg.data);
+            break;
 
-                	default:
-                    	return; // ignore any ...
-                }
-            });
+          default:
+            return; // ignore any ...
+        }
+      });
 
-		});
+    });
 
-		io.socket.on('disconnect', function() {
-			console.log('Lost connection to server');
-		});
+    io.socket.on('disconnect', function () {
+      console.log('Lost connection to server');
+    });
 
-	},
+  },
 
-	// Load todo-list data from server into TodoListStore via Action
+  // Load todo-list data from server into TodoListStore via Action
 
-	getMeetingData: function() {
-		var id, title, agenda, member, timer;
+  getMeetingData: function () {
+    var id, title, agenda, member, timer;
 
-		io.socket.get('/meeting/get', function (data, jwres) {
-			id = data.meeting.id;
-			title = data.meeting.title;
- 			agenda = data.meeting.topics;
- 			member = data.meeting.attendees;
- 			timer = data.meeting.timer;
+    console.log("try to get meeting");
 
- 			FluxServerActions.receiveMeetingData({id: id, title: title, agenda: agenda, member: member, timer: timer});
-		});
+    io.socket.get('/meeting/get', function (data, jwres) {
+      id = data.meeting.id;
+      title = data.meeting.title;
+      agenda = data.meeting.topics;
+      member = data.meeting.attendees;
+      timer = data.meeting.timer;
 
-	},
+      FluxServerActions.receiveMeetingData({id: id, title: title, agenda: agenda, member: member, timer: timer});
+    });
 
-	// Todoitem
+  },
 
-	postTask: function(data) {
-		console.dir(data);
-		io.socket.post('/todoitem/create', data, function (data, jwres) {
-  			console.dir(data);
-		});
-	},
+  // Todoitem
 
-	updateTask: function (data) {
-		io.socket.post('/todoitem/update', data, function (data, jwres) {
-			console.dir(data);
-		});
-	},
+  postTask: function (data) {
+    console.dir(data);
+    io.socket.post('/todoitem/create', data, function (data, jwres) {
+      console.dir(data);
+    });
+  },
 
-	deleteTask: function(id) {
-		console.log('Delte item with id: ' + id);
-		io.socket.post('/todoitem/delete', id, function (data, jwres) {
-			console.log('Deleted item ' + id);
-		});
-	},
+  updateTask: function (data) {
+    io.socket.post('/todoitem/update', data, function (data, jwres) {
+      console.dir(data);
+    });
+  },
 
-	// Member
+  deleteTask: function (id) {
+    console.log('Delte item with id: ' + id);
+    io.socket.post('/todoitem/delete', id, function (data, jwres) {
+      console.log('Deleted item ' + id);
+    });
+  },
 
-	postMember: function(data) {
-		io.socket.post('/meeting/createAttendee', data, function (data, jwres) {
-			console.dir(data);
-		});
-	},
+  // Member
 
-	endMeeting: function() {
-		io.socket.get('/meeting/end', function (data, jwres){});
-	}
+  postMember: function (data) {
+    io.socket.post('/meeting/createAttendee', data, function (data, jwres) {
+      console.dir(data);
+    });
+  },
+
+  endMeeting: function () {
+    io.socket.get('/meeting/end', function (data, jwres) {
+    });
+  }
 
 }

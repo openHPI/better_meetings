@@ -23,7 +23,7 @@ module.exports = {
       attendees: attendees,
       isInitialCreation: true,
       timer: meetingseries.timer,
-      url: UrlService.generateurl()
+      url: meetingseries.url
     }).exec(function createMeeting(err, created) {
       if (err) {
         console.log('Meeting not created' + err);
@@ -123,10 +123,10 @@ module.exports = {
         } else {
           sails.log('Updated Meeting: ' + updated.topics);
           meeting.publishUpdate(id, {
-            topics:             updated.topics,
-            attendees:          updated.attendees,
-            isInitialCreation:  updated.isInitialCreation,
-            startTime:          updated.startTime,
+            topics: updated.topics,
+            attendees: updated.attendees,
+            isInitialCreation: updated.isInitialCreation,
+            startTime: updated.startTime,
           });
         }
       });
@@ -137,37 +137,38 @@ module.exports = {
     }
   },
 
-  view: function (req, res) {
-    //meeting.watch(req);
-    var id = req.param('id', null);
-    id = 1;
-    meeting.findOne({id: id}).populateAll().exec(function displayList(err, cre) {
-      DeepPopulateService.populateDeep('meeting', cre, 'topics.todos', function (err, meeting) {
-        if (err) {
-          sails.log.error("ERR:", err);
-        }
-        console.log(JSON.stringify(meeting));
-        res.response = meeting;
-        res.render('meeting', {'model': meeting});
-      });
-    });
-  },  
-
   get: function (req, res) {
-    var id = req.param('id', null);
-    id = 1;
-    meeting.findOne({id: id}).populateAll().exec(function displayList(err, cre) {
+    var url;
+    if (req.wantsJSON) {
+      var path = req.socket.request.headers.referer;
+      var segments = path.split('/');
+      if (segments[segments.length - 2] === 'id' && segments[segments.length - 3] === 'meeting') {
+        url = path.split('/').pop();
+      }
+    } else {
+      url = req.param('url');
+    }
+    console.log('search for meeting with url: ' + url);
+
+    meeting.findOne({url: url}).populateAll().exec(function displayList(err, cre) {
+      if (err) {
+        sails.log.error("ERR:", err);
+      }
+
+      if (!cre) {
+        console.log("no meeting with url " + url + " found :(");
+        return;
+      }
+
       DeepPopulateService.populateDeep('meeting', cre, 'topics.todos', function (err, meeting) {
         if (err) {
           sails.log.error("ERR:", err);
         }
-        //console.log(JSON.stringify(meeting));
-        //res.response = meeting;
+
         res.send({'meeting': meeting});
       });
     });
   },
-
 
 
   // viewAll: function(req,res) {
@@ -208,7 +209,7 @@ module.exports = {
 
   start: function (req, res) {
     // send an invitation to all meetingseries members
-    var link = UrlService.generateurl();
+    var link = UrlService.generate_unique_url();
     for (var member in req.members) {
       EmailService.sendInvitation({recipientName: member.name, to: member.email, meetingLink: link});
     }

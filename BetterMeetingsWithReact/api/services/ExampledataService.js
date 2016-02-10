@@ -99,7 +99,7 @@ module.exports = {
     var members = [];
     var title = this.conf.meetingseries.title;
     var description = this.conf.meetingseries.description;
-    var url = UrlService.generateurl();
+    var url = 'testurl';
     var timer = 3600;
 
     var email1 = this.conf.person.email_admin1;

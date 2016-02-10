@@ -32,58 +32,58 @@ module.exports = {
             email: created.email
           });
 
-          }
-        })
-      } else if (name && email) {
-        person.create({
-          name:           name,
-          email:          email,
-        }).exec( function createPerson(err,created) {
-          if (err) {
-            console.log('Person not created' + err);
-          } else {
-            console.log('Created Person: ' + created.name);
-            person.publishCreate({
-              id: created.id,
-              name: created.name,
-              email: created.email,
-            });
-          }
-        });
-      } else if (email) {
-        person.create({
-          email:          email,
-        }).exec( function createPerson(err,created) {
-          if (err) {
-            console.log('Person not created' + err);
-          } else {
-            console.log('Created Person: ' + created.name);
-            person.publishCreate({
-              id: created.id,
-              email: created.email,
-            });
-          }
-        });
-      } else if (name) {
-        person.create({
-          name:           name,
-        }).exec( function createGuestPerson(err,created) {
-          if (err) {
-            console.log('Guest-Person not created' + err);
-          } else {
-            console.log('Created Guest-Person: ' + created.name);
-            person.publishCreate({
-              id: created.id,
-              name: created.name,
-            });
+        }
+      })
+    } else if (name && email) {
+      person.create({
+        name: name,
+        email: email,
+      }).exec(function createPerson(err, created) {
+        if (err) {
+          console.log('Person not created' + err);
+        } else {
+          console.log('Created Person: ' + created.name);
+          person.publishCreate({
+            id: created.id,
+            name: created.name,
+            email: created.email,
+          });
+        }
+      });
+    } else if (email) {
+      person.create({
+        email: email,
+      }).exec(function createPerson(err, created) {
+        if (err) {
+          console.log('Person not created' + err);
+        } else {
+          console.log('Created Person: ' + created.name);
+          person.publishCreate({
+            id: created.id,
+            email: created.email,
+          });
+        }
+      });
+    } else if (name) {
+      person.create({
+        name: name,
+      }).exec(function createGuestPerson(err, created) {
+        if (err) {
+          console.log('Guest-Person not created' + err);
+        } else {
+          console.log('Created Guest-Person: ' + created.name);
+          person.publishCreate({
+            id: created.id,
+            name: created.name,
+          });
 
-          }
-        });
-      } else {
-        res.send('person');
-        console.log('Person not created: too few parameters');
-      }
-    },
+        }
+      });
+    } else {
+      res.send('person');
+      console.log('Person not created: too few parameters');
+    }
+  },
 
   subscribe: function (req, res) {
     if (req.isSocket) {
@@ -163,13 +163,13 @@ module.exports = {
         } else {
           sails.log('Updated Person: ' + updated.name);
           person.publishUpdate(id, {
-            name:             updated.name,
-            password:         updated.password,
-            email:            updated.email,
-            todos:            updated.todos,
+            name: updated.name,
+            password: updated.password,
+            email: updated.email,
+            todos: updated.todos,
             assignedMeetings: updated.assignedMeetings,
-            createdMeetings:  updated.createdMeetings,
-            isAdmin:          updated.isAdmin,
+            createdMeetings: updated.createdMeetings,
+            isAdmin: updated.isAdmin,
           });
         }
       });
@@ -229,7 +229,7 @@ module.exports = {
     var email = req.param('email');
 
     var invalidRedirect = '/login';
-    var successRedirect = '/meeting';
+    var successRedirect = '/';
 
     person.attemptLoginEmail({
       email: email
@@ -272,7 +272,7 @@ module.exports = {
     console.log('login email..');
 
     var email = req.param('email');
-    var successRedirect = '/meeting';
+    var successRedirect = '/';
 
     person.attemptLoginEmail({
       email: email
@@ -301,7 +301,7 @@ module.exports = {
 
     var email = req.param('email');
     var password = req.param('password');
-    var successRedirect = '/meeting';
+    var successRedirect = '/';
 
     person.attemptLoginAdmin({
       email: email,
@@ -376,15 +376,15 @@ module.exports = {
   },
 
   createMeetingSeries: function (req, res) {
-      return res.json({
-        todo: 'createMeetingSeries() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'createMeetingSeries() is not implemented yet!'
+    });
   },
 
   deleteMeetingSeries: function (req, res) {
-      return res.json({
-        todo: 'deleteMeetingSeries() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'deleteMeetingSeries() is not implemented yet!'
+    });
   },
 
   readMeetingSeries: function (req, res) {
@@ -410,15 +410,15 @@ module.exports = {
   },
 
   createMeeting: function (req, res) {
-      return res.json({
-        todo: 'createMeeting() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'createMeeting() is not implemented yet!'
+    });
   },
 
   deleteMeeting: function (req, res) {
-      return res.json({
-        todo: 'deleteMeeting() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'deleteMeeting() is not implemented yet!'
+    });
   },
 
   updateMeeting: function (req, res) {
@@ -434,33 +434,33 @@ module.exports = {
   },
 
   isDone: function (req, res) {
-      return res.json({
-        todo: 'isDone() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'isDone() is not implemented yet!'
+    });
   },
 
   setDone: function (req, res) {
-      return res.json({
-        todo: 'setDone() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'setDone() is not implemented yet!'
+    });
   },
 
   startMeeting: function (req, res) {
-      return res.json({
-        todo: 'startMeeting() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'startMeeting() is not implemented yet!'
+    });
   },
 
   endMeeting: function (req, res) {
-      return res.json({
-        todo: 'endMeeting() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'endMeeting() is not implemented yet!'
+    });
   },
 
   finishToDoItem: function (req, res) {
-      return res.json({
-        todo: 'finishToDoItem() is not implemented yet!'
-      });
+    return res.json({
+      todo: 'finishToDoItem() is not implemented yet!'
+    });
   },
 
   subscribe: function (req, res) {
