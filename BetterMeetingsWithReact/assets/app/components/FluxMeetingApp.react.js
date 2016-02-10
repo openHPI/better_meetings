@@ -43,7 +43,7 @@ var FluxMeetingApp = React.createClass({
 
 	// Remove change listener from stores
 	componentWillUnmount: function() {
-		AgendaListStore.removeChangeListener(this._onChange);
+		AgendaStore.removeChangeListener(this._onChange);
 	},
 
 	// Render our child components, passing state via props

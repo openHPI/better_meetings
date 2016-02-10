@@ -1,19 +1,22 @@
 var React = require('react');
+var Link = require('react-router/modules/Link');
 
 // Flux todolist view
-var MeetingSeriesItem = React.createClass({
+var MeetingseriesItem = React.createClass({
 
     render: function() {
         var item = this.props.item;
         var index = this.props.index;
 
         return(
-            <li key={index} className="jourfix-item">
-                <p className="jourfix-title">{item.title}</p>
+            <li key={index} className="meetingseries-item">
+                <Link to={ "/meetingseries/" + item.id }>
+                	<p className="meetingseries-title">{item.title}</p>
+                </Link>
             </li>
         );
     }
 
 });
 
-module.exports = MeetingSeriesItem;
+module.exports = MeetingseriesItem;
