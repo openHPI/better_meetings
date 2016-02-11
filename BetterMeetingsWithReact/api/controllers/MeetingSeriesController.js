@@ -116,33 +116,24 @@ module.exports = {
 
   view: function(req,res) {
     var id = req.param('id', null);
-    MeetingSeries.findOne(id).exec(function displayList(err, items) {
-        console.log(items);
+    MeetingSeries.findOne(id).exec(function displayList(err, item) {
+        // console.log(item);
         
         /*
 
-        TODO return meetingseries = {
-          title
-          description
-          admins
-          member
-          meetings {
+        TODO 
+          meetings [{
             id
             startTime
-          }
-          url
-          timer
-          topics
-        }
+          }]
+        } */
 
         return res.view('meetingseries', {
-          meetingseries : items[0]
+          meetingseries : item
         });
 
-        */
-
-        res.response = items;
-        res.render('meetingseries', {'model': 'meetingseries'});
+        // res.response = item;
+        // res.render('meetingseries', {'model': 'meetingseries'});
 
       });
   },
