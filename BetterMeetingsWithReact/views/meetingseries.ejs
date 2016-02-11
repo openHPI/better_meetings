@@ -1,0 +1,229 @@
+<div id="page-title">
+	<h1 class="page-header text-overflow"><%= meetingseries.title =%></h1>
+</div>
+<div id="page-content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<div class="panel-control">
+	                    <button id="demo-panel-network-refresh" data-toggle="panel-overlay" data-target="#demo-panel-network" class="btn">
+	                    	<i class="fa fa-rotate-right"></i>
+	                    </button>
+	                    <div class="btn-group">
+	                        <button class="dropdown-toggle btn" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-gear"></i></button>
+	                        <ul class="dropdown-menu dropdown-menu-right">
+	                            <li><a href="#">Action</a></li>
+	                            <li><a href="#">Another action</a></li>
+	                            <li><a href="#">Something else here</a></li>
+	                            <li class="divider"></li>
+	                            <li><a href="#">Separated link</a></li>
+	                        </ul>
+	                    </div>
+					</div>
+					<h3 class="panel-title">Information</h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<%= meetingseries.description =%>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="row">
+								<div class="col-xs-6">
+									<div class="pad-ver media">
+	                                    <div class="media-left">
+	                                        <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
+					                			<i class="fa fa-user fa-2x"></i>
+					                		</span>
+	                                    </div>
+	                                    <div class="media-body">
+	                                        <p class="h3 text-thin media-heading"><%= meetingseries.admins.length</p>
+	                                    </div>
+	                                </div>
+								</div>
+								<div class="col-xs-6">
+									<div class="pad-ver media">
+	                                    <div class="media-left">
+	                                        <span class="icon-wrap icon-wrap-xs icon-circle bg-warning">
+					                			<i class="fa fa-user fa-2x"></i>
+					                		</span>
+	                                    </div>
+	                                    <div class="media-body">
+	                                        <p class="h3 text-thin media-heading"><%= meetingseries.members.length</p>
+	                                    </div>
+	                                </div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-lg-6">
+							<ul class="list-group bg-trans mar-no">
+	                            <li class="list-group-item">
+	                                <span class="badge badge-info"><%= meetingseries.meetings.length %=></span>
+	                                Meetings
+	                            </li>
+	                            <li class="list-group-item">
+	                                <span class="badge badge-info"><%= meetingseries.url %=></span>
+	                                URL
+	                            </li>
+	                            <li class="list-group-item">
+	                                <span class="badge badge-info"><%= meetingseries.timer %=></span>
+	                                Timer
+	                            </li>
+					        </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-lg-7">
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Meetings</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover table-vcenter">
+						<thead>
+							<tr>
+								<th class="min-width">Id</th>
+								<th>Date</th>
+								<th class="text-center">Summary</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% _.each(meetings, function (meeting) { %>
+							<tr>
+								<td class="text-center">
+									<span class="icon-wrap icon-wrap-sm icon-circle bg-info"><%= meeting.id =%></span>
+								</td>
+								<td>
+									<span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.startTime =%></span>
+								</td>
+								<td class="text-center">
+									<button><i class="fa fa-download"></i></button>
+								</td>
+							</tr>
+							<% }) %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-lg-5">
+			<div class="panel panel-dark panel-colorful">
+				<div class="panel panel-dark panel-colorful">
+					<div class="panel-heading">
+						<h3 class="panel-title">Topics</h3>
+					</div>
+					<div class="panel-body">
+						<div class="list-group bg-trans">
+							<a class="list-group-item active" href="#"><=% meetingseries.topics[0].title </a>
+							<% _.each(meetingseries.topics, function (topic) { %>
+	    						<a class="list-group-item" href="#"><=% topic.title %=></a>
+	    					<% }) %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#newMeetingModal">New meetingseries</button>
+</div>
+<div id="newMeetingModal" className="modal fade" role="dialog">
+    <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+            <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h4 className="modal-title">New meeting</h4>
+            </div>
+            <div className="modal-body">
+                <div className="form-group">
+                    <label className="col-md-3 control-label" for="meeting-title-input">Meeting title</label>
+                    <div className="col-md-9">
+                        <input type="text" id="meeting-title-input" className="form-control" placeholder="Title" />
+                        <small className="help-block">Please enter a the meeting title</small>
+                    </div>
+                </div>
+                <div className="form-group">
+                    <label className="col-md-3 control-label" for="meeting-description-textarea">Description</label>
+                    <div className="col-md-9">
+                        <textarea id="meeting-description-textarea" rows="9" className="form-control" placeholder="Description"></textarea>
+                        <small className="help-block">Please enter a the description</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                	<label class="col-md-3 control-label">Topics</label>
+                	<div class="col-md-9">
+							<% _.each(topics, function (topic) { %>
+							<div class="checkbox">
+								<label class="form-checkbox form-normal form-primary">
+									<input type="checkbox"><%= topic.name %>
+								</label>
+							</div>
+							<% }) %>
+                	</div>
+                </div>
+                <div class="form-group pad-ver">
+					<label class="col-md-3 control-label">Invite</label>
+					<div class="col-md-9">
+						<div class="col-md-6 pad-no form-block">
+							<% _.each(admins, function (admin) { %>
+							<div class="checkbox">
+								<label class="form-checkbox form-normal form-primary">
+									<input type="checkbox"><%= admin.name %>
+								</label>
+							</div>
+							<% }) %>
+
+						</div>
+						<div class="col-md-6 pad-no form-block">
+							<% _.each(members, function (member) { %>
+							<div class="checkbox">
+								<label class="form-checkbox form-normal form-primary">
+									<input type="checkbox"><%= member.name %>
+								</label>
+							</div>
+							<% }) %>
+						</div>
+					</div>
+				</div>
+
+                <hr/>
+                <br/>
+                <br/>
+
+                <p class="text-thin mar-btm">Date</p>
+                <div id="meeting-datepicker-component">
+					<div class="input-group date">
+						<input type="text" class="form-control">
+						<span class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></span>
+					</div>
+					<small class="text-muted">Auto close on select</small>
+				</div>
+
+                <br/>
+
+                <p class="text-thin mar-btm">Timer</p>
+                <div class="input-group date">
+                    <input id="meeting-timer-input" type="text" class="form-control" />
+                    <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
+                </div>
+
+                <br/>
+
+                <p class="text-thin mar-btm">URL</p>
+                <div class="input-group date">
+                    <input id="meeting-url-input" type="text" class="form-control" />
+                    <span class="input-group-addon"><i class="fa fa-globe-o fa-lg"></i></span>
+                </div>
+            </div>
+            <div className="modal-footer">
+                <button type="submit" className="btn btn-primary" onClick={this.createMeetingseries}>Create new</button>
+            </div>
+        </div>
+    </div>
+</div>

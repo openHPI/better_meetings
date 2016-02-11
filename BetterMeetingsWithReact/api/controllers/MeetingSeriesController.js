@@ -115,10 +115,32 @@ module.exports = {
 ===================================================================*/
 
   view: function(req,res) {
-    //meetingSeries.watch(req);
     var id = req.param('id', null);
     MeetingSeries.findOne(id).exec(function displayList(err, items) {
         console.log(items);
+        
+        /*
+
+        TODO return meetingseries = {
+          title
+          description
+          admins
+          member
+          meetings {
+            id
+            startTime
+          }
+          url
+          timer
+          topics
+        }
+
+        return res.view('meetingseries', {
+          meetingseries : items[0]
+        });
+
+        */
+
         res.response = items;
         res.render('meetingseries', {'model': 'meetingseries'});
 
