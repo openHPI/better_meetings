@@ -116,12 +116,13 @@ module.exports = {
 
   view: function(req,res) {
     var id = req.param('id', null);
-    MeetingSeries.findOne(id).exec(function displayList(err, item) {
-        // console.log(item);
+    meetingseries.findOne(id).exec(function displayList(err, item) {
+        sails.log(item);
         
         /*
 
         TODO 
+          topics
           meetings [{
             id
             startTime
@@ -131,9 +132,6 @@ module.exports = {
         return res.view('meetingseries', {
           meetingseries : item
         });
-
-        // res.response = item;
-        // res.render('meetingseries', {'model': 'meetingseries'});
 
       });
   },
