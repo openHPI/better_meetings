@@ -1,10 +1,17 @@
+/**
+ * Provides an interface of actions for the flux-components
+ * 
+ * @module FluxAgendaActions
+ *
+ */
+
+
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var FluxAgendaConstants = require('../constants/FluxAgendaConstants');
 
 // Define actions object
 var FluxAgendaActions = {
-
-	// Receive initial agenda data
+	
 	receiveAgenda: function(data) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.RECEIVE_DATA,
@@ -12,15 +19,25 @@ var FluxAgendaActions = {
 		})
 	},
 
-	// Select agenda item
-	selectAgendaItem: function(data) {
+	/**
+	 * Selects an agenda item
+	 * 
+	 * @method selectAgendaItem
+	 * @param {Integer} index The index of the selected agenda item 
+	 */
+	selectAgendaItem: function(index) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.SET_SELECTED,
-			data: data
+			data: index
 		})
 	},
 
-	// Add item to to-do list
+	/**
+	 * Adds a new todo item to the todolist
+	 * 
+	 * @method addToList
+	 * @param {Object} item The new todo item 
+	 */
 	addToList: function(item) {
 		AppDispatcher.handleAction({	
 			actionType: FluxAgendaConstants.TODO_ADD,
@@ -28,7 +45,12 @@ var FluxAgendaActions = {
 		})
 	},
 
-	// Remove item from to-do list
+	/**
+	 * Removes a todo item from the todolist
+	 * 
+	 * @method removeFromList
+	 * @param {Integer} id The id of the 
+	 */
 	removeFromList: function(id) {
 		AppDispatcher.handleAction({
 			actionType: FluxAgendaConstants.TODO_REMOVE,

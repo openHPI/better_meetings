@@ -3,7 +3,7 @@
 </div>
 <div id="page-content">
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-9">
 			<div class="panel">
 				<div class="panel-heading">
 					<div class="panel-control">
@@ -112,32 +112,98 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-lg-5">
-			<div class="panel panel-dark panel-colorful">
+			<div id="topics-panel" class="panel panel-dark panel-colorful">
 				<div class="panel panel-dark panel-colorful">
 					<div class="panel-heading">
 						<h3 class="panel-title">Topics</h3>
 					</div>
 					<div class="panel-body">
 						<% meetingseries.topics = [{ title : "TestTopic" }, { title : "TestTopic2" }] %>
-						<div class="list-group bg-trans">
-							<a class="list-group-item active" href="#"><%= meetingseries.topics[0].title %></a>
+						<ul class="list-group bg-trans">
+							<li class="list-group-item active" data-title="<%= meetingseries.topics[0].title %>" data-description="<%= meetingseries.topics[0].description %>">
+								<%= meetingseries.topics[0].title %>
+							</li>
 							<% _.each(meetingseries.topics, function (topic) { %>
-	    						<a class="list-group-item" href="#"><%= topic.title %></a>
+    						<li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
+    							<%= topic.title %>
+    						</li>
 	    					<% }) %>
-						</div>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newMeetingModal">New meetingseries</button>
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newMeetingModal">New meeting</button>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="newTopicModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal"><span>×</span></button>
+				<h4 class="modal-title">New Topic</h4>
+			</div>
+			<div class="modal-body">
+				<input type="text" class="id-input form-control" value="<%= meetingseries.id %>" style="display: none;">
+				<div class="form-group">
+                    <label class="col-md-3 control-label">Topic title</label>
+                    <div class="col-md-9">
+                        <input class="title-input" type="text" class="form-control" placeholder="Title" />
+                        <small class="help-block">Please enter a the topic title</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Description</label>
+                    <div class="col-md-9">
+                        <textarea class="description-textarea" rows="9" class="form-control" placeholder="Description"></textarea>
+                        <small class="help-block">Please enter a the description</small>
+                    </div>
+                </div>
+			</div>
+			<div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="newTopicModalSubmit">Create new</button>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="updateTopicModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal"><span>×</span></button>
+				<h4 class="modal-title">Update Topic</h4>
+			</div>
+			<div class="modal-body">
+				<input type="text" class="id-input form-control" value="<%= meetingseries.id %>" style="display: none;">
+				<div class="form-group">
+                    <label class="col-md-3 control-label">Topic title</label>
+                    <div class="col-md-9">
+                        <input class="title-input" type="text" class="form-control" placeholder="Title" />
+                        <small class="help-block">Please enter a the topic title</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Description</label>
+                    <div class="col-md-9">
+                        <textarea class="description-textarea" rows="9" class="form-control" placeholder="Description"></textarea>
+                        <small class="help-block">Please enter a the description</small>
+                    </div>
+                </div>
+			</div>
+			<div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="updateTopicModalSubmit">Save changes</button>
+            </div>
+		</div>
+	</div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="newMeetingModal">
-    <div class="modal-dialog modal-lg">
-      	<div class="modal-content">
-        	<div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal"><span>×</span></button>
                 <h4 class="modal-title">New meeting</h4>
             </div>
             <div class="modal-body">
@@ -158,36 +224,44 @@
                 <div class="form-group">
                 	<label class="col-md-3 control-label">Topics</label>
                 	<div id="meeting-topics" class="col-md-9">
-							<% _.each(meetingseries.topics, function (topic) { %>
-							<div class="checkbox">
-								<label class="form-checkbox form-normal form-primary">
-									<input type="checkbox"><%= topic.title %>
-								</label>
-							</div>
-							<% }) %>
+                		<div class="row">
+                			<div class="col-xs-6">
+                				<ul id="selected-topics" class="list-group topics-list">
+								</ul>
+                			</div>
+                			<div class="col-xs-6">
+                				<ul id="all-topics" class="list-group topics-list">
+									<% _.each(meetingseries.topics, function (topic) { %>
+									<li class="list-group-item"><%= topic.title %></li>
+									<% }) %>
+								</ul>
+                			</div>
+                		</div>
                 	</div>
                 </div>
                 <div class="form-group pad-ver">
 					<label class="col-md-3 control-label">Invite</label>
 					<div class="col-md-9">
-						<div class="col-md-6 pad-no form-block">
-							<% _.each(meetingseries.admins, function (admin) { %>
-							<div class="checkbox">
-								<label class="form-checkbox form-normal form-primary">
-									<input type="checkbox"><%= admin.name %>
-								</label>
-							</div>
-							<% }) %>
+						<div class="row">
+							<div class="col-md-6 pad-no form-block">
+								<% _.each(meetingseries.admins, function (admin) { %>
+								<div class="checkbox">
+									<label class="form-checkbox form-normal form-primary">
+										<input type="checkbox"><%= admin.name %>
+									</label>
+								</div>
+								<% }) %>
 
-						</div>
-						<div class="col-md-6 pad-no form-block">
-							<% _.each(meetingseries.members, function (member) { %>
-							<div class="checkbox">
-								<label class="form-checkbox form-normal form-primary">
-									<input type="checkbox"><%= member.name %>
-								</label>
 							</div>
-							<% }) %>
+							<div class="col-md-6 pad-no form-block">
+								<% _.each(meetingseries.members, function (member) { %>
+								<div class="checkbox">
+									<label class="form-checkbox form-normal form-primary">
+										<input type="checkbox"><%= member.name %>
+									</label>
+								</div>
+								<% }) %>
+							</div>
 						</div>
 					</div>
 				</div>
