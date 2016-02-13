@@ -8,22 +8,34 @@ window.socket = socket;
 
 io.sails.url = 'http://localhost:1337';
 
+/**
+ * Provides an interface for server interaction
+ *
+ * @module MeetingDataAPI
+ * @require socket.io-client
+ * @require sails.io
+ * @require FluxServerActions
+ */
 module.exports = {
 
+
+  /**
+   * Subscribes und listen to the modules 'todoitem' and 'person'
+   *
+   * @method subscribeAndListen
+   */
   subscribeAndListen: function () {
 
     io.socket.on('connect', function () {
       console.log('Connected to server');
-      console.log('socket session: ' + this.id);
+      console.log('Socket session: ' + this.id);
 
       // Subscribe to todoitem
 
-      io.socket.get('/todoitem/subscribe', function (resData, jwres) {
-      });
+      io.socket.get('/todoitem/subscribe', function (resData, jwres) {});
 
       io.socket.on('todoitem', function onServerSentEvent(msg) {
 
-        // Let's see what the server has to say...
         switch (msg.verb) {
 
           case 'created':
@@ -41,15 +53,14 @@ module.exports = {
             break;
 
           default:
-            return; // ignore any unrecognized messages
+            return;
         }
 
       });
 
       // Subscribe to person
 
-      io.socket.get('/person/subscribe', function (resData, jwres) {
-      });
+      io.socket.get('/person/subscribe', function (resData, jwres) {});
 
       io.socket.on('person', function (msg) {
 
@@ -59,12 +70,8 @@ module.exports = {
             FluxServerActions.createMember(msg.data);
             break;
 
-          case 'destroyed':
-            _destroyMember(msg.data);
-            break;
-
           default:
-            return; // ignore any ...
+            return;
         }
       });
 
@@ -76,8 +83,11 @@ module.exports = {
 
   },
 
-  // Load todo-list data from server into TodoListStore via Action
-
+  /**
+   * Sends a GET-request to the server for getting the meeting data and stores them into the MeetingStore
+   *
+   * @method getMeetingData
+   */
   getMeetingData: function () {
     var id, title, agenda, member, timer;
 
@@ -97,37 +107,55 @@ module.exports = {
 
   // Todoitem
 
-  postTask: function (data) {
-    console.dir(data);
-    io.socket.post('/todoitem/create', data, function (data, jwres) {
-      console.dir(data);
-    });
+  /**
+   * Sends a POST-request to the server for creating a new todo item
+   *
+   * @method postTask
+   * @param {Object} data The new todo item
+   */
+  createTodoItem: function (data) {
+    io.socket.post('/todoitem/create', data, function (data, jwres) {});
   },
 
-  updateTask: function (data) {
-    io.socket.post('/todoitem/update', data, function (data, jwres) {
-      console.dir(data);
-    });
+  /**
+   * Sends a POST-request to the server for updating a todo item
+   *
+   * @method updateTask
+   * @param {Object} data The todo item
+   */
+  updateTodoItem: function (data) {
+    io.socket.post('/todoitem/update', data, function (data, jwres) {});
   },
 
-  deleteTask: function (id) {
-    console.log('Delte item with id: ' + id);
-    io.socket.post('/todoitem/delete', id, function (data, jwres) {
-      console.log('Deleted item ' + id);
-    });
+  /**
+   * Sends a POST-request to the server for deleting a todo item
+   *
+   * @method deleteTask
+   * @param {Integer} id The id of the todo item
+   */
+  destroyTodoItem: function (id) {
+    io.socket.post('/todoitem/delete', id, function (data, jwres) {});
   },
 
   // Member
 
-  postMember: function (data) {
-    io.socket.post('/meeting/createAttendee', data, function (data, jwres) {
-      console.dir(data);
-    });
+  /**
+   * Sends a POST-request to the server for creating a new member and adding the member to the meeting attendees
+   *
+   * @method postMember
+   * @param {Object} data The new member
+   */
+  createAttendee: function (data) {
+    io.socket.post('/meeting/createAttendee', data, function (data, jwres) {});
   },
 
+  /**
+   * Sends a GET-request to the server to end the meeting
+   *
+   * @method endMeeting
+   */
   endMeeting: function () {
-    io.socket.get('/meeting/end', function (data, jwres) {
-    });
+    io.socket.get('/meeting/end', function (data, jwres) {});
   }
 
 }

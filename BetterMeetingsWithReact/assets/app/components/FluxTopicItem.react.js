@@ -2,7 +2,7 @@ var React = require('react');
 var FluxAgendaActions = require('../actions/FluxAgendaActions');
 
 // Flux agenda View
-var FluxAgendaItem = React.createClass({
+var FluxTopicItem = React.createClass({
 
 	// Select agenda item via Action
 	selectItem: function(event) {
@@ -25,4 +25,4 @@ var FluxAgendaItem = React.createClass({
 	}
 })
 
-module.exports = FluxAgendaItem;
+module.exports = FluxTopicItem;

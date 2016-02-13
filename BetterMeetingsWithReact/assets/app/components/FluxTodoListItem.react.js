@@ -1,5 +1,5 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
 // Flux todolist view
 var FluxTodoListItem = React.createClass({
@@ -7,19 +7,19 @@ var FluxTodoListItem = React.createClass({
     collapseItem: function(event) {
         event.preventDefault();
         if(this.props.collapsed)
-            FluxAgendaActions.collapsTodoItem(-1);
+            FluxMeetingActions.collapsTodoItem(-1);
         else
-            FluxAgendaActions.collapsTodoItem(this.props.index);
+            FluxMeetingActions.collapsTodoItem(this.props.index);
     },
 
     // Remove item from list via action
     deleteItem: function(event) {
-        FluxAgendaActions.removeFromList(this.props.item.id);
+        FluxMeetingActions.removeFromList(this.props.item.id);
     },
 
     // Mark an item as done
     toggleDone: function(event) {
-        FluxAgendaActions.toggleDone(this.props.item);
+        FluxMeetingActions.toggleDone(this.props.item);
     },
 
     render: function(){

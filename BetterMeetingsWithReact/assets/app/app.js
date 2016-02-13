@@ -19,63 +19,6 @@ var bsSelect = require('../js/dependencies/bootstrap-select.js');
 var MeetingDataAPI = require('./utils/MeetingDataAPI');
 var FluxMeetingApp = require('./components/FluxMeetingApp.react');
 
-
-/*==============================================================
-=            do socket connect and basic behaviours            =
-==============================================================*/
-
-/*	io.socket.on('connect', function socketConnected() {
-		console.log('socket session: ' + this.id);
-
-		io.socket.get('/user/create/');
-		io.socket.on('user', function(user) {
-                     console.log('Daten-Inventur: ' + JSON.parse(JSON.stringify(user)));
-                     console.dir(user);
-                     receiveUserDataFromServer(user);
-   });
-
-});
-
-function receiveUserDataFromServer(user) {
-
-	console.log('Neuer User: ' + user);
-
-         var newUserName = user.name;
-
-         updateUserListInDom(newUserName,user);
-
-}
-
-function updateUserListInDom (newUserName,user) {
-   var page = document.location.pathname;
-   console.log('Paging aktiv');
-   page = page.replace(/(\/)$/, '');
-
-   switch (page) {
-      case '/user':
-
-         if (user.verb === 'created') {
-            AttendeesBlock.addItemToList(newUserName, user);
-         }
-         // BM-Team: Destroy habe ich nch nicht  richtig umgesetzt, ist aber nur ein Fromsache
-         if (user.verb === 'destroy') {
-            AttendeesBlock.updateList(newUserName, user);
-         }
-         break;
-   }
-}
-
-var AttendeesBlock = {
-
-   addItemToList: function(name, user) {
-      console.log('Bauarbeiter aktiv');
-      var data = user.data;
-      jQuery('#user-list').append('<li>'+ data.name + ' Test</li>');
-   }
-}*/
-
-
-
 /*===============================================================
 =            assign dom elements for react rendering            =
 ===============================================================*/

@@ -1,8 +1,8 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
 // Flux todolist view
-var FluxAgendaDetails = React.createClass({
+var FluxTopicDetails = React.createClass({
 
     render: function(){
         var selected = this.props.selected;
@@ -32,4 +32,4 @@ var FluxAgendaDetails = React.createClass({
 
 });
 
-module.exports = FluxAgendaDetails;
+module.exports = FluxTopicDetails;

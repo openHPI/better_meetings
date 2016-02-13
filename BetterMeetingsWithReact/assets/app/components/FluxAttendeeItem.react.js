@@ -1,8 +1,15 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
-// Flux todolist view
-var FluxMemberTableData = React.createClass({
+/**
+ * FluxAttendeeList
+ * 
+ * @module FluxAttendeeList
+ * @require React
+ * @require FluxMeetingActions
+ *
+ */
+var FluxAttendeeItem = React.createClass({
 
     render: function(){
 
@@ -22,4 +29,4 @@ var FluxMemberTableData = React.createClass({
     }
 });
 
-module.exports = FluxMemberTableData;
+module.exports = FluxAttendeeItem;

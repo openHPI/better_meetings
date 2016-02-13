@@ -1,46 +1,54 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
-var FluxMemberForm = React.createClass({
+/**
+ * FluxAttendeeForm
+ * 
+ * @module FluxAttendeeForm
+ * @require React
+ * @require FluxMeetingActions
+ *
+ */
+var FluxAttendeeForm = React.createClass({
 
     // Add item to list via Actions
-    addMember: function(event) {
-        var name = jQuery('#member-name').val();
-        var email = (jQuery('#member-email').val() !== '') ? jQuery('#member-email').val() : null;
+    createAttendee: function(event) {
+        var name = jQuery('#attendee-name').val();
+        var email = (jQuery('#attendee-email').val() !== '') ? jQuery('#attendee-email').val() : null;
 
         if (!name) {
             return;
         }
         
         var item = { name: name, email: email };
-        FluxAgendaActions.addMember(item);
+        FluxMeetingActions.createAttendee(item);
 
-        jQuery('#member-name').val('');
-        jQuery('#member-email').val('');
+        jQuery('#attendee-name').val('');
+        jQuery('#attendee-email').val('');
         jQuery('#newMemberModal').modal('hide');
     },
 
     render: function() {
         return (
-            <div id="newMemberModal" className="modal fade" role="dialog">
+            <div id="newAttendeeModal" className="modal fade" role="dialog">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal">&times;</button>
-                            <h4 className="modal-name">New member</h4>
+                            <h4 className="modal-name">New attendee</h4>
                         </div>
                         <div className="modal-body">
                             <form>
                                 <fieldset className="form-group">
                                     <label>Name:</label>
-                                    <input id="member-name" type="text" />
+                                    <input id="attendee-name" type="text" />
                                     <label>Email:</label>
-                                    <input id="member-email" type="email" placeholder="example@hpi.de" />
+                                    <input id="attendee-email" type="email" placeholder="example@hpi.de" />
                                 </fieldset>
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary" onClick={this.addMember}>add member</button>
+                            <button type="submit" className="btn btn-primary" onClick={this.createAttendee}>Create attendee</button>
                         </div>
                     </div>
                 </div>
@@ -49,4 +57,4 @@ var FluxMemberForm = React.createClass({
     }
 });
 
-module.exports = FluxMemberForm;
+module.exports = FluxAttendeeForm;

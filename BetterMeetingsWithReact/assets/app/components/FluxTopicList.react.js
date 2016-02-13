@@ -1,23 +1,30 @@
 var React = require('react');
-var FluxAgendaItem = require('./FluxAgendaItem.react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxTopicItem = require('./FluxTopicItem.react');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
-// Flux agenda View
-var FluxAgenda = React.createClass({
+/**
+ * Provides an interface of actions for the components
+ * 
+ * @module FluxTopicList
+ * @require AppDispatcher
+ * @require FluxMeetingConstants
+ *
+ */
+var FluxTopicList = React.createClass({
 
 	 selectPrevious: function() {
         var index = (this.props.items.indexOf(this.props.selected) - 1);
         var index = (0 > index) ? (this.props.items.length-1) : index;
-        FluxAgendaActions.selectAgendaItem(index);
+        FluxMeetingActions.selectAgendaItem(index);
     },
 
     // Select next agenda item
     selectNext: function() {
         var index = (this.props.items.indexOf(this.props.selected) + 1);
         if(index < this.props.items.length)
-            FluxAgendaActions.selectAgendaItem(index);
+            FluxMeetingActions.selectAgendaItem(index);
         else
-            FluxAgendaActions.endMeeting();
+            FluxMeetingActions.endMeeting();
     },
 
 	// Render agenda View
@@ -39,10 +46,10 @@ var FluxAgenda = React.createClass({
 				</div>
 				<div className="flux-agenda-list panel-body">
 					<ul>
-                        <FluxAgendaItem items={items} index={selectedIndex - 1} level={1} />
-                        <FluxAgendaItem items={items} index={selectedIndex} level={0} />
-                        <FluxAgendaItem items={items} index={selectedIndex + 1} level={1} />
-                        <FluxAgendaItem items={items} index={selectedIndex + 2} level={2} />
+                        <FluxTopicItem items={items} index={selectedIndex - 1} level={1} />
+                        <FluxTopicItem items={items} index={selectedIndex} level={0} />
+                        <FluxTopicItem items={items} index={selectedIndex + 1} level={1} />
+                        <FluxTopicItem items={items} index={selectedIndex + 2} level={2} />
                     </ul>
                 </div>
 			</div>
@@ -50,4 +57,4 @@ var FluxAgenda = React.createClass({
 	}
 })
 
-module.exports = FluxAgenda;
+module.exports = FluxTopicList;

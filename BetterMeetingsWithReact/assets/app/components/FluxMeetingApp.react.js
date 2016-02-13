@@ -1,34 +1,51 @@
 var React = require('react');
-var AgendaStore = require('../stores/AgendaStore');
-var FluxAgendaDetails = require('./FluxAgendaDetails.react');
+var MeetingStore = require('../stores/MeetingStore');
+
+var FluxTopicList = require('./FluxTopicList');
+var FluxTopicDetails = require('./FluxTopicDetails.react');
+
 var FluxMeetingStartFlyleaf = require('./FluxMeetingStartFlyleaf.react');
 var FluxMeetingEndFlyleaf = require('./FluxMeetingEndFlyleaf.react');
-var FluxAgenda = require('./FluxAgenda.react');
-var FluxMemberTable = require('./FluxMemberTable.react');
-var FluxMemberForm = require('./FluxMemberForm.react');
-var FluxAgendaTimer = require('./FluxAgendaTimer.react');
+
+var FluxAttendeeList = require('./FluxAttendeeList.react');
+var FluxAttendeeForm = require('./FluxAttendeeForm.react');
+
+var FluxMeetingTimer = require('./FluxMeetingTimer.react');
+var FluxMeetingProgress = require('./FluxMeetingProgress.react');
+
 var FluxTodoList = require('./FluxTodoList.react');
-var FluxAgendaProgress = require('./FluxAgendaProgress.react');
-var FluxAgendaUpload = require('./FluxAgendaUpload.react');
 
 function getMeetingState () {
 	return {
-		user: AgendaStore.getUser(),
-		canEdit: AgendaStore.getCanEdit(),
-		title: AgendaStore.getTitle(),
-		status: AgendaStore.getMeetingStatus(),
-		timer: AgendaStore.getTimer(),
-		agenda: AgendaStore.getAgenda(),
-		selectedAgendaItem: AgendaStore.getSelected(),
-		allTodoItems: AgendaStore.getAllTodoItems(),
-		collapesedTodoItem: AgendaStore.getCollapsed(),
-		member: AgendaStore.getMember(),
-		total: AgendaStore.getAgendaTotal(),
-		index: AgendaStore.getAgendaIndex()
+		user: MeetingStore.getUser(),
+		canEdit: MeetingStore.getCanEdit(),
+
+		title: MeetingStore.getTitle(),
+		status: MeetingStore.getMeetingStatus(),
+		timer: MeetingStore.getTimer(),
+		topics: MeetingStore.getTopics(),
+		selectedTopic: MeetingStore.getSelectedTopic(),
+		allTodoItems: MeetingStore.getAllTodoItems(),
+		collapesedTodoItem: MeetingStore.getCollapsedTodoItem(),
+		attendees: MeetingStore.getAttendees()
 	};
 }
 
-// Define main Controller View
+/**
+ * Main component
+ * 
+ * @module FluxMeetingApp
+ * @require React
+ * @require MeetingStore
+ * @require FluxTopicList
+ * @require FluxTopicDetails
+ * @require FluxAttendeeList
+ * @require FluxAttendeeFrom
+ * @require FluxMeetingTimer
+ * @require FluxMeetingProgress
+ * @require FluxTodoList 
+ *
+ */
 var FluxMeetingApp = React.createClass({
 
 	// Get initial state from stores
@@ -38,114 +55,59 @@ var FluxMeetingApp = React.createClass({
 
 	// Add change listeners to stores
 	componentDidMount: function() {
-		AgendaStore.addChangeListener(this._onChange);
+		topicStore.addChangeListener(this._onChange);
 	},
 
 	// Remove change listener from stores
 	componentWillUnmount: function() {
-		AgendaStore.removeChangeListener(this._onChange);
+		topicStore.removeChangeListener(this._onChange);
 	},
 
 	// Render our child components, passing state via props
 	render: function() {
 
-		switch (this.state.status) {
-
-			case 0:
-				return (
-					<div className="content">
-						<div className="container-fluid">
-							<div className="row">
-								<FluxAgendaProgress total={this.state.total} index={-1} />
-							</div>
-							<div className="row">
-								<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
-									<FluxAgendaTimer hasStarted={false} timer={this.state.timer} />
-								</div>
-							</div>
-						</div>
-						<div className="container">
-							<div className="row">
-								<div className="col-md-8 col-lg-8">
-									<FluxMeetingStartFlyleaf title={this.state.title} />
-								</div>
-							</div>
-						</div>
-						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
-						<FluxMemberForm />
+		return (
+			<div className="content">
+				<div className="container-fluid">
+					<div className="row">
+						<FluxMeetingProgress total={this.state.topics.length} index={this.state.topics.indexOf(this.state.selectedTopic)} />
 					</div>
-				);
-				break;
-
-			case 1:
-				return (
-					<div className="content">
-						<div className="container-fluid">
-							<div className="row">
-								<FluxAgendaProgress total={this.state.total} index={this.state.index} />
-							</div>
-							<div className="row">
-                <div className="col-md-9 col-lg-9">
-                  <h2>{this.state.title}</h2>
-                </div>
-								<div className="col-md-3 col-lg-3">
-									<FluxAgendaTimer hasStarted={true} timer={this.state.timer} />
-								</div>
-							</div>
+					<div className="row">
+		                <div className="col-md-9 col-lg-9">
+		                  <h2>{this.state.title}</h2>
+		                </div>
+						<div className="col-md-3 col-lg-3">
+							<FluxMeetingTimer hasStarted={true} timer={this.state.timer} />
 						</div>
-						<div className="container-fluid">
-              <div className="row">
-                <div className="col-md-4 col-lg-4">
-                  <FluxAgenda items={this.state.agenda} selected={this.state.selectedAgendaItem} />
-                </div>
-                <div className="col-md-8 col-lg-8">
-                  <div className="row">
-                    <div className="col-md-12 col-lg-12">
-                      <FluxAgendaDetails items={this.state.agenda} selected={this.state.selectedAgendaItem} collapsed={this.state.collapesedTodoItem} member={this.state.member} />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12 col-lg-12">
-                      <div className="flux-todolist">
-                        <FluxTodoList allItems={this.state.allTodoItems} items={this.state.selectedAgendaItem.todos} collapsed={this.state.collapesedTodoItem} member={this.state.member} canEdit={this.state.canEdit} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-							</div>
-						</div>
-            <FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
-						<FluxMemberForm />
 					</div>
-				);
-				break;
+				</div>
 
-			case 2:
-				return (
-					<div className="content">
-						<div className="container-fluid">
-							<div className="row">
-								<FluxAgendaProgress total={this.state.total} index={this.state.total} />
-							</div>
-							<div className="row">
-								<div className="col-md-3 col-lg-3 col-md-offset-9 col-lg-offset-9">
-									<FluxAgendaTimer hasStarted={false} timer={this.state.timer} />
-								</div>
-							</div>
-						</div>
-						<div className="container">
-							<div className="row">
-								<div className="col-md-8 col-lg-8">
-									<FluxMeetingEndFlyleaf title={this.state.title} />
-								</div>
-							</div>
-						</div>
-						<FluxMemberTable member={this.state.member} canEdit={this.state.canEdit}/>
-						<FluxMemberForm />
+				<div className="container">
+	              <div className="row">
+	                <div className="col-md-4 col-lg-4">
+	                  <FluxTopicList items={this.state.topic} selected={this.state.selectedTopic} />
+	                </div>
+	                <div className="col-md-8 col-lg-8">
+	                  <div className="row">
+	                    <div className="col-md-12 col-lg-12">
+	                      <FluxTopicDetails selected={this.state.selectedTopic} />
+	                    </div>
+	                  </div>
+	                  <div className="row">
+	                    <div className="col-md-12 col-lg-12">
+	                      <div className="flux-todolist">
+	                        <FluxTodoList allItems={this.state.allTodoItems} items={this.state.selectedTopic.todos} collapsed={this.state.collapesedTodoItem} attendees={this.state.attendees} canEdit={this.state.canEdit} />
+	                      </div>
+	                    </div>
+	                  </div>
+	                 </div>
 					</div>
-				);
-				break;
-		}
+				</div>
+
+    			<FluxAttendeeList attendees={this.state.attendees} canEdit={this.state.canEdit} />
+				<FluxAttendeeForm />
+			</div>
+		);
 
 	},
 

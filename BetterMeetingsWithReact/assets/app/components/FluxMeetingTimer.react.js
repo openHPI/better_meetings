@@ -1,6 +1,6 @@
 var React = require('react');
 
-var FluxAgendaTimer = React.createClass({
+var FluxMeetingTimer = React.createClass({
 
   getInitialState: function() {
     return {
@@ -50,4 +50,4 @@ var FluxAgendaTimer = React.createClass({
 
 });
 
-module.exports = FluxAgendaTimer;
+module.exports = FluxMeetingTimer;

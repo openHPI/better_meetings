@@ -4,11 +4,10 @@ var keyMirror = require('react/lib/keyMirror');
 module.exports = keyMirror({
 	MEETING_START: null,		// Starts the Meeting
 	MEETING_END: null,			// Ends the Meeting
-	TODO_ADD: null,				// Adds item to list
-	TODO_REMOVE: null,			// Remove item from list
-	TODO_TOGGLE_DONE: null,		// Mark item as done
+	TODO_CREATE: null,			// Create a new todo item
+	TODO_DESTROY: null,			// Destroy a todo
+	TODO_TOGGLE_DONE: null,		// 
 	TODO_COLLAPSE: null,		// Collapse item 
-	MEMBER_ADD: null,			// Adds a member to membergroup
+	ATTENDEE_CREATE: null,		// Adds a member to membergroup
 	SET_SELECTED: null,			// Selects a agenda item
-	REVEICE_DATA: null			// Loads agenda data
 });

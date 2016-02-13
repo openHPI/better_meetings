@@ -1,7 +1,7 @@
 var React = require('react');
 
 // AgendaProgress
-var FluxAgendaProgress = React.createClass({
+var FluxMeetingProgress = React.createClass({
 
 	render: function () {
 		var index = this.props.index;
@@ -22,4 +22,4 @@ var FluxAgendaProgress = React.createClass({
 	}
 });
 
-module.exports = FluxAgendaProgress;
+module.exports = FluxMeetingProgress;

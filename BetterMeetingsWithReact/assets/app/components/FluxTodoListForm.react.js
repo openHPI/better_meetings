@@ -1,7 +1,7 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
-var FluxTaskForm = React.createClass({
+var FluxTodoListForm = React.createClass({
 
     getInitialState: function() {
         return { autocomplete: [], assignee: null };
@@ -17,7 +17,7 @@ var FluxTaskForm = React.createClass({
             return;
         }
         var item = { title: title, description: description, assignee: assignee, done: false };
-        FluxAgendaActions.addToList(item);
+        FluxMeetingActions.addToList(item);
 
         this.setState({ autocomplete: [], assignee: null });
 
@@ -94,4 +94,4 @@ var FluxTaskForm = React.createClass({
 
 });
 
-module.exports = FluxTaskForm;
+module.exports = FluxTodoListForm;

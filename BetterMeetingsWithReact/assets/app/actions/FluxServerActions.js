@@ -1,10 +1,22 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var FluxServerConstants = require('../constants/FluxServerConstants');
 
-// Define actions object
+/**
+ * Handles server actions
+ * 
+ * @module FluxAgendaActions
+ * @require AppDispatcher
+ * @require FluxServerConstants
+ *
+ */
 var FluxServerActions = {
 
-	// Receive initial agenda data
+	/**
+	 * Loads the meeting data into the view
+	 * 
+	 * @method receiveMeetingData
+	 * @param {Object} data The meeting data
+	 */
 	receiveMeetingData: function(data) {
 		AppDispatcher.handleAction({
 			actionType: FluxServerConstants.DATA_RECEIVE,
@@ -19,34 +31,55 @@ var FluxServerActions = {
 		})
 	},
 
-	// Add item to to-do list
-	createTask: function(item) {
+	/**
+	 * Adds a new todo item
+	 * 
+	 * @method addTodoItem
+	 * @param {Object} item The new todo item
+	 */
+	addTodoItem: function(item) {
 		AppDispatcher.handleAction({	
-			actionType: FluxServerConstants.TODO_CREATE,
+			actionType: FluxServerConstants.TODO_ADD,
 			data: item
 		})
 	},
 
-	// Update an item
-	updateTask: function(item, previousItem) {
+	/**
+	 * Updates a todo item
+	 * 
+	 * @method updateTodoItem
+	 * @param {Object} item The updated todo item
+	 * @param {Object} previousItem The the item before the update
+	 */
+	updateTodoItem: function(item, previousItem) {
 		AppDispatcher.handleAction({
 			actionType: FluxServerConstants.TODO_UPDATE,
 			data: { item: item, previousItem: previousItem }
 		})
 	},
 
-	// Remove item from to-do list
-	destroyTask: function(item) {
+	/**
+	 * Removes a todo item
+	 * 
+	 * @method removeTodoItem
+	 * @param {Object} item The todo item
+	 */
+	removeTodoItem: function(item) {
 		AppDispatcher.handleAction({
-			actionType: FluxServerConstants.TODO_DESTROY,
+			actionType: FluxServerConstants.TODO_REMOVE,
 			data: item
 		})
 	},
 
-	// Add member to members
-	createMember: function(item) {
+	/**
+	 * Creates a new member
+	 * 
+	 * @method createMember
+	 * @param {Object} item The new member
+	 */
+	addAttendee: function(item) {
 		AppDispatcher.handleAction({
-			actionType: FluxServerConstants.MEMBER_CREATE,
+			actionType: FluxServerConstants.ATTENDEE_ADD,
 			data: item
 		})
 	}

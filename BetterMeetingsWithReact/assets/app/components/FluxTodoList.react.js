@@ -19,7 +19,7 @@ var FluxTodoList = React.createClass({
     },
 
     render: function() {
-        var member = this.props.member;
+        var attendees = this.props.attendees;
 
         return(
                     <div className="panel panel-secondary panel-colorful">
@@ -55,7 +55,7 @@ var FluxTodoList = React.createClass({
                               </div>
                            </div>
                         </div>
-                        <FluxTodoListForm member={member} />
+                        <FluxTodoListForm attendees={attendees} />
                     </div>
 
         );
