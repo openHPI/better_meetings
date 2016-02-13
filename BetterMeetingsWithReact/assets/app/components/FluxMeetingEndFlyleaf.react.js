@@ -1,5 +1,5 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Flux todolist view

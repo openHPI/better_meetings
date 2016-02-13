@@ -1,12 +1,12 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
 // Flux agenda View
 var FluxTopicItem = React.createClass({
 
 	// Select agenda item via Action
 	selectItem: function(event) {
-		FluxAgendaActions.selectAgendaItem(this.props.index);
+		FluxMeetingActions.selectAgendaItem(this.props.index);
 	},
 
 	// Render agenda View

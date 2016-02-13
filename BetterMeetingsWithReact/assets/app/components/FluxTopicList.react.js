@@ -55,6 +55,6 @@ var FluxTopicList = React.createClass({
 			</div>
 		)
 	}
-})
+});
 
 module.exports = FluxTopicList;

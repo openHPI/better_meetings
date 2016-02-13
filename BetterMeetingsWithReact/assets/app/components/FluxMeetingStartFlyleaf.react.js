@@ -1,11 +1,11 @@
 var React = require('react');
-var FluxAgendaActions = require('../actions/FluxAgendaActions');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
 // Flux todolist view
 var FluxMeetingStartFlyleaf = React.createClass({
 
     startMeeting: function() {
-        FluxAgendaActions.startMeeting();
+        FluxMeetingActions.startMeeting();
     },
 
     render: function(){

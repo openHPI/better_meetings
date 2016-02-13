@@ -1,7 +1,7 @@
 var React = require('react');
 var MeetingStore = require('../stores/MeetingStore');
 
-var FluxTopicList = require('./FluxTopicList');
+var FluxTopicList = require('./FluxTopicList.react');
 var FluxTopicDetails = require('./FluxTopicDetails.react');
 
 var FluxMeetingStartFlyleaf = require('./FluxMeetingStartFlyleaf.react');
