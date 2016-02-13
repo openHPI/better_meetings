@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _user = null, _meetingId = null, _meetingTitle = null, _meetingTopics = [], _selectedTopic = null, _allTodoItems = [], _collapsedTodoItem = -1, _meetingAttendees = [], _meetingStatus = 0, _meetingTimer = null;
+var _isMeetingDataLoaded = false, _user = { id: 1, name: "Lando", isAdmin: true }, _meetingId = null, _meetingTitle = null, _meetingTopics = [], _selectedTopic = null, _allTodoItems = [], _collapsedTodoItem = -1, _meetingAttendees = [], _meetingTimer = null;
 
 /**
  * Initializing the agenda store variables
@@ -15,10 +15,11 @@ var _user = null, _meetingId = null, _meetingTitle = null, _meetingTopics = [], 
  * @param {Object} data The meeting data
  */
 function loadMeetingData (data) {
+	_isMeetingDataLoaded = true;
 	_meetingId = data.id;
 	_meetingTitle = data.title;
-	_meetingTopics = data.agenda;
-	_selectedTopic = data.agenda[0];
+	_meetingTopics = data.topics;
+	_selectedTopic = 0;
 	_allTodoItems = getAllTodoItems();
 	_meetingAttendees = data.attendees;
 	_meetingTimer = data.timer;
@@ -47,19 +48,6 @@ function getAllTodoItems () {
 	}
 
 	return allTodoItems;
-}
-
-/**
- * Sets the selected topic
- * 
- * @method setSelectedTopic
- * @param {Integer} index The index of the topic
- */
-function setSelectedTopic (index) {
-	if(index >= 0) {
-		_selectedTopic = _meetingTopics[index];
-		_collapsedTodoItem = -1;
-	}
 }
 
 /**
@@ -113,6 +101,10 @@ function removeTodoItem (item) {
  */
 var MeetingStore = _.extend({}, EventEmitter.prototype, {
 
+	getIsMeetingDataLoaded: function() {
+		return _isMeetingDataLoaded;
+	},
+
 	getUser: function() {
 		return _user;
 	},
@@ -144,11 +136,6 @@ var MeetingStore = _.extend({}, EventEmitter.prototype, {
 	// Return attendees
 	getAttendees: function() {
 		return _meetingAttendees;
-	},
-
-	// Return hasStarted
-	getMeetingStatus: function() {
-		return _meetingStatus;
 	},
 
 	// Return timer
@@ -228,13 +215,14 @@ AppDispatcher.register(function(payload) {
 			_collapsedTodoItem = (action.data);
 			break;
 
-		case FluxMeetingConstants.attendees_ADD:
+		case FluxMeetingConstants.ATTENDEE_ADD:
 			action.data.id = _meetingId;
 			MeetingDataAPI.createAttendee(action.data);
 			break;
 
 		case FluxMeetingConstants.SET_SELECTED:
-			setSelectedTopic(action.data);
+			_selectedTopic = action.data;
+			_collapsedTodoItem = -1;
 			break;
 
 		case FluxMeetingConstants.MEETING_START:

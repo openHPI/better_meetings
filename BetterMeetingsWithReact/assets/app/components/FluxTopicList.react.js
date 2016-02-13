@@ -13,14 +13,14 @@ var FluxMeetingActions = require('../actions/FluxMeetingActions');
 var FluxTopicList = React.createClass({
 
 	 selectPrevious: function() {
-        var index = (this.props.items.indexOf(this.props.selected) - 1);
+        var index = this.props.selected - 1;
         var index = (0 > index) ? (this.props.items.length-1) : index;
         FluxMeetingActions.selectAgendaItem(index);
     },
 
     // Select next agenda item
     selectNext: function() {
-        var index = (this.props.items.indexOf(this.props.selected) + 1);
+        var index = this.props.selected + 1;
         if(index < this.props.items.length)
             FluxMeetingActions.selectAgendaItem(index);
         else
@@ -31,8 +31,8 @@ var FluxTopicList = React.createClass({
 	render: function() {
 		var items = this.props.items;
 		var selected = this.props.selected;
-		var selectedIndex = items.indexOf(selected);
     	var count = items.length;
+    	
 		return (
 			<div className="flux-agenda-container panel">
 				<div className="panel-heading">
@@ -46,10 +46,10 @@ var FluxTopicList = React.createClass({
 				</div>
 				<div className="flux-agenda-list panel-body">
 					<ul>
-                        <FluxTopicItem items={items} index={selectedIndex - 1} level={1} />
-                        <FluxTopicItem items={items} index={selectedIndex} level={0} />
-                        <FluxTopicItem items={items} index={selectedIndex + 1} level={1} />
-                        <FluxTopicItem items={items} index={selectedIndex + 2} level={2} />
+                        <FluxTopicItem items={items} index={selected - 1} level={1} />
+                        <FluxTopicItem items={items} index={selected} level={0} />
+                        <FluxTopicItem items={items} index={selected + 1} level={1} />
+                        <FluxTopicItem items={items} index={selected + 2} level={2} />
                     </ul>
                 </div>
 			</div>

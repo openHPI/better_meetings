@@ -89,18 +89,18 @@ module.exports = {
    * @method getMeetingData
    */
   getMeetingData: function () {
-    var id, title, agenda, member, timer;
+    var id, title, topics, attendees, timer;
 
     console.log("try to get meeting");
 
     io.socket.get('/meeting/get', function (data, jwres) {
       id = data.meeting.id;
       title = data.meeting.title;
-      agenda = data.meeting.topics;
-      member = data.meeting.attendees;
+      topics = data.meeting.topics;
+      attendees = data.meeting.attendees;
       timer = data.meeting.timer;
 
-      FluxServerActions.receiveMeetingData({id: id, title: title, agenda: agenda, member: member, timer: timer});
+      FluxServerActions.receiveMeetingData({id: id, title: title, topics: topics, attendees: attendees, timer: timer});
     });
 
   },

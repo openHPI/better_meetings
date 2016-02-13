@@ -6,6 +6,7 @@ var FluxTodoListForm = require('./FluxTodoListForm.react');
 var FluxTodoList = React.createClass({
 
     renderTodoList: function(items) {
+        var item = this.props.items;
         var collapsedIndex = this.props.collapsed;
         var canEdit = this.props.canEdit;
         if (items.length > 0) {
