@@ -54,18 +54,6 @@ module.exports.routes = {
   'get /admin': {
     view: 'admin'
   },
-  '/user': {
-    controller: 'user',
-    action: 'viewAll'
-  },
-  '/user/create': {
-    controller: 'user',
-    action: 'create'
-  },
-  '/user/viewAll': {
-    controller: 'user',
-    action: 'viewAll',
-  },
   '/meetingseries/insert-examples/': {
     controller: 'meetingseries',
     action: 'insertExampleData'
