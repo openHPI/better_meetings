@@ -85,12 +85,6 @@ module.exports = {
     }
   },
 
-  subscribe: function (req, res) {
-    if (req.isSocket) {
-      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
-    }
-  },
-
   view: function (req, res) {
     //person.watch(req);
 
@@ -173,6 +167,7 @@ module.exports = {
           });
         }
       });
+
     } else {
       res.send('person');
       //res.redirect('/person/view/'+id);
@@ -182,7 +177,7 @@ module.exports = {
 
   // displayAll: function (req,res) {
   //   Person.find(function storedPersons(err, persons) {
-  //     Person.subscribe(req.socket);
+  //     Person.subscribe(req.socket);+
   //     Person.subscribe(req.socket, persons);
   //   });
   // },
