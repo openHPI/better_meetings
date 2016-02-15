@@ -23,7 +23,6 @@ function getMeetingState () {
 		canEdit: MeetingStore.getUser().isAdmin,
 
 		title: MeetingStore.getTitle(),
-		status: MeetingStore.getMeetingStatus(),
 		timer: MeetingStore.getTimer(),
 		topics: MeetingStore.getTopics(),
 		selectedTopic: MeetingStore.getSelectedTopic(),
