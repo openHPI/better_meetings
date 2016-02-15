@@ -118,10 +118,10 @@ module.exports = {
     var id = req.param('id', null);
     meetingseries.findOne(id).exec(function displayList(err, item) {
         sails.log(item);
-        
+
         /*
 
-        TODO 
+         TODO
           topics
           meetings [{
             id
@@ -158,18 +158,6 @@ module.exports = {
     }
   },
 
-  // viewAll: function(req,res) {
-  //     meetingseries.find().exec(function displayMeetingSeriesList(err, items) {
-  //       if (err) return res.serverError(err);
-  //       sails.log('meetingseries:' + items);
-  //       MeetingSeries.subscribe(req.socket);
-  //       MeetingSeries.subscribe(req.socket, items);
-  //       return res.view('meetingseries', {
-  //         users: items,
-  //       });
-  //     });
-  //   },
-
   subscribe: function(req,res) {
     if (req.isSocket) {
       meetingseries.watch(req);
@@ -180,7 +168,5 @@ module.exports = {
   insertExampleData: function(req,res) {
     Exampledataservice.generateExampleMeetingSeries();
   },
-
-
 };
 

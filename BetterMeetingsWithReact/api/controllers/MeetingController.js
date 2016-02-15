@@ -137,6 +137,11 @@ module.exports = {
     }
   },
 
+  view: function (req, res) {
+    return res.view('meeting');
+  },
+
+
   get: function (req, res) {
     var url;
     if (req.wantsJSON) {

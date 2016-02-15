@@ -48,15 +48,9 @@ module.exports.routes = {
   'get /signup': {
     view: 'signup'
   },
-  'get /meeting/id/:url': {
-    view: 'meeting'
-  },
+  'get /meeting/id/:url': 'MeetingController.view',
   'get /admin': {
     view: 'admin'
-  },
-  '/meetingseries/insert-examples/': {
-    controller: 'meetingseries',
-    action: 'insertExampleData'
   },
   '/person/': {
     controller: 'person',
@@ -65,10 +59,6 @@ module.exports.routes = {
   '/person/create/': {
     controller: 'person',
     action: 'create',
-  },
-  '/person/exampledata': {
-    controller: 'person',
-    action: 'exampledata',
   },
   '/dummydata': 'DummyController.loadAll',
   '/dummydata/delete': 'DummyController.deleteAll',
@@ -110,6 +100,9 @@ module.exports.routes = {
   'POST /todoitem/update': 'TodoItemController.update',
   'POST /todoitem/delete': 'TodoItemController.delete',
 
+  '/forbidden': {
+    response: 'forbidden',
+  },
 
   /***************************************************************************
    *                                                                          *
