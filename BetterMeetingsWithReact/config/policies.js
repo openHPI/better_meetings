@@ -40,6 +40,10 @@ module.exports.policies = {
     update: 'isLoggedIn'
   },
 
+  DashboardController: {
+    view: 'isAdmin',
+  },
+
   '*': true,
 
 };

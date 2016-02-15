@@ -1,98 +1,102 @@
 <div id="page-title">
-	<h1 class="page-header text-overflow">Dashboard</h1>
+  <h1 class="page-header text-overflow">Dashboard</h1>
 </div>
 <div id="page-content">
-	<div class="row">
-		<div class="col-xs-12 col-lg-7">
-			<h4 class="text-thin">Upcoming meetings</h4>
-			<div class="timeline">
-				<div class="timeline-header">
-					<div class="timeline-header-title bg-info">Now</div>
-				</div>
-				<% _.each(upcomingMeetings, function (meeting) { %>
-			    <div class="timeline-entry">
-					<div class="timeline-stat">
-						<div class="timeline-icon"></div>
-						<div class="timeline-time"><%= meeting.startTime %></div>
-					</div>
-					<div class="timeline-label">
-						<h4 class="text-info text-lg"><%= meeting.title %></h4>
-						<p><%= meeting.description %></p>
-					</div>
-				</div>
-			    <% }) %>
-			</div>
-		</div>
-		<div class="col-xs-12 col-lg-5">
-			<div class="panel panel-dark panel-colorful">
-				<div class="panel panel-dark panel-colorful">
-					<div class="panel-heading">
-						<h3 class="panel-title">My meetingseries</h3>
-					</div>
-					<div class="panel-body">
-						<div class="list-group bg-trans">
-							<a class="list-group-item active" href="#"><=% meetingseriesList[0].title %></a>
-							<% _.each(meetingseriesList, function (meetingseries) { %>
-	    						<a class="list-group-item" href="meetingseries/<%= meetingseries.id %>"><%= meetingseries.title %></a>
-	    					<% }) %>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-xs-12 col-lg-7">
+      <h4 class="text-thin">Upcoming meetings</h4>
+      <div class="timeline">
+        <div class="timeline-header">
+          <div class="timeline-header-title bg-info">Now</div>
+        </div>
+        <% _.each(upcomingMeetings, function (meeting) { %>
+        <div class="timeline-entry">
+          <div class="timeline-stat">
+            <div class="timeline-icon"></div>
+            <div class="timeline-time"><%= meeting.startTime %></div>
+          </div>
+          <div class="timeline-label">
+            <h4 class="text-info text-lg"><%= meeting.title %></h4>
+            <p><%= meeting.description %></p>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-lg-5">
+      <div class="panel panel-dark panel-colorful">
+        <div class="panel panel-dark panel-colorful">
+          <div class="panel-heading">
+            <h3 class="panel-title">My meetingseries</h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group bg-trans">
+              <a class="list-group-item active" href="#"><=% meetingseriesList[0].title
+                %>
+              </a>
+              <% _.each(meetingseriesList, function (meetingseries) { %>
+              <a class="list-group-item" href="meetingseries/<%= meetingseries.id %>"><%= meetingseries.title %></a>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="newMeetingseriesModal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">New meetingseries</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label" for="meeting-title-input">Meeting title</label>
-                                <div class="col-md-9">
-                                    <input type="text" id="meeting-title-input" class="form-control" placeholder="Title" />
-                                    <small class="help-block">Please enter a title</small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label" for="meeting-description-textarea">Description</label>
-                                <div class="col-md-9">
-                                    <textarea id="meeting-description-textarea" rows="9" class="form-control" placeholder="Description"></textarea>
-                                    <small class="help-block">Please enter a description</small>
-                                </div>
-                            </div>
-                            <div>
-                                <input type="text" id="meeting-admins-input" class="form-control" placeholder="Add an admin" value="" data-role="tagsinput" style="display: none;" />
-                                <div class="bootstrap-tagsinput">
-                                    <span class="tag label label-primary">User<span data-role="remove"></span></span>
-                                    <input type="text" placeholder="Add an admin" style="width: 9em !important;" />
-                                </div>
-                            </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">New meetingseries</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="meeting-title-input">Meeting title</label>
+          <div class="col-md-9">
+            <input type="text" id="meeting-title-input" class="form-control" placeholder="Title"/>
+            <small class="help-block">Please enter a title</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="meeting-description-textarea">Description</label>
+          <div class="col-md-9">
+            <textarea id="meeting-description-textarea" rows="9" class="form-control"
+                      placeholder="Description"></textarea>
+            <small class="help-block">Please enter a description</small>
+          </div>
+        </div>
+        <div>
+          <input type="text" id="meeting-admins-input" class="form-control" placeholder="Add an admin" value=""
+                 data-role="tagsinput" style="display: none;"/>
+          <div class="bootstrap-tagsinput">
+            <span class="tag label label-primary">User<span data-role="remove"></span></span>
+            <input type="text" placeholder="Add an admin" style="width: 9em !important;"/>
+          </div>
+        </div>
 
-                            <hr/>
-                            <br/>
-                            <br/>
+        <hr/>
+        <br/>
+        <br/>
 
-                            <p class="text-thin mar-btm">Timer</p>
-                            <div class="input-group date">
-                                <input id="meeting-timer-input" type="text" class="form-control" />
-                                <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
-                            </div>
+        <p class="text-thin mar-btm">Timer</p>
+        <div class="input-group date">
+          <input id="meeting-timer-input" type="text" class="form-control"/>
+          <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
+        </div>
 
-                            <br/>
+        <br/>
 
-                            <p class="text-thin mar-btm">URL</p>
-                            <div class="input-group date">
-                                <input id="meeting-url-input" type="text" class="form-control" />
-                                <span class="input-group-addon"><i class="fa fa-globe-o fa-lg"></i></span>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" id="newMeetingseriesModalSubmit">Create new</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <p class="text-thin mar-btm">URL</p>
+        <div class="input-group date">
+          <input id="meeting-url-input" type="text" class="form-control"/>
+          <span class="input-group-addon"><i class="fa fa-globe-o fa-lg"></i></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="newMeetingseriesModalSubmit">Create new</button>
+      </div>
+    </div>
+  </div>
+</div>

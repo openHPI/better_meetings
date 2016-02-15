@@ -192,8 +192,6 @@ module.exports = {
    * `PersonController.login()`
    */
   login: function (req, res) {
-    console.log('login..');
-
     var name = req.param('name');
     var email = req.param('email');
     var password = req.param('password');
@@ -218,7 +216,7 @@ module.exports = {
   },
 
   loginGuest: function (req, res) {
-    console.log('login guest..');
+    console.log('login with name');
 
     var name = req.param('name');
     var email = req.param('email');
@@ -264,7 +262,7 @@ module.exports = {
   },
 
   loginEmail: function (req, res) {
-    console.log('login email..');
+    console.log('login with email');
 
     var email = req.param('email');
     var successRedirect = '/';
@@ -292,11 +290,12 @@ module.exports = {
   ,
 
   loginAdmin: function (req, res) {
-    console.log('login admin..');
+    console.log('login with password');
 
     var email = req.param('email');
     var password = req.param('password');
-    var successRedirect = '/';
+    var successRedirect = '/dashboard';
+    successRedirect = '/';
 
     person.attemptLoginAdmin({
       email: email,

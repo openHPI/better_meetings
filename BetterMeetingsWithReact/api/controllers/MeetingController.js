@@ -155,7 +155,7 @@ module.exports = {
     }
     console.log('search for meeting with url: ' + url);
 
-    meeting.findOne({url: url}).populateAll().exec(function displayList(err, cre) {
+    meeting.findOne({url: url}).populateAll().exec(function findMeeting(err, cre) {
       if (err) {
         sails.log.error("ERR:", err);
       }
