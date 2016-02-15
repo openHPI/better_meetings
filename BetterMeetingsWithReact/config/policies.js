@@ -26,8 +26,8 @@ module.exports.policies = {
   },
 
   MeetingSeriesController: {
-    view: 'isAdmin',
-    update: 'isAdmin'
+    view: 'isAdminOfMeetingSeries',
+    update: 'isAdminOfMeetingSeries'
   },
 
   MeetingController: {

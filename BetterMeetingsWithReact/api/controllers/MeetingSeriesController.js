@@ -115,7 +115,7 @@ module.exports = {
 
   view: function (req, res) {
     var id = req.param('id', null);
-    meetingseries.findOne(id).populateAll().exec(function displayList(err, cre) {
+    meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, cre) {
       if (err) {
         sails.log.error("ERR:", err);
       }
