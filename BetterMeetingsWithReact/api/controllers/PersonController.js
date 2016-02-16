@@ -5,27 +5,39 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+
 module.exports = {
+  
+
 // if just email + name are provided, it's a guest
-// if nothing is provided, it's also a guest
-  create: function (req, res) {
+  // if nothing is provided, it's also a guest
+  
+  create: function (req, res)
+  {
     sails.log('Creation of Person started');
     sails.log(req.param('name'));
     var name = req.param('name');
     var password = req.param('password');
     var email = req.param('email');
 
-    if (name && password && email) {
-      person.create({
+    if (name && password && email)
+    {
+      person.create(
+      {
         name: name,
         password: password,
         email: email,
-      }).exec(function createPerson(err, created) {
-        if (err) {
+      }).exec(function createPerson(err, created)
+      {
+        if (err)
+        {
           console.log('Person not created' + err);
-        } else {
+        }
+        else
+        {
           console.log('Created Person: ' + created.name);
-          person.publishCreate({
+          person.publishCreate(
+          {
             id: created.id,
             name: created.name,
             password: created.password,
@@ -34,98 +46,150 @@ module.exports = {
 
         }
       })
-    } else if (name && email) {
-      person.create({
+    }
+    else if (name && email)
+    {
+      person.create(
+      {
         name: name,
         email: email,
-      }).exec(function createPerson(err, created) {
-        if (err) {
+      }).exec(function createPerson(err, created)
+      {
+        if (err)
+        {
           console.log('Person not created' + err);
-        } else {
+        }
+        else
+        {
           console.log('Created Person: ' + created.name);
-          person.publishCreate({
+          person.publishCreate(
+          {
             id: created.id,
             name: created.name,
             email: created.email,
           });
         }
       });
-    } else if (email) {
-      person.create({
+    }
+    else if (email)
+    {
+      person.create(
+      {
         email: email,
-      }).exec(function createPerson(err, created) {
-        if (err) {
+      }).exec(function createPerson(err, created)
+      {
+        if (err)
+        {
           console.log('Person not created' + err);
-        } else {
+        }
+        else
+        {
           console.log('Created Person: ' + created.name);
-          person.publishCreate({
+          person.publishCreate(
+          {
             id: created.id,
             email: created.email,
           });
         }
       });
-    } else if (name) {
-      person.create({
+    }
+    else if (name)
+    {
+      person.create(
+      {
         name: name,
-      }).exec(function createGuestPerson(err, created) {
-        if (err) {
+      }).exec(function createGuestPerson(err, created)
+      {
+        if (err)
+        {
           console.log('Guest-Person not created' + err);
-        } else {
+        }
+        else
+        {
           console.log('Created Guest-Person: ' + created.name);
-          person.publishCreate({
+          person.publishCreate(
+          {
             id: created.id,
             name: created.name,
           });
 
         }
       });
-    } else {
+    }
+    else
+    {
       res.send('person');
       console.log('Person not created: too few parameters');
     }
   },
 
-  view: function (req, res) {
-    //person.watch(req);
+ 
+  view: function (req, res)
+  {
 
     var id = req.param('id', null);
-    Person.findOne(id).exec(function displayList(err, items) {
+    Person.findOne(id).exec(function displayList(err, items)
+    {
       console.log(items);
       res.response = items;
-      res.render('person', {'model': 'person'});
+      res.render('person',
+      {
+        'model': 'person'
+      });
     });
   },
 
-  viewAll: function (req, res) {
+  
+  viewAll: function (req, res)
+  {
 
-    person.find().exec(function displayPersonList(err, items) {
+    person.find().exec(function displayPersonList(err, items)
+    {
       if (err) return res.serverError(err);
       sails.log('person:' + items);
-      return res.view('person', {
+      return res.view('person',
+      {
         users: items,
       });
     });
 
   },
 
-  delete: function (req, res) {
+  
+  delete: function (req, res)
+  {
     var meetingSeriesID = req.param("meetingSeriesID", null);
-    if (meetingSeriesID && req.isSocket) {
-      MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
-        meetingseries.destroy({id: meetingSeriesAnswer.id}).exec(function destroy(err) {
-          if (err) {
+    if (meetingSeriesID && req.isSocket)
+    {
+      MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(
+        err, meetingSeriesAnswer)
+      {
+        meetingseries.destroy(
+        {
+          id: meetingSeriesAnswer.id
+        }).exec(function destroy(err)
+        {
+          if (err)
+          {
             sails.log('Error while deleting meetingseries');
             res.send("Error");
-          } else {
+          }
+          else
+          {
             sails.log("Successfully deleted " + meetingseriesID);
-            meetingseries.publishDestroy({id: meetingSeriesAnswer.id});
+            meetingseries.publishDestroy(
+            {
+              id: meetingSeriesAnswer.id
+            });
           }
         });
       });
     }
   },
 
-  update: function (req, res) {
+  
+  update: function (req, res)
+  {
 
     sails.log('Update started');
     sails.log(req.param('name'));
@@ -138,8 +202,14 @@ module.exports = {
     var isAdmin = req.param('isAdmin');
     var id = req.param('id');
 
-    if (id && name && password && email && todos && assignedMeetings && createdMeetings && isAdmin && req.isSocket) {
-      person.update({'id': id}, {
+    if (id && name && password && email && todos && assignedMeetings &&
+      createdMeetings && isAdmin && req.isSocket)
+    {
+      person.update(
+      {
+        'id': id
+      },
+      {
         name: name,
         password: password,
         email: email,
@@ -147,16 +217,23 @@ module.exports = {
         assignedMeetings: assignedMeetings,
         createdMeetings: createdMeetings,
         isAdmin: isAdmin,
-      }).exec(function updatePerson(err, updated) {
-        if (err) {
+      }).exec(function updatePerson(err, updated)
+      {
+        if (err)
+        {
           sails.log('Person not updated ' + err);
           //res.redirect('/person/edit');
-        } else if (!updated) {
+        }
+        else if (!updated)
+        {
           sails.log('Update error for Person ' + err);
           //res.redirect('/person/edit');
-        } else {
+        }
+        else
+        {
           sails.log('Updated Person: ' + updated.name);
-          person.publishUpdate(id, {
+          person.publishUpdate(id,
+          {
             name: updated.name,
             password: updated.password,
             email: updated.email,
@@ -168,54 +245,64 @@ module.exports = {
         }
       });
 
-    } else {
+    }
+    else
+    {
       res.send('person');
       //res.redirect('/person/view/'+id);
       sails.log('Person not updated: too few parameters');
     }
   },
 
-  // displayAll: function (req,res) {
-  //   Person.find(function storedPersons(err, persons) {
-  //     Person.subscribe(req.socket);+
-  //     Person.subscribe(req.socket, persons);
-  //   });
-  // },
 
-  exampledata: function (req, res) {
+  exampledata: function (req, res)
+  {
 
     ExampledataService.generateExamplePersons(req, res);
 
   },
 
-  /**
-   * `PersonController.login()`
-   */
-  login: function (req, res) {
+
+  login: function (req, res)
+  {
     var name = req.param('name');
     var email = req.param('email');
     var password = req.param('password');
 
-    if (typeof password === 'undefined' || password === '') {
-      if (typeof email === 'undefined' || email === '') {
+    if (typeof password === 'undefined' || password === '')
+    {
+      if (typeof email === 'undefined' || email === '')
+      {
         return res.badRequest('Es wird Ihre E-Mail Adresse benötigt!');
-      } else {
-        if (typeof name === 'undefined' || name === '') {
+      }
+      else
+      {
+        if (typeof name === 'undefined' || name === '')
+        {
           return this.loginEmail(req, res);
-        } else {
+        }
+        else
+        {
           return this.loginGuest(req, res);
         }
       }
-    } else {
-      if (typeof email === 'undefined' || email === '') {
+    }
+    else
+    {
+      if (typeof email === 'undefined' || email === '')
+      {
         return res.badRequest('Es wird Ihre E-Mail Adresse benötigt!');
-      } else {
+      }
+      else
+      {
         return this.loginAdmin(req, res);
       }
     }
   },
 
-  loginGuest: function (req, res) {
+  
+  loginGuest: function (req, res)
+  {
     console.log('login with name');
 
     var name = req.param('name');
@@ -224,21 +311,29 @@ module.exports = {
     var invalidRedirect = '/login';
     var successRedirect = '/';
 
-    person.attemptLoginEmail({
+    person.attemptLoginEmail(
+    {
       email: email
-    }, function (err, user) {
-      if (!user) {
-        person.attemptLoginGuestOrCreate({
+    }, function (err, user)
+    {
+      if (!user)
+      {
+        person.attemptLoginGuestOrCreate(
+        {
           email: email,
           name: name
-        }, function (err, person) {
+        }, function (err, person)
+        {
           if (err) return res.negotiate(err);
 
-          if (!person) {
+          if (!person)
+          {
             console.log('login guest failed');
 
-            if (req.wantsJSON || !invalidRedirect) {
-              return res.badRequest('Invalid email/name combination.');
+            if (req.wantsJSON || !invalidRedirect)
+            {
+              return res.badRequest(
+                'Invalid email/name combination.');
             }
             return res.redirect(invalidRedirect);
           }
@@ -246,63 +341,81 @@ module.exports = {
           console.log('login guest successfully');
           req.session.me = person;
 
-          if (req.wantsJSON || !successRedirect) {
+          if (req.wantsJSON || !successRedirect)
+          {
             return res.ok();
           }
           return res.redirect(successRedirect);
         });
-      } else {
-        if (user.isAdmin) {
+      }
+      else
+      {
+        if (user.isAdmin)
+        {
           return res.redirect('/login/admin/' + email);
-        } else {
+        }
+        else
+        {
           return res.redirect('/login/login');
         }
       }
     });
   },
 
-  loginEmail: function (req, res) {
+  
+  loginEmail: function (req, res)
+  {
     console.log('login with email');
 
     var email = req.param('email');
     var successRedirect = '/';
 
-    person.attemptLoginEmail({
+    person.attemptLoginEmail(
+    {
       email: email
-    }, function (err, person) {
+    }, function (err, person)
+    {
       if (err) return res.negotiate(err);
 
-      if (!person) {
+      if (!person)
+      {
         // start name modal
         return res.redirect('/login/guest/' + email);
       }
 
-      if (person.isAdmin) {
+      if (person.isAdmin)
+      {
         // start admin modal
         return res.redirect('/login/admin/' + email);
-      } else {
+      }
+      else
+      {
         req.session.me = person;
 
         return res.redirect(successRedirect);
       }
     });
-  }
-  ,
+  },
 
-  loginAdmin: function (req, res) {
+  
+  loginAdmin: function (req, res)
+  {
     console.log('login with password');
 
     var email = req.param('email');
     var password = req.param('password');
     var successRedirect = '/dashboard';
 
-    person.attemptLoginAdmin({
+    person.attemptLoginAdmin(
+    {
       email: email,
       password: password
-    }, function (err, person) {
+    }, function (err, person)
+    {
       if (err) return res.negotiate(err);
 
-      if (!person) {
+      if (!person)
+      {
         // start name modal
         return res.redirect('/login/admin/' + email);
       }
@@ -311,155 +424,178 @@ module.exports = {
 
       return res.redirect(successRedirect);
     });
-  }
-  ,
+  },
 
-  /**
-   * `PersonController.logout()`
-   */
-  logout: function (req, res) {
+  logout: function (req, res)
+  {
 
-    // "Forget" the user from the session.
-    // Subsequent requests from this user agent will NOT have `req.session.me`.
     req.session.me = null;
 
-    // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
-    // send a simple response letting the user agent know they were logged out
-    // successfully.
-    if (req.wantsJSON) {
+    if (req.wantsJSON)
+    {
       return res.ok('Logged out successfully!');
     }
 
-    // Otherwise if this is an HTML-wanting browser, do a redirect.
     return res.redirect('/');
-  }
-  ,
+  },
 
+  
+  signup: function (req, res)
+  {
 
-  /**
-   * `PersonController.signup()`
-   */
-  signup: function (req, res) {
-
-    // Attempt to signup a person using the provided parameters
-    person.signup({
+    person.signup(
+    {
       name: req.param('name'),
       email: req.param('email'),
       password: req.param('password')
-    }, function (err, person) {
-      // res.negotiate() will determine if this is a validation error
-      // or some kind of unexpected server error, then call `res.badRequest()`
-      // or `res.serverError()` accordingly.
+    }, function (err, person)
+    {
       if (err) return res.negotiate(err);
 
-      // Go ahead and log this person in as well.
-      // We do this by "remembering" the person in the session.
-      // Subsequent requests from this person agent will have `req.session.me` set.
       req.session.me = person;
 
-      // If this is not an HTML-wanting browser, e.g. AJAX/sockets/cURL/etc.,
-      // send a 200 response letting the person agent know the signup was successful.
-      if (req.wantsJSON) {
+      if (req.wantsJSON)
+      {
         return res.ok('Signup successful!');
       }
 
-      // Otherwise if this is an HTML-wanting browser, redirect to /welcome.
       return res.redirect('/');
     });
   },
 
-  createMeetingSeries: function (req, res) {
-    return res.json({
+
+  createMeetingSeries: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'createMeetingSeries() is not implemented yet!'
     });
   },
 
-  deleteMeetingSeries: function (req, res) {
-    return res.json({
+
+  deleteMeetingSeries: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'deleteMeetingSeries() is not implemented yet!'
     });
   },
 
-  readMeetingSeries: function (req, res) {
-    return res.json({
+
+  readMeetingSeries: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'readMeeting() is not implemented yet!'
     });
   },
 
-  updateMeetingSeries: function (req, res) {
-    return res.json({
+
+  updateMeetingSeries: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'updateMeeting() is not implemented yet!'
     });
   },
 
-
-  /**
-   * `PersonController.readMeeting()`
-   */
-  readMeeting: function (req, res) {
-    return res.json({
+  readMeeting: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'readJourfixe() is not implemented yet!'
     });
   },
 
-  createMeeting: function (req, res) {
-    return res.json({
+  
+  createMeeting: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'createMeeting() is not implemented yet!'
     });
   },
 
-  deleteMeeting: function (req, res) {
-    return res.json({
+  
+  deleteMeeting: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'deleteMeeting() is not implemented yet!'
     });
   },
 
-  updateMeeting: function (req, res) {
-    return res.json({
+  
+  updateMeeting: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'updateJourFixe() is not implemented yet!'
     });
   },
 
-  setAssignee: function (req, res) {
-    return res.json({
+  
+  setAssignee: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'setAssignee() is not implemented yet!'
     });
   },
 
-  isDone: function (req, res) {
-    return res.json({
+  
+  isDone: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'isDone() is not implemented yet!'
     });
   },
 
-  setDone: function (req, res) {
-    return res.json({
+  
+  setDone: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'setDone() is not implemented yet!'
     });
   },
 
-  startMeeting: function (req, res) {
-    return res.json({
+  
+  startMeeting: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'startMeeting() is not implemented yet!'
     });
   },
 
-  endMeeting: function (req, res) {
-    return res.json({
+  
+  endMeeting: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'endMeeting() is not implemented yet!'
     });
   },
 
-  finishToDoItem: function (req, res) {
-    return res.json({
+  
+  finishToDoItem: function (req, res)
+  {
+    return res.json(
+    {
       todo: 'finishToDoItem() is not implemented yet!'
     });
   },
 
-  subscribe: function (req, res) {
-    if (req.isSocket) {
+  
+  subscribe: function (req, res)
+  {
+    if (req.isSocket)
+    {
       person.watch(req);
-      console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'person\'.');
+      console.log('User with socket id ' + sails.sockets.id(req) +
+        ' is now subscribed to the model class \'person\'.');
     }
   }
 };
