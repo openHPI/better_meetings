@@ -7,10 +7,6 @@
 
 module.exports = {
 
-/*====================================================================
-=            create single instance of agendaitem (Radscheit)         =
-====================================================================*/
-
 
   create: function(req, res) {
 
@@ -51,11 +47,6 @@ module.exports = {
       console.log('AgendaItem not created: too few parameters');
     }
   },
-
-/*===============================================================
-=            create instances of agendaitem on bulk (Radscheit)            =
-===============================================================*/
-
 
   bulkcreate: function(req,res) {
 
