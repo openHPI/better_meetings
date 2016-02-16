@@ -143,17 +143,60 @@ module.exports = {
   },
 
 
-  // viewAll: function(req,res) {
-  //   agendaitem.find().exec(function displayAgendaItemList(err, items) {
-  //     if (err) return res.serverError(err);
-  //     sails.log('person:' + items);
-  //     AgendaItem.subscribe(req.socket);
-  //     AgendaItem.subscribe(req.socket, items);
-  //     return res.view('agendaitem', {
-  //       users: items,
-  //     });
-  //   });
-  // },
+  uploadAttachedFile: function ( req, res ) {
+
+    req.file( 'attachedFile' ).upload({
+      maxBytes: 10000000,
+    },function whenDone( err, uploadedFiles ) {
+      
+      if ( err ) {
+        return res.negotiate( err );
+      }
+
+      if ( uploadedFiles.length === 0 ){
+        return res.badRequest( 'No file was uploaded' );
+      }
+
+
+      agendaitem.update(req.session.me, {
+
+        attachedFileUrl: require( 'util' ).format( '%s/assets/agendaItemFiles/%s' , sails.getBaseUrl(), req.session.me),
+        attachedFileFd: uploadedFiles[0].fd
+      }).exec( function ( err ) {
+          if ( err ) return res.negotiate( err );
+          return res.ok();
+        });
+    });
+  },
+
+
+  attachedFile: function ( req, res ){
+
+    req.validate({
+      id: 'string'
+    });
+
+    agendaitem.findOne( req.param( 'id' ) ).exec(function ( err, user ){
+      if ( err ) return res.negotiate( err );
+
+      if ( !user ) return res.notFound();
+
+      if ( !user.attachedFileFd ) {
+        return res.notFound();
+      }
+
+      var SkipperDisk = require('skipper-disk');
+      var fileAdapter = SkipperDisk(/* optional opts */);
+
+      // Stream the file down
+      fileAdapter.read( agendaitem.attachedFileFd )
+      .on( 'error', function ( err ) {
+        return res.serverError( err );
+      })
+      .pipe( res );
+    });
+  },
+
 
   subscribe: function(req,res) {
     if (req.isSocket) {
