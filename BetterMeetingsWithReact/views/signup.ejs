@@ -1,3 +1,55 @@
+<div id="container" class="cls-container overlay">
+
+  <div class="cls-header cls-header-lg">
+    <div class="cls-brand">
+      <a class="box-inline" href="/">
+        <span class="brand-title">Better <span class="text-thin">Meetings</span></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="cls-content">
+    <div class="cls-content-sm panel">
+      <div class="panel-body">
+        <p class="pad-btm">Registrieren</p>
+        <form action="/signup" method="post">
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></div>
+              <input name="email" type="email" class="form-control" placeholder="E-Mail Adresse">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+              <input name="name" class="form-control" placeholder="Benutzername">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-asterisk fa-fw"></i></div>
+              <input name="password" type="password" class="form-control" placeholder="Passwort">
+            </div>
+          </div>
+
+          <button class="btn btn-success btn-block" type="submit">
+            Registrieren
+          </button>
+
+        </form>
+      </div>
+    </div>
+    <div class="pad-ver">
+      <a href="/login/help" class="btn-link mar-rgt">Wie funktioniert der Log-in?</a>
+      <a href="/login" class="btn-link mar-lft">Melde dich an</a>
+    </div>
+  </div>
+</div>
+
+
 <h1>Signup</h1>
 <form action="/signup" method="post">
 
