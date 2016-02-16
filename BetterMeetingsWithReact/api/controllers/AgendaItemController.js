@@ -147,6 +147,7 @@ module.exports = {
 
     req.file( 'attachedFile' ).upload({
       maxBytes: 10000000,
+      dirname: require('path').resolve(sails.config.appPath, '/assets/agendaitem/')
     },function whenDone( err, uploadedFiles ) {
       
       if ( err ) {
