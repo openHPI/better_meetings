@@ -166,9 +166,5 @@ module.exports = {
       console.log('User with socket id ' + sails.sockets.id(req) + ' is now subscribed to the model class \'meetingseries\'.');
     }
   },
-
-  insertExampleData: function (req, res) {
-    Exampledataservice.generateExampleMeetingSeries();
-  },
 };
 

@@ -38,6 +38,7 @@ module.exports = {
     url: {
       type: 'string',
       required: true,
+      unique: true
     },
     timer: {
       type: 'integer',

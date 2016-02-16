@@ -295,7 +295,6 @@ module.exports = {
     var email = req.param('email');
     var password = req.param('password');
     var successRedirect = '/dashboard';
-    successRedirect = '/';
 
     person.attemptLoginAdmin({
       email: email,
