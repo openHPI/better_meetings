@@ -99,70 +99,72 @@ module.exports = {
     var members = [];
     var title = this.conf.meetingseries.title;
     var description = this.conf.meetingseries.description;
-    var url = 'testurl';
     var timer = 3600;
 
     var email1 = this.conf.person.email_admin1;
     var email2 = this.conf.person.email_admin2;
     var email3 = this.conf.person.email_member1;
-    person.findOne({
-      email: email1
-    }).exec(function findPerson(err, admin1) {
-      if (err) {
-      } else {
-        if (!admin1) {
-        } else {
-          admins.push(admin1);
-        }
-      }
 
+    UrlService.generate_unique_url(function genUrl(url) {
       person.findOne({
-        email: email2
-      }).exec(function findPerson(err, admin2) {
+        email: email1
+      }).exec(function findPerson(err, admin1) {
         if (err) {
         } else {
-          if (!admin2) {
+          if (!admin1) {
           } else {
-            admins.push(admin2);
+            admins.push(admin1);
           }
         }
+
         person.findOne({
-          email: email3
-        }).exec(function findPerson(err, member1) {
+          email: email2
+        }).exec(function findPerson(err, admin2) {
           if (err) {
           } else {
-            if (!member1) {
+            if (!admin2) {
             } else {
-              members.push(member1);
+              admins.push(admin2);
             }
           }
-
-          meetingseries.findOne({
-            title: title,
-            description: description
-          }).exec(function findMeetingSeries(err, cre) {
+          person.findOne({
+            email: email3
+          }).exec(function findPerson(err, member1) {
             if (err) {
-              sails.log('MeetingSeries not created' + err);
             } else {
-              if (!cre) {
-                meetingseries.create({
-                  title: title,
-                  description: description,
-                  admins: admins,
-                  members: members,
-                  url: url,
-                  timer: timer
-                }).exec(function createMeetingSeries(err, series) {
-                  if (err) {
-                    sails.log('MeetingSeries not created' + err);
-                  } else {
-                    sails.log('MeetingSeries created: ' + JSON.stringify(series));
-                  }
-                });
+              if (!member1) {
               } else {
-                sails.log('MeetingSeries created: ' + JSON.stringify(cre));
+                members.push(member1);
               }
             }
+
+            meetingseries.findOne({
+              title: title,
+              description: description
+            }).exec(function findMeetingSeries(err, cre) {
+              if (err) {
+                sails.log('MeetingSeries not created' + err);
+              } else {
+                if (!cre) {
+                  meetingseries.create({
+                    title: title,
+                    description: description,
+                    admins: admins,
+                    members: members,
+                    url: url,
+                    timer: timer
+                  }).exec(function createMeetingSeries(err, series) {
+                    if (err) {
+                      sails.log('MeetingSeries not created' + err);
+                    } else {
+                      sails.log('MeetingSeries created: ' + JSON.stringify(series));
+                    }
+                  });
+                } else {
+                  sails.log('MeetingSeries created: ' + JSON.stringify(cre));
+                }
+              }
+            });
           });
         });
       });
