@@ -19,7 +19,7 @@
 <div id="container" class="effect mainnav-out">
 
   <!--<header>-->
-  <div id="navbar">
+  <header id="navbar">
     <div id="navbar-container" class="boxed">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -46,7 +46,27 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right with-arrow panel-default">
+              <!-- Dropdown heading  -->
+              <div class="pad-all bord-btm">
+                <p class="text-lg text-muted text-thin mar-btm">Willommen <%= req.session.me.name %>!</p>
+                <p class="text-muted">Lass uns ein paar Meetings halten</p>
+              </div>
+
+              <!-- User dropdown menu -->
               <ul class="head-list">
+                <li>
+                  <a href="/dashboard">
+                    <span class="badge badge-danger pull-right"><%= req.session.me.createdMeetings.length %></span>
+                    <i class="fa fa-calendar-o fa-fw fa-lg"></i> Meetingseries
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/dashboard">
+                    <span class="badge badge-danger pull-right"><%= req.session.me.todos.length %></span>
+                    <i class="fa fa-exclamation fa-fw fa-lg"></i> Todos
+                  </a>
+                </li>
 
                 <li>
                   <a href="/person/edit">
@@ -73,7 +93,7 @@
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-  </div>
+  </header>
   <!--</header>-->
 
   <div class="boxed">

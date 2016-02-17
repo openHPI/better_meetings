@@ -25,7 +25,7 @@ module.exports = {
       required: false
     },
     todos: {
-      model: 'todoitem'
+      collection: 'todoitem'
     },
     assignedMeetings: { // former meetings
       collection: 'meeting',
@@ -80,6 +80,7 @@ module.exports = {
     person.findOne({
         email: inputs.email
       })
+      .populateAll()
       .exec(cb);
   },
 
@@ -90,6 +91,7 @@ module.exports = {
         // TODO: But encrypt the password first
         password: inputs.password
       })
+      .populateAll()
       .exec(cb);
   },
 

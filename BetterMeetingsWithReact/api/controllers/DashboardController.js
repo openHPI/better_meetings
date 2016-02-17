@@ -18,8 +18,8 @@ module.exports = {
         return;
       }
 
-      var meetingseriesList = person.createdMeetings;
-      var meetingHistory = person.assignedMeetings;
+      var meetingseriesList = person.createdMeetings || [];
+      var meetingHistory = person.assignedMeetings || [];
 
       return res.view('dashboard', {
         meetingseriesList: meetingseriesList,
