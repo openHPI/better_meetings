@@ -4,34 +4,7 @@
 <div id="page-content">
   <% if (req.session.me.isAdmin) { %>
   <div class="row">
-    <div class="col-xs-12 col-lg-7">
-      <h4 class="text-thin">Meeting Verlauf</h4>
-      <div class="timeline">
-        <div class="timeline-header">
-          <div class="timeline-header-title bg-info">Jetzt</div>
-        </div>
-        <% _.each(meetingHistory, function (meeting) { %>
-        <div class="timeline-entry">
-          <div class="timeline-stat">
-            <div class="timeline-icon"></div>
-            <div class="timeline-time">
-              <% if (meeting.startTime) { %>
-              <%= meeting.startTime %>
-              <% } else { %>
-              Kein Zeitpunkt gegeben
-              <% } %>
-            </div>
-          </div>
-          <div class="timeline-label">
-            <h5><a class="text-info text-lg"
-                   href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
 
-            <p><%= meeting.description %></p>
-          </div>
-        </div>
-        <% }) %>
-      </div>
-    </div>
     <div class="col-xs-12 col-lg-5">
       <div class="panel panel-dark panel-colorful">
         <div class="panel panel-dark panel-colorful">
@@ -50,10 +23,73 @@
         </div>
       </div>
     </div>
+
+    <% } else { %>
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6 text-center">
+        <h3>Willkommen <%= req.session.me.name %></h3>
+        <br>
+        <p class="h4 text-thin media-heading">
+          Da du nur einen Gastakkount besitzt, ist es dir leider nicht möglich eine Meetingserie zu starten.
+        </p>
+        <p class="h4 text-thin media-heading">
+          Um Meetings erstellen zu können <a href="/signup">registriere</a> dich bitte.
+        </p>
+        <br>
+        <p class="h4 text-thin media-heading">
+          Einem Meeting beiwohnen kannst du jedoch jetzt schon. Schaue in die Timeline.
+        </p>
+        <p class="h4 text-thin media-heading">
+          Vielleicht findet sich dort das ein oder andere Meeting.
+        </p>
+        <br>
+      </div>
+    </div>
+    <br/>
+    <hr/>
+    <br/>
+    <% } %>
+
+    <div
+      <% if (req.session.me.isAdmin) { %>
+      class="col-xs-12 col-lg-7"
+      <% } else { %>
+      class="col-sm-offset-2 col-sm-8"
+      <% } %>
+    >
+
+      <% if (meetingHistory.length > 0) { %>
+      <h4 class="text-thin">Meeting Verlauf</h4>
+      <div class="timeline">
+        <div class="timeline-header">
+          <div class="timeline-header-title bg-info">Jetzt</div>
+        </div>
+        <% _.each(meetingHistory, function (meeting) { %>
+        <div class="timeline-entry">
+          <div class="timeline-stat">
+            <div class="timeline-icon"></div>
+            <div class="timeline-time">
+              <% if (meeting.startTime) { %>
+              <%= meeting.startTime %>
+              <% } else { %>
+              Kein Zeitpunkt gegeben
+              <% } %>
+            </div>
+          </div>
+          <div class="timeline-label">
+            <h5><a class="text-info text-lg" href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
+            <p><%= meeting.description %></p>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <% } else { %>
+      <h5 class="text-info text-lg">Du hast leider keine Meetings in deiner Timeline :(</h5>
+      <% } %>
+    </div>
+
   </div>
-  <% } else { %>
-  <h3>Willkommen <%= req.session.me.name %></h3>
-  <% } %>
 </div>
 <div id="newMeetingseriesModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
