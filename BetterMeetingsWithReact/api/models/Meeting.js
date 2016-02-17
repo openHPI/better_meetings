@@ -40,6 +40,11 @@ module.exports = {
       type: 'string',
       required: true,
       unique: true
+    },
+    series: {
+      model: 'meetingseries',
+      via: 'instances',
+      required: true
     }
   }
 };

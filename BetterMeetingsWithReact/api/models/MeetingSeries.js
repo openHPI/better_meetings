@@ -31,9 +31,9 @@ module.exports = {
       collection: 'agendaitem',
       via: 'meetingseries',
     },
-    meeting: {
-      type: 'integer',
-      required: false,
+    instances: {
+      collection: 'meeting',
+      via: 'series',
     },
     url: {
       type: 'string',
