@@ -33,7 +33,12 @@ module.exports = {
   	done: {
   		type: 'boolean',
   		required: false,
-  	}
+  	},
+    attachedFile: {
+      type: 'string',
+      required: false,
+      unique: true,
+    }
 
   }
 };
