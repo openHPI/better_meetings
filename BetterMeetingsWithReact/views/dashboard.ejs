@@ -2,18 +2,25 @@
   <h1 class="page-header text-overflow">Dashboard</h1>
 </div>
 <div id="page-content">
+  <% if (req.session.me.isAdmin) { %>
   <div class="row">
     <div class="col-xs-12 col-lg-7">
-      <h4 class="text-thin">History</h4>
+      <h4 class="text-thin">Meeting Verlauf</h4>
       <div class="timeline">
         <div class="timeline-header">
-          <div class="timeline-header-title bg-info">Now</div>
+          <div class="timeline-header-title bg-info">Jetzt</div>
         </div>
         <% _.each(meetingHistory, function (meeting) { %>
         <div class="timeline-entry">
           <div class="timeline-stat">
             <div class="timeline-icon"></div>
-            <div class="timeline-time"><%= meeting.startTime %></div>
+            <div class="timeline-time">
+              <% if (meeting.startTime) { %>
+              <%= meeting.startTime %>
+              <% } else { %>
+              Kein Zeitpunkt gegeben
+              <% } %>
+            </div>
           </div>
           <div class="timeline-label">
             <h4 class="text-info text-lg"><%= meeting.title %></h4>
@@ -27,13 +34,14 @@
       <div class="panel panel-dark panel-colorful">
         <div class="panel panel-dark panel-colorful">
           <div class="panel-heading">
-            <h3 class="panel-title">My meetingseries</h3>
+            <h3 class="panel-title">Meine Meetingserien</h3>
           </div>
           <div class="panel-body">
             <div class="list-group bg-trans">
               </a>
               <% _.each(meetingseriesList, function (meetingseries) { %>
-              <a class="list-group-item" href="meetingseries/<%= meetingseries.id %>"><%= meetingseries.title %></a>
+              <a class="list-group-item"
+                 href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
               <% }) %>
             </div>
           </div>
@@ -41,6 +49,8 @@
       </div>
     </div>
   </div>
+  <% } else { %>
+  <% } %>
 </div>
 <div id="newMeetingseriesModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
