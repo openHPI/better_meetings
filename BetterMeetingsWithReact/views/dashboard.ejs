@@ -4,65 +4,84 @@
 <div id="page-content">
   <% if (req.session.me.isAdmin) { %>
   <div class="row">
-
-    <div class="col-xs-12 col-lg-5">
-      <div class="panel panel-dark panel-colorful">
-        <div class="panel panel-dark panel-colorful">
-          <div class="panel-heading">
-            <h3 class="panel-title">Meine Meetingserien</h3>
-          </div>
-          <div class="panel-body">
-            <div class="list-group bg-trans">
-              </a>
-              <% _.each(meetingseriesList, function (meetingseries) { %>
-              <a class="list-group-item"
-                 href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
-              <% }) %>
-            </div>
-          </div>
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Meine Meetingserien</h3>
+      </div>
+      <% _.each(meetingseriesList, function (meetingseries) { %>
+      <div class="panel-body">
+        <div class="col-xs-8 col-lg-8">
+          <h4><a class="text-info" href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
+          </h4>
+          <%= meetingseries.description %>
+        </div>
+        <div class="col-xs-4 col-lg-4">
+          <ul class="list-group bg-trans mar-no">
+            <li class="list-group-item">
+              <span class="badge badge-info"><%= meetingseries.instances.length %></span>
+              Gehaltene Meetings
+            </li>
+            <% if (meetingseries.instances.length > 0) { %>
+            <li class="list-group-item">
+              <span class="badge badge-info">
+                <% if (meetingseries.instances[0].startTime) { %>
+                <%= meetingseries.instances[0].startTime %>
+                <% } else { %>
+                Kein Zeitpunkt bekannt
+                <% } %>
+              </span>
+              Zuletzt gehaltenes Meeting
+            </li>
+            <% } %>
+          </ul>
         </div>
       </div>
+      <hr>
+      <% }) %>
     </div>
+  </div>
 
-    <% } else { %>
-    <div class="row">
-      <div class="col-sm-offset-3 col-sm-6 text-center">
-        <br>
+  <% } else { %>
 
-        <h3>Willkommen <%= req.session.me.name %></h3>
-        <br>
-        <p class="h4 text-thin media-heading">
-          Da du nur einen Gastakkount besitzt, ist es dir leider nicht möglich eine Meetingserie zu starten.
-        </p>
-        <p class="h4 text-thin media-heading">
-          Um Meetings erstellen zu können <a href="/signup">registriere</a> dich bitte.
-        </p>
-        <br>
-        <p class="h4 text-thin media-heading">
-          Einem Meeting beiwohnen kannst du jedoch jetzt schon. Schaue in die Timeline.
-        </p>
-        <p class="h4 text-thin media-heading">
-          Vielleicht findet sich dort das ein oder andere Meeting.
-        </p>
-        <br>
-      </div>
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6 text-center">
+      <br>
+
+      <h3>Willkommen <%= req.session.me.name %></h3>
+      <br>
+      <p class="h4 text-thin media-heading">
+        Da du nur einen Gastakkount besitzt, ist es dir leider nicht möglich eine Meetingserie zu starten.
+      </p>
+      <p class="h4 text-thin media-heading">
+        Um Meetings erstellen zu können <a href="/signup">registriere</a> dich bitte.
+      </p>
+      <br>
+      <p class="h4 text-thin media-heading">
+        Einem Meeting beiwohnen kannst du jedoch jetzt schon. Schaue in die Timeline.
+      </p>
+      <p class="h4 text-thin media-heading">
+        Vielleicht findet sich dort das ein oder andere Meeting.
+      </p>
+      <br>
     </div>
-    <br/>
-    <br/>
-    <br/>
-    <hr/>
-    <% } %>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <% } %>
 
-    <h3 class="page-header text-overflow">Meeting Timeline</h3>
+  <hr/>
+</div>
+
+<div id="page-title">
+  <h3 class="page-header text-overflow">Meeting Timeline</h3>
+</div>
+
+<div id="page-content">
+  <div class=" row">
     <br><br><br>
 
-    <div
-      <% if (req.session.me.isAdmin) { %>
-      class="col-xs-12 col-lg-7"
-      <% } else { %>
-      class="col-sm-offset-2 col-sm-8"
-      <% } %>
-    >
+    <div class="col-sm-offset-2 col-sm-8">
 
       <div class="timeline">
         <div class="timeline-header">
@@ -98,7 +117,6 @@
         <% } %>
       </div>
     </div>
-
   </div>
 </div>
 <div id="newMeetingseriesModal" class="modal fade" role="dialog">

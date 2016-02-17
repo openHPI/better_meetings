@@ -18,13 +18,21 @@ module.exports = {
         return;
       }
 
-      var meetingseriesList = person.createdMeetings || [];
-      var meetingHistory = person.assignedMeetings || [];
+      DeepPopulateService.populateDeep('person', person,
+        'createdMeetings.instances',
+        function (err, person) {
+          if (err) {
+            sails.log.error("ERR:", err);
+          }
 
-      return res.view('dashboard', {
-        meetingseriesList: meetingseriesList,
-        meetingHistory: meetingHistory,
-      });
+          var meetingseriesList = person.createdMeetings || [];
+          var meetingHistory = person.assignedMeetings || [];
+
+          return res.view('dashboard', {
+            meetingseriesList: meetingseriesList,
+            meetingHistory: meetingHistory,
+          });
+        });
     });
   },
 
