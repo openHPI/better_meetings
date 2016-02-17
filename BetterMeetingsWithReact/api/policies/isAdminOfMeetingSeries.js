@@ -44,4 +44,10 @@ module.exports = function (req, res, next) {
       });
     }
   }
+
+  if (req.wantsJSON) {
+    return res.send(403);
+  }
+
+  return res.forbidden('Access denied.');
 };
