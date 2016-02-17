@@ -8,7 +8,7 @@
 module.exports = {
 
   view: function (req, res) {
-    person.findOne(req.session.me.id).populate('createdMeetings').exec(function found(err, person) {
+    person.findOne(req.session.me.id).populate('createdMeetings').populate('assignedMeetings').exec(function found(err, person) {
       if (err) {
         sails.log.error("ERR:", err);
       }
@@ -19,10 +19,11 @@ module.exports = {
       }
 
       var meetingseriesList = person.createdMeetings;
+      var meetingHistory = person.assignedMeetings;
 
       return res.view('dashboard', {
         meetingseriesList: meetingseriesList,
-        upcomingMeetings: [],
+        meetingHistory: meetingHistory,
       });
     });
   },

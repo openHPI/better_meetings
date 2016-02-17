@@ -222,7 +222,7 @@ module.exports = {
     var email = req.param('email');
 
     var invalidRedirect = '/login';
-    var successRedirect = '/';
+    var successRedirect = '/dashboard';
 
     person.attemptLoginEmail({
       email: email
@@ -265,7 +265,7 @@ module.exports = {
     console.log('login with email');
 
     var email = req.param('email');
-    var successRedirect = '/';
+    var successRedirect = '/dashboard';
 
     person.attemptLoginEmail({
       email: email

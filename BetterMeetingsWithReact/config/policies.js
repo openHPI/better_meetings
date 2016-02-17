@@ -41,7 +41,7 @@ module.exports.policies = {
   },
 
   DashboardController: {
-    view: 'isAdmin',
+    view: 'isLoggedIn',
   },
 
   '*': true,

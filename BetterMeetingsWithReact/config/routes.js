@@ -33,9 +33,7 @@ module.exports.routes = {
    ***************************************************************************/
 
   // HTML Views
-  '/': {
-    view: 'homepage'
-  },
+  '/': '/dashboard',
   'get /login': {
     view: 'login/login'
   },
