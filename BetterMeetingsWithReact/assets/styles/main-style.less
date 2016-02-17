@@ -21,34 +21,34 @@ a:hover {
 /*==============================
 =            HEADER            =
 ==============================*/
-.navbar {
-  border-bottom: 1px solid @grey;
-  border-radius: 0px;
-  margin-bottom: 0px;
-}
+//.navbar {
+//  border-bottom: 1px solid @grey;
+//  border-radius: 0px;
+//  margin-bottom: 0px;
+//}
+//
+//.navbar-brand {
+//  color: @black;
+//}
 
-.navbar-brand {
-  color: @black;
-}
+//.dropdown-toggle {
+//  color: @white;
+//  background-color: @primary;
+//  border: none;
+//  border-radius: 0px;
+//  &:hover, &:focus {
+//    color: @white;
+//    background-color: @primary !important;
+//  }
+//}
 
-.dropdown-toggle {
-  color: @white;
-  background-color: @primary;
-  border: none;
-  border-radius: 0px;
-  &:hover, &:focus {
-    color: @white;
-    background-color: @primary !important;
-  }
-}
+//.icon-bar {
+//  background-color: @primary;
+//}
 
-.icon-bar {
-  background-color: @primary;
-}
-
-.brand-title {
-  text-align: center;
-}
+//.brand-title {
+//  text-align: center;
+//}
 
 /*==============================
 =            FlUX-APP          =
@@ -78,9 +78,10 @@ a:hover {
   }
 }
 
-.flux-agendaDetails-description p{
+.flux-agendaDetails-description p {
   font-size: 2.0em;
 }
+
 .flux-agenda-list {
   ul {
     list-style: none;
@@ -90,11 +91,11 @@ a:hover {
       padding: 20px;
       color: grey;
       h3 {
-        white-space: pre-wrap;      /* CSS3 */
+        white-space: pre-wrap; /* CSS3 */
         white-space: -moz-pre-wrap; /* Firefox */
-        white-space: -pre-wrap;     /* Opera <7 */
-        white-space: -o-pre-wrap;   /* Opera 7 */
-        word-wrap: break-word;      /* IE */
+        white-space: -pre-wrap; /* Opera <7 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* IE */
       }
     }
     .agenda-item.level-0 {
@@ -166,12 +167,13 @@ a:hover {
   font-weight: 100;
   padding-right: 10px;
 }
+
 .list-todo {
   list-style-type: none;
   font-size: 2.0em;
   .todo-item {
     &:hover {
-      background-color: #f0f2f6; 
+      background-color: #f0f2f6;
     }
     .todo-control {
       float: right;
@@ -217,12 +219,12 @@ a:hover {
     text-align: center;
   }
 }
+
 .form-checkbox {
   span {
     padding-left: 20px;
   }
 }
-
 
 /*=====  End of Login  ======*/
 
@@ -230,11 +232,11 @@ a:hover {
 =            Timer            =
 =============================*/
 #timer {
-  font-size:400%;
+  font-size: 400%;
   text-align: right;
 }
-/*=====  End of Timer  ======*/
 
+/*=====  End of Timer  ======*/
 
 /*=============================
 =            Logo             =
@@ -243,6 +245,7 @@ a:hover {
   text-align: left;
   padding-left: 10px;
 }
+
 /*=====  End of Logo   ======*/
 
 /*=====================================
@@ -258,8 +261,15 @@ a:hover {
 /*----------  Modal  ----------*/
 
 #selected-topics, #all-topics {
-  
+
 }
 
 /*=====  End of Meetingseries  ======*/
+
+.overlay {
+  position: fixed;
+  top: -40px;
+  left: 0;
+  z-index: 99;
+}
 
