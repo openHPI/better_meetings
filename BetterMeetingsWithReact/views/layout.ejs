@@ -54,12 +54,14 @@
 
               <!-- User dropdown menu -->
               <ul class="head-list">
+                <% if (req.session.me.isAdmin) { %>
                 <li>
                   <a href="/dashboard">
                     <span class="badge badge-danger pull-right"><%= req.session.me.createdMeetings.length %></span>
-                    <i class="fa fa-calendar-o fa-fw fa-lg"></i> Meetingserie
+                    <i class="fa fa-calendar-o fa-fw fa-lg"></i> Meetingserien
                   </a>
                 </li>
+                <% } %>
 
                 <li>
                   <a href="/dashboard">
