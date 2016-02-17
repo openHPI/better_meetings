@@ -25,7 +25,8 @@ module.exports = {
       required: false
     },
     todos: {
-      collection: 'todoitem'
+      collection: 'todoitem',
+      via: 'author'
     },
     assignedMeetings: { // former meetings
       collection: 'meeting',
