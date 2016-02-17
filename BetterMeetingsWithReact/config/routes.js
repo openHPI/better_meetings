@@ -43,6 +43,9 @@ module.exports.routes = {
   'get /login/guest/:email': {
     view: 'login/guest'
   },
+  'get /login/help': {
+    view: 'login/help'
+  },
   'get /signup': {
     view: 'signup'
   },
