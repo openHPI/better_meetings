@@ -23,7 +23,9 @@
             </div>
           </div>
           <div class="timeline-label">
-            <h4 class="text-info text-lg"><%= meeting.title %></h4>
+            <h5><a class="text-info text-lg"
+                   href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
+
             <p><%= meeting.description %></p>
           </div>
         </div>
