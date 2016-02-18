@@ -26,18 +26,18 @@ module.exports.policies = {
   },
 
   MeetingSeriesController: {
+    '*': 'isAdmin',
+
     view: 'isAdminOfMeetingSeries',
     update: 'isAdminOfMeetingSeries'
   },
 
   MeetingController: {
+    '*': 'isLoggedIn',
+
     start: 'isAdmin',
     end: 'isAdmin',
-    createAttendee: 'isAdmin',
-
-    view: 'isLoggedIn',
-    get: 'isLoggedIn',
-    update: 'isLoggedIn'
+    createAttendee: 'isAdmin'
   },
 
   DashboardController: {

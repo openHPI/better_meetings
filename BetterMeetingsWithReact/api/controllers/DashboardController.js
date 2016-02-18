@@ -37,7 +37,6 @@ module.exports = {
           }
 
           meetingseriesList = person.createdMeetings;
-          //meetingHistory = person.assignedMeetings || [];
 
           return res.view('dashboard', {
             meetingseriesList: meetingseriesList,
