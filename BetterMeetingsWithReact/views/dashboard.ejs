@@ -8,21 +8,22 @@
       <div class="panel-heading">
         <h3 class="panel-title">Meine Meetingserien</h3>
       </div>
-      <% _.each(meetingseriesList, function (meetingseries) { %>
       <div class="panel-body">
-        <div class="col-xs-8 col-lg-8">
-          <h4><a class="text-success" href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
-          </h4>
-          <%= meetingseries.description %>
-        </div>
-        <div class="col-xs-4 col-lg-4">
-          <ul class="list-group bg-trans mar-no">
-            <li class="list-group-item">
-              <span class="badge badge-success"><%= meetingseries.instances.length %></span>
-              Gehaltene Meetings
-            </li>
-            <% if (meetingseries.instances.length > 0) { %>
-            <li class="list-group-item">
+        <% _.each(meetingseriesList, function (meetingseries) { %>
+        <div class="row">
+          <div class="col-xs-8 col-lg-8">
+            <h4><a class="text-success" href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
+            </h4>
+            <%= meetingseries.description %>
+          </div>
+          <div class="col-xs-4 col-lg-4">
+            <ul class="list-group bg-trans mar-no">
+              <li class="list-group-item">
+                <span class="badge badge-success"><%= meetingseries.instances.length %></span>
+                Gehaltene Meetings
+              </li>
+              <% if (meetingseries.instances.length > 0) { %>
+              <li class="list-group-item">
               <span class="badge badge-success">
                 <% if (meetingseries.instances[0].startTime) { %>
                 <%= meetingseries.instances[0].startTime %>
@@ -30,20 +31,23 @@
                 Kein Zeitpunkt bekannt
                 <% } %>
               </span>
-              Zuletzt gehaltenes Meeting
-            </li>
-            <% } %>
-          </ul>
+                Zuletzt gehaltenes Meeting
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+        <hr>
+        <% }) %>
+        <div class="row">
+          <button type="button" class="btn btn-success btn-lg pull-right" data-toggle="modal"
+                  data-target="#newMeetingSeriesModal">Neue Serie
+            erstellen
+          </button>
         </div>
       </div>
-      <hr>
-      <% }) %>
     </div>
-
-    <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal"
-            data-target="#newMeetingSeriesModal">Neue Serie
-      erstellen
-    </button>
+    <br>
   </div>
 
   <% } else { %>
@@ -75,52 +79,46 @@
   <br/>
   <% } %>
 
-
-</div>
-
-<hr/>
-
-<div id="page-title">
-  <h3 class="page-header text-overflow">Meeting Timeline</h3>
-</div>
-
-<div id="page-content">
   <div class=" row">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Meeting Timeline</h3>
+      </div>
+      <div class="panel-body">
 
-    <div class="col-sm-offset-2 col-sm-8">
-
-      <div class="timeline">
-        <div class="timeline-header">
-          <div class="timeline-header-title bg-primary">Jetzt</div>
-        </div>
-        <% _.each(meetingHistory, function (meeting) { %>
-        <div class="timeline-entry">
-          <div class="timeline-stat">
-            <div class="timeline-icon"></div>
-            <div class="timeline-time">
-              <% if (meeting.startTime) { %>
-              <%= meeting.startTime %>
-              <% } else { %>
-              Kein Zeitpunkt gegeben
-              <% } %>
+        <div class="timeline">
+          <div class="timeline-header">
+            <div class="timeline-header-title bg-success">Jetzt</div>
+          </div>
+          <% _.each(meetingHistory, function (meeting) { %>
+          <div class="timeline-entry">
+            <div class="timeline-stat">
+              <div class="timeline-icon"></div>
+              <div class="timeline-time">
+                <% if (meeting.startTime) { %>
+                <%= meeting.startTime %>
+                <% } else { %>
+                Kein Zeitpunkt gegeben
+                <% } %>
+              </div>
+            </div>
+            <div class="timeline-label">
+              <h5><a class="text-success text-lg" href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
+              <p><%= meeting.description %></p>
             </div>
           </div>
-          <div class="timeline-label">
-            <h5><a class="text-success text-lg" href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
-            <p><%= meeting.description %></p>
+          <% }) %>
+          <% if (meetingHistory.length == 0) { %>
+          <div class="timeline-entry">
+            <div class="timeline-stat">
+              <div class="timeline-icon"></div>
+            </div>
+            <div class="timeline-label">
+              <h5 class="text-success text-lg">Du hast leider keine Meetings in deiner Timeline :(</h5>
+            </div>
           </div>
+          <% } %>
         </div>
-        <% }) %>
-        <% if (meetingHistory.length == 0) { %>
-        <div class="timeline-entry">
-          <div class="timeline-stat">
-            <div class="timeline-icon"></div>
-          </div>
-          <div class="timeline-label">
-            <h5 class="text-success text-lg">Du hast leider keine Meetings in deiner Timeline :(</h5>
-          </div>
-        </div>
-        <% } %>
       </div>
     </div>
   </div>
