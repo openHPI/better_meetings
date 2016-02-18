@@ -21,6 +21,15 @@ module.exports = {
       var meetingseriesList = person.createdMeetings || [];
       var meetingHistory = person.assignedMeetings || [];
 
+      meetingHistory.sort(function compare(a, b) {
+        if (a.startTime < b.startTime)
+          return 1;
+        else if (a.startTime > b.startTime)
+          return -1;
+        else
+          return 0;
+      });
+
       if (meetingseriesList.length == 0) {
         return res.view('dashboard', {
           meetingseriesList: meetingseriesList,
@@ -37,6 +46,15 @@ module.exports = {
           }
 
           meetingseriesList = person.createdMeetings;
+
+          meetingseriesList.sort(function compare(a, b) {
+            if (a.lastModified < b.lastModified)
+              return 1;
+            else if (a.lastModified > b.lastModified)
+              return -1;
+            else
+              return 0;
+          });
 
           return res.view('dashboard', {
             meetingseriesList: meetingseriesList,

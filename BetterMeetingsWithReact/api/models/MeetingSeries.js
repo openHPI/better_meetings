@@ -12,7 +12,7 @@ module.exports = {
   attributes: {
     members: {
       collection: 'person',
-      via: 'assignedMeetings',
+      via: 'assignedMeetings'
     },
     admins: {
       collection: 'person',
@@ -21,19 +21,19 @@ module.exports = {
     },
     title: {
       type: 'string',
-      required: true,
+      required: true
     },
     description: {
       type: 'string',
-      required: false,
+      required: false
     },
     topics: {
       collection: 'agendaitem',
-      via: 'meetingseries',
+      via: 'meetingseries'
     },
     instances: {
       collection: 'meeting',
-      via: 'series',
+      via: 'series'
     },
     url: {
       type: 'string',
@@ -42,8 +42,12 @@ module.exports = {
     },
     timer: {
       type: 'integer',
-      required: true,
-    }
+      required: true
+    },
+    lastModified: {
+      type: 'integer',
+      required: true
+    },
   }
 };
 

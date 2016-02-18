@@ -11,6 +11,9 @@
       <div class="panel-body">
         <% _.each(meetingseriesList, function (meetingseries) { %>
         <div class="row">
+          <p class="pull-right">Stand: <%= new Date(meetingseries.lastModified).toLocaleString() %></p>
+        </div>
+        <div class="row">
           <div class="col-xs-8 col-lg-8">
             <h4><a class="text-success" href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
             </h4>
@@ -42,6 +45,9 @@
         <hr>
         <% }) %>
         <div class="row">
+          <% if (meetingseriesList.length == 0) { %>
+          <h4 class="pull-left text-success">Du hast leider keine Meetingserien. Erstelle doch eine.</h4>
+          <% } %>
           <button type="button" class="btn btn-success btn-lg pull-right" data-toggle="modal"
                   data-target="#newMeetingSeriesModal">Neue Serie
             erstellen
