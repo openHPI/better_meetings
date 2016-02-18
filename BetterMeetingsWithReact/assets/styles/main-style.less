@@ -6,6 +6,8 @@
 @black: #000000;
 @primary: #0EBFE9;
 @white: #FFFFFF;
+@primary-text: #212121;
+@secondary-text: #727272;
 
 /* Links */
 a,
@@ -16,6 +18,18 @@ a:hover {
 
 .hidden-container {
   display: none;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  color: @primary-text;
+}
+
+p, .p {
+  color: @secondary-text;
+}
+
+.text-white {
+  color: @white;
 }
 
 /*==============================

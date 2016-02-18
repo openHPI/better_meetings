@@ -18,19 +18,30 @@ module.exports = {
         return;
       }
 
+      var meetingseriesList = person.createdMeetings || [];
+      var meetingHistory = person.assignedMeetings || [];
+
+      if (meetingseriesList.length == 0) {
+        return res.view('dashboard', {
+          meetingseriesList: meetingseriesList,
+          meetingHistory: meetingHistory
+        });
+      }
+
       DeepPopulateService.populateDeep('person', person,
         'createdMeetings.instances',
         function (err, person) {
           if (err) {
-            sails.log.error("ERR:", err);
+            console.log("ERR: ");
+            console.log(err);
           }
 
-          var meetingseriesList = person.createdMeetings || [];
-          var meetingHistory = person.assignedMeetings || [];
+          meetingseriesList = person.createdMeetings;
+          //meetingHistory = person.assignedMeetings || [];
 
           return res.view('dashboard', {
             meetingseriesList: meetingseriesList,
-            meetingHistory: meetingHistory,
+            meetingHistory: meetingHistory
           });
         });
     });

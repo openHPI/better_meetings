@@ -21,6 +21,9 @@ module.exports = {
     topics: {
       collection: 'agendaitem'
     },
+    admins: {
+      collection: 'person',
+    },
     attendees: {
       collection: 'person',
       via: 'assignedMeetings',

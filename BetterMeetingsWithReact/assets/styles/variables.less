@@ -1,3 +1,10 @@
+@mat-primary: #009688;
+@mat-primary-dark: #00796b;
+@mat-primary-light: #b2dfdb;
+@mat-accent: #7c4dff;
+@mat-primary-text: #212121;
+@mat-secondary-text: #727272;
+@mat-devider: #b6b6b6;
 
 // Variables
 // --------------------------------------------------
@@ -20,7 +27,7 @@
 
 // CLEAN ZONE (LOGIN, REGISTER, AND ERROR PAGES CONTAINER)
 //============================================
-@cls-bg                     : #212124;
+@cls-bg: @mat-primary-dark;
 @cls-color                  : #fff;
 
 
@@ -35,7 +42,7 @@
 
 // NAVBAR
 //============================================
-@navbar-bg                  : #fff;
+@navbar-bg: @mat-primary-dark;
 @navbar-color               : @body-color;
 @brand-bg                   : transparent;
 @brand-bg-overlay           : @mainnav-bg;
@@ -54,7 +61,7 @@
 
 // NAVIGATION
 //============================================
-@mainnav-bg                 : #2D3C4B;
+@mainnav-bg: @mat-primary-dark;
 @mainnav-color              : screen(@mainnav-bg, #999);
 @mainnav-hover-color        : #fff;
 @mainnav-active-bg          : transparent;
@@ -165,7 +172,7 @@
 
 // COMPONENT
 //============================================
-@state-active-bg            : #54ABD9;
+@state-active-bg: @mat-primary;
 @state-active-color         : #fff;
 
 
@@ -183,13 +190,12 @@
 @light-bg                   : #fff;
 @gray-bg                    : #e3e8ee;
 
-
-@primary-bg                 : #5fa2dd;
-@info-bg                    : #46BBDC;
-@success-bg                 : #91C957;
+@primary-bg: @mat-primary-dark;
+@info-bg: @mat-primary;
+@success-bg: @mat-accent;
 @warning-bg                 : #F1AA40;
 @danger-bg                  : #F76549;
-@mint-bg                    : #42CCA5;
+@mint-bg: @mat-primary-light;
 @purple-bg                  : #9F5594;
 @pink-bg                    : #e17ca7;
 @dark-bg                    : #33373A;
