@@ -6,7 +6,7 @@ var FluxTopicItem = React.createClass({
 
 	// Select agenda item via Action
 	selectItem: function(event) {
-		FluxMeetingActions.selectAgendaItem(this.props.index);
+		FluxMeetingActions.selectTopic(this.props.index);
 	},
 
 	// Render agenda View

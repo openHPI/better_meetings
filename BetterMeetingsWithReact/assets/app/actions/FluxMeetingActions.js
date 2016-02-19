@@ -17,7 +17,7 @@ var FluxAgendaActions = {
 	 * @method selectAgendaItem
 	 * @param {Integer} index The index of the selected agenda item 
 	 */
-	selectAgendaItem: function(index) {
+	selectTopic: function(index) {
 		AppDispatcher.handleAction({
 			actionType: FluxMeetingConstants.SET_SELECTED,
 			data: index
@@ -86,6 +86,19 @@ var FluxAgendaActions = {
 		AppDispatcher.handleAction({
 			actionType: FluxMeetingConstants.ATTENDEE_CREATE,
 			data: person
+		})
+	},
+
+	/**
+	 * Uploads and attaches a file to a topic
+	 * 
+	 * @method uploadFileToTopic
+	 * @param {Object} member The new attendee
+	 */
+	uploadFileToTopic: function() {
+		AppDispatcher.handleAction({
+			actionType: FluxMeetingConstants.TOPIC_UPLOAD,
+			data: data
 		})
 	},
 

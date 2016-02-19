@@ -4,9 +4,6 @@ var MeetingStore = require('../stores/MeetingStore');
 var FluxTopicList = require('./FluxTopicList.react');
 var FluxTopicDetails = require('./FluxTopicDetails.react');
 
-var FluxMeetingStartFlyleaf = require('./FluxMeetingStartFlyleaf.react');
-var FluxMeetingEndFlyleaf = require('./FluxMeetingEndFlyleaf.react');
-
 var FluxAttendeeList = require('./FluxAttendeeList.react');
 var FluxAttendeeForm = require('./FluxAttendeeForm.react');
 
@@ -68,9 +65,6 @@ var FluxMeetingApp = React.createClass({
 	render: function() {
 
 		if(this.state.isMeetingDataLoaded) {
-
-			console.dir(this.state.topics);
-			console.dir(this.state.selectedTopic);
 
 			return (
 				<div className="content">

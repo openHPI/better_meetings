@@ -94,6 +94,9 @@ module.exports = {
     console.log("try to get meeting");
 
     io.socket.get('/meeting/get', function (data, jwres) {
+
+      console.dir(data);
+
       id = data.meeting.id;
       title = data.meeting.title;
       topics = data.meeting.topics;
@@ -148,6 +151,16 @@ module.exports = {
   createAttendee: function (data) {
     io.socket.post('/meeting/createAttendee', data, function (data, jwres) {});
   },
+
+  /**
+   * Sends a POST-request to the server for uploading a document and attaching it to an agendaItem
+   *
+   * @method attachFileToTopic
+   * @param {Object} data The new member
+   */
+   attachFileToTopic: function () {
+     io.socket.post();
+   },
 
   /**
    * Sends a GET-request to the server to end the meeting

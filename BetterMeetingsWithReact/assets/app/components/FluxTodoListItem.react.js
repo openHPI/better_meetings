@@ -14,7 +14,7 @@ var FluxTodoListItem = React.createClass({
 
     // Remove item from list via action
     deleteItem: function(event) {
-        FluxMeetingActions.removeFromList(this.props.item.id);
+        FluxMeetingActions.destroyTodoItem(this.props.item.id);
     },
 
     // Mark an item as done

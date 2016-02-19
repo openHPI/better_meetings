@@ -17,7 +17,7 @@ var FluxTodoListForm = React.createClass({
             return;
         }
         var item = { title: title, description: description, assignee: assignee, done: false };
-        FluxMeetingActions.addToList(item);
+        FluxMeetingActions.createTodoItem(item);
 
         this.setState({ autocomplete: [], assignee: null });
 

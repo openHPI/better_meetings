@@ -15,6 +15,8 @@ var _isMeetingDataLoaded = false, _user = { id: 1, name: "Lando", isAdmin: true 
  * @param {Object} data The meeting data
  */
 function loadMeetingData (data) {
+
+	console.log('loaded Meeting data');
 	_isMeetingDataLoaded = true;
 	_meetingId = data.id;
 	_meetingTitle = data.title;
@@ -143,11 +145,6 @@ var MeetingStore = _.extend({}, EventEmitter.prototype, {
 		return _meetingTimer;
 	},
 
-	// Return index of selected Agenda Item
-	getTopicIndex: function() {
-		return _meetingTopics.indexOf(_selectedTopic);
-	},
-
 	// Emit change event
 	emitChange: function() {
 		this.emit('change');
@@ -223,6 +220,10 @@ AppDispatcher.register(function(payload) {
 		case FluxMeetingConstants.SET_SELECTED:
 			_selectedTopic = action.data;
 			_collapsedTodoItem = -1;
+			break;
+
+		case FluxMeetingConstants.TOPIC.UPLOAD:
+			MeetingDataAPI.attachFileToTopic(action.data);
 			break;
 
 		case FluxMeetingConstants.MEETING_START:
