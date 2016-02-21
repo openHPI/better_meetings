@@ -121,11 +121,19 @@ module.exports = {
 
   getCurrent: function (req, res) {
 
-    if (req.session.me)
+    if (req.session.me) {
+      var user = {
+        id: req.session.me.id,
+        name: req.session.me.name,
+        email: req.session.me.email,
+        isAdmin: req.session.me.isAdmin,
+      };
+
       res.send(
         {
-          'user': req.session.me
+          'user': user
         });
+    }
     else
       res.send(
         {
