@@ -89,25 +89,16 @@ module.exports = {
    * @method getMeetingData
    */
   getMeetingData: function () {
-    var id, title, topics, attendees, timer;
 
     io.socket.get('/meeting/get', function (data, jwres) {
-
-      id = data.meeting.id;
-      title = data.meeting.title;
-      topics = data.meeting.topics;
-      attendees = data.meeting.attendees;
-      timer = data.meeting.timer;
-
-      FluxServerActions.receiveMeetingData({id: id, title: title, topics: topics, attendees: attendees, timer: timer});
+      FluxServerActions.receiveMeetingData(data.meeting);
     });
 
   },
 
   getUser: function() {
     io.socket.get('/person/current', function (data, jwres) {
-      console.dir(data);
-      FluxServerActions.receiveUser({data});
+      FluxServerActions.receiveUser(data.user);
     });
   },
 
@@ -140,6 +131,7 @@ module.exports = {
    * @param {Integer} id The id of the todo item
    */
   destroyTodoItem: function (id) {
+    console.log('delete: ' + id);
     io.socket.post('/todoitem/delete', id, function (data, jwres) {});
   },
 

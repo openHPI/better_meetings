@@ -200,5 +200,10 @@ module.exports = {
         });
       });
     }
+    else
+    {
+      res.send('todoitem');
+      console.log('ToDoItem not created: too few parameters');
+    }
   },
 };

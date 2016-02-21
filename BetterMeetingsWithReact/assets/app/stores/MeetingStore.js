@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _isMeetingDataLoaded = false, _user = null, _meetingId = null, _meetingTitle = null, _meetingTopics = [], _selectedTopic = null, _allTodoItems = [], _editingTodoItem = null, _meetingAttendees = [], _meetingTimer = null;
+var _isMeetingDataLoaded = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null;
 
 /**
  * Initializing the agenda store variables
@@ -14,15 +14,12 @@ var _isMeetingDataLoaded = false, _user = null, _meetingId = null, _meetingTitle
  * @method loadMeetingData
  * @param {Object} data The meeting data
  */
-function loadMeetingData (data) {
+function loadMeetingData (meeting) {
 	_isMeetingDataLoaded = true;
-	_meetingId = data.id;
-	_meetingTitle = data.title;
-	_meetingTopics = data.topics;
+	_meeting = meeting;
 	_selectedTopic = 0;
 	_allTodoItems = getAllTodoItems();
-	_meetingAttendees = data.attendees;
-	_meetingTimer = data.timer;
+	_canEdit = isUserAdmin();
 }
 
 /**
@@ -31,8 +28,8 @@ function loadMeetingData (data) {
  * @method loadUserData
  * @param {Object} data The user data
  */
-function loadUserData (data) {
-	_user = data;
+function loadUserData (user) {
+	_user = user;
 }
 
 /**
@@ -43,11 +40,19 @@ function loadUserData (data) {
  */
 function getAllTodoItems () {
 	var allTodoItems = [];
-	for (var i = 0; i < _meetingTopics.length; i++) {
-		allTodoItems = allTodoItems.concat(_meetingTopics[i].todos);
+	for (var i = 0; i < _meeting.topics.length; i++) {
+		allTodoItems = allTodoItems.concat(_meeting.topics[i].todos);
 	}
 
 	return allTodoItems;
+}
+
+function isUserAdmin () {
+	for (var i = 0; i < _meeting.admins.length; i++) {
+		if(_user.id === _meeting.admins[i].id)
+			return true;
+	}
+	return false;
 }
 
 /**
@@ -61,10 +66,10 @@ function updateTodoItem (item, previousItem) {
 
 	var index;
 
-	for (var i = 0; i < _meetingTopics.length; i++) {
-		if( _meetingTopics[i].id === previousItem.owner ){
-			index = _meetingTopics[i].todos.indexOf(previousItem);
-			_meetingTopics[i].todos[index] = item;
+	for (var i = 0; i < _meeting.topics.length; i++) {
+		if( _meeting.topics[i].id === previousItem.owner ){
+			index = _meeting.topics[i].todos.indexOf(previousItem);
+			_meeting.topics[i].todos[index] = item;
 			break;
 		}
 	}
@@ -82,10 +87,10 @@ function updateTodoItem (item, previousItem) {
 function removeTodoItem (item) {
 	var index;
 
-	for (var i = 0; i < _meetingTopics.length; i++) {
-		if( _meetingTopics[i].id === previousItem.owner ){
-			index = _meetingTopics[i].todos.indexOf(previousItem);
-			_meetingTopics[i].todos.splice(index, 1);
+	for (var i = 0; i < _meeting.topics.length; i++) {
+		if( _meeting.topics[i].id === previousItem.owner ){
+			index = _meeting.topics[i].todos.indexOf(previousItem);
+			_meeting.topics[i].todos.splice(index, 1);
 			break;
 		}
 	}
@@ -101,21 +106,20 @@ function removeTodoItem (item) {
  */
 var MeetingStore = _.extend({}, EventEmitter.prototype, {
 
-	getIsMeetingDataLoaded: function() {
-		return _isMeetingDataLoaded;
-	},
-
 	getUser: function() {
 		return _user;
 	},
 
-	getTitle: function() {
-		return _meetingTitle;
+	canEdit: function() {
+		return _canEdit;
 	},
 
-	// Return agenda
-	getTopics: function() {
-		return _meetingTopics;
+	getIsMeetingDataLoaded: function() {
+		return _isMeetingDataLoaded;
+	},
+
+	getMeetingData: function() {
+		return _meeting;
 	},
 
 	// Return selected agenda item
@@ -130,16 +134,6 @@ var MeetingStore = _.extend({}, EventEmitter.prototype, {
 
 	getEditingTodoItem: function() {
 		return _editingTodoItem;
-	},
-
-	// Return attendees
-	getAttendees: function() {
-		return _meetingAttendees;
-	},
-
-	// Return timer
-	getTimer: function() {
-		return _meetingTimer;
 	},
 
 	// Emit change event
@@ -177,7 +171,8 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_ADD:
-			_selectedTopic.todos.unshift(action.data);
+			_meeting.topics[_selectedTopic].todos.unshift(action.data);
+			_allTodoItems.unshift(action.data);
 			break;
 
 		case FluxServerConstants.TODO_SERVER_UPDATE:
@@ -189,13 +184,13 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.ATTENDEE_ADD:
-			_meetingAttendees.push(action.data);
+			_meeting.attendees.push(action.data);
 			break;
 
 		// Respond to client actions
 
 		case FluxMeetingConstants.TODO_CREATE:
-			action.data.owner = _meetingTopics[_selectedTopic].id;
+			action.data.owner = _meeting.topics[_selectedTopic].id;
 			action.data.author = _user.id;
 			MeetingDataAPI.createTodoItem(action.data);
 			break;
