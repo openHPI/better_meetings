@@ -119,6 +119,19 @@ module.exports = {
     });
   },
 
+  getCurrent: function (req, res) {
+
+    if (req.session.me)
+      res.send(
+        {
+          'user': req.session.me
+        });
+    else
+      res.send(
+        {
+          'user': null
+        });
+  },
 
   viewAll: function (req, res) {
 
