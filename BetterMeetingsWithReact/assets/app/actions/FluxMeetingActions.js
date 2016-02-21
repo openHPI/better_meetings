@@ -19,7 +19,7 @@ var FluxAgendaActions = {
 	 */
 	selectTopic: function(index) {
 		AppDispatcher.handleAction({
-			actionType: FluxMeetingConstants.SET_SELECTED,
+			actionType: FluxMeetingConstants.TOPIC_SELECT,
 			data: index
 		})
 	},
@@ -33,6 +33,32 @@ var FluxAgendaActions = {
 	createTodoItem: function(item) {
 		AppDispatcher.handleAction({	
 			actionType: FluxMeetingConstants.TODO_CREATE,
+			data: item
+		})
+	},
+
+	/**
+	 * Edit a todo item
+	 * 
+	 * @method editTodoItem
+	 * @param {Object} item The todo item
+	 */
+	editTodoItem: function(item) {
+		AppDispatcher.handleAction({
+			actionType: FluxMeetingConstants.TODO_EDIT,
+			data: item
+		})
+	},
+
+	/**
+	 * Updates a todo item
+	 * 
+	 * @method updateTodoItem
+	 * @param {Object} item The todo item 
+	 */
+	updateTodoItem: function(item) {
+		AppDispatcher.handleAction({
+			actionType: FluxMeetingConstants.TODO_USER_UPDATE,
 			data: item
 		})
 	},

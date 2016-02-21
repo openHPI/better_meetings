@@ -24,6 +24,7 @@ var FluxMeetingApp = require('./components/FluxMeetingApp.react');
 ===============================================================*/
 
 MeetingDataAPI.subscribeAndListen();
+MeetingDataAPI.getUser();
 MeetingDataAPI.getMeetingData();
 
 React.render(

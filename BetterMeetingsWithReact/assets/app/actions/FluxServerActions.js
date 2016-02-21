@@ -24,6 +24,13 @@ var FluxServerActions = {
 		})
 	},
 
+	receiveUser: function(user) {
+		AppDispatcher.handleAction({
+			actionType: FluxServerConstants.USER_RECEIVE,
+			data: user
+		})
+	},
+
 	// Start the Meeting
 	startMeeting: function() {
 		AppDispatcher.handleAction({
@@ -53,7 +60,7 @@ var FluxServerActions = {
 	 */
 	updateTodoItem: function(item, previousItem) {
 		AppDispatcher.handleAction({
-			actionType: FluxServerConstants.TODO_UPDATE,
+			actionType: FluxServerConstants.TODO_SERVER_UPDATE,
 			data: { item: item, previousItem: previousItem }
 		})
 	},
