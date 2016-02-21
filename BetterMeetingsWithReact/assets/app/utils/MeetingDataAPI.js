@@ -39,17 +39,17 @@ module.exports = {
         switch (msg.verb) {
 
           case 'created':
-            FluxServerActions.createTask(msg.data);
+            FluxServerActions.addTodoItem(msg.data);
             break;
 
           case 'updated':
             console.log('Updated TodoItem: ' + msg.data);
-            FluxServerActions.updateTask(msg.data, msg.previous);
+            FluxServerActions.updateTodoItem(msg.data, msg.previous);
             break;
 
           case 'destroyed':
             console.log('Delete Todoitem: ' + msg.previous);
-            FluxServerActions.destroyTask(msg.previous);
+            FluxServerActions.removeTodoItem(msg.previous);
             break;
 
           default:
@@ -91,11 +91,7 @@ module.exports = {
   getMeetingData: function () {
     var id, title, topics, attendees, timer;
 
-    console.log("try to get meeting");
-
     io.socket.get('/meeting/get', function (data, jwres) {
-
-      console.dir(data);
 
       id = data.meeting.id;
       title = data.meeting.title;
@@ -106,6 +102,13 @@ module.exports = {
       FluxServerActions.receiveMeetingData({id: id, title: title, topics: topics, attendees: attendees, timer: timer});
     });
 
+  },
+
+  getUser: function() {
+    io.socket.get('/person/current', function (data, jwres) {
+      console.dir(data);
+      FluxServerActions.receiveUser({data});
+    });
   },
 
   // Todoitem

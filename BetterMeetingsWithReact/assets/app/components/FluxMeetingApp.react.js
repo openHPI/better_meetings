@@ -11,21 +11,22 @@ var FluxMeetingTimer = require('./FluxMeetingTimer.react');
 var FluxMeetingProgress = require('./FluxMeetingProgress.react');
 
 var FluxTodoList = require('./FluxTodoList.react');
+var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
+var FluxTodoItemUpdateForm = require('./FluxTodoItemUpdateForm.react');
 
 function getMeetingState () {
 	return {
 		isMeetingDataLoaded: MeetingStore.getIsMeetingDataLoaded(),
 
 		user: MeetingStore.getUser(),
-		canEdit: MeetingStore.getUser().isAdmin,
 
 		title: MeetingStore.getTitle(),
 		timer: MeetingStore.getTimer(),
 		topics: MeetingStore.getTopics(),
 		selectedTopic: MeetingStore.getSelectedTopic(),
 		allTodoItems: MeetingStore.getAllTodoItems(),
-		collapesedTodoItem: MeetingStore.getCollapsedTodoItem(),
-		attendees: MeetingStore.getAttendees()
+		attendees: MeetingStore.getAttendees(),
+		editingTodoItem: MeetingStore.getEditingTodoItem()
 	};
 }
 
@@ -77,7 +78,7 @@ var FluxMeetingApp = React.createClass({
 			                  <h2>{this.state.title}</h2>
 			                </div>
 							<div className="col-md-3 col-lg-3">
-								<FluxMeetingTimer hasStarted={true} timer={this.state.timer} />
+								<FluxMeetingTimer timer={this.state.timer} />
 							</div>
 						</div>
 					</div>
@@ -96,7 +97,7 @@ var FluxMeetingApp = React.createClass({
 		                  <div className="row">
 		                    <div className="col-md-12 col-lg-12">
 		                      <div className="flux-todolist">
-		                        <FluxTodoList allItems={this.state.allTodoItems} items={this.state.topics[this.state.selectedTopic].todos} collapsed={this.state.collapesedTodoItem} attendees={this.state.attendees} canEdit={this.state.canEdit} />
+		                        <FluxTodoList allItems={this.state.allTodoItems} items={this.state.topics[this.state.selectedTopic].todos} attendees={this.state.attendees} canEdit={this.state.user.isAdmin} />
 		                      </div>
 		                    </div>
 		                  </div>
@@ -106,6 +107,8 @@ var FluxMeetingApp = React.createClass({
 
 	    			<FluxAttendeeList attendees={this.state.attendees} canEdit={this.state.canEdit} />
 					<FluxAttendeeForm />
+					<FluxTodoItemCreateForm attendees={this.state.attendees} />
+					<FluxTodoItemUpdateForm attendees={this.state.attendees} item={this.state.editingTodoItem} canEdit={ this.state.user.isAdmin } />
 				</div>
 			);
 		}

@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _isMeetingDataLoaded = false, _user = { id: 1, name: "Lando", isAdmin: true }, _meetingId = null, _meetingTitle = null, _meetingTopics = [], _selectedTopic = null, _allTodoItems = [], _collapsedTodoItem = -1, _meetingAttendees = [], _meetingTimer = null;
+var _isMeetingDataLoaded = false, _user = null, _meetingId = null, _meetingTitle = null, _meetingTopics = [], _selectedTopic = null, _allTodoItems = [], _editingTodoItem = null, _meetingAttendees = [], _meetingTimer = null;
 
 /**
  * Initializing the agenda store variables
@@ -15,8 +15,6 @@ var _isMeetingDataLoaded = false, _user = { id: 1, name: "Lando", isAdmin: true 
  * @param {Object} data The meeting data
  */
 function loadMeetingData (data) {
-
-	console.log('loaded Meeting data');
 	_isMeetingDataLoaded = true;
 	_meetingId = data.id;
 	_meetingTitle = data.title;
@@ -130,9 +128,8 @@ var MeetingStore = _.extend({}, EventEmitter.prototype, {
 		return _allTodoItems;
 	},
 
-	// Return collapsed index of todoitem
-	getCollapsedTodoItem: function() {
-		return _collapsedTodoItem;
+	getEditingTodoItem: function() {
+		return _editingTodoItem;
 	},
 
 	// Return attendees
@@ -175,11 +172,15 @@ AppDispatcher.register(function(payload) {
 			loadMeetingData(action.data);
 			break;
 
+		case FluxServerConstants.USER_RECEIVE:
+			loadUserData(action.data);
+			break;
+
 		case FluxServerConstants.TODO_ADD:
 			_selectedTopic.todos.unshift(action.data);
 			break;
 
-		case FluxServerConstants.TODO_UPDATE:
+		case FluxServerConstants.TODO_SERVER_UPDATE:
 			updateTodoItem(action.data.item, action.data.previousItem);
 			break;
 
@@ -194,12 +195,21 @@ AppDispatcher.register(function(payload) {
 		// Respond to client actions
 
 		case FluxMeetingConstants.TODO_CREATE:
-			action.data.owner = _selectedTopic.id;
+			action.data.owner = _meetingTopics[_selectedTopic].id;
 			action.data.author = _user.id;
 			MeetingDataAPI.createTodoItem(action.data);
 			break;
 
-		case FluxMeetingConstants.TODO_REMOVE:
+		case FluxMeetingConstants.TODO_EDIT:
+			_editingTodoItem = action.data;
+			jQuery('#updateTodoItemModal').modal();
+			break;
+
+		case FluxMeetingConstants.TODO_USER_UPDATE:
+			MeetingDataAPI.updateTodoItem(action.data);
+			break;
+
+		case FluxMeetingConstants.TODO_DESTROY:
 			MeetingDataAPI.destroyTodoItem(action.data);
 			break;
 
@@ -208,18 +218,13 @@ AppDispatcher.register(function(payload) {
 			MeetingDataAPI.updateTodoItem(action.data);
 			break;
 
-		case FluxMeetingConstants.TODO_COLLAPSE:
-			_collapsedTodoItem = (action.data);
-			break;
-
-		case FluxMeetingConstants.ATTENDEE_ADD:
+		case FluxMeetingConstants.ATTENDEE_CREATE:
 			action.data.id = _meetingId;
 			MeetingDataAPI.createAttendee(action.data);
 			break;
 
-		case FluxMeetingConstants.SET_SELECTED:
+		case FluxMeetingConstants.TOPIC_SELECT:
 			_selectedTopic = action.data;
-			_collapsedTodoItem = -1;
 			break;
 
 		case FluxMeetingConstants.TOPIC.UPLOAD:
@@ -227,11 +232,9 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxMeetingConstants.MEETING_START:
-			_meetingStatus = 1;
 			break;
 
 		case FluxMeetingConstants.MEETING_END:
-			_meetingStatus = 2;
 			break;
 
 		default:

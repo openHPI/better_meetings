@@ -15,14 +15,14 @@ var FluxTopicList = React.createClass({
 	 selectPrevious: function() {
         var index = this.props.selected - 1;
         var index = (0 > index) ? (this.props.items.length-1) : index;
-        FluxMeetingActions.selectAgendaItem(index);
+        FluxMeetingActions.selectTopic(index);
     },
 
     // Select next agenda item
     selectNext: function() {
         var index = this.props.selected + 1;
         if(index < this.props.items.length)
-            FluxMeetingActions.selectAgendaItem(index);
+            FluxMeetingActions.selectTopic(index);
         else
             FluxMeetingActions.endMeeting();
     },
@@ -38,11 +38,11 @@ var FluxTopicList = React.createClass({
 				<div className="panel-heading">
 					<div className="panel-control">
 						<ul className="pager">
-							<li><a href="#" onClick={this.selectPrevious}><i className="fa fa-angle-double-left"></i></a></li>
-							<li><a href="#" onClick={this.selectNext}><i className="fa fa-angle-double-right"></i></a></li>
+							<li><a onClick={this.selectPrevious}><i className="fa fa-angle-double-left"></i></a></li>
+							<li><a onClick={this.selectNext}><i className="fa fa-angle-double-right"></i></a></li>
 						</ul>
 					</div>
-					<h3 className="panel-title"><span class="badge">{count}</span> Themen</h3>
+					<h3 className="panel-title"><span className="badge">{count}</span> Themen</h3>
 				</div>
 				<div className="flux-agenda-list panel-body">
 					<ul>

@@ -1,6 +1,5 @@
 var React = require('react');
 var FluxTodoListItem = require('./FluxTodoListItem.react');
-var FluxTodoListForm = require('./FluxTodoListForm.react');
 
 // Flux todolist view
 var FluxTodoList = React.createClass({
@@ -21,6 +20,7 @@ var FluxTodoList = React.createClass({
 
     render: function() {
         var attendees = this.props.attendees;
+        var canEdit = this.props.canEdit;
 
         return(
                     <div className="panel panel-secondary panel-colorful">
@@ -43,7 +43,7 @@ var FluxTodoList = React.createClass({
                                  </div>
                                  <div className="input-group pad-all">
                                      <span className="input-group-btn">
-                                         <button type="button" className="btn btn-info" data-toggle="modal" data-target="#newListElementModal"><i className="fa fa-plus"></i></button>
+                                         <button type="button" className="btn btn-info" data-toggle="modal" data-target="#createTodoItemModal"><i className="fa fa-plus"></i></button>
                                      </span>
                                  </div>
                               </div>
@@ -56,7 +56,6 @@ var FluxTodoList = React.createClass({
                               </div>
                            </div>
                         </div>
-                        <FluxTodoListForm attendees={attendees} />
                     </div>
 
         );
