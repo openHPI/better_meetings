@@ -14,7 +14,6 @@ module.exports = {
     var admins = req.param('admins') || [req.session.me];
     var title = req.param('title');
     var timer = 900;
-    var lastModified = new Date().getTime();
 
     if (admins && title) {
       UrlService.generate_unique_url(function generateUrl(url) {
@@ -23,7 +22,6 @@ module.exports = {
           title: title,
           timer: timer,
           url: url,
-          lastModified: lastModified
         }).exec(function createMeetingSeries(err, created) {
           if (err) {
             console.log('[bm-error] meetingseries not created: ' + err);
@@ -34,8 +32,7 @@ module.exports = {
               admins: created.admins,
               title: created.title,
               timer: created.timer,
-              url: created.url,
-              lastModified: created.lastModified
+              url: created.url
             });
           }
           if (!req.isSocket) {
@@ -82,8 +79,7 @@ module.exports = {
           timer: timer,
           members: members,
           description: description,
-          topics: topics,
-          lastModified: new Date().getTime()
+          topics: topics
         }).exec(function updateMeetingSeries(err, updated) {
         if (err) {
           sails.log('MeetingSeries not updated ' + err);
@@ -104,8 +100,7 @@ module.exports = {
               timer: updated.timer,
               members: updated.members,
               description: updated.description,
-              topics: updated.topics,
-              lastModified: updated.lastModified
+              topics: updated.topics
             });
         }
       });
