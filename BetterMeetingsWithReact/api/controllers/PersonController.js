@@ -310,7 +310,15 @@ module.exports = {
               person.findOne({email: cre.email}).populateAll().exec(function foundPerson(err, person) {
                 console.log('login guest successfully');
 
-                req.session.me = person;
+                req.session.me = {
+                  id: person.id,
+                  name: person.name,
+                  email: person.email,
+                  isAdmin: person.isAdmin,
+                  todos: person.todos,
+                  createdMeetings: person.createdMeetings,
+                  assignedMeetings: person.assignedMeetings,
+                };
 
                 if (req.wantsJSON || !successRedirect) {
                   return res.ok();
@@ -353,7 +361,15 @@ module.exports = {
           return res.redirect('/login/admin/' + email);
         }
         else {
-          req.session.me = person;
+          req.session.me = {
+            id: person.id,
+            name: person.name,
+            email: person.email,
+            isAdmin: person.isAdmin,
+            todos: person.todos,
+            createdMeetings: person.createdMeetings,
+            assignedMeetings: person.assignedMeetings,
+          };
 
           return res.redirect(successRedirect);
         }
@@ -380,7 +396,15 @@ module.exports = {
           return res.redirect('/login/admin/' + email);
         }
 
-        req.session.me = person;
+        req.session.me = {
+          id: person.id,
+          name: person.name,
+          email: person.email,
+          isAdmin: person.isAdmin,
+          todos: person.todos,
+          createdMeetings: person.createdMeetings,
+          assignedMeetings: person.assignedMeetings,
+        };
 
         return res.redirect(successRedirect);
       });
