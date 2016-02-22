@@ -211,9 +211,12 @@ module.exports = {
             sails.log.error("ERR:", err);
           }
 
+          var qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
+
           res.send(
             {
-              'meeting': meeting
+              'meeting': meeting,
+              'qrcode': qrcode
             });
         });
     });
