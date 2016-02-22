@@ -152,8 +152,7 @@ module.exports = {
                     admins: admins,
                     members: members,
                     url: url,
-                    timer: timer,
-                    lastModified: new Date().getTime(),
+                    timer: timer
                   }).exec(function createMeetingSeries(err, series) {
                     if (err) {
                       sails.log('MeetingSeries not created' + err);
