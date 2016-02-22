@@ -11,7 +11,7 @@
       <div class="panel-body">
         <% _.each(meetingseriesList, function (meetingseries) { %>
         <div class="row">
-          <p class="pull-right">Stand: <%= new Date(meetingseries.lastModified).toLocaleString() %></p>
+          <p class="pull-right">Stand: <%= new Date(meetingseries.updatedAt).toLocaleString() %></p>
         </div>
         <div class="row">
           <div class="col-xs-8 col-lg-8">

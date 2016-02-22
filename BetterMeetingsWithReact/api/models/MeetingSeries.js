@@ -44,10 +44,6 @@ module.exports = {
       type: 'integer',
       required: true
     },
-    lastModified: {
-      type: 'integer',
-      required: true
-    },
   }
 };
 

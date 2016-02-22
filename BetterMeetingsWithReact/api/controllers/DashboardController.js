@@ -48,9 +48,9 @@ module.exports = {
           meetingseriesList = person.createdMeetings;
 
           meetingseriesList.sort(function compare(a, b) {
-            if (a.lastModified < b.lastModified)
+            if (a.updatedAt < b.updatedAt)
               return 1;
-            else if (a.lastModified > b.lastModified)
+            else if (a.updatedAt > b.updatedAt)
               return -1;
             else
               return 0;
