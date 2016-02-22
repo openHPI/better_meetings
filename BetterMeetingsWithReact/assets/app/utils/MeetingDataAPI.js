@@ -53,6 +53,7 @@ module.exports = {
             break;
 
           default:
+            console.warn('Unrecognized socket event (`%s`) from server:',event.verb, event);
             return;
         }
 
@@ -71,6 +72,7 @@ module.exports = {
             break;
 
           default:
+            console.warn('Unrecognized socket event (`%s`) from server:',event.verb, event);
             return;
         }
       });
@@ -130,9 +132,8 @@ module.exports = {
    * @method deleteTask
    * @param {Integer} id The id of the todo item
    */
-  destroyTodoItem: function (id) {
-    console.log('delete: ' + id);
-    io.socket.post('/todoitem/delete', id, function (data, jwres) {});
+  destroyTodoItem: function (data) {
+    io.socket.post('/todoitem/delete', data, function (data, jwres) {});
   },
 
   // Member

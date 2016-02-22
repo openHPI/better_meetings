@@ -166,24 +166,16 @@ module.exports = {
   delete: function (req, res)
   {
     var id = req.param("id", null);
-    if (id && req.isSocket)
-    {
-      todoitem.findOne(id).exec(function findMeetingSeries(err,
-        todoitemAnswer)
-      {
-        todoitem.destroy(
-        {
-          id: todoitemAnswer.id
-        }).exec(function destroy(err)
-        {
-          if (err)
-          {
+    if (id && req.isSocket) {
+      todoitem.findOne(id).exec(function findMeetingSeries(err, todoitemAnswer) {
+        todoitem.destroy({ id: todoitemAnswer.id }).exec(function (err, todoitemAnswer) {
+          if (err) {
             sails.log('Error while deleting meetingseries');
             res.send("Error");
           }
-          else
-          {
+          else {
             sails.log("Successfully deleted " + id);
+
             todoitem.publishDestroy(todoitemAnswer[0].id, undefined,
             {
               previous:

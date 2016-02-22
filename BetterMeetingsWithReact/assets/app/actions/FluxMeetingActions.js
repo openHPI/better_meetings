@@ -69,10 +69,10 @@ var FluxAgendaActions = {
 	 * @method destroyTodoItem
 	 * @param {Integer} id The id of the 
 	 */
-	destroyTodoItem: function(id) {
+	destroyTodoItem: function(item) {
 		AppDispatcher.handleAction({
 			actionType: FluxMeetingConstants.TODO_DESTROY,
-			data: id
+			data: item
 		})
 	},
 

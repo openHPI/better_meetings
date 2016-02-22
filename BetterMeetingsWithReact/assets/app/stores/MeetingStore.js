@@ -87,15 +87,17 @@ function updateTodoItem (item, previousItem) {
 function removeTodoItem (item) {
 	var index;
 
+	console.dir(item);
+
 	for (var i = 0; i < _meeting.topics.length; i++) {
-		if( _meeting.topics[i].id === previousItem.owner ){
-			index = _meeting.topics[i].todos.indexOf(previousItem);
+		if( _meeting.topics[i].id === item.owner ){
+			index = _meeting.topics[i].todos.indexOf(item);
 			_meeting.topics[i].todos.splice(index, 1);
 			break;
 		}
 	}
 
-	index = allTodoItems.indexOf(previousItem);
+	index = _allTodoItems.indexOf(item);
 	_allTodoItems.splice(index, 1);
 }
 
