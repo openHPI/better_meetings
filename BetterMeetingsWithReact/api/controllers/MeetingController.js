@@ -8,7 +8,6 @@
 
 module.exports = {
 
-
   createFromSeries: function (meetingseries) {
     var attendees = [];
     for (var i = 0; i < meetingseries.admins.length; i++) {
@@ -29,27 +28,28 @@ module.exports = {
         timer: meetingseries.timer,
         url: meetingseries.url,
         series: meetingseries
-      }).exec(function createMeeting(err, created) {
-      if (err) {
-        console.log('Meeting not created' + err);
-      }
-      else {
-        console.log('Created Meeting ' + JSON.stringify(created));
-        meeting.publishCreate(
-          {
-            id: created.id,
-            topics: created.topics,
-            title: created.topics,
-            description: created.topics,
-            admins: created.admins,
-            attendees: created.attendees,
-            isInitialCreation: created.isInitialCreation,
-            timer: created.timer,
-            url: created.url,
-            series: created.series
-          });
-      }
-    });
+      })
+      .exec(function createMeeting(err, created) {
+        if (err) {
+          console.log('Meeting not created' + err);
+        }
+        else {
+          console.log('Created Meeting ' + JSON.stringify(created));
+          meeting.publishCreate(
+            {
+              id: created.id,
+              topics: created.topics,
+              title: created.topics,
+              description: created.topics,
+              admins: created.admins,
+              attendees: created.attendees,
+              isInitialCreation: created.isInitialCreation,
+              timer: created.timer,
+              url: created.url,
+              series: created.series
+            });
+        }
+      });
   },
 
 
@@ -69,22 +69,23 @@ module.exports = {
             attendees: attendees,
             isInitialCreation: isInitialCreation,
             startTime: startTime,
-          }).exec(function createMeeting(err, created) {
-          if (err) {
-            console.log('Meeting not created' + err);
-          }
-          else {
-            console.log('Created Meeting');
-            meeting.publishCreate(
-              {
-                id: created.id,
-                topics: created.topics,
-                attendees: created.attendees,
-                isInitialCreation: created.isInitialCreation,
-                startTime: created.startTime,
-              });
-          }
-        });
+          })
+          .exec(function createMeeting(err, created) {
+            if (err) {
+              console.log('Meeting not created' + err);
+            }
+            else {
+              console.log('Created Meeting');
+              meeting.publishCreate(
+                {
+                  id: created.id,
+                  topics: created.topics,
+                  attendees: created.attendees,
+                  isInitialCreation: created.isInitialCreation,
+                  startTime: created.startTime,
+                });
+            }
+          });
       }
     }
     else if (req.isSocket) {
@@ -99,26 +100,26 @@ module.exports = {
 
 
   delete: function (req, res) {
-    var meetingID = req.param("meetingID", null);
+    var meetingID = req.param('meetingID', null);
     if (meetingID && req.isSocket) {
-      Meeting.findOne(meetingID).exec(function findMeeting(err,
-                                                           meetingAnswer) {
+      Meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
         meeting.destroy(
           {
             id: meetingAnswer.id
-          }).exec(function destroy(err) {
-          if (err) {
-            sails.log('Error while deleting meeting');
-            res.send("Error");
-          }
-          else {
-            sails.log("Successfully deleted " + meetingID);
-            meeting.publishDestroy(
-              {
-                id: meetingAnswer.id
-              });
-          }
-        });
+          })
+          .exec(function destroy(err) {
+            if (err) {
+              sails.log('Error while deleting meeting');
+              res.send('Error');
+            }
+            else {
+              sails.log('Successfully deleted ' + meetingID);
+              meeting.publishDestroy(
+                {
+                  id: meetingAnswer.id
+                });
+            }
+          });
       });
     }
   },
@@ -143,26 +144,27 @@ module.exports = {
           attendees: attendees,
           isInitialCreation: isInitialCreation,
           startTime: startTime,
-        }).exec(function updateMeeting(err, updated) {
-        if (err) {
-          sails.log('Meeting not updated ' + err);
-          //res.redirect('/meeting/edit');
-        }
-        else if (!updated) {
-          sails.log('Update error for Meeting ' + err);
-          //res.redirect('/meeting/edit');
-        }
-        else {
-          sails.log('Updated Meeting: ' + updated.topics);
-          meeting.publishUpdate(id,
-            {
-              topics: updated.topics,
-              attendees: updated.attendees,
-              isInitialCreation: updated.isInitialCreation,
-              startTime: updated.startTime,
-            });
-        }
-      });
+        })
+        .exec(function updateMeeting(err, updated) {
+          if (err) {
+            sails.log('Meeting not updated ' + err);
+            //res.redirect('/meeting/edit');
+          }
+          else if (!updated) {
+            sails.log('Update error for Meeting ' + err);
+            //res.redirect('/meeting/edit');
+          }
+          else {
+            sails.log('Updated Meeting: ' + updated.topics);
+            meeting.publishUpdate(id,
+              {
+                topics: updated.topics,
+                attendees: updated.attendees,
+                isInitialCreation: updated.isInitialCreation,
+                startTime: updated.startTime,
+              });
+          }
+        });
     }
     else {
       res.send('meeting');
@@ -195,31 +197,33 @@ module.exports = {
     meeting.findOne(
       {
         url: url
-      }).populateAll().exec(function findMeeting(err, cre) {
-      if (err) {
-        sails.log.error("ERR:", err);
-      }
+      })
+      .populateAll()
+      .exec(function findMeeting(err, cre) {
+        if (err) {
+          sails.log.error('ERR:', err);
+        }
 
-      if (!cre) {
-        console.log("no meeting with url " + url + " found :(");
-        return;
-      }
+        if (!cre) {
+          console.log('no meeting with url ' + url + ' found :(');
+          return;
+        }
 
-      DeepPopulateService.populateDeep('meeting', cre, 'topics.todos',
-        function (err, meeting) {
-          if (err) {
-            sails.log.error("ERR:", err);
-          }
+        DeepPopulateService.populateDeep('meeting', cre, 'topics.todos',
+          function (err, meeting) {
+            if (err) {
+              sails.log.error('ERR:', err);
+            }
 
-          var qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
+            var qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
 
-          res.send(
-            {
-              'meeting': meeting,
-              'qrcode': qrcode
-            });
-        });
-    });
+            res.send(
+              {
+                'meeting': meeting,
+                'qrcode': qrcode
+              });
+          });
+      });
   },
 
 
@@ -268,7 +272,6 @@ module.exports = {
         });
     }
   },
-
 
   end: function (req, res) {
     // send summary email to everyone who provided at least email, attendees and members

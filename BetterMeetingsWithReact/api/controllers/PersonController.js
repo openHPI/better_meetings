@@ -25,79 +25,83 @@ module.exports = {
           name: name,
           password: password,
           email: email,
-        }).exec(function createPerson(err, created) {
-        if (err) {
-          console.log('Person not created' + err);
-        }
-        else {
-          console.log('Created Person: ' + created.name);
-          person.publishCreate(
-            {
-              id: created.id,
-              name: created.name,
-              password: created.password,
-              email: created.email
-            });
+        })
+        .exec(function createPerson(err, created) {
+          if (err) {
+            console.log('Person not created' + err);
+          }
+          else {
+            console.log('Created Person: ' + created.name);
+            person.publishCreate(
+              {
+                id: created.id,
+                name: created.name,
+                password: created.password,
+                email: created.email
+              });
 
-        }
-      })
+          }
+        })
     }
     else if (name && email) {
       person.create(
         {
           name: name,
           email: email,
-        }).exec(function createPerson(err, created) {
-        if (err) {
-          console.log('Person not created' + err);
-        }
-        else {
-          console.log('Created Person: ' + created.name);
-          person.publishCreate(
-            {
-              id: created.id,
-              name: created.name,
-              email: created.email,
-            });
-        }
-      });
+        })
+        .exec(function createPerson(err, created) {
+          if (err) {
+            console.log('Person not created' + err);
+          }
+          else {
+            console.log('Created Person: ' + created.name);
+            person.publishCreate(
+              {
+                id: created.id,
+                name: created.name,
+                email: created.email,
+              });
+          }
+        });
     }
     else if (email) {
       person.create(
         {
           email: email,
-        }).exec(function createPerson(err, created) {
-        if (err) {
-          console.log('Person not created' + err);
-        }
-        else {
-          console.log('Created Person: ' + created.name);
-          person.publishCreate(
-            {
-              id: created.id,
-              email: created.email,
-            });
-        }
-      });
+        })
+        .exec(function createPerson(err, created) {
+          if (err) {
+            console.log('Person not created' + err);
+          }
+          else {
+            console.log('Created Person: ' + created.name);
+            person.publishCreate(
+              {
+                id: created.id,
+                email: created.email,
+              });
+          }
+        });
     }
     else if (name) {
       person.create(
         {
           name: name,
-        }).exec(function createGuestPerson(err, created) {
-        if (err) {
-          console.log('Guest-Person not created' + err);
-        }
-        else {
-          console.log('Created Guest-Person: ' + created.name);
-          person.publishCreate(
-            {
-              id: created.id,
-              name: created.name,
-            });
+        })
+        .exec(function createGuestPerson(err, created) {
+          if (err) {
+            console.log('Guest-Person not created' + err);
+          }
+          else {
+            console.log('Created Guest-Person: ' + created.name);
+            person.publishCreate(
+              {
+                id: created.id,
+                name: created.name,
+              });
 
-        }
-      });
+          }
+        });
     }
     else {
       res.send('person');
@@ -156,25 +160,26 @@ module.exports = {
 
 
   delete: function (req, res) {
-    var meetingSeriesID = req.param("meetingSeriesID", null);
+    var meetingSeriesID = req.param('meetingSeriesID', null);
     if (meetingSeriesID && req.isSocket) {
       MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
         meetingseries.destroy(
           {
             id: meetingSeriesAnswer.id
-          }).exec(function destroy(err) {
-          if (err) {
-            sails.log('Error while deleting meetingseries');
-            res.send("Error");
-          }
-          else {
-            sails.log("Successfully deleted " + meetingseriesID);
-            meetingseries.publishDestroy(
-              {
-                id: meetingSeriesAnswer.id
-              });
-          }
-        });
+          })
+          .exec(function destroy(err) {
+            if (err) {
+              sails.log('Error while deleting meetingseries');
+              res.send('Error');
+            }
+            else {
+              sails.log('Successfully deleted ' + meetingseriesID);
+              meetingseries.publishDestroy(
+                {
+                  id: meetingSeriesAnswer.id
+                });
+            }
+          });
       });
     }
   },
@@ -207,29 +212,30 @@ module.exports = {
           assignedMeetings: assignedMeetings,
           createdMeetings: createdMeetings,
           isAdmin: isAdmin,
-        }).exec(function updatePerson(err, updated) {
-        if (err) {
-          sails.log('Person not updated ' + err);
-          //res.redirect('/person/edit');
-        }
-        else if (!updated) {
-          sails.log('Update error for Person ' + err);
-          //res.redirect('/person/edit');
-        }
-        else {
-          sails.log('Updated Person: ' + updated.name);
-          person.publishUpdate(id,
-            {
-              name: updated.name,
-              password: updated.password,
-              email: updated.email,
-              todos: updated.todos,
-              assignedMeetings: updated.assignedMeetings,
-              createdMeetings: updated.createdMeetings,
-              isAdmin: updated.isAdmin,
-            });
-        }
-      });
+        })
+        .exec(function updatePerson(err, updated) {
+          if (err) {
+            sails.log('Person not updated ' + err);
+            //res.redirect('/person/edit');
+          }
+          else if (!updated) {
+            sails.log('Update error for Person ' + err);
+            //res.redirect('/person/edit');
+          }
+          else {
+            sails.log('Updated Person: ' + updated.name);
+            person.publishUpdate(id,
+              {
+                name: updated.name,
+                password: updated.password,
+                email: updated.email,
+                todos: updated.todos,
+                assignedMeetings: updated.assignedMeetings,
+                createdMeetings: updated.createdMeetings,
+                isAdmin: updated.isAdmin,
+              });
+          }
+        });
 
     }
     else {
@@ -288,13 +294,15 @@ module.exports = {
     person.attemptLoginEmail(
       {
         email: email
-      }, function (err, user) {
+      },
+      function (err, user) {
         if (!user) {
           person.attemptLoginGuestOrCreate(
             {
               email: email,
               name: name
-            }, function (err, cre) {
+            },
+            function (err, cre) {
               if (err) return res.negotiate(err);
 
               if (!cre) {
@@ -348,7 +356,8 @@ module.exports = {
     person.attemptLoginEmail(
       {
         email: email
-      }, function (err, person) {
+      },
+      function (err, person) {
         if (err) return res.negotiate(err);
 
         if (!person) {
@@ -388,7 +397,8 @@ module.exports = {
       {
         email: email,
         password: password
-      }, function (err, person) {
+      },
+      function (err, person) {
         if (err) return res.negotiate(err);
 
         if (!person) {
@@ -429,7 +439,8 @@ module.exports = {
         name: req.param('name'),
         email: req.param('email'),
         password: req.param('password')
-      }, function (err, cre) {
+      },
+      function (err, cre) {
         if (err) return res.negotiate(err);
 
         person.findOne({email: cre.email}).populateAll().exec(function foundPerson(err, person) {
