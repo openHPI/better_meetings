@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
 
     meetingseries.findOne(meeting_id).populate('admins').exec(function findMeetingSerien(err, cre) {
       if (err) {
-        sails.log.error("ERR:", err);
+        sails.log.error('ERR:', err);
 
         if (req.wantsJSON) {
           return res.send(403);

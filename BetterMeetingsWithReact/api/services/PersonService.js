@@ -12,7 +12,7 @@ module.exports = {
     var currentMeeting = input.meeting;
 
     if (!currentMeeting) {
-      console.log("Error: No Meeting provided for PersonService");
+      console.log('Error: No Meeting provided for PersonService');
     }
 
     // check for known person
@@ -23,9 +23,9 @@ module.exports = {
         email: email
       }).exec(function findCreatePerson(error, createdOrFoundPerson) {
         if (error) {
-          sails.log("Error while creating Person in PersonService");
+          sails.log('Error while creating Person in PersonService');
         } else {
-          sails.log("Successfully created or found " + createdOrFoundPerson.name);
+          sails.log('Successfully created or found ' + createdOrFoundPerson.name);
           person.publishCreate({
             id: createdOrFoundPerson.id,
             name: createdOrFoundPerson.name,
@@ -35,10 +35,10 @@ module.exports = {
           // add created/found Person to attendees of meeting
           meeting.findOne(currentMeeting).exec(function (err, meetingAnswer) {
             if (err) {
-              console.log("Error: no correct Meeting found in PersonService");
+              console.log('Error: no correct Meeting found in PersonService');
             } else {
               meeting.update({id: currentMeeting, attendees: createdOrFoundPerson.id});
-              sails.log("Successfully added new attendee " + createdOrFoundPerson.name + " to meeting");
+              sails.log('Successfully added new attendee ' + createdOrFoundPerson.name + ' to meeting');
             }
           });
         }
@@ -47,9 +47,9 @@ module.exports = {
       // create guest person
       person.findOrCreate({name: name, email: email}).exec(function findCreatePerson(error, createdOrFoundPerson) {
         if (error) {
-          sails.log("Error while creating Person in PersonService");
+          sails.log('Error while creating Person in PersonService');
         } else {
-          sails.log("Successfully created or found " + createdOrFoundPerson.name);
+          sails.log('Successfully created or found ' + createdOrFoundPerson.name);
           person.publishCreate({
             id: createdOrFoundPerson.id,
             name: createdOrFoundPerson.name,
@@ -58,7 +58,7 @@ module.exports = {
           // add created/found Person to attendees of meeting
           meeting.findOne(currentMeeting).populateAll().exec(function (err, meetingAnswer) {
             if (err) {
-              console.log("Error: no correct Meeting found in PersonService");
+              console.log('Error: no correct Meeting found in PersonService');
             } else {
               var attendees = meetingAnswer.attendees;
               attendees.push(createdOrFoundPerson);
@@ -71,9 +71,9 @@ module.exports = {
                 }
 
                 if (!updated) {
-                  sails.log("failed to add" + createdOrFoundPerson.name + "to attendees");
+                  sails.log('failed to add' + createdOrFoundPerson.name + 'to attendees');
                 } else {
-                  sails.log("Successfully added new attendee " + createdOrFoundPerson.name + " to meeting");
+                  sails.log('Successfully added new attendee ' + createdOrFoundPerson.name + ' to meeting');
                 }
               });
             }
@@ -84,9 +84,9 @@ module.exports = {
       // create guest person
       person.create({name: name}).exec(function createGuestPerson(error, createdGuestPerson) {
         if (error) {
-          sails.log("Error while creating Guest-Person in PersonService");
+          sails.log('Error while creating Guest-Person in PersonService');
         } else {
-          sails.log("Successfully created " + createdGuestPerson.name);
+          sails.log('Successfully created ' + createdGuestPerson.name);
           person.publishCreate({
             id: createdGuestPerson.id,
             name: createdGuestPerson.name,
@@ -94,10 +94,10 @@ module.exports = {
           // add created Person to attendees of meeting
           meeting.findOne(currentMeeting).exec(function (err, meetingAnswer) {
             if (err) {
-              console.log("Error: no correct Meeting found in PersonService");
+              console.log('Error: no correct Meeting found in PersonService');
             } else {
               meeting.update({id: currentMeeting, attendees: createdGuestPerson.id});
-              sails.log("Successfully added new attendee " + createdGuestPerson.name + " to meeting");
+              sails.log('Successfully added new attendee ' + createdGuestPerson.name + ' to meeting');
             }
           });
         }
@@ -105,16 +105,16 @@ module.exports = {
     } else if (email) {
       // create guest person, assign a self created name for guest for usability
       guestCounter++;
-      var guestName = "Guest" + guestCounter.toString();
+      var guestName = 'Guest' + guestCounter.toString();
 
       person.findOrCreate({email: email}, {
         email: email,
         name: guestName
       }).exec(function findCreatePerson(error, createdOrFoundPerson) {
         if (error) {
-          sails.log("Error while creating Person in PersonService");
+          sails.log('Error while creating Person in PersonService');
         } else {
-          sails.log("Successfully created or found " + createdOrFoundPerson.name);
+          sails.log('Successfully created or found ' + createdOrFoundPerson.name);
           person.publishCreate({
             id: createdOrFoundPerson.id,
             name: createdOrFoundPerson.name,
@@ -123,10 +123,10 @@ module.exports = {
           // add created/found Person to attendees of meeting
           meeting.findOne(currentMeeting).exec(function (err, meetingAnswer) {
             if (err) {
-              console.log("Error: no correct Meeting found in PersonService");
+              console.log('Error: no correct Meeting found in PersonService');
             } else {
               meeting.update({id: currentMeeting, attendees: createdOrFoundPerson.id});
-              sails.log("Successfully added new attendee " + createdOrFoundPerson.name + " to meeting");
+              sails.log('Successfully added new attendee ' + createdOrFoundPerson.name + ' to meeting');
             }
           });
         }
@@ -134,13 +134,13 @@ module.exports = {
     } else {
       // create guest person, assign a self created name for guest
       guestCounter++;
-      var guestName = "Guest" + guestCounter.toString();
+      var guestName = 'Guest' + guestCounter.toString();
 
       person.create({name: guestName}).exec(function createGuestPerson(error, createdGuestPerson) {
         if (error) {
-          sails.log("Error while creating Guest-Person in PersonService");
+          sails.log('Error while creating Guest-Person in PersonService');
         } else {
-          sails.log("Successfully created " + createdGuestPerson.name);
+          sails.log('Successfully created ' + createdGuestPerson.name);
           person.publishCreate({
             id: createdGuestPerson.id,
             name: createdGuestPerson.name,
@@ -148,10 +148,10 @@ module.exports = {
           // add created Person to attendees of meeting
           meeting.findOne(currentMeeting).exec(function (err, meetingAnswer) {
             if (err) {
-              console.log("Error: no correct Meeting found in PersonService");
+              console.log('Error: no correct Meeting found in PersonService');
             } else {
               meeting.update({id: currentMeeting, attendees: createdGuestPerson.id});
-              sails.log("Successfully added new attendee " + createdGuestPerson.name + " to meeting");
+              sails.log('Successfully added new attendee ' + createdGuestPerson.name + ' to meeting');
             }
           });
         }

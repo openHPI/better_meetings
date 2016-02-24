@@ -1,5 +1,5 @@
 /**
- * ExampledataService
+ * ExampleDataService
  *
  */
 

@@ -7,7 +7,7 @@ module.exports = {
    * Aufruf im Controller: var htmlString = MarkdownService.parseMarkdown(mdString);
    * */
   parseMarkdown: function (mdString) {
-    var mdParser = require("node-markdown").Markdown;
+    var mdParser = require('node-markdown').Markdown;
 
     return mdParser(mdString);
   }
