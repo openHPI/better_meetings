@@ -36,11 +36,8 @@ var cssFilesToInject = [
 var jsFilesToInject = [
 
   //// Load sails.io before everything else
-  //'vendor/sails.io.js/sails.io.js',
-  //// All of the rest of your client-side js files
-  //// will be injected here in no particular order.
-  //'app/**/*.js',
-  //
+  'vendor/sails.io.js/sails.io.js',
+
   //// All of the rest of your client-side js files
   //// will be injected here in no particular order.
   'js/dependencies/jquery-1.12.0.min.js',

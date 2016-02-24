@@ -126,6 +126,21 @@
 
 <!--SCRIPTS-->
 <script src="/browserify/debug.0.1.0.js"></script>
+<script src="/js/dependencies/jquery-1.12.0.min.js"></script>
+<script src="/js/dependencies/bootstrap.min.js"></script>
+<script src="/js/dependencies/bootbox.min.js"></script>
+<script src="/js/dependencies/nifty.min.js"></script>
+<script src="/js/dependencies/pace.min.js"></script>
 <!--SCRIPTS END-->
+
+<script>
+  $(document).on("click", ".alert", function (e) {
+    console.log('open bootbox');
+    bootbox.alert("Hello world!", function () {
+      console.log("Alert Callback");
+    });
+  });
+</script>
+
 </body>
 </html>
