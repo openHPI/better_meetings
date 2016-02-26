@@ -5,7 +5,7 @@
 
 function populateDeep2(parentModelName, parentModel, path, cb) {
   if (!path || path.length == 0) {
-    cb("No path given");
+    cb('No path given');
     return;
   }
   var count = 0;
@@ -41,19 +41,20 @@ function populateDeep2(parentModelName, parentModel, path, cb) {
         }
         if (pathArray.length > 1) {
           childAssociation.model.find(findCriteria)
-            .populate(pathArray[1]).exec(function (err, populatedChild) {
-            if (err) {
-              console.log("Error:", err)
-              cb(err)
-            }
+            .populate(pathArray[1])
+            .exec(function (err, populatedChild) {
+              if (err) {
+                console.log('Error:', err)
+                cb(err)
+              }
 //                            pathArray.splice(0,1)
-            stitcher(populatedChild);
-          })
+              stitcher(populatedChild);
+            })
         } else {
           childAssociation.model.find(findCriteria)
             .exec(function (err, populatedChild) {
               if (err) {
-                console.log("Error:", err)
+                console.log('Error:', err)
                 cb(err)
               }
 //                            pathArray.splice(0,1)

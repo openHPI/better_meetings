@@ -5,16 +5,13 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-
 module.exports = {
-
 
   create: function (req, res) {
 
     var admins = req.param('admins') || [req.session.me];
     var title = req.param('title');
     var timer = 900;
-    var lastModified = new Date().getTime();
 
     if (admins && title) {
       UrlService.generate_unique_url(function generateUrl(url) {
@@ -23,7 +20,6 @@ module.exports = {
           title: title,
           timer: timer,
           url: url,
-          lastModified: lastModified
         }).exec(function createMeetingSeries(err, created) {
           if (err) {
             console.log('[bm-error] meetingseries not created: ' + err);
@@ -34,8 +30,7 @@ module.exports = {
               admins: created.admins,
               title: created.title,
               timer: created.timer,
-              url: created.url,
-              lastModified: created.lastModified
+              url: created.url
             });
           }
           if (!req.isSocket) {
@@ -82,33 +77,32 @@ module.exports = {
           timer: timer,
           members: members,
           description: description,
-          topics: topics,
-          lastModified: new Date().getTime()
-        }).exec(function updateMeetingSeries(err, updated) {
-        if (err) {
-          sails.log('MeetingSeries not updated ' + err);
-          //res.redirect('/meetingseries/edit');
-        }
-        else if (!updated) {
-          sails.log('Update error for MeetingSeries ' + err);
-          //res.redirect('/meetingseries/edit');
-        }
-        else {
-          sails.log('Updated MeetingSeries: ' + updated.title);
-          meetingseries.publishUpdate(id,
-            {
-              admins: updated.admins,
-              title: updated.title,
-              meeting: updated.meeting,
-              url: updated.url,
-              timer: updated.timer,
-              members: updated.members,
-              description: updated.description,
-              topics: updated.topics,
-              lastModified: updated.lastModified
-            });
-        }
-      });
+          topics: topics
+        })
+        .exec(function updateMeetingSeries(err, updated) {
+          if (err) {
+            sails.log('MeetingSeries not updated ' + err);
+            //res.redirect('/meetingseries/edit');
+          }
+          else if (!updated) {
+            sails.log('Update error for MeetingSeries ' + err);
+            //res.redirect('/meetingseries/edit');
+          }
+          else {
+            sails.log('Updated MeetingSeries: ' + updated.title);
+            meetingseries.publishUpdate(id,
+              {
+                admins: updated.admins,
+                title: updated.title,
+                meeting: updated.meeting,
+                url: updated.url,
+                timer: updated.timer,
+                members: updated.members,
+                description: updated.description,
+                topics: updated.topics
+              });
+          }
+        });
     }
     else {
       res.send('meetingseries');
@@ -122,11 +116,11 @@ module.exports = {
     var id = req.param('id', null);
     meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, cre) {
       if (err) {
-        sails.log.error("ERR:", err);
+        sails.log.error('ERR:', err);
       }
 
       if (!cre) {
-        console.log("no meetingseries with id " + id + " found :(");
+        console.log('no meetingseries with id ' + id + ' found :(');
         return;
       }
 
@@ -141,7 +135,7 @@ module.exports = {
         'topics.todos',
         function (err, item) {
           if (err) {
-            sails.log.error("ERR:", err);
+            sails.log.error('ERR:', err);
           }
 
           return res.view('meetingseries',
@@ -155,25 +149,26 @@ module.exports = {
 
 
   delete: function (req, res) {
-    var meetingSeriesID = req.param("meetingSeriesID", null);
+    var meetingSeriesID = req.param('meetingSeriesID', null);
     if (meetingSeriesID && req.isSocket) {
       MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
         meetingseries.destroy(
           {
             id: meetingSeriesAnswer.id
-          }).exec(function destroy(err) {
-          if (err) {
-            sails.log('Error while deleting meetingseries');
-            res.send("Error");
-          }
-          else {
-            sails.log("Successfully deleted " + meetingseriesID);
-            meetingseries.publishDestroy(
-              {
-                id: meetingSeriesAnswer.id
-              });
-          }
-        });
+          })
+          .exec(function destroy(err) {
+            if (err) {
+              sails.log('Error while deleting meetingseries');
+              res.send('Error');
+            }
+            else {
+              sails.log('Successfully deleted ' + meetingseriesID);
+              meetingseries.publishDestroy(
+                {
+                  id: meetingSeriesAnswer.id
+                });
+            }
+          });
       });
     }
   },

@@ -1,5 +1,5 @@
 /**
- * UrlServive
+ * UrlService
  *
  */
 
@@ -27,7 +27,7 @@ module.exports = {
    * just an outsourced method --> don't use
    * */
   generate_random_url: function () {
-    var s = "";
+    var s = '';
     while (s.length < 32 && 32 > 0) {
       var r = Math.random();
       s += (r < 0.1 ? Math.floor(r * 100) : String.fromCharCode(Math.floor(r * 26) + (r > 0.5 ? 97 : 65)));

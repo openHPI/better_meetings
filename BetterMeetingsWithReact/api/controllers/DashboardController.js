@@ -10,11 +10,11 @@ module.exports = {
   view: function (req, res) {
     person.findOne(req.session.me.id).populate('createdMeetings').populate('assignedMeetings').exec(function found(err, person) {
       if (err) {
-        sails.log.error("ERR:", err);
+        sails.log.error('ERR:', err);
       }
 
       if (!person) {
-        console.log("no person found");
+        console.log('no person found');
         return;
       }
 
@@ -41,16 +41,16 @@ module.exports = {
         'createdMeetings.instances',
         function (err, person) {
           if (err) {
-            console.log("ERR: ");
+            console.log('ERR: ');
             console.log(err);
           }
 
           meetingseriesList = person.createdMeetings;
 
           meetingseriesList.sort(function compare(a, b) {
-            if (a.lastModified < b.lastModified)
+            if (a.updatedAt < b.updatedAt)
               return 1;
-            else if (a.lastModified > b.lastModified)
+            else if (a.updatedAt > b.updatedAt)
               return -1;
             else
               return 0;

@@ -4,7 +4,7 @@ module.exports = {
    * @param url   a simple url as string
    * @param size  size for the qrcode (this is not in px!)
    *
-   * Aufruf im Controller: var qrcode = QrCodeService.renderQrCode(myurl, size);
+   * Bsp: var qrcode = QrCodeService.renderQrCode('http://localhost:1337/user', '250');
    * 'qrcode' ist dann das fertige svg
    * dieses muss nur noch im controller an die view übergeben werden
    * dort wird der qrcode angezeigt durch: <%- qrcode %>

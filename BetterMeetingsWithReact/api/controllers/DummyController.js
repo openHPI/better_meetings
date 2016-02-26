@@ -26,10 +26,10 @@ module.exports = {
       }, 1000);
     }, 1000);
 
-    res.send("Dummy data successfully created!");
+    res.send('Dummy data successfully created!');
   },
 
   deleteAll: function (req, res) {
-    res.send("Dummy data deletion is not implemented yet!");
+    res.send('Dummy data deletion is not implemented yet!');
   }
 };
