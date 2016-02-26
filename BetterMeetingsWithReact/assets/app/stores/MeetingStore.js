@@ -9,6 +9,16 @@ var MeetingDataAPI = require('../utils/MeetingDataAPI');
 var _isMeetingDataLoaded = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null;
 
 /**
+ * Setting the user
+ * 
+ * @method loadUserData
+ * @param {Object} data The user data
+ */
+function loadUserData (user) {
+	_user = user;
+}
+
+/**
  * Initializing the agenda store variables
  * 
  * @method loadMeetingData
@@ -20,16 +30,6 @@ function loadMeetingData (meeting) {
 	_selectedTopic = 0;
 	_allTodoItems = getAllTodoItems();
 	_canEdit = isUserAdmin();
-}
-
-/**
- * Setting the user
- * 
- * @method loadUserData
- * @param {Object} data The user data
- */
-function loadUserData (user) {
-	_user = user;
 }
 
 /**
@@ -164,12 +164,12 @@ AppDispatcher.register(function(payload) {
 
 		// Respond to server actions
 
-		case FluxServerConstants.DATA_RECEIVE:
-			loadMeetingData(action.data);
-			break;
-
 		case FluxServerConstants.USER_RECEIVE:
 			loadUserData(action.data);
+			break;
+
+		case FluxServerConstants.MEETING_RECEIVE:
+			loadMeetingData(action.data);
 			break;
 
 		case FluxServerConstants.TODO_ADD:
@@ -216,7 +216,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxMeetingConstants.ATTENDEE_CREATE:
-			action.data.id = _meetingId;
+			action.data.id = _meeting.id;
 			MeetingDataAPI.createAttendee(action.data);
 			break;
 
@@ -224,7 +224,7 @@ AppDispatcher.register(function(payload) {
 			_selectedTopic = action.data;
 			break;
 
-		case FluxMeetingConstants.TOPIC.UPLOAD:
+		case FluxMeetingConstants.TOPIC_UPLOAD:
 			MeetingDataAPI.attachFileToTopic(action.data);
 			break;
 

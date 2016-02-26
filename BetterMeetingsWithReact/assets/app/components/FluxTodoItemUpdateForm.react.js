@@ -1,7 +1,29 @@
 var React = require('react');
 var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
+var InlineEdit = require('react-edit-inline');
+
 var FluxTodoItemUpdateForm = React.createClass({
+
+    getInitialState: function(){
+
+      var title = this.props.item !== null ? this.props.item.title : null;
+      var description = this.props.item !== null ? this.props.item.description : null;
+
+      return { title: title, description: description };
+    },
+
+    titleChanged: function(title) {
+      this.setState({ title: title });
+    },
+
+    descriptionChanged: function(description) {
+      this.setState({ description: description });
+    },
+
+    customValidateTitle: function(title) {
+      return (title.length > 0 && title.length < 64);
+    },
 
     // Edits a todo item via Actions
     editTodoItem: function(event) {
@@ -42,7 +64,6 @@ var FluxTodoItemUpdateForm = React.createClass({
                     <div className="form-group">
                       <label className="col-md-3 control-label">Title</label>
                       <div className="col-md-9">
-                        <input className="title-input" type="text" className="form-control" placeholder="Title" value={title}/>
                         <small className="help-block">Please enter a title</small>
                       </div>
                     </div>

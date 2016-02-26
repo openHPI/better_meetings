@@ -3,7 +3,8 @@
 ==============================================================*/
 
 
-window.React = require('react');
+var React = require('react');
+var ReactDOM = require('react-dom');
 global.jQuery = require('jquery');
 var bootstrap = require('bootstrap');
 var bsSelect = require('../js/dependencies/bootstrap-select.js');
@@ -27,7 +28,7 @@ MeetingDataAPI.subscribeAndListen();
 MeetingDataAPI.getUser();
 MeetingDataAPI.getMeetingData();
 
-React.render(
+ReactDOM.render(
 	<FluxMeetingApp />,
 	document.getElementById('flux-meetingApp')
 );

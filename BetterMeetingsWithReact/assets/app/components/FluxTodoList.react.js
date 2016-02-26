@@ -1,20 +1,66 @@
 var React = require('react');
-var FluxTodoListItem = require('./FluxTodoListItem.react');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
+var FluxTodoItem = require('./FluxTodoItem.react');
+
+var placeholder = document.createElement("li");
+placeholder.className = "todo-item placeholder";
 
 // Flux todolist view
 var FluxTodoList = React.createClass({
 
+    dragStart: function(e) {
+        this.dragged = e.currentTarget;
+        e.dataTransfer.effectAllowed = 'move';
+        
+        // Firefox requires dataTransfer data to be set
+        e.dataTransfer.setData("text/html", e.currentTarget);
+    },
+
+    dragEnd: function(e) {
+        this.dragged.style.display = "block";
+        this.dragged.parentNode.removeChild(placeholder);
+
+        // Update data
+        var data = this.state.data;
+        var from = Number(this.dragged.dataset.id);
+        var to = Number(this.over.dataset.id);
+        if(from < to) to--;
+        if(this.nodePlacement == "after") to++;
+        data.splice(to, 0, data.splice(from, 1)[0]);
+        this.setState({data: data});
+    },
+
+    dragOver: function(e) {
+        e.preventDefault();
+        this.dragged.style.display = "none";
+        if(e.target.className == "placeholder") return;
+        this.over = e.target;
+        // Inside the dragOver method
+        var relY = e.clientY - this.over.offsetTop;
+        var height = this.over.offsetHeight / 2;
+        var parent = e.target.parentNode;
+        
+        if(relY > height) {
+          this.nodePlacement = "after";
+          parent.insertBefore(placeholder, e.target.nextElementSibling);
+        }
+        
+        else if(relY < height) {
+          this.nodePlacement = "before"
+          parent.insertBefore(placeholder, e.target);
+        }
+    },
+
     renderTodoList: function(items) {
         var item = this.props.items;
-        var collapsedIndex = this.props.collapsed;
         var canEdit = this.props.canEdit;
         if (items.length > 0) {
-            return Object.keys(items).map(function(index){
-                    var collapsed = (collapsedIndex === index) ? true : false;
-                    return (
-                        <FluxTodoListItem item={items[index]} index={index} collapsed={collapsed} canEdit={canEdit} />
-                    );
-            });
+
+            return items.map(function(item, i) {
+                return (
+                    <FluxTodoItem key={i} onDragStart={this.dragStart} onDragEnd={this.dragEnd} item={item} index={i} canEdit={canEdit} />
+                );
+            }, this);
         }
     },
 
@@ -37,7 +83,7 @@ var FluxTodoList = React.createClass({
                            <div className="tab-content">
                               <div id="demo-tabs-box-1" className="tab-pane fade in active">
                                  <div className="pad-ver">
-                                     <ul className="list-group bg-trans list-todo mar-no">
+                                     <ul onDragOver={this.dragOver} className="list-group bg-trans list-todo mar-no">
                                         {this.renderTodoList(this.props.items)}
                                      </ul>
                                  </div>

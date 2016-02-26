@@ -19,7 +19,7 @@ var FluxServerActions = {
 	 */
 	receiveMeetingData: function(data) {
 		AppDispatcher.handleAction({
-			actionType: FluxServerConstants.DATA_RECEIVE,
+			actionType: FluxServerConstants.MEETING_RECEIVE,
 			data: data
 		})
 	},

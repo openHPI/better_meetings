@@ -89,16 +89,10 @@ var FluxAgendaActions = {
 		})
 	},
 
-	/**
-	 * Collapses the content of a todo item
-	 * 
-	 * @method collapsTodoItem
-	 * @param {Integer} index The index of the todo item
-	 */
-	collapsTodoItem: function(index) {
+	swapTodoItems: function(item, item2) {
 		AppDispatcher.handleAction({
-			actionType: FluxMeetingConstants.TODO_COLLAPSE,
-			data: index
+			actionType: FluxMeetingConstants.TODO_SWAP,
+			data: {item: item, item2: item2}
 		})
 	},
 

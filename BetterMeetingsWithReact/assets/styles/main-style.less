@@ -72,18 +72,8 @@ p, .p {
   margin-top: -40px;
 }
 
-/*===============================
-=            FLYLEAF            =
-===============================*/
-
-.flux-agendaDetailsFlyleaf-container {
-  h1 {
-    text-align: center;
-  }
-}
-
 /*==============================
-=            AGENDA            =
+=            TOPICS            =
 ==============================*/
 
 #timer {
@@ -150,7 +140,7 @@ p, .p {
 }
 
 /*==============================
-=            MEMBER            =
+=            ATTENDEES            =
 ==============================*/
 .flux-memberlist-list {
   ul {
@@ -171,23 +161,19 @@ p, .p {
 /*====================================
 =            TodoList                 =
 ====================================*/
-.todo-title {
-  display: inline;
-  font-weight: bold;
-  padding-right: 10px;
-}
-
-.todo-author {
-  font-weight: 100;
-  padding-right: 10px;
-}
-
 .list-todo {
   list-style-type: none;
   font-size: 2.0em;
   .todo-item {
     &:hover {
       background-color: #f0f2f6;
+    }
+    &.placeholder {
+      background-color: #f0f2f6;
+      &:before {
+        content: "Drop here";
+        color: rgb(225,210,90);
+      }
     }
     .todo-control {
       float: right;
@@ -262,28 +248,9 @@ p, .p {
 
 /*=====  End of Logo   ======*/
 
-/*=====================================
-=            Meetingseries            =
-=====================================*/
-
-/*----------  Topics  ----------*/
-
-#topics-panel {
-
-}
-
-/*----------  Modal  ----------*/
-
-#selected-topics, #all-topics {
-
-}
-
-/*=====  End of Meetingseries  ======*/
-
 .overlay {
   position: fixed;
   top: -40px;
   left: 0;
   z-index: 99;
 }
-

@@ -14,6 +14,8 @@ var FluxTodoList = require('./FluxTodoList.react');
 var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
 var FluxTodoItemUpdateForm = require('./FluxTodoItemUpdateForm.react');
 
+var FluxTest = require('./FluxTest.react');
+
 function getMeetingState () {
 	return {
 		isMeetingDataLoaded: MeetingStore.getIsMeetingDataLoaded(),
@@ -100,6 +102,10 @@ var FluxMeetingApp = React.createClass({
 		                    </div>
 		                  </div>
 		                 </div>
+						</div>
+						<div className="row">
+							<div className="col-xs-12">
+							</div>
 						</div>
 					</div>
 

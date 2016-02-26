@@ -9,6 +9,7 @@
     "babel-cli": "^6.4.5",
     "babelify": "^6.4.0",
     "bootstrap": "^3.3.6",
+    "d": "^1.0.0",
     "ejs": "~0.8.4",
     "envify": "^3.4.0",
     "flux": "^2.0.0",
@@ -36,9 +37,9 @@
     "node-markdown": "^0.1.1",
     "node-qr-image": "0.0.1",
     "rc": "^0.5.5",
-    "react": "^0.13.3",
+    "react": "^0.14.0",
     "react-bootstrap": "^0.20.3",
-    "react-router": "^2.0.0",
+    "react-dom": "^0.14.7",
     "sails": "~0.11.0",
     "sails-disk": "~0.10.0",
     "sails-hook-email": "^0.12.1",
@@ -55,7 +56,8 @@
     "eslint-plugin-react": "^2.2.0",
     "grunt-browserify": "^3.8.0",
     "grunt-mocha-test": "*",
-    "mocha": "~2.2.1"
+    "mocha": "~2.2.1",
+    "react-edit-inline": "^1.0.6"
   },
   "scripts": {
     "start": "node app.js",
