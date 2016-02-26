@@ -10,6 +10,8 @@ var FluxTodoItemCreateForm = React.createClass({
     // Add item to list via Actions
     createTodoItem: function(event) {
 
+        jQuery('#createTodoItemModal').modal('hide');
+
         event.preventDefault();
 
         if (!this.state.title) {
@@ -19,8 +21,6 @@ var FluxTodoItemCreateForm = React.createClass({
         FluxMeetingActions.createTodoItem(item);
 
         this.setState({ title: '', description: '' });
-        
-        jQuery('#createTodoItemModal').modal('hide');
     },
 
     render: function() {

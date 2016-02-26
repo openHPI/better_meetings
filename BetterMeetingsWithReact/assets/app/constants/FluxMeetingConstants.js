@@ -12,4 +12,5 @@ module.exports = keyMirror({
 	TODO_SWAP: null,			// Sorts todolist
 	ATTENDEE_CREATE: null,		// Adds a member to membergroup
 	TOPIC_SELECT: null,			// Selects a agenda item
+	TOPIC_TOGGLE_DONE: null,	// Toggles done state fo topic
 });

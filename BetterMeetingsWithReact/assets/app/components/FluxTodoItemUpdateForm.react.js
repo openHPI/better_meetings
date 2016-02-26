@@ -27,8 +27,11 @@ var FluxTodoItemUpdateForm = React.createClass({
 
     // Edits a todo item via Actions
     editTodoItem: function(event) {
-        var title = jQuery('#updateTodoItemModal .title-input').val();
-        var description = jQuery('#updateTodoItemModal .description-textarea').val();
+
+        jQuery('#updateTodoItemModal').modal('hide');
+
+        var title = this.state.title;
+        var description = this.state.description;
 
         if (!title) {
             return;
@@ -40,8 +43,8 @@ var FluxTodoItemUpdateForm = React.createClass({
 
         FluxMeetingActions.updateTodoItem(item);
 
-        jQuery('#updateTodoItemModal .title-input').val('');
-        jQuery('#updateTodoItemModal .description-textarea').val('');
+        this.setState({title: '', description: ''});
+
         jQuery('#updateTodoItemModal').modal('hide');
     },
 
@@ -76,7 +79,7 @@ var FluxTodoItemUpdateForm = React.createClass({
                     </div>
                   </div>
                   <div className="modal-footer">
-                    <button type="submit" className="btn btn-success" id="updateTopicModalSubmit">Save changes</button>
+                    <button type="submit" className="btn btn-success" onClick={this.editTodoItem}>Save changes</button>
                   </div>
                 </div>
               </div>

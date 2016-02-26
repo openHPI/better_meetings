@@ -25,6 +25,19 @@ var FluxAgendaActions = {
 	},
 
 	/**
+	 * Selects an agenda item
+	 * 
+	 * @method selectAgendaItem
+	 * @param {Integer} index The index of the selected agenda item 
+	 */
+	toggleDoneTopic: function(topic) {
+		AppDispatcher.handleAction({
+			actionType: FluxMeetingConstants.TOPIC_TOGGLE_DONE,
+			data: topic
+		})
+	},
+
+	/**
 	 * Adds a new todo item to the todolist
 	 * 
 	 * @method createTodoItem
@@ -82,7 +95,7 @@ var FluxAgendaActions = {
 	 * @method toggleDone
 	 * @param {Object} item The todo item
 	 */
-	toggleDone: function(item) {
+	toggleDoneTodoitem: function(item) {
 		AppDispatcher.handleAction({
 			actionType: FluxMeetingConstants.TODO_TOGGLE_DONE,
 			data: item

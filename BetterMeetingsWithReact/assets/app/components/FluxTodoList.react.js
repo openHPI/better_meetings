@@ -8,6 +8,10 @@ placeholder.className = "todo-item placeholder";
 // Flux todolist view
 var FluxTodoList = React.createClass({
 
+    getInitialState: function() {
+        return {data: this.props.items};
+    },
+
     dragStart: function(e) {
         this.dragged = e.currentTarget;
         e.dataTransfer.effectAllowed = 'move';
@@ -21,19 +25,19 @@ var FluxTodoList = React.createClass({
         this.dragged.parentNode.removeChild(placeholder);
 
         // Update data
-        var data = this.state.data;
-        var from = Number(this.dragged.dataset.id);
-        var to = Number(this.over.dataset.id);
-        if(from < to) to--;
-        if(this.nodePlacement == "after") to++;
-        data.splice(to, 0, data.splice(from, 1)[0]);
-        this.setState({data: data});
+        var item = Number(this.dragged.dataset.id);
+        var item2 = Number(this.over.dataset.id);
+        if(item < item2) item2--;
+        if(this.nodePlacement === "after") item2++;
+
+        FluxMeetingActions.swapTodoItems(item, item2);
     },
 
     dragOver: function(e) {
         e.preventDefault();
         this.dragged.style.display = "none";
-        if(e.target.className == "placeholder") return;
+        if(e.target.className === "placeholder") return;
+        
         this.over = e.target;
         // Inside the dragOver method
         var relY = e.clientY - this.over.offsetTop;
@@ -41,24 +45,26 @@ var FluxTodoList = React.createClass({
         var parent = e.target.parentNode;
         
         if(relY > height) {
-          this.nodePlacement = "after";
-          parent.insertBefore(placeholder, e.target.nextElementSibling);
+            console.log("after ", this.over.dataset.id);
+            this.nodePlacement = "after";
+            parent.insertBefore(placeholder, e.target.nextElementSibling);
         }
         
         else if(relY < height) {
-          this.nodePlacement = "before"
-          parent.insertBefore(placeholder, e.target);
+            console.log("after ", this.over.dataset.id);
+            this.nodePlacement = "before"
+            parent.insertBefore(placeholder, e.target);
         }
     },
 
-    renderTodoList: function(items) {
+    renderTodoList: function(items, draggable) {
         var item = this.props.items;
         var canEdit = this.props.canEdit;
         if (items.length > 0) {
 
             return items.map(function(item, i) {
                 return (
-                    <FluxTodoItem key={i} onDragStart={this.dragStart} onDragEnd={this.dragEnd} item={item} index={i} canEdit={canEdit} />
+                    <FluxTodoItem key={i} draggable={draggable} onDragStart={this.dragStart} onDragEnd={this.dragEnd} item={item} index={i} canEdit={canEdit} />
                 );
             }, this);
         }
@@ -84,7 +90,7 @@ var FluxTodoList = React.createClass({
                               <div id="demo-tabs-box-1" className="tab-pane fade in active">
                                  <div className="pad-ver">
                                      <ul onDragOver={this.dragOver} className="list-group bg-trans list-todo mar-no">
-                                        {this.renderTodoList(this.props.items)}
+                                        {this.renderTodoList(this.props.items, true)}
                                      </ul>
                                  </div>
                                  <div className="input-group pad-all">
@@ -96,7 +102,7 @@ var FluxTodoList = React.createClass({
                               <div id="demo-tabs-box-2" className="tab-pane fade">
                                  <div className="pad-ver">
                                      <ul className="list-group bg-trans list-todo mar-no">
-                                        {this.renderTodoList(this.props.allItems)}
+                                        {this.renderTodoList(this.props.allItems, false)}
                                      </ul>
                                  </div>
                               </div>

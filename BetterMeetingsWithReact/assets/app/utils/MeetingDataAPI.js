@@ -39,6 +39,7 @@ module.exports = {
         switch (msg.verb) {
 
           case 'created':
+            console.log('Created Todoitem' + msg.data);
             FluxServerActions.addTodoItem(msg.data);
             break;
 
@@ -154,9 +155,13 @@ module.exports = {
    * @method attachFileToTopic
    * @param {Object} data The new member
    */
-   attachFileToTopic: function () {
+  attachFileToTopic: function () {
      io.socket.post();
-   },
+  },
+
+  updateTopic: function(data) {
+    io.socket.post('/agendaitem/update', data, function(data, jwres) {});
+  },
 
   /**
    * Sends a GET-request to the server to end the meeting

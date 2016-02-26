@@ -210,6 +210,13 @@ AppDispatcher.register(function(payload) {
 			MeetingDataAPI.destroyTodoItem(action.data);
 			break;
 
+		case FluxMeetingConstants.TODO_SWAP:
+			console.log("swappint from: " + action.data.item + "to: " + action.data.item2);
+			var temp = _meeting.topics[_selectedTopic].todos[action.data.item];
+			_meeting.topics[_selectedTopic].todos[action.data.item1] = _meeting.topics[_selectedTopic].todos[action.data.item2];
+			_meeting.topics[_selectedTopic].todos[action.data.item2] = temp;
+			break;
+
 		case FluxMeetingConstants.TODO_TOGGLE_DONE:
 			action.data.done = !action.data.done;
 			MeetingDataAPI.updateTodoItem(action.data);
@@ -222,6 +229,11 @@ AppDispatcher.register(function(payload) {
 
 		case FluxMeetingConstants.TOPIC_SELECT:
 			_selectedTopic = action.data;
+			break;
+
+		case FluxMeetingConstants.TOPIC_TOGGLE_DONE:
+			_meeting.topics[_selectedTopic].done = !_meeting.topics[_selectedTopic].done;
+			MeetingDataAPI.updateTopic(_meeting.topics[_selectedTopic]);
 			break;
 
 		case FluxMeetingConstants.TOPIC_UPLOAD:
