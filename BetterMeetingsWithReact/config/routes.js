@@ -95,6 +95,7 @@ module.exports.routes = {
   // endpoints for agendaitem controller
   'POST /topic/create': 'AgendaItemController.create',
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
+  'POST /topic/update': 'AgendaItemController.update',
   'POST /topic/delete': 'AgendaItemController.delete',
 
   // endpoints for todoitem
