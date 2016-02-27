@@ -216,6 +216,11 @@ module.exports = {
   subscribe: function (req, res) {
     if (req.isSocket) {
       agendaitem.watch(req);
+      var testArray = [];
+      for (var i = 1; i < 100; i++) {
+        testArray.push(i);
+      }
+      agendaitem.subscribe(req, testArray);
       sails.log('User with socket id ' + sails.sockets.id(req) +
         ' is now subscribed to the model class \'agendaitem\'.');
     }
