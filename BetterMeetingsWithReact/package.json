@@ -33,6 +33,7 @@
     "grunt-typescript-compile": "0.2.0",
     "include-all": "^0.1.6",
     "jquery": "^2.2.0",
+    "keymirror": "^0.1.1",
     "lodash": "*",
     "node-markdown": "^0.1.1",
     "node-qr-image": "0.0.1",

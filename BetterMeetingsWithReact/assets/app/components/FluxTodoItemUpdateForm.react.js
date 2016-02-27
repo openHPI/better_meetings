@@ -49,7 +49,7 @@ var FluxTodoItemUpdateForm = React.createClass({
     },
 
     render: function() {
-
+        console.dir(InlineEdit);
         var canEdit = this.props.canEdit;
         var title = (this.props.item !== null) ? this.props.item.title : null;
         var description = (this.props.item !== null) ? this.props.item.description : null;
