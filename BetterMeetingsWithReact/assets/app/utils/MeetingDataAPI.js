@@ -44,12 +44,12 @@ module.exports = {
             break;
 
           case 'updated':
-            console.log('Updated TodoItem: ' + msg.data);
+            console.log('PUBSUB: Updated TodoItem: ' + msg.data);
             FluxServerActions.updateTodoItem(msg.data, msg.previous);
             break;
 
           case 'destroyed':
-            console.log('Delete Todoitem: ' + msg.previous);
+            console.log('PUBSUB: Delete Todoitem: ' + msg.previous);
             FluxServerActions.removeTodoItem(msg.previous);
             break;
 

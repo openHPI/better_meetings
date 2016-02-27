@@ -127,6 +127,12 @@ module.exports = {
   subscribe: function (req, res) {
     if (req.isSocket) {
       todoitem.watch(req);
+      var testArray = [];
+      for (var i = 1; i < 100; i++) {
+        testArray.push(i);
+      }
+      sails.log(testArray);
+      todoitem.subscribe(req, testArray);
       sails.log('User with socket id ' + sails.sockets.id(req) +
         ' is now subscribed to the model class \'todoitem\'.');
     }
@@ -157,6 +163,7 @@ module.exports = {
           else {
             sails.log('Successfully deleted ' + id);
 
+            
             todoitem.publishDestroy(todoitemAnswer[0].id, undefined,
               {
                 previous: {
@@ -168,6 +175,7 @@ module.exports = {
                   assignee: todoitemAnswer[0].assignee,
                 }
               });
+            
           }
         });
       });
