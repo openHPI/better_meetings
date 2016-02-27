@@ -1,4 +1,6 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
+
 var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
 // Flux todolist view
@@ -19,6 +21,7 @@ var FluxTopicDetails = React.createClass({
                     <div className={ (selected.subitems === undefined && selected.subitems === null) ? "flux-agendaDetails-subitems" : "flux-agendaDetails-subitems hidden-container" }>
                         <h4>Subitems</h4>
                     </div>
+                    <p className={ selected.done ? "flux-agendaDetails-done" : "flux-agendaDetails-done hidden-container" }>[done]</p>
                 </div>
                 <div className="panel-footer">
                     <form className="flux-agendaDetails-upload" action="#" method="post" encType="multipart/form-data">
