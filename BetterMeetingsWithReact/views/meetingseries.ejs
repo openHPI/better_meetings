@@ -9,7 +9,7 @@
 
 <div id="page-content">
   <div class="row">
-    <div class="col-xs-9">
+    <div class="col-xs-12">
       <div class="panel panel-info">
         <div class="panel-heading">
           <div class="panel-control">
@@ -143,11 +143,14 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="submit" class="btn btn-success"
+              onclick="create_meeting_modal()">Erstelle Meeting
+      </button>
+    </div>
+  </div>
 </div>
-
-
-<p>Content here. <a class="alert" href=#>Alert!</a></p>
-
 
 <div class="modal fade" tabindex="-1" role="dialog" id="newTopicModal">
   <div class="modal-dialog modal-lg">
@@ -210,3 +213,38 @@
     </div>
   </div>
 </div>
+
+<script>
+  function create_meeting_modal() {
+
+    bootbox.dialog({
+      title: 'Meeting erstellen',
+      message: 'Wähle die Themen die im Meeting enthalten sein sollen' +
+      '<ul class="list-group bg-trans mar-no">' +
+      '<% _.each(meetingseries.topics, function (topics) { %>' +
+      '<li class="list-group-item">' +
+      '<input type="checkbox" ><%= topics.title %></input>' +
+      '</li>' +
+      '<% }) %>' +
+      '</ul>',
+      buttons: {
+        success: {
+          label: "Erstellen",
+          className: "btn-success",
+          callback: function () {
+            var name = $('#name').val();
+            var answer = $("input[name='awesomeness']:checked").val()
+            console.log("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+          }
+        }, danger: {
+          label: "Abbrechen!",
+          className: "btn-danger",
+          callback: function () {
+            console.log("meeting from series <%= meetingseries.title %> not created");
+          }
+        },
+      }
+    });
+  }
+
+</script>
