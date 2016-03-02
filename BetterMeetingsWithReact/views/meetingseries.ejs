@@ -43,9 +43,9 @@
                 <div class="col-xs-6">
                   <div class="pad-ver media">
                     <div class="media-left">
-	                                        <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
-					                			<i class="fa fa-user fa-2x"></i>
-					                		</span>
+	                    <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
+					               <i class="fa fa-user fa-2x"></i>
+					            </span>
                     </div>
                     <div class="media-body">
                       <p class="h3 text-thin media-heading">Administrators: <%= meetingseries.admins.length %></p>
@@ -103,17 +103,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td class="text-center">
-                <span class="icon-wrap icon-wrap-sm icon-circle bg-success">1</span>
-              </td>
-              <td>
-                <span class="text-muted"><i class="fa fa-clock-o"></i>12.12.12</span>
-              </td>
-              <td class="text-center">
-                <button><i class="fa fa-download"></i></button>
-              </td>
-            </tr>
+            <% i = 1 %>
+            <% _.each(meetingseries.instances, function (meeting) { %>
+              <tr>
+                <td class="text-center">
+                  <span class="icon-wrap icon-wrap-sm icon-circle bg-success"><%= i %></span>
+                </td>
+                <td>
+                  <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.title %></span>
+                </td>
+                <td class="text-center">
+                  <button><i class="fa fa-download"></i></button>
+                </td>
+              </tr>
+              <% i++ %>
+              <% }) %>
             </tbody>
           </table>
         </div>
@@ -126,12 +130,12 @@
             <h3 class="panel-title">Topics</h3>
           </div>
           <div class="panel-body">
-            <% meetingseries.topics = [{title: "TestTopic"}, {title: "TestTopic2"}] %>
             <ul class="list-group bg-trans">
               <li class="list-group-item active" data-title="<%= meetingseries.topics[0].title %>"
                   data-description="<%= meetingseries.topics[0].description %>">
                 <%= meetingseries.topics[0].title %>
               </li>
+              <% meetingseries.topics.splice(0,1) %>
               <% _.each(meetingseries.topics, function (topic) { %>
               <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
                 <%= topic.title %>
