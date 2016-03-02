@@ -13,7 +13,8 @@ var FluxTodoItemUpdateForm = React.createClass({
     },
 
     componentWillReceiveProps: function() {
-      this.setState({ title: this.props.item.title, description: this.props.item.title });
+      if(this.props.item !== null)
+        this.setState({ title: this.props.item.title, description: this.props.item.title });
     },
 
     titleChanged: function(title) {
@@ -60,8 +61,8 @@ var FluxTodoItemUpdateForm = React.createClass({
                               <div className='form-group'>
                                 <label className='col-md-3 control-label'>Title</label>
                                 <div className='col-md-9'>
-                                  <small className='help-block'>Please enter a title</small>
                                   <InlineEdit validate={this.customValidateTitle} text={this.state.title} paramName='title' change={this.titleChanged} />
+                                  <small className='help-block'>Please enter a title</small>
                                 </div>
                               </div>
                               <div className='form-group'>
