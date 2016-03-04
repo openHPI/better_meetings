@@ -271,22 +271,5 @@ module.exports = {
         }
       }
     });
-  },
-
-  generateExampleMeeting: function (req, res) {
-    meetingseries.findOne({
-      'title': this.conf.meetingseries.title,
-      'description': this.conf.meetingseries.description
-    }).populateAll().exec(function findMeetingSeries(err, cre) {
-      if (err) {
-        sails.log('Meeting not created' + err);
-      } else {
-        if (!cre) {
-          sails.log('Meeting not created' + err);
-        } else {
-          sails.controllers.meeting.createFromSeries(cre);
-        }
-      }
-    });
   }
 }

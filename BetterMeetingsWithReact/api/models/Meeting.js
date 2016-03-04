@@ -12,35 +12,35 @@ module.exports = {
   attributes: {
     title: {
       type: 'string',
-      required: true,
+      required: true
     },
     description: {
       type: 'string',
-      required: false,
+      required: false
     },
     topics: {
       collection: 'agendaitem'
     },
     admins: {
-      collection: 'person',
+      collection: 'person'
     },
     attendees: {
       collection: 'person',
-      via: 'assignedMeetings',
+      via: 'assignedMeetings'
     },
     isInitialCreation: {
       type: 'boolean',
-      required: true,
+      required: true
     },
     startTime: {
-      type: 'datetime',
+      type: 'datetime'
     },
     date: {
-      type: 'datetime',
+      type: 'datetime'
     },
     timer: {
       type: 'integer',
-      required: true,
+      required: true
     },
     url: {
       type: 'string',
