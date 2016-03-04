@@ -95,7 +95,7 @@ var FluxAgendaActions = {
 	 * @method toggleDone
 	 * @param {Object} item The todo item
 	 */
-	toggleDoneTodoitem: function(item) {
+	toggleDoneTodoItem: function(item) {
 		AppDispatcher.handleAction({
 			actionType: FluxMeetingConstants.TODO_TOGGLE_DONE,
 			data: item

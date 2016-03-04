@@ -55,6 +55,13 @@ function isUserAdmin () {
 	return false;
 }
 
+function getIndexOfTodoItem(item, todoitems) {
+	for (var i = 0; i < todoitems.length; i++) {
+		if(todoitems[i].id === item.id)
+			return i;
+	}
+}
+
 /**
  * Updates a todo item
  * 
@@ -68,13 +75,13 @@ function updateTodoItem (item, previousItem) {
 
 	for (var i = 0; i < _meeting.topics.length; i++) {
 		if( _meeting.topics[i].id === previousItem.owner ){
-			index = _meeting.topics[i].todos.indexOf(previousItem);
+			index = getIndexOfTodoItem(previousItem, _meeting.topics[i].todos);
 			_meeting.topics[i].todos[index] = item;
 			break;
 		}
 	}
 
-	index = allTodoItems.indexOf(previousItem);
+	index = getIndexOfTodoItem(previousItem, _allTodoItems);
 	_allTodoItems[index] = item;
 }
 
@@ -85,19 +92,18 @@ function updateTodoItem (item, previousItem) {
  * @param {Object} item The todo item
  */
 function removeTodoItem (item) {
-	var index;
 
-	console.dir(item);
+	var index;
 
 	for (var i = 0; i < _meeting.topics.length; i++) {
 		if( _meeting.topics[i].id === item.owner ){
-			index = _meeting.topics[i].todos.indexOf(item);
+			index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
 			_meeting.topics[i].todos.splice(index, 1);
 			break;
 		}
 	}
 
-	index = _allTodoItems.indexOf(item);
+	index = getIndexOfTodoItem(item, _allTodoItems);
 	_allTodoItems.splice(index, 1);
 }
 
