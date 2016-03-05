@@ -90,13 +90,13 @@ module.exports = {
             //     sails.log("Error while finding ToDoItem update record " + updated[0].title);
             //   }
 
-            /*updated[0].save(function (erro) {
+            updated[0].save(function (erro) {
               if (erro) {
                 sails.log("Error while saving update to ToDoItem " + updated[0].title);
               } else {
                 sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
               }
-            });*/
+            });
 
             todoitem.publishUpdate(updated[0].id, {
               title: updated[0].title,
