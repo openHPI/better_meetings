@@ -28,9 +28,6 @@ MeetingDataAPI.subscribeAndListen();
 MeetingDataAPI.getUser();
 MeetingDataAPI.getMeetingData();
 
-console.dir(document);
-console.dir(document.getElementById("container"));
-
 ReactDOM.render(
 	<FluxMeetingApp />,
 	document.getElementById('flux-meetingApp')
