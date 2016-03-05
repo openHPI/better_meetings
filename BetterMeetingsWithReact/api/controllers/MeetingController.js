@@ -230,7 +230,7 @@ module.exports = {
   subscribe: function (req, res) {
     if (req.isSocket) {
       meeting.watch(req);
-      console.log('User with socket id ' + sails.sockets.id(req) +
+      console.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'meeting\'.');
     }
   },
@@ -277,8 +277,9 @@ module.exports = {
     // send summary email to everyone who provided at least email, attendees and members
     // TODO: delete guests who only provided name or nothing
     //var distinctPersons = [...new Set([...req.attendees, ...req.members])];
-    var distinctPersons = arrayUnion(req.attendees, req.members,
-      arePersonsEqual);
+    var distinctPersons = arrayUnion(req.attendees, req.members, arePersonsEqual);
+    //var distinctPersons = req.attendees;
+    sails.log("Email testing: distinct Persons are: " + distinctPersons);
     for (var distinctPerson in distinctPersons) {
       if (distinctPerson.email) EmailService.sendSummary(
         {
