@@ -93,6 +93,8 @@ module.exports = {
               sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
 
               todoitem.publishUpdate(updated[0].id, {
+
+                id: updated[0].id,
                 title: updated[0].title,
                 done: updated[0].done,
                 description: updated[0].description,

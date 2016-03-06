@@ -18,15 +18,19 @@ var bsSelect = require('../js/dependencies/bootstrap-select.js');
 ==============================================*/
 
 var MeetingDataAPI = require('./utils/MeetingDataAPI');
+var MeetingStore = require('./stores/MeetingStore');
 var FluxMeetingApp = require('./components/FluxMeetingApp.react');
 
 /*===============================================================
 =            assign dom elements for react rendering            =
 ===============================================================*/
 
-MeetingDataAPI.subscribeAndListen();
 MeetingDataAPI.getUser();
 MeetingDataAPI.getMeetingData();
+
+var todoitemList = MeetingStore.getAllTodoItems;
+
+MeetingDataAPI.subscribeAndListen(todoitemList);
 
 ReactDOM.render(
 	<FluxMeetingApp />,
