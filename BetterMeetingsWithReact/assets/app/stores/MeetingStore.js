@@ -196,6 +196,7 @@ AppDispatcher.register(function(payload) {
 
 		case FluxServerConstants.MEETING_RECEIVE:
 			loadMeetingData(action.data);
+			MeetingDataAPI.subscribeAndListen(_allTodoItems, _meeting.topics);
 			break;
 
 		case FluxServerConstants.TOPIC_SERVER_UPDATE:
@@ -209,12 +210,10 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_SERVER_UPDATE:
-			console.dir(action.data);
 			updateTodoItem(action.data.item, action.data.previousItem);
 			break;
 
 		case FluxServerConstants.TODO_REMOVE:
-			console.dir(action.data);
 			removeTodoItem(action.data);
 			break;
 

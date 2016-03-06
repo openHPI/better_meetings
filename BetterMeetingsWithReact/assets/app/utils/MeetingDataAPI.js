@@ -26,6 +26,8 @@ module.exports = {
    */
   subscribeAndListen: function (topicList, todoitemList) {
 
+    console.dir(todoitemList);
+
     io.socket.on('connect', function () {
       console.log('Connected to server');
       console.log('Socket session: ' + this.id);
@@ -121,6 +123,7 @@ module.exports = {
     io.socket.get('/person/current', function (data, jwres) {
       FluxServerActions.receiveUser(data.user);
     });
+
   },
 
   // Todoitem
