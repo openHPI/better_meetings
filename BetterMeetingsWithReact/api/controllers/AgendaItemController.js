@@ -104,7 +104,7 @@ module.exports = {
           }
           else {
             sails.log('Updated AgendaItem: ' + updated.title);
-            AgendaItem.publishUpdate(id,
+            agendaitem.publishUpdate(id,
               {
                 meetingseries:    updated.meetingseries,
                 title:            updated.title,
@@ -215,7 +215,7 @@ module.exports = {
   },
 
 
-  subscribe: function (req, res) {
+  listen: function (req, res) {
     if (req.isSocket) {
       agendaitem.watch(req);
       var testArray = [];

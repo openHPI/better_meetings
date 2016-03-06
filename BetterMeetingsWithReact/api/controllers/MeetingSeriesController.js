@@ -14,29 +14,25 @@ module.exports = {
     var timer = 900;
 
     if (admins && title) {
-      UrlService.generate_unique_url(function generateUrl(url) {
-        meetingseries.create({
-          admins: admins,
-          title: title,
-          timer: timer,
-          url: url,
-        }).exec(function createMeetingSeries(err, created) {
-          if (err) {
-            console.log('[bm-error] meetingseries not created: ' + err);
-          } else {
-            console.log('Created MeetingSeries: ' + created.title);
-            meetingseries.publishCreate({
-              id: created.id,
-              admins: created.admins,
-              title: created.title,
-              timer: created.timer,
-              url: created.url
-            });
-          }
-          if (!req.isSocket) {
-            res.redirect('/dashboard');
-          }
-        });
+      meetingseries.create({
+        admins: admins,
+        title: title,
+        timer: timer,
+      }).exec(function createMeetingSeries(err, created) {
+        if (err) {
+          console.log('[bm-error] meetingseries not created: ' + err);
+        } else {
+          console.log('Created MeetingSeries: ' + created.title);
+          meetingseries.publishCreate({
+            id: created.id,
+            admins: created.admins,
+            title: created.title,
+            timer: created.timer,
+          });
+        }
+        if (!req.isSocket) {
+          res.redirect('/dashboard');
+        }
       });
     }
     else if (req.isSocket) {
@@ -169,7 +165,7 @@ module.exports = {
   },
 
 
-  subscribe: function (req, res) {
+  listen: function (req, res) {
     if (req.isSocket) {
       meetingseries.watch(req);
       console.log('User with socket id ' + sails.sockets.getId(req) +

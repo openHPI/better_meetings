@@ -91,6 +91,7 @@ module.exports = {
               sails.log("Error while saving update to ToDoItem " + updated[0].title);
             } else {
               sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
+
               todoitem.publishUpdate(updated[0].id, {
                 title: updated[0].title,
                 done: updated[0].done,
@@ -109,7 +110,7 @@ module.exports = {
   },
 
 
-  subscribe: function (req, res) {
+  listen: function (req, res) {
     if (req.isSocket) {
       todoitem.watch(req);
       var testArray = [];
@@ -151,6 +152,7 @@ module.exports = {
             todoitem.publishDestroy(todoitemAnswer[0].id, undefined,
               {
                 previous: {
+                  id: todoitemAnswer[0].id,
                   title: todoitemAnswer[0].title,
                   done: todoitemAnswer[0].done,
                   description: todoitemAnswer[0].description,
