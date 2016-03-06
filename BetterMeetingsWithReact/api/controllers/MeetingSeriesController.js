@@ -61,52 +61,47 @@ module.exports = {
     var members = req.param('members');
     var description = req.param('description');
     var topics = req.param('topics');
-    var id = req.param('id');
+    var meetingSeriesId = req.param('id');
 
-    if (id && admins && title && meeting && url && timer && members &&
+    if (meetingSeriesId && admins && title && meeting && url && timer && members &&
       description && topics && req.isSocket) {
-      meetingseries.update(
-        {
-          'id': id
-        },
-        {
-          admins: admins,
-          title: title,
-          meeting: meeting,
-          url: url,
-          timer: timer,
-          members: members,
-          description: description,
-          topics: topics
-        })
-        .exec(function updateMeetingSeries(err, updated) {
+      meetingseries.update({id: meetingSeriesId}).set({
+          admins:       admins,
+          title:        title,
+          meeting:      meeting,
+          url:          url,
+          timer:        timer,
+          members:      members,
+          description:  description,
+          topics:       topics,
+      }).exec(function updateMeetingSeries(err, updated) {
           if (err) {
             sails.log('MeetingSeries not updated ' + err);
-            //res.redirect('/meetingseries/edit');
-          }
-          else if (!updated) {
-            sails.log('Update error for MeetingSeries ' + err);
-            //res.redirect('/meetingseries/edit');
-          }
-          else {
-            sails.log('Updated MeetingSeries: ' + updated.title);
-            meetingseries.publishUpdate(id,
-              {
-                admins: updated.admins,
-                title: updated.title,
-                meeting: updated.meeting,
-                url: updated.url,
-                timer: updated.timer,
-                members: updated.members,
-                description: updated.description,
-                topics: updated.topics
-              });
+          } else {
+            sails.log('Updated MeetingSeries: '   + updated[0].title);
+
+            updated[0].save(function (err) {
+              if (err) {
+                sails.log("Error while saving update to MeetingSeries " + updated[0].title);
+              } else {
+                sails.log("Successfully saved updates to MeetingSeries " + updated[0].title);
+                meetingseries.publishUpdate(updated[0].id, {
+                  admins:       updated[0].admins,
+                  title:        updated[0].title,
+                  meeting:      updated[0].meeting,
+                  url:          updated[0].url,
+                  timer:        updated[0].timer,
+                  members:      updated[0].members,
+                  description:  updated[0].description,
+                  topics:       updated[0].topics,
+                });
+              }
+            });
           }
         });
     }
     else {
       res.send('meetingseries');
-      //res.redirect('/meetingseries/view/'+id);
       sails.log('MeetingSeries not updated: too few parameters');
     }
   },
