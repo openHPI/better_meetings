@@ -74,14 +74,14 @@ function updateTodoItem (item, previousItem) {
 	var index;
 
 	for (var i = 0; i < _meeting.topics.length; i++) {
-		if( _meeting.topics[i].id === previousItem.owner ){
-			index = getIndexOfTodoItem(previousItem, _meeting.topics[i].todos);
+		if( _meeting.topics[i].id === item.owner ){
+			index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
 			_meeting.topics[i].todos[index] = item;
 			break;
 		}
 	}
 
-	index = getIndexOfTodoItem(previousItem, _allTodoItems);
+	index = getIndexOfTodoItem(item, _allTodoItems);
 	_allTodoItems[index] = item;
 }
 
@@ -184,10 +184,12 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_SERVER_UPDATE:
+			console.dir(action.data);
 			updateTodoItem(action.data.item, action.data.previousItem);
 			break;
 
 		case FluxServerConstants.TODO_REMOVE:
+			console.dir(action.data);
 			removeTodoItem(action.data);
 			break;
 
