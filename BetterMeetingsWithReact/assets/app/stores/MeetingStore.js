@@ -6,60 +6,46 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _isMeetingDataLoaded = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null;
+var _isMeetingDataLoaded = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null, _qrcode = null;
 
 /**
  * Setting the user
- * 
+ *
  * @method loadUserData
  * @param {Object} data The user data
  */
-function loadUserData (user) {
-	_user = user;
+function loadUserData(user) {
+  _user = user;
 }
 
 /**
  * Initializing the agenda store variables
- * 
+ *
  * @method loadMeetingData
  * @param {Object} data The meeting data
  */
-function loadMeetingData (meeting) {
-	_isMeetingDataLoaded = true;
-	_meeting = meeting;
-	_selectedTopic = 0;
-	_allTodoItems = getAllTodoItems();
-	_canEdit = isUserAdmin();
+function loadMeetingData(meeting) {
+  _isMeetingDataLoaded = true;
+  _meeting = meeting;
+  _selectedTopic = 0;
+  console.dir(meeting);
+  _allTodoItems = getAllTodoItems();
+  _canEdit = isUserAdmin();
 }
 
 /**
  * Fetching all todo item from the topics
- * 
+ *
  * @method getAllTodoItems
  * @return {Array<Objects>} allTodoItems All todo items
  */
-function getAllTodoItems () {
-	var allTodoItems = [];
-	for (var i = 0; i < _meeting.topics.length; i++) {
-		allTodoItems = allTodoItems.concat(_meeting.topics[i].todos);
-	}
+function getAllTodoItems() {
+  var allTodoItems = [];
+  for (var i = 0; i < _meeting.topics.length; i++) {
+    allTodoItems = allTodoItems.concat(_meeting.topics[i].todos);
+  }
 
-	return allTodoItems;
-}
-
-function isUserAdmin () {
-	for (var i = 0; i < _meeting.admins.length; i++) {
-		if(_user.id === _meeting.admins[i].id)
-			return true;
-	}
-	return false;
-}
-
-function getIndexOfTodoItem (item, todoitems) {
-	for (var i = 0; i < todoitems.length; i++) {
-		if(todoitems[i].id === item.id)
-			return i;
-	}
+  return allTodoItems;
 }
 
 function updateTopic (topic) {
@@ -71,60 +57,64 @@ function updateTopic (topic) {
 	}
 }
 
-function addTodoItem (item) {
-	for (var i = 0; i < _meeting.topics.length; i++) {
-		if(_meeting.topics[i].id === item.owner){
-			_meeting.topics[i].todos.unshift(action.data);
-			break;
-		}
-	}
+function isUserAdmin() {
+  for (var i = 0; i < _meeting.admins.length; i++) {
+    if (_user.id === _meeting.admins[i].id)
+      return true;
+  }
+  return false;
+}
 
-	_allTodoItems.unshift(action.data);
+function getIndexOfTodoItem(item, todoitems) {
+  for (var i = 0; i < todoitems.length; i++) {
+    if (todoitems[i].id === item.id)
+      return i;
+  }
 }
 
 /**
  * Updates a todo item
- * 
+ *
  * @method updateTodoItem
  * @param {Object} item Updated todo item
  * @param {Object} previousItem Old todo item
  */
 function updateTodoItem (item) {
 
-	var index;
+  var index;
 
-	for (var i = 0; i < _meeting.topics.length; i++) {
-		if( _meeting.topics[i].id === item.owner ){
-			index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
-			_meeting.topics[i].todos[index] = item;
-			break;
-		}
-	}
+  for (var i = 0; i < _meeting.topics.length; i++) {
+    if (_meeting.topics[i].id === item.owner) {
+      index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
+      _meeting.topics[i].todos[index] = item;
+      break;
+    }
+  }
 
-	index = getIndexOfTodoItem(item, _allTodoItems);
-	_allTodoItems[index] = item;
+  index = getIndexOfTodoItem(item, _allTodoItems);
+  _allTodoItems[index] = item;
 }
 
 /**
  * Destroys a todo item
- * 
+ *
  * @method removeTodoItem
  * @param {Object} item The todo item
  */
-function removeTodoItem (item) {
+function removeTodoItem(item) {
 
-	var index;
+  var index;
 
-	for (var i = 0; i < _meeting.topics.length; i++) {
-		if( _meeting.topics[i].id === item.owner ){
-			index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
-			_meeting.topics[i].todos.splice(index, 1);
-			break;
-		}
-	}
+  for (var i = 0; i < _meeting.topics.length; i++) {
+    if (_meeting.topics[i].id === item.owner) {
+      index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
+      _meeting.topics[i].todos.splice(index, 1);
+      break;
+    }
+  }
 
-	index = getIndexOfTodoItem(item, _allTodoItems);
-	_allTodoItems.splice(index, 1);
+  index = getIndexOfTodoItem(item, _allTodoItems);
+  _allTodoItems.splice(index, 1);
 }
 
 /**
@@ -134,50 +124,54 @@ function removeTodoItem (item) {
  */
 var MeetingStore = _.extend({}, EventEmitter.prototype, {
 
-	getUser: function() {
-		return _user;
-	},
+  getUser: function () {
+    return _user;
+  },
 
-	canEdit: function() {
-		return _canEdit;
-	},
+  canEdit: function () {
+    return _canEdit;
+  },
 
-	getIsMeetingDataLoaded: function() {
-		return _isMeetingDataLoaded;
-	},
+  getIsMeetingDataLoaded: function () {
+    return _isMeetingDataLoaded;
+  },
 
-	getMeetingData: function() {
-		return _meeting;
-	},
+  getMeetingData: function () {
+    return _meeting;
+  },
 
-	// Return selected agenda item
-	getSelectedTopic: function() {
-		return _selectedTopic;
-	},
+  getQrCode: function () {
+    return _qrcode;
+  },
 
-	// Return all todos
-	getAllTodoItems: function() {
-		return _allTodoItems;
-	},
+  // Return selected agenda item
+  getSelectedTopic: function () {
+    return _selectedTopic;
+  },
 
-	getEditingTodoItem: function() {
-		return _editingTodoItem;
-	},
+  // Return all todos
+  getAllTodoItems: function () {
+    return _allTodoItems;
+  },
 
-	// Emit change event
-	emitChange: function() {
-		this.emit('change');
-	},
+  getEditingTodoItem: function () {
+    return _editingTodoItem;
+  },
 
-	// Add change listener
-	addChangeListener: function(callback) {
-		this.on('change', callback);
-	},
+  // Emit change event
+  emitChange: function () {
+    this.emit('change');
+  },
 
-	// Remove change listener
-	removeChangeListener: function(callback) {
-		this.removeListener('change', callback);
-	}
+  // Add change listener
+  addChangeListener: function (callback) {
+    this.on('change', callback);
+  },
+
+  // Remove change listener
+  removeChangeListener: function (callback) {
+    this.removeListener('change', callback);
+  }
 
 });
 
@@ -195,7 +189,8 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.MEETING_RECEIVE:
-			loadMeetingData(action.data);
+			loadMeetingData(action.data.meeting);
+			_qrcode = action.data.qrcode;
 			MeetingDataAPI.subscribeAndListen(_meeting.topics, _allTodoItems);
 			break;
 

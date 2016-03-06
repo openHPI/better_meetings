@@ -42,7 +42,7 @@
               <div class="username hidden-xs text-white"><%= req.session.me.name %></div>
             </a>
 
-            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right with-arrow panel-default">
+            <div class="dropdown-menu dropdown-menu-right with-arrow panel-default">
               <!-- Dropdown heading  -->
               <div class="pad-all bord-btm">
                 <p class="text-lg text-muted text-thin mar-btm">Willommen <%= req.session.me.name %>!</p>
@@ -64,12 +64,6 @@
                   <a href="/dashboard">
                     <span class="badge badge-success pull-right"><%= req.session.me.todos.length %></span>
                     <i class="fa fa-exclamation fa-fw fa-lg"></i> Aufgaben
-                  </a>
-                </li>
-
-                <li>
-                  <a href="/person/edit">
-                    <i class="fa fa-gear fa-fw fa-lg"></i> Einstellungen
                   </a>
                 </li>
               </ul>
@@ -129,8 +123,6 @@
 <!--SCRIPTS-->
 <script src="/browserify/debug.0.1.0.js"></script>
 <script src="/js/dependencies/jquery-1.12.0.min.js"></script>
-<script src="/js/dependencies/bootstrap.min.js"></script>
-<script src="/js/dependencies/bootbox.min.js"></script>
 <script src="/js/dependencies/nifty.min.js"></script>
 <script src="/js/dependencies/pace.min.js"></script>
 <!--SCRIPTS END-->

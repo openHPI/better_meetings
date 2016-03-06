@@ -26,6 +26,15 @@ module.exports = {
    */
   subscribeAndListen: function (topicList, todoitemList) {
 
+    var todoitems = [];
+    for (var item in todoitemList){
+      todoitems.push(todoitemList[item].id);
+    };
+    var topicitems = [];
+    for (var item in topicList){
+      topicitems.push(topicList[item].id);
+    };
+
     io.socket.on('connect', function () {
       console.log('Connected to server');
       console.log('Socket session: ' + this.id);
@@ -112,7 +121,7 @@ module.exports = {
   getMeetingData: function () {
 
     io.socket.get('/meeting/get', function (data, jwres) {
-      FluxServerActions.receiveMeetingData(data.meeting);
+      FluxServerActions.receiveMeetingData(data);
     });
 
   },

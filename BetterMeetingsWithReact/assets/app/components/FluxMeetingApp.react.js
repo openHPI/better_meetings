@@ -11,29 +11,32 @@ var FluxAttendeeForm = require('./FluxAttendeeForm.react');
 var FluxMeetingTimer = require('./FluxMeetingTimer.react');
 var FluxMeetingProgress = require('./FluxMeetingProgress.react');
 
+var FluxQrViewer = require('./FluxQrViewer.react');
+
 var FluxTodoList = require('./FluxTodoList.react');
 var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
 var FluxTodoItemUpdateForm = require('./FluxTodoItemUpdateForm.react');
 
 var FluxTest = require('./FluxTest.react');
 
-function getMeetingState () {
-	return {
-		isMeetingDataLoaded: MeetingStore.getIsMeetingDataLoaded(),
+function getMeetingState() {
+  return {
+    isMeetingDataLoaded: MeetingStore.getIsMeetingDataLoaded(),
 
-		user: MeetingStore.getUser(),
-		canEdit: MeetingStore.canEdit(),
+    user: MeetingStore.getUser(),
+    canEdit: MeetingStore.canEdit(),
 
-		meeting: MeetingStore.getMeetingData(),
-		selectedTopic: MeetingStore.getSelectedTopic(),
-		allTodoItems: MeetingStore.getAllTodoItems(),
-		editingTodoItem: MeetingStore.getEditingTodoItem()
-	};
+    meeting: MeetingStore.getMeetingData(),
+    qrcode: MeetingStore.getQrCode(),
+    selectedTopic: MeetingStore.getSelectedTopic(),
+    allTodoItems: MeetingStore.getAllTodoItems(),
+    editingTodoItem: MeetingStore.getEditingTodoItem()
+  };
 }
 
 /**
  * Main component
- * 
+ *
  * @module FluxMeetingApp
  * @require React
  * @require MeetingStore
@@ -43,7 +46,7 @@ function getMeetingState () {
  * @require FluxAttendeeFrom
  * @require FluxMeetingTimer
  * @require FluxMeetingProgress
- * @require FluxTodoList 
+ * @require FluxTodoList
  *
  */
 var FluxMeetingApp = React.createClass({
@@ -109,6 +112,9 @@ var FluxMeetingApp = React.createClass({
 				                    </div>
 				                  </div>
 				                 </div>
+								</div>
+								<div className="row">
+									<FluxQrViewer qrcode={this.state.qrcode}/>
 								</div>
 			    		</div>
 			    	</div>
