@@ -196,51 +196,46 @@ module.exports = {
     var assignedMeetings = req.param('assignedMeetings');
     var createdMeetings = req.param('createdMeetings');
     var isAdmin = req.param('isAdmin');
-    var id = req.param('id');
+    var personId = req.param('id');
 
-    if (id && name && password && email && todos && assignedMeetings &&
-      createdMeetings && isAdmin && req.isSocket) {
-      person.update(
-        {
-          'id': id
-        },
-        {
-          name: name,
-          password: password,
-          email: email,
-          todos: todos,
-          assignedMeetings: assignedMeetings,
-          createdMeetings: createdMeetings,
-          isAdmin: isAdmin,
-        })
+    if (personId && name && password && email && todos && assignedMeetings &&
+      createdMeetings && isAdmin != null && req.isSocket) {
+      person.update({id: personId}).set({
+        name:             name,
+        password:         password,
+        email:            email,
+        todos:            todos,
+        assignedMeetings: assignedMeetings,
+        createdMeetings:  createdMeetings,
+        isAdmin:          isAdmin,
+      })
         .exec(function updatePerson(err, updated) {
           if (err) {
             sails.log('Person not updated ' + err);
-            //res.redirect('/person/edit');
-          }
-          else if (!updated) {
-            sails.log('Update error for Person ' + err);
-            //res.redirect('/person/edit');
-          }
-          else {
-            sails.log('Updated Person: ' + updated.name);
-            person.publishUpdate(id,
-              {
-                name: updated.name,
-                password: updated.password,
-                email: updated.email,
-                todos: updated.todos,
-                assignedMeetings: updated.assignedMeetings,
-                createdMeetings: updated.createdMeetings,
-                isAdmin: updated.isAdmin,
+          } else {
+            sails.log('Updated Person: ' + updated[0].name);
+
+            updated[0].save(function (err) {
+              if (err) {
+                sails.log("Error while saving update to Person " + updated[0].title);
+              } else {
+                sails.log("Successfully saved updates to Person " + updated[0].title);
+              }
+            });
+            person.publishUpdate(updated[0].id, {
+                name:             updated[0].name,
+                password:         updated[0].password,
+                email:            updated[0].email,
+                todos:            updated[0].todos,
+                assignedMeetings: updated[0].assignedMeetings,
+                createdMeetings:  updated[0].createdMeetings,
+                isAdmin:          updated[0].isAdmin,
               });
           }
         });
-
     }
     else {
       res.send('person');
-      //res.redirect('/person/view/'+id);
       sails.log('Person not updated: too few parameters');
     }
   },
@@ -572,6 +567,11 @@ module.exports = {
   listen: function (req, res) {
     if (req.isSocket) {
       person.watch(req);
+      var testArray = [];
+      for (var i = 1; i < 100; i++) {
+        testArray.push(i);
+      }
+      person.subscribe(req, testArray);
       console.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'person\'.');
     }

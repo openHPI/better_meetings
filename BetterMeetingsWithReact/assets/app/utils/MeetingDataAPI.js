@@ -24,7 +24,7 @@ module.exports = {
    *
    * @method subscribeAndListen
    */
-  subscribeAndListen: function () {
+  subscribeAndListen: function (todoitemList) {
 
     io.socket.on('connect', function () {
       console.log('Connected to server');
@@ -32,11 +32,9 @@ module.exports = {
 
       // Subscribe to todoitem
 
-      io.socket.get('/todoitem/subscribe', function (resData, jwres) {});
+      io.socket.get('/todoitem/listen', todoitemList, function (resData, jwres) {});
 
       io.socket.on('todoitem', function onServerSentEvent(msg) {
-
-        console.log(msg);
 
         switch (msg.verb) {
 
@@ -47,13 +45,11 @@ module.exports = {
 
           case 'updated':
             console.log('PUBSUB: Updated TodoItem: ' + msg.data);
-            console.dir(msg);
             FluxServerActions.updateTodoItem(msg.data, msg.id);
             break;
 
           case 'destroyed':
             console.log('PUBSUB: Delete Todoitem: ' + msg.previous);
-            console.log(msg);
             FluxServerActions.removeTodoItem(msg.previous);
             break;
 
@@ -66,7 +62,7 @@ module.exports = {
 
       // Subscribe to person
 
-      io.socket.get('/person/subscribe', function (resData, jwres) {});
+      io.socket.get('/person/listen', function (resData, jwres) {});
 
       io.socket.on('person', function (msg) {
 

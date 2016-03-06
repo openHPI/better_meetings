@@ -162,8 +162,15 @@ p, .p {
   list-style-type: none;
   font-size: 2.0em;
   .todo-item {
+    .todo-control {
+      float: right;
+      display: none;
+    }
     &:hover {
       background-color: #f0f2f6;
+      &.todo-control {
+        display: block;
+      }
     }
     &.placeholder {
       background-color: #f0f2f6;
@@ -171,9 +178,6 @@ p, .p {
         content: "Drop here";
         color: rgb(225,210,90);
       }
-    }
-    .todo-control {
-      float: right;
     }
   }
 }
