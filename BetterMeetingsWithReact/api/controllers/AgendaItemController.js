@@ -104,14 +104,14 @@ module.exports = {
           }
           else {
             sails.log('Updated AgendaItem: ' + updated.title);
-            AgendaItem.publishUpdate(id,
+            agendaitem.publishUpdate(id,
               {
-                meetingseries: updated.meetingseries,
-                title: updated.title,
-                description: updated.description,
-                todos: updated.todos,
-                done: updated.done,
-                subAgendaItems: updated.subAgendaItems,
+                meetingseries:    updated.meetingseries,
+                title:            updated.title,
+                description:      updated.description,
+                todos:            updated.todos,
+                done:             updated.done,
+                subAgendaItems:   updated.subAgendaItems,
               });
           }
         });
@@ -139,22 +139,24 @@ module.exports = {
   delete: function (req, res) {
     var agendaItemID = req.param('agendaItemID', null);
     if (agendaItemID && req.isSocket) {
-      AgendaItem.findOne(agendaItemID).exec(function findAgendaItem(err, agendaItemAnswer) {
-        agendaitem.destroy(
-          {
-            id: agendaItemAnswer.id
-          })
-          .exec(function destroy(err) {
+      agendaItem.findOne(agendaItemID).exec(function findAgendaItem(err, agendaItemAnswer) {
+        agendaitem.destroy({id: agendaItemAnswer.id}).exec(function destroy(err, agendaItemAnswer) {
             if (err) {
               sails.log('Error while deleting agendaitem');
               res.send('Error');
             }
             else {
               sails.log('Successfully deleted ' + agendaitemID);
-              agendaitem.publishDestroy(
-                {
-                  id: agendaItemAnswer.id
-                });
+              agendaitem.publishDestroy(agendaItemAnswer[0].id, undefined, {
+                previous: {
+                  title:          agendaItemAnswer[0].title,
+                  meetingseries:  agendaItemAnswer[0].meetingseries,
+                  description:    agendaItemAnswer[0].description,
+                  done:           agendaItemAnswer[0].done,
+                  todos:          agendaItemAnswer[0].todos,
+                  subAgendaItems: agendaItemAnswer[0].subAgendaItems,
+                }
+              });
             }
           });
       });
@@ -221,7 +223,7 @@ module.exports = {
         testArray.push(i);
       }
       agendaitem.subscribe(req, testArray);
-      sails.log('User with socket id ' + sails.sockets.id(req) +
+      sails.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'agendaitem\'.');
     }
   },

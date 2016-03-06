@@ -173,7 +173,7 @@ module.exports = {
   subscribe: function (req, res) {
     if (req.isSocket) {
       meetingseries.watch(req);
-      console.log('User with socket id ' + sails.sockets.id(req) +
+      console.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'meetingseries\'.');
     }
   },

@@ -57,69 +57,64 @@ module.exports = {
 
   update: function (req, res) {
     sails.log('Update started');
-    sails.log(req.param('title') + ' ID: ' + req.param('id'));
-    var id = req.param('id');
+    sails.log(req.param('title') + " ID: " + req.param('id'));
+    var todoItemId = req.param('id');
     var title = req.param('title');
     var done = req.param('done');
     var description = req.param('description');
     var owner = req.param('owner');
     var author = req.param('author');
     var assignee = req.param('assignee');
-    sails.log('after param assigmnment');
+    sails.log("after param assigmnment");
 
 
-    if (id && title && description && done !== null && req.isSocket) {
-      sails.log('number of params ok');
-      todoitem.update(
-        {
-          'id': id
-        },
-        {
-          title: title,
-          done: done,
-          description: description,
-          owner: owner,
-          author: author,
-          assignee: assignee,
-        })
-        .exec(function updateToDoItem(err, updated) {
-          sails.log('exec ok');
-          if (err) {
-            sails.log('ToDoItem not updated ' + err);
-          }
-          else if (!updated) {
-            sails.log('Update error for ToDoItem ' + err);
-          }
-          else {
-            sails.log('Updated ToDoItem: ' + updated[0].title);
-            console.dir(updated);
-            updated[0].save(function (erro) {
-              if (erro) {
-                sails.log('Error while saving update to ToDoItem ' +
-                  updated[0].title);
-              }
-              else {
-                sails.log('Successfully saved updates to ToDoItem ' +
-                  updated[0].title);
-              }
-            });
-
-            todoitem.publishUpdate(updated[0].id,
-              {
+    if (todoItemId && title && description && done !== null && req.isSocket) {
+      sails.log("number of params ok");
+      todoitem.update({id: todoItemId})
+      .set({
+          title:        title,
+          done:         done,
+          description:  description,
+          owner:        owner,
+          author:       author,
+          assignee:     assignee,
+      })
+      .exec(function updateToDoItem(err, updated) {
+        sails.log("exec ok");
+          
+        if (err) {
+          sails.log('ToDoItem not updated ' + err);
+        } else {
+          sails.log('Updated ToDoItem: ' + updated[0].title);
+          
+          updated[0].save(function (err) {
+            if (err) {
+              sails.log("Error while saving update to ToDoItem " + updated[0].title);
+            } else {
+              sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
+              todoitem.publishUpdate(updated[0].id, { 
+                id: updated[0].id,
                 title: updated[0].title,
                 done: updated[0].done,
                 description: updated[0].description,
                 owner: updated[0].owner,
                 author: updated[0].author,
                 assignee: updated[0].assignee,
-              });
+                
 
-          }
-        });
-    }
-    else {
+
+              });
+            };
+          });
+
+        }});
+
+
+
+    } else {
       sails.log('ToDoItem not updated: too few parameters');
       res.send('todoitem');
+ 
     }
   },
 
@@ -132,7 +127,7 @@ module.exports = {
         testArray.push(i);
       }
       todoitem.subscribe(req, testArray);
-      sails.log('User with socket id ' + sails.sockets.id(req) +
+      sails.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'todoitem\'.');
     }
   },
@@ -156,16 +151,17 @@ module.exports = {
       todoitem.findOne(id).exec(function findMeetingSeries(err, todoitemAnswer) {
         todoitem.destroy({id: todoitemAnswer.id}).exec(function (err, todoitemAnswer) {
           if (err) {
-            sails.log('Error while deleting meetingseries');
+            sails.log('Error while deleting todoitem');
             res.send('Error');
           }
           else {
             sails.log('Successfully deleted ' + id);
 
-            
+
             todoitem.publishDestroy(todoitemAnswer[0].id, undefined,
               {
                 previous: {
+                  id: todoitemAnswer[0].id,
                   title: todoitemAnswer[0].title,
                   done: todoitemAnswer[0].done,
                   description: todoitemAnswer[0].description,
@@ -174,7 +170,7 @@ module.exports = {
                   assignee: todoitemAnswer[0].assignee,
                 }
               });
-            
+
           }
         });
       });
