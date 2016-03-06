@@ -76,6 +76,8 @@ function updateTodoItem (item, previousItem) {
 	for (var i = 0; i < _meeting.topics.length; i++) {
 		if( _meeting.topics[i].id === item.owner ){
 			index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
+			console.log(index);
+			console.dir(_meeting.topics[i].todos[index]);
 			_meeting.topics[i].todos[index] = item;
 			break;
 		}
