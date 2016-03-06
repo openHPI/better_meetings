@@ -72,34 +72,38 @@ module.exports.routes = {
   'post /User': 'UserController.create',
 
   // endpoints for meetingserien controller
+  'GET /meetingseries/listen': 'MeetingController.listen',
   'POST /meetingseries/create': 'MeetingSeriesController.create',
   'POST /meetingseries/update': 'MeetingSeriesController.update',
   'GET /meetingseries/view/:id': 'MeetingSeriesController.view',
   'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
   // endpoints for meeting controller
+  'GET /meeting/listen': 'MeetingController.listen',
   'POST /meeting/create': 'MeetingController.create',
+  'POST /meeting/create/:series_id': 'MeetingController.createFromSeries',
   'POST /meeting/createAttendee': 'MeetingController.createAttendee',
   'POST /meeting/update': 'MeetingController.update',
   'POST /meeting/delete': 'MeetingController.delete',
   'GET /meeting/get': 'MeetingController.get',
-  'GET /meeting/end': 'MeetingController.end',
+  'GET /meeting/end': 'MeetingController.endMeeting',
 
   // endpoints for meeting controller
-  'GET /person/subscribe': 'PersonController.subscribe',
+  'GET /person/listen': 'PersonController.listen',
   'POST /person/create': 'PersonController.create',
   'POST /person/update': 'PersonController.update',
   'POST /person/delete': 'PersonController.delete',
   'GET /person/current': 'PersonController.getCurrent',
 
   // endpoints for agendaitem controller
+  'GET /topic/listen': 'AgendaItemController.listen',
   'POST /topic/create': 'AgendaItemController.create',
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
   'POST /topic/update': 'AgendaItemController.update',
   'POST /topic/delete': 'AgendaItemController.delete',
 
   // endpoints for todoitem
-  'GET /todoitem/subscribe': 'TodoItemController.subscribe',
+  'GET /todoitem/listen': 'TodoItemController.listen',
   'POST /todoitem/create': 'TodoItemController.create',
   'POST /todoitem/update': 'TodoItemController.update',
   'POST /todoitem/delete': 'TodoItemController.delete',
