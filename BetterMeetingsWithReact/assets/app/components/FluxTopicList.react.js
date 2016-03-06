@@ -32,8 +32,6 @@ var FluxTopicList = React.createClass({
 		var items = this.props.items;
 		var selected = this.props.selected;
     	var count = items.length;
-
-    	console.dir(items[selected]);
     	
 		return (
 			<div className="flux-agenda-container panel">

@@ -24,11 +24,29 @@ module.exports = {
    *
    * @method subscribeAndListen
    */
-  subscribeAndListen: function (todoitemList) {
+  subscribeAndListen: function (topicList, todoitemList) {
 
     io.socket.on('connect', function () {
       console.log('Connected to server');
       console.log('Socket session: ' + this.id);
+
+      io.socket.get('/agendaitem/listen', topicList, function (resData, jwres) {});
+
+      io.socket.on('agendaitem', function onServerSentEvent(msg) {
+
+        switch (msg.verb) {
+
+          case 'updated':
+            console.log('PUBSUB: Updated Topic: ' + msg.data);
+            FluxServerActions.updateTopic(msg.data, msg.id);
+            break;
+
+          default:
+            console.warn('Unrecognized socket event (`%s`) from server:',event.verb, event);
+            return;
+        }
+
+      });
 
       // Subscribe to todoitem
 
@@ -168,8 +186,8 @@ module.exports = {
    *
    * @method endMeeting
    */
-  endMeeting: function (id) {
-    io.socket.get('/meeting/end', id, function (data, jwres) {});
+  endMeeting: function (meeting) {
+    io.socket.get('/meeting/end', meeting, function (data, jwres) {});
   }
 
 }

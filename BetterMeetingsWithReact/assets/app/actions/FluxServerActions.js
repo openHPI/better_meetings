@@ -38,6 +38,13 @@ var FluxServerActions = {
 		})
 	},
 
+	updateTopic: function(topic, previousTopic) {
+		AppDispatcher.handleAction({
+			actionType: FluxServerConstants.TOPIC_SERVER_UPDATE,
+			data: { topic: topic, previousTopic: previousTopic }
+		})
+	},
+
 	/**
 	 * Adds a new todo item
 	 * 
