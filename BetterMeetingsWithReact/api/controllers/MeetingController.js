@@ -23,63 +23,56 @@ module.exports = {
       }
 
       if (series) {
-        meeting.findOne(
-          {
-            url: series.url
-          })
-          .exec(function findMeeting(err, cre) {
-            if (cre) {
-              return res.send('Es wird gerade ein Meeting dieser Serie gehalten. Du musst das alte Meeting zuerst beenden, bevor du ein neues erstellen kannst');
-            }
+        UrlService.generate_unique_url(function generateUrl(url) {
+          var attendees = [];
+          for (var i = 0; i < series.admins.length; i++) {
+            attendees.push(series.admins[i]);
+          }
+          for (var i = 0; i < series.members.length; i++) {
+            attendees.push(series.members[i]);
+          }
 
-            var attendees = [];
-            for (var i = 0; i < series.admins.length; i++) {
-              attendees.push(series.admins[i]);
+          for (var i = 0; i < series.topics.length; i++) {
+            if (req.param('topic' + i, null) === 'on') {
+              topics.push(series.topics[i]);
             }
-            for (var i = 0; i < series.members.length; i++) {
-              attendees.push(series.members[i]);
-            }
+          }
 
-            for (var i = 0; i < series.topics.length; i++) {
-              if (req.param('topic' + i, null) === 'on') {
-                topics.push(series.topics[i]);
+          meeting.create(
+            {
+              topics: topics,
+              title: series.title,
+              description: series.description,
+              admins: series.admins,
+              attendees: attendees,
+              isInitialCreation: true,
+              timer: series.timer,
+              url: url,
+              series: series
+            })
+            .exec(function createMeeting(err, created) {
+              if (err) {
+                console.log('Meeting not created' + err);
               }
-            }
-
-            meeting.create(
-              {
-                topics: topics,
-                title: series.title,
-                description: series.description,
-                admins: series.admins,
-                attendees: attendees,
-                isInitialCreation: true,
-                timer: series.timer,
-                url: series.url,
-                series: series
-              })
-              .exec(function createMeeting(err, created) {
-                if (err) {
-                  console.log('Meeting not created' + err);
-                }
-                else {
-                  console.log('Created Meeting ' + JSON.stringify(created));
-                  meeting.publishCreate(
-                    {
-                      id: created.id,
-                      topics: created.topics,
-                      title: created.topics,
-                      description: created.topics,
-                      admins: created.admins,
-                      attendees: created.attendees,
-                      isInitialCreation: created.isInitialCreation,
-                      timer: created.timer,
-                      url: created.url,
-                      series: created.series
-                    });
-                }
-              });
-          });
+              else {
+                console.log('Created Meeting ' + JSON.stringify(created));
+                meeting.publishCreate(
+                  {
+                    id: created.id,
+                    topics: created.topics,
+                    title: created.topics,
+                    description: created.topics,
+                    admins: created.admins,
+                    attendees: created.attendees,
+                    isInitialCreation: created.isInitialCreation,
+                    timer: created.timer,
+                    url: created.url,
+                    series: created.series
+                  });
+                res.redirect('/meeting/id/' + url);
+              }
+            });
+        });
       }
     });
   },

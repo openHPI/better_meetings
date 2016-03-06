@@ -35,11 +35,6 @@ module.exports = {
       collection: 'meeting',
       via: 'series'
     },
-    url: {
-      type: 'string',
-      required: true,
-      unique: true
-    },
     timer: {
       type: 'integer',
       required: true
