@@ -93,7 +93,7 @@
   </div>
 
   <%- body %>
-  
+
 </div><!-- #container -->
 <!--
     Client-side Templates
@@ -127,14 +127,28 @@
 <!--SCRIPTS END-->
 
 <script>
+
   jQuery(function () {
-    jQuery(".grid").sortable({
-      tolerance: 'pointer',
-      revert: 'invalid',
-      placeholder: 'span2 well placeholder tile',
-      forceHelperSize: true
-    });
-  });
+    jQuery('li').removeClass('ui-corner-bottom');
+    jQuery('ul')
+      .addClass('ui-corner-top')
+      .removeClass('ui-corner-all')
+      .sortable({
+        'containment': 'parent',
+        'opacity': 0.6,
+        update: function (event, ui) {
+          alert("dropped");
+        }
+      });
+
+  //  jQuery(function () {
+  //    jQuery(".grid").sortable({
+  //      tolerance: 'pointer',
+  //      revert: 'invalid',
+  //      placeholder: 'span2 well placeholder tile',
+  //      forceHelperSize: true
+  //    });
+  //  });
 </script>
 
 </body>

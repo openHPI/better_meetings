@@ -3,7 +3,7 @@ var FluxServerConstants = require('../constants/FluxServerConstants');
 
 /**
  * Handles server actions
- * 
+ *
  * @module FluxAgendaActions
  * @require AppDispatcher
  * @require FluxServerConstants
@@ -13,7 +13,7 @@ var FluxServerActions = {
 
 	/**
 	 * Loads the meeting data into the view
-	 * 
+   *
 	 * @method receiveMeetingData
 	 * @param {Object} data The meeting data
 	 */
@@ -38,7 +38,7 @@ var FluxServerActions = {
 		})
 	},
 
-	updateTopic: function(topic) {
+  updateTopic: function (topic) {
 		AppDispatcher.handleAction({
 			actionType: FluxServerConstants.TOPIC_SERVER_UPDATE,
 			data: { topic: topic, previousTopic: previousTopic }
@@ -47,12 +47,12 @@ var FluxServerActions = {
 
 	/**
 	 * Adds a new todo item
-	 * 
+   *
 	 * @method addTodoItem
 	 * @param {Object} item The new todo item
 	 */
 	addTodoItem: function(item) {
-		AppDispatcher.handleAction({	
+    AppDispatcher.handleAction({
 			actionType: FluxServerConstants.TODO_ADD,
 			data: item
 		})
@@ -60,21 +60,21 @@ var FluxServerActions = {
 
 	/**
 	 * Updates a todo item
-	 * 
+   *
 	 * @method updateTodoItem
 	 * @param {Object} item The updated todo item
 	 * @param {Object} previousItem The the item before the update
 	 */
-	updateTodoItem: function(item) {
+  updateTodoItem: function (item) {
 		AppDispatcher.handleAction({
 			actionType: FluxServerConstants.TODO_SERVER_UPDATE,
-			data: item
+      data: item
 		})
 	},
 
 	/**
 	 * Removes a todo item
-	 * 
+   *
 	 * @method removeTodoItem
 	 * @param {Object} item The todo item
 	 */
@@ -87,7 +87,7 @@ var FluxServerActions = {
 
 	/**
 	 * Creates a new member
-	 * 
+   *
 	 * @method createMember
 	 * @param {Object} item The new member
 	 */
