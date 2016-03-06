@@ -104,7 +104,7 @@ module.exports = {
           }
           else {
             sails.log('Updated AgendaItem: ' + updated.title);
-            AgendaItem.publishUpdate(id,
+            agendaitem.publishUpdate(id,
               {
                 meetingseries:    updated.meetingseries,
                 title:            updated.title,
