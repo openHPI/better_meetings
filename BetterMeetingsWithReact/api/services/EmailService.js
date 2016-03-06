@@ -13,15 +13,15 @@ module.exports = {
     sails.log("test agendaitem: " + meetingSeriesTopics[0].title);
     sails.log("test todoitem: " + meetingSeriesTopics[0].todos[0].title);
     for (var _agendaitem in meetingSeriesTopics) {
-      htmlString = htmlString.concat("#", meetingSeriesTopics[_agendaitem].title);
-      htmlString = htmlString.concat("##", meetingSeriesTopics[_agendaitem].description);
-      htmlString = htmlString.concat("##", meetingSeriesTopics[_agendaitem].done);
+      htmlString = htmlString.concat("#", meetingSeriesTopics[_agendaitem].title, "\n");
+      htmlString = htmlString.concat("##", meetingSeriesTopics[_agendaitem].description, "\n");
+      htmlString = htmlString.concat("##", meetingSeriesTopics[_agendaitem].done, "\n");
       var currAgendaItem = meetingSeriesTopics[_agendaitem];
       for (var _todoitem in currAgendaItem.todos) {
-        htmlString = htmlString.concat("###", currAgendaItem.todos[_todoitem].title);
-        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].description);
-        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].assignee);
-        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].done);
+        htmlString = htmlString.concat("###", currAgendaItem.todos[_todoitem].title, "\n");
+        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].description, "\n");
+        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].assignee, "\n");
+        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].done, "\n");
       }
     }
     sails.log("length of markdown string before parsing is: " + htmlString.length);
@@ -34,9 +34,9 @@ module.exports = {
   sendSummary: function (req, res) {
 
     // sails.hooks.email.send(template, data, options, cb)
-   sails.hooks.email.send(
-      //'testEmail',
-      req.content,
+    sails.hooks.email.send(
+      'testEmail',
+      //req.content,
       {
         recipientName: req.recipientName,
         senderName: 'BetterMeetings',
