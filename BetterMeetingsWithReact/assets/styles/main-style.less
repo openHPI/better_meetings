@@ -100,6 +100,15 @@ p, .p {
         white-space: -pre-wrap; /* Opera <7 */
         white-space: -o-pre-wrap; /* Opera 7 */
         word-wrap: break-word; /* IE */
+        display: inline-block;
+      }
+      .form-checkbox {
+        display: none;
+      }
+      &:hover {
+        .form-checkbox {
+          display: inline-block;
+        }
       }
     }
     .agenda-item.level-0 {
@@ -171,7 +180,7 @@ p, .p {
     }
     &:hover {
       background-color: #f0f2f6;
-      &.todo-control {
+      .todo-control {
         display: block;
       }
     }

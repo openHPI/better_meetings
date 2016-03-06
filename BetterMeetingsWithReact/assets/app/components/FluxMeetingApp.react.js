@@ -1,5 +1,6 @@
 var React = require('react');
 var MeetingStore = require('../stores/MeetingStore');
+var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
 var FluxTopicList = require('./FluxTopicList.react');
 var FluxTopicDetails = require('./FluxTopicDetails.react');
@@ -81,6 +82,9 @@ var FluxMeetingApp = React.createClass({
 								<FluxMeetingTimer timer={this.state.meeting.timer} />
 							</div>
 						</div>
+						<div className="row">
+							<button className="btn btn-info" onClick={this._onClick}>End Meeting</button>
+						</div>
 					</div>
 
 					<div className="container">
@@ -126,6 +130,10 @@ var FluxMeetingApp = React.createClass({
 	// Methode to setState based upon Store changes
 	_onChange: function() {
 		this.setState(getMeetingState());
+	},
+
+	_onClick: function() {
+		FluxMeetingActions.endMeeting();
 	}
 
 });

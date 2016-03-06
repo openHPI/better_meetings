@@ -130,7 +130,7 @@ module.exports = {
   view: function (req, res) {
     var todoID = req.param('todoItemID', null);
 
-    ToDoItem.findOne(todoID).done(function (err, model) {
+    todoitem.findOne(todoID).done(function (err, model) {
       res.render('meeting/view',
         {
           'model': model

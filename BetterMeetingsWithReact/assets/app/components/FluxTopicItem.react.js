@@ -14,17 +14,23 @@ var FluxTopicItem = React.createClass({
 
 	// Render agenda View
 	render: function() {
-		var items = this.props.items;
-		var index = this.props.index;
+		var item = this.props.item;
 		var level = this.props.level;
 
-		var item = (0 <= index && index < items.length) ? items[index] : null;
+		if(item === undefined || item === null){
+			return (
+	            <li className={"agenda-item level-" + level}></li>
+			);
+		}
 
-		return (
-            <li key={index} className={"agenda-item level-" + level} onClick={this._onClick}>
-                <h3 className="agenda-title">{ (item !== null ) ? item.title : "" }</h3>
-            </li>
-		)
+		else {
+			return (
+	            <li className={"agenda-item level-" + level} onClick={this._onClick}>
+	            	<label className={ item.done ? "form-checkbox form-icon form-no-label btn btn-primary active" : "form-checkbox form-icon form-no-label btn btn-primary active" }><input type="checkbox" checked={item.done}/></label>
+	                <h3 className="agenda-title">{ item.title }</h3>
+	            </li>
+			);
+		}
 	}
 })
 

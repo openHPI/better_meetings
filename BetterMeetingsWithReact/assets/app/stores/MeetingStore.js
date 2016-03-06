@@ -55,11 +55,22 @@ function isUserAdmin () {
 	return false;
 }
 
-function getIndexOfTodoItem(item, todoitems) {
+function getIndexOfTodoItem (item, todoitems) {
 	for (var i = 0; i < todoitems.length; i++) {
 		if(todoitems[i].id === item.id)
 			return i;
 	}
+}
+
+function addTodoItem (item) {
+	for (var i = 0; i < _meeting.topics.length; i++) {
+		if(_meeting.topics[i].id === item.owner){
+			_meeting.topics[i].todos.unshift(action.data);
+			break;
+		}
+	}
+
+	_allTodoItems.unshift(action.data);
 }
 
 /**
@@ -76,8 +87,6 @@ function updateTodoItem (item, previousItem) {
 	for (var i = 0; i < _meeting.topics.length; i++) {
 		if( _meeting.topics[i].id === item.owner ){
 			index = getIndexOfTodoItem(item, _meeting.topics[i].todos);
-			console.log(index);
-			console.dir(_meeting.topics[i].todos[index]);
 			_meeting.topics[i].todos[index] = item;
 			break;
 		}
@@ -181,6 +190,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_ADD:
+			addTodoItem(action.data);
 			_meeting.topics[_selectedTopic].todos.unshift(action.data);
 			_allTodoItems.unshift(action.data);
 			break;
@@ -254,6 +264,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxMeetingConstants.MEETING_END:
+			MeetingDataAPI.endMeeting(_meeting.id);
 			break;
 
 		default:

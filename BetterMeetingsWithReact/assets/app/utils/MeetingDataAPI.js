@@ -168,8 +168,8 @@ module.exports = {
    *
    * @method endMeeting
    */
-  endMeeting: function () {
-    io.socket.get('/meeting/end', function (data, jwres) {});
+  endMeeting: function (id) {
+    io.socket.get('/meeting/end', id, function (data, jwres) {});
   }
 
 }

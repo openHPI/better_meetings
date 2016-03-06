@@ -32,6 +32,8 @@ var FluxTopicList = React.createClass({
 		var items = this.props.items;
 		var selected = this.props.selected;
     	var count = items.length;
+
+    	console.dir(items[selected]);
     	
 		return (
 			<div className="flux-agenda-container panel">
@@ -46,10 +48,10 @@ var FluxTopicList = React.createClass({
 				</div>
 				<div className="flux-agenda-list panel-body">
 					<ul>
-                        <FluxTopicItem items={items} index={selected - 1} level={1} />
-                        <FluxTopicItem items={items} index={selected} level={0} />
-                        <FluxTopicItem items={items} index={selected + 1} level={1} />
-                        <FluxTopicItem items={items} index={selected + 2} level={2} />
+                        <FluxTopicItem item={items[selected - 1]} index={selected - 1} level={1} />
+                        <FluxTopicItem item={items[selected]} index={selected} level={0} />
+                        <FluxTopicItem item={items[selected + 1]} index={selected + 1} level={1} />
+                        <FluxTopicItem item={items[selected + 2]} index={selected + 2} level={2} />
                     </ul>
                 </div>
 			</div>

@@ -113,7 +113,7 @@ module.exports = {
   view: function (req, res) {
 
     var id = req.param('id', null);
-    Person.findOne(id).exec(function displayList(err, items) {
+    person.findOne(id).exec(function displayList(err, items) {
       console.log(items);
       res.response = items;
       res.render('person',
@@ -162,7 +162,7 @@ module.exports = {
   delete: function (req, res) {
     var meetingSeriesID = req.param('meetingSeriesID', null);
     if (meetingSeriesID && req.isSocket) {
-      MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+      meetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
         meetingseries.destroy(
           {
             id: meetingSeriesAnswer.id
