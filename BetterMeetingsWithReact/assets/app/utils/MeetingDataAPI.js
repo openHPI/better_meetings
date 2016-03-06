@@ -49,7 +49,7 @@ module.exports = {
       });
 
       // Subscribe to todoitem
-
+      console.log(todoitemList);
       io.socket.get('/todoitem/listen', todoitemList, function (resData, jwres) {});
 
       io.socket.on('todoitem', function onServerSentEvent(msg) {

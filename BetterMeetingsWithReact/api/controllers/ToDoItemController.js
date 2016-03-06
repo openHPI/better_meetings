@@ -107,13 +107,14 @@ module.exports = {
         }});
     } else {
       res.send('todoitem');
-      sails.log('ToDoItem not updated: too few parameters');
+      sails.log('ToDoItem not updated: to few parameters');
     }
   },
 
 
   listen: function (req, res) {
     if (req.isSocket) {
+      console.dir("Ergebnis:" + req);
       todoitem.watch(req);
       var testArray = [];
       for (var i = 1; i < 100; i++) {
