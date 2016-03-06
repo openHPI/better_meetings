@@ -127,7 +127,7 @@ module.exports = {
   delete: function (req, res) {
     var meetingID = req.param('meetingID', null);
     if (meetingID && req.isSocket) {
-      Meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
+      meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
         meeting.destroy(
           {
             id: meetingAnswer.id
@@ -316,10 +316,11 @@ module.exports = {
     //sails.log("Email testing: distinct Persons are: " + distinctPersons);
     for (var distinctPerson in distinctPersons) {
       if (distinctPerson.email) EmailService.sendSummary({
-          recipientName: distinctPerson.name,
-          to: distinctPerson.email,
-          topics: req.topics
-        });
+        recipientName: distinctPerson.name,
+        to: distinctPerson.email,
+        topics: req.topics,
+      });
+      sails.log("attempting to send summary mail to: " + distinctPerson.email);
     }
   },
 };

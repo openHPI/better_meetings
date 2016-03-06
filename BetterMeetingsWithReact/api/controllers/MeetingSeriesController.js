@@ -142,7 +142,7 @@ module.exports = {
   delete: function (req, res) {
     var meetingSeriesID = req.param('meetingSeriesID', null);
     if (meetingSeriesID && req.isSocket) {
-      MeetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+      meetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
         meetingseries.destroy(
           {
             id: meetingSeriesAnswer.id
