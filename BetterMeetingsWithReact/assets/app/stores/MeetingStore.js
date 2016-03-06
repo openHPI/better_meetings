@@ -62,10 +62,10 @@ function getIndexOfTodoItem (item, todoitems) {
 	}
 }
 
-function updateTopic (item, previousItem) {
+function updateTopic (topic) {
 	for (var i = 0; i < _meeting.topics.length; i++) {
-		if(_meeting.topics[i].id === item.id){
-			_meeting.topics[i] === item;
+		if(_meeting.topics[i].id === topic.id){
+			_meeting.topics[i] === topic;
 			return;
 		}
 	}
@@ -89,7 +89,7 @@ function addTodoItem (item) {
  * @param {Object} item Updated todo item
  * @param {Object} previousItem Old todo item
  */
-function updateTodoItem (item, previousItem) {
+function updateTodoItem (item) {
 
 	var index;
 
@@ -196,7 +196,7 @@ AppDispatcher.register(function(payload) {
 
 		case FluxServerConstants.MEETING_RECEIVE:
 			loadMeetingData(action.data);
-			MeetingDataAPI.subscribeAndListen(_allTodoItems, _meeting.topics);
+			MeetingDataAPI.subscribeAndListen(_meeting.topics, _allTodoItems);
 			break;
 
 		case FluxServerConstants.TOPIC_SERVER_UPDATE:
@@ -210,7 +210,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxServerConstants.TODO_SERVER_UPDATE:
-			updateTodoItem(action.data.item, action.data.previousItem);
+			updateTodoItem(action.data);
 			break;
 
 		case FluxServerConstants.TODO_REMOVE:
@@ -264,8 +264,8 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxMeetingConstants.TOPIC_TOGGLE_DONE:
-			_meeting.topics[_selectedTopic].done = !_meeting.topics[_selectedTopic].done;
-			MeetingDataAPI.updateTopic(_meeting.topics[_selectedTopic]);
+			action.data.done = !action.data.done;
+			MeetingDataAPI.updateTopic(action.data);
 			break;
 
 		case FluxMeetingConstants.TOPIC_UPLOAD:
