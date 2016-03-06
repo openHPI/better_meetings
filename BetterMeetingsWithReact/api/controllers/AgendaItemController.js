@@ -215,7 +215,7 @@ module.exports = {
   },
 
 
-  subscribe: function (req, res) {
+  listen: function (req, res) {
     if (req.isSocket) {
       agendaitem.watch(req);
       var testArray = [];

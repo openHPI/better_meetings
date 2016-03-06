@@ -119,7 +119,7 @@ module.exports = {
   },
 
 
-  subscribe: function (req, res) {
+  listen: function (req, res) {
     if (req.isSocket) {
       todoitem.watch(req);
       var testArray = [];

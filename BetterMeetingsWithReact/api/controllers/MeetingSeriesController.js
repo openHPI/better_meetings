@@ -174,7 +174,7 @@ module.exports = {
   },
 
 
-  subscribe: function (req, res) {
+  listen: function (req, res) {
     if (req.isSocket) {
       meetingseries.watch(req);
       console.log('User with socket id ' + sails.sockets.getId(req) +

@@ -86,7 +86,7 @@ module.exports.routes = {
   'GET /meeting/end': 'MeetingController.end',
 
   // endpoints for meeting controller
-  'GET /person/subscribe': 'PersonController.subscribe',
+  'GET /person/listen': 'PersonController.listen',
   'POST /person/create': 'PersonController.create',
   'POST /person/update': 'PersonController.update',
   'POST /person/delete': 'PersonController.delete',
@@ -99,7 +99,7 @@ module.exports.routes = {
   'POST /topic/delete': 'AgendaItemController.delete',
 
   // endpoints for todoitem
-  'GET /todoitem/subscribe': 'TodoItemController.subscribe',
+  'GET /todoitem/listen': 'TodoItemController.listen',
   'POST /todoitem/create': 'TodoItemController.create',
   'POST /todoitem/update': 'TodoItemController.update',
   'POST /todoitem/delete': 'TodoItemController.delete',
