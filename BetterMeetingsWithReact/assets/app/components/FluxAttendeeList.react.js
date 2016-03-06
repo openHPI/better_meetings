@@ -14,10 +14,6 @@ var FluxAttendeeList = React.createClass({
     render: function(){
         var attendees = this.props.attendees;
         var canEdit = this.props.canEdit;
-
-        var editStyle = {
-            display: (this.props.canEdit) ? 'inline-block' : 'none'
-        };
         
         return(
             <aside id="aside-container">
@@ -25,9 +21,9 @@ var FluxAttendeeList = React.createClass({
                   <div className="nano">
                      <div className="nano-content">
                         <div className="list-group bg-trans">
-                            {Object.keys(attendees).map(function(index){
+                            {attendees.map(function(attendee, index){
                                 return (
-                                    <FluxAttendeeItem attendee={attendees[index]} index={index} />
+                                    <FluxAttendeeItem key={index} attendee={attendee} index={index} />
                                 );
                             })}
                         </div>
