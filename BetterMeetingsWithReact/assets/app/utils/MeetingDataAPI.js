@@ -98,7 +98,7 @@ module.exports = {
   getMeetingData: function () {
 
     io.socket.get('/meeting/get', function (data, jwres) {
-      FluxServerActions.receiveMeetingData(data.meeting);
+      FluxServerActions.receiveMeetingData(data);
     });
 
   },
