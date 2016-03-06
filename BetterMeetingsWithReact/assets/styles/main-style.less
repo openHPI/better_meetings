@@ -73,8 +73,14 @@ p, .p {
 ==============================*/
 
 #timer {
-  h3 {
+  padding: 20px;
+  width: 250px;
+  .center-block
+  span {
     color: white;
+    font-size: 48px;
+    padding: 0;
+    .center-block;
   }
 }
 
@@ -96,6 +102,15 @@ p, .p {
         white-space: -pre-wrap; /* Opera <7 */
         white-space: -o-pre-wrap; /* Opera 7 */
         word-wrap: break-word; /* IE */
+        display: inline-block;
+      }
+      .form-checkbox {
+        display: none;
+      }
+      &:hover {
+        .form-checkbox {
+          display: inline-block;
+        }
       }
     }
     .agenda-item.level-0 {
@@ -161,8 +176,15 @@ p, .p {
   list-style-type: none;
   font-size: 2.0em;
   .todo-item {
+    .todo-control {
+      float: right;
+      display: none;
+    }
     &:hover {
       background-color: #f0f2f6;
+      .todo-control {
+        display: block;
+      }
     }
     &.placeholder {
       background-color: #f0f2f6;
@@ -170,9 +192,6 @@ p, .p {
         content: "Drop here";
         color: rgb(225,210,90);
       }
-    }
-    .todo-control {
-      float: right;
     }
   }
 }

@@ -150,7 +150,6 @@ module.exports = {
                   description: description,
                   admins: admins,
                   members: members,
-                  url: url,
                   timer: timer
                 }).exec(function createMeetingSeries(err, series) {
                   if (err) {

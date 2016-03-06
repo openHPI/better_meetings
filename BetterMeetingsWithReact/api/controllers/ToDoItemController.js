@@ -70,8 +70,7 @@ module.exports = {
 
     if (todoItemId && title && description && done !== null && req.isSocket) {
       sails.log("number of params ok");
-      todoitem.update({id: todoItemId})
-      .set({
+      todoitem.update({id: todoItemId}).set({
           title:        title,
           done:         done,
           description:  description,
@@ -81,18 +80,20 @@ module.exports = {
       })
       .exec(function updateToDoItem(err, updated) {
         sails.log("exec ok");
-          
+
         if (err) {
           sails.log('ToDoItem not updated ' + err);
         } else {
           sails.log('Updated ToDoItem: ' + updated[0].title);
-          
+
           updated[0].save(function (err) {
             if (err) {
               sails.log("Error while saving update to ToDoItem " + updated[0].title);
             } else {
               sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
-              todoitem.publishUpdate(updated[0].id, { 
+
+              todoitem.publishUpdate(updated[0].id, {
+
                 id: updated[0].id,
                 title: updated[0].title,
                 done: updated[0].done,
@@ -100,27 +101,20 @@ module.exports = {
                 owner: updated[0].owner,
                 author: updated[0].author,
                 assignee: updated[0].assignee,
-                
-
-
               });
-            };
+            }
           });
-
         }});
-
-
-
     } else {
-      sails.log('ToDoItem not updated: too few parameters');
       res.send('todoitem');
- 
+      sails.log('ToDoItem not updated: to few parameters');
     }
   },
 
 
-  subscribe: function (req, res) {
+  listen: function (req, res) {
     if (req.isSocket) {
+      console.dir("Ergebnis:" + req);
       todoitem.watch(req);
       var testArray = [];
       for (var i = 1; i < 100; i++) {
@@ -136,7 +130,7 @@ module.exports = {
   view: function (req, res) {
     var todoID = req.param('todoItemID', null);
 
-    ToDoItem.findOne(todoID).done(function (err, model) {
+    todoitem.findOne(todoID).done(function (err, model) {
       res.render('meeting/view',
         {
           'model': model

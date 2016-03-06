@@ -24,19 +24,37 @@ module.exports = {
    *
    * @method subscribeAndListen
    */
-  subscribeAndListen: function () {
+  subscribeAndListen: function (topicList, todoitemList) {
+
+    console.dir(todoitemList);
 
     io.socket.on('connect', function () {
       console.log('Connected to server');
       console.log('Socket session: ' + this.id);
 
-      // Subscribe to todoitem
+      io.socket.get('/agendaitem/listen', topicList, function (resData, jwres) {});
 
-      io.socket.get('/todoitem/subscribe', function (resData, jwres) {});
+      io.socket.on('agendaitem', function onServerSentEvent(msg) {
+
+        switch (msg.verb) {
+
+          case 'updated':
+            console.log('PUBSUB: Updated Topic: ' + msg.data);
+            FluxServerActions.updateTopic(msg.data, msg.id);
+            break;
+
+          default:
+            console.warn('Unrecognized socket event (`%s`) from server:',event.verb, event);
+            return;
+        }
+
+      });
+
+      // Subscribe to todoitem
+      console.log(todoitemList);
+      io.socket.get('/todoitem/listen', todoitemList, function (resData, jwres) {});
 
       io.socket.on('todoitem', function onServerSentEvent(msg) {
-
-        console.log(msg);
 
         switch (msg.verb) {
 
@@ -47,13 +65,11 @@ module.exports = {
 
           case 'updated':
             console.log('PUBSUB: Updated TodoItem: ' + msg.data);
-            console.dir(msg);
             FluxServerActions.updateTodoItem(msg.data, msg.id);
             break;
 
           case 'destroyed':
             console.log('PUBSUB: Delete Todoitem: ' + msg.previous);
-            console.log(msg);
             FluxServerActions.removeTodoItem(msg.previous);
             break;
 
@@ -66,7 +82,7 @@ module.exports = {
 
       // Subscribe to person
 
-      io.socket.get('/person/subscribe', function (resData, jwres) {});
+      io.socket.get('/person/listen', function (resData, jwres) {});
 
       io.socket.on('person', function (msg) {
 
@@ -107,6 +123,7 @@ module.exports = {
     io.socket.get('/person/current', function (data, jwres) {
       FluxServerActions.receiveUser(data.user);
     });
+
   },
 
   // Todoitem
@@ -172,8 +189,8 @@ module.exports = {
    *
    * @method endMeeting
    */
-  endMeeting: function () {
-    io.socket.get('/meeting/end', function (data, jwres) {});
+  endMeeting: function (meeting) {
+    io.socket.get('/meeting/end', meeting, function (data, jwres) {});
   }
 
 }

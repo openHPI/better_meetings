@@ -41,6 +41,9 @@ var FluxTodoItemUpdateForm = React.createClass({
         this.setState({title: '', description: ''});
 
         jQuery('#updateTodoItemModal').modal('hide');
+        jQuery(".modal-backdrop").each( function() {
+          this.remove();
+        });
     },
 
     render: function() {

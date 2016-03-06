@@ -182,11 +182,20 @@ AppDispatcher.register(function (payload) {
       loadMeetingData(action.data.meeting);
       _qrcode = action.data.qrcode;
       break;
+		case FluxServerConstants.MEETING_RECEIVE:
+			loadMeetingData(action.data);
+			MeetingDataAPI.subscribeAndListen(_allTodoItems, _meeting.topics);
+			break;
 
-    case FluxServerConstants.TODO_ADD:
-      _meeting.topics[_selectedTopic].todos.unshift(action.data);
-      _allTodoItems.unshift(action.data);
-      break;
+		case FluxServerConstants.TOPIC_SERVER_UPDATE:
+			updateTopic(action.data.item);
+			break;
+
+		case FluxServerConstants.TODO_ADD:
+			addTodoItem(action.data);
+			_meeting.topics[_selectedTopic].todos.unshift(action.data);
+			_allTodoItems.unshift(action.data);
+			break;
 
     case FluxServerConstants.TODO_SERVER_UPDATE:
       updateTodoItem(action.data.item, action.data.previousItem);
@@ -254,8 +263,9 @@ AppDispatcher.register(function (payload) {
     case FluxMeetingConstants.MEETING_START:
       break;
 
-    case FluxMeetingConstants.MEETING_END:
-      break;
+		case FluxMeetingConstants.MEETING_END:
+			MeetingDataAPI.endMeeting(_meeting);
+			break;
 
     default:
       return true;
