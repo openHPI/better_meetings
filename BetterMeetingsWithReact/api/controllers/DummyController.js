@@ -18,10 +18,6 @@ module.exports = {
 
         setTimeout(function () {
           ExampledataService.generateExampleTodoItems(req, res);
-
-          setTimeout(function () {
-            ExampledataService.generateExampleMeeting(req, res);
-          }, 1000);
         }, 1000);
       }, 1000);
     }, 1000);

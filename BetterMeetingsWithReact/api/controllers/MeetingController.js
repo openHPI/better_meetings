@@ -8,48 +8,73 @@
 
 module.exports = {
 
-  createFromSeries: function (meetingseries) {
-    var attendees = [];
-    for (var i = 0; i < meetingseries.admins.length; i++) {
-      attendees.push(meetingseries.admins[i]);
-    }
-    for (var i = 0; i < meetingseries.members.length; i++) {
-      attendees.push(meetingseries.members[i]);
-    }
+  createFromSeries: function (req, res) {
+    var id = req.param('series_id', null);
+    var topics = [];
 
-    meeting.create(
-      {
-        topics: meetingseries.topics,
-        title: meetingseries.title,
-        description: meetingseries.description,
-        admins: meetingseries.admins,
-        attendees: attendees,
-        isInitialCreation: true,
-        timer: meetingseries.timer,
-        url: meetingseries.url,
-        series: meetingseries
-      })
-      .exec(function createMeeting(err, created) {
-        if (err) {
-          console.log('Meeting not created' + err);
-        }
-        else {
-          console.log('Created Meeting ' + JSON.stringify(created));
-          meeting.publishCreate(
+    meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, series) {
+      if (err) {
+        sails.log.error('ERR:', err);
+      }
+
+      if (!series) {
+        console.log('no meetingseries with id ' + id + ' found :(');
+        return;
+      }
+
+      if (series) {
+        UrlService.generate_unique_url(function generateUrl(url) {
+          var attendees = [];
+          for (var i = 0; i < series.admins.length; i++) {
+            attendees.push(series.admins[i]);
+          }
+          for (var i = 0; i < series.members.length; i++) {
+            attendees.push(series.members[i]);
+          }
+
+          for (var i = 0; i < series.topics.length; i++) {
+            if (req.param('topic' + i, null) === 'on') {
+              topics.push(series.topics[i]);
+            }
+          }
+
+          meeting.create(
             {
-              id: created.id,
-              topics: created.topics,
-              title: created.topics,
-              description: created.topics,
-              admins: created.admins,
-              attendees: created.attendees,
-              isInitialCreation: created.isInitialCreation,
-              timer: created.timer,
-              url: created.url,
-              series: created.series
+              topics: topics,
+              title: series.title,
+              description: series.description,
+              admins: series.admins,
+              attendees: attendees,
+              isInitialCreation: true,
+              timer: series.timer,
+              url: url,
+              series: series
+            })
+            .exec(function createMeeting(err, created) {
+              if (err) {
+                console.log('Meeting not created' + err);
+              }
+              else {
+                console.log('Created Meeting ' + JSON.stringify(created));
+                meeting.publishCreate(
+                  {
+                    id: created.id,
+                    topics: created.topics,
+                    title: created.topics,
+                    description: created.topics,
+                    admins: created.admins,
+                    attendees: created.attendees,
+                    isInitialCreation: created.isInitialCreation,
+                    timer: created.timer,
+                    url: created.url,
+                    series: created.series
+                  });
+                res.redirect('/meeting/id/' + url);
+              }
             });
-        }
-      });
+        });
+      }
+    });
   },
 
 
@@ -262,6 +287,8 @@ module.exports = {
 
 
   start: function (req, res) {
+
+
     var link = UrlService.generate_unique_url();
     for (var member in req.members) {
       EmailService.sendInvitation(
@@ -273,7 +300,7 @@ module.exports = {
     }
   },
 
-  end: function (req, res) {
+  endMeeting: function (req, res) {
     // send summary email to everyone who provided at least email, attendees and members
     // TODO: delete guests who only provided name or nothing
     //var distinctPersons = [...new Set([...req.attendees, ...req.members])];

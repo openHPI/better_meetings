@@ -6,7 +6,7 @@
 module.exports = {
 
   loadAll: function (req, res) {
-    console.log("load all dummy data");
+    console.log('load all dummy data');
   },
 
   conf: {
@@ -105,66 +105,64 @@ module.exports = {
     var email2 = this.conf.person.email_admin2;
     var email3 = this.conf.person.email_member1;
 
-    UrlService.generate_unique_url(function genUrl(url) {
+    person.findOne({
+      email: email1
+    }).exec(function findPerson(err, admin1) {
+      if (err) {
+      } else {
+        if (!admin1) {
+        } else {
+          admins.push(admin1);
+        }
+      }
+
       person.findOne({
-        email: email1
-      }).exec(function findPerson(err, admin1) {
+        email: email2
+      }).exec(function findPerson(err, admin2) {
         if (err) {
         } else {
-          if (!admin1) {
+          if (!admin2) {
           } else {
-            admins.push(admin1);
+            admins.push(admin2);
           }
         }
-
         person.findOne({
-          email: email2
-        }).exec(function findPerson(err, admin2) {
+          email: email3
+        }).exec(function findPerson(err, member1) {
           if (err) {
           } else {
-            if (!admin2) {
+            if (!member1) {
             } else {
-              admins.push(admin2);
+              members.push(member1);
             }
           }
-          person.findOne({
-            email: email3
-          }).exec(function findPerson(err, member1) {
+
+          meetingseries.findOne({
+            title: title,
+            description: description
+          }).exec(function findMeetingSeries(err, cre) {
             if (err) {
+              sails.log('MeetingSeries not created' + err);
             } else {
-              if (!member1) {
+              if (!cre) {
+                meetingseries.create({
+                  title: title,
+                  description: description,
+                  admins: admins,
+                  members: members,
+                  url: url,
+                  timer: timer
+                }).exec(function createMeetingSeries(err, series) {
+                  if (err) {
+                    sails.log('MeetingSeries not created' + err);
+                  } else {
+                    sails.log('MeetingSeries created: ' + JSON.stringify(series));
+                  }
+                });
               } else {
-                members.push(member1);
+                sails.log('MeetingSeries created: ' + JSON.stringify(cre));
               }
             }
-
-            meetingseries.findOne({
-              title: title,
-              description: description
-            }).exec(function findMeetingSeries(err, cre) {
-              if (err) {
-                sails.log('MeetingSeries not created' + err);
-              } else {
-                if (!cre) {
-                  meetingseries.create({
-                    title: title,
-                    description: description,
-                    admins: admins,
-                    members: members,
-                    url: url,
-                    timer: timer
-                  }).exec(function createMeetingSeries(err, series) {
-                    if (err) {
-                      sails.log('MeetingSeries not created' + err);
-                    } else {
-                      sails.log('MeetingSeries created: ' + JSON.stringify(series));
-                    }
-                  });
-                } else {
-                  sails.log('MeetingSeries created: ' + JSON.stringify(cre));
-                }
-              }
-            });
           });
         });
       });
@@ -268,23 +266,6 @@ module.exports = {
               }
             })
           }
-        }
-      }
-    });
-  },
-
-  generateExampleMeeting: function (req, res) {
-    meetingseries.findOne({
-      'title': this.conf.meetingseries.title,
-      'description': this.conf.meetingseries.description
-    }).populateAll().exec(function findMeetingSeries(err, cre) {
-      if (err) {
-        sails.log('Meeting not created' + err);
-      } else {
-        if (!cre) {
-          sails.log('Meeting not created' + err);
-        } else {
-          sails.controllers.meeting.createFromSeries(cre);
         }
       }
     });

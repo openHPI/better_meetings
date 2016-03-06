@@ -73,10 +73,6 @@
                   Meetings
                 </li>
                 <li class="list-group-item">
-                  <span class="badge badge-success">/meeting/id/<%= meetingseries.url %></span>
-                  URL
-                </li>
-                <li class="list-group-item">
                   <span class="badge badge-success"><%= meetingseries.timer %></span>
                   Timer
                 </li>
@@ -105,19 +101,19 @@
             <tbody>
             <% i = 1 %>
             <% _.each(meetingseries.instances, function (meeting) { %>
-              <tr>
-                <td class="text-center">
-                  <span class="icon-wrap icon-wrap-sm icon-circle bg-success"><%= i %></span>
-                </td>
-                <td>
-                  <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.title %></span>
-                </td>
-                <td class="text-center">
-                  <button><i class="fa fa-download"></i></button>
-                </td>
-              </tr>
-              <% i++ %>
-              <% }) %>
+            <tr>
+              <td class="text-center">
+                <span class="icon-wrap icon-wrap-sm icon-circle bg-success"><%= i %></span>
+              </td>
+              <td>
+                <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.title %></span>
+              </td>
+              <td class="text-center">
+                <button><i class="fa fa-download"></i></button>
+              </td>
+            </tr>
+            <% i++ %>
+            <% }) %>
             </tbody>
           </table>
         </div>
@@ -131,11 +127,6 @@
           </div>
           <div class="panel-body">
             <ul class="list-group bg-trans">
-              <li class="list-group-item active" data-title="<%= meetingseries.topics[0].title %>"
-                  data-description="<%= meetingseries.topics[0].description %>">
-                <%= meetingseries.topics[0].title %>
-              </li>
-              <% meetingseries.topics.splice(0,1) %>
               <% _.each(meetingseries.topics, function (topic) { %>
               <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
                 <%= topic.title %>
@@ -149,8 +140,8 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <button type="submit" class="btn btn-success"
-              onclick="create_meeting_modal()">Erstelle Meeting
+      <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#createMeetingModal">Erstelle
+        Meeting
       </button>
     </div>
   </div>
@@ -218,27 +209,57 @@
   </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="createMeetingModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal"><span>×</span></button>
+        <h4 class="modal-title">Create Meeting</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/meeting/create/<%= meetingseries.id %>" method="post">
+          <% var i = 0 %>
+          <% _.each(meetingseries.topics, function (topics) { %>
+          <div class="text-left checkbox">
+            <label class="form-checkbox form-icon form-text">
+              <%= topics.title %>
+              <input type="checkbox" name="topic<%= i %>">
+            </label>
+          </div>
+          <% i++ %>
+          <% }) %>
+          <button class="btn btn-success btn-block" type="submit">Erstellen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
   function create_meeting_modal() {
 
     bootbox.dialog({
       title: 'Meeting erstellen',
       message: 'Wähle die Themen die im Meeting enthalten sein sollen' +
-      '<ul class="list-group bg-trans mar-no">' +
+      '<form action="/meeting/create/<%= meetingseries.id %>" method="post">' +
+      '<% var i = 0 %>' +
       '<% _.each(meetingseries.topics, function (topics) { %>' +
-      '<li class="list-group-item">' +
-      '<input type="checkbox" ><%= topics.title %></input>' +
-      '</li>' +
+      '<div class="text-left checkbox">' +
+      '<label class="form-checkbox form-icon form-text">' +
+      '<input type="checkbox" name="topic<%= i %>"> <%= topics.title %></input>' +
+      '</label>' +
+      '</div>' +
+      '<% i++ %>' +
       '<% }) %>' +
-      '</ul>',
+      '<button class="btn btn-success btn-block" type="submit">Erstellen</button>' +
+      '</form>',
       buttons: {
         success: {
           label: "Erstellen",
           className: "btn-success",
           callback: function () {
-            var name = $('#name').val();
-            var answer = $("input[name='awesomeness']:checked").val()
-            console.log("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+
           }
         }, danger: {
           label: "Abbrechen!",
