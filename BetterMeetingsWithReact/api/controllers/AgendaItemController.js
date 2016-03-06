@@ -125,7 +125,7 @@ module.exports = {
 
   view: function (req, res) {
     var id = req.param('id'.null);
-    AgendaItem.findOne(id).exec(function displayList(err, items) {
+    agendaItem.findOne(id).exec(function displayList(err, items) {
       sails.log(items);
       res.response = items;
       res.render('agendaitem',

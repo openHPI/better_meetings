@@ -127,7 +127,7 @@ module.exports = {
   delete: function (req, res) {
     var meetingID = req.param('meetingID', null);
     if (meetingID && req.isSocket) {
-      Meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
+      meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
         meeting.destroy(
           {
             id: meetingAnswer.id
@@ -299,42 +299,28 @@ module.exports = {
     }
   },
 
-
-  arrayUnion: function (arr1, arr2, equalityFunc) {
-    var union = arr1.concat(arr2);
-
-    for (var i = 0; i < union.length; i++) {
-      for (var j = i + 1; j < union.length; j++) {
-        if (equalityFunc(union[i], union[j])) {
-          union.splice(j, 1);
-          j--;
-        }
-      }
-    }
-    return union;
-  },
-
   endMeeting: function (req, res) {
     // send summary email to everyone who provided at least email, attendees and members
     // TODO: delete guests who only provided name or nothing
     //var distinctPersons = [...new Set([...req.attendees, ...req.members])];
-    var distinctPersons = arrayUnion(req.attendees, req.members, arePersonsEqual);
-    //var distinctPersons = req.attendees;
-    sails.log("Email testing: distinct Persons are: " + distinctPersons);
+    var distinctPersons =  req.attendees.concat(req.members);
+
+    for (var i = 0; i < distinctPersons.length; i++) {
+      for (var j = i + 1; j < distinctPersons.length; j++) {
+        if (distinctPersons[i].name === distinctPersons[j].name || distinctPersons[i].email === distinctPersons[j].email) {
+          distinctPersons.splice(j, 1);
+          j--;
+        }
+      }
+    }
+    //sails.log("Email testing: distinct Persons are: " + distinctPersons);
     for (var distinctPerson in distinctPersons) {
-      if (distinctPerson.email) EmailService.sendSummary(
-        {
-          recipientName: distinctPerson.name,
-          to: distinctPerson.email,
-          topics: req.topics
-        });
+      if (distinctPerson.email) EmailService.sendSummary({
+        recipientName: distinctPerson.name,
+        to: distinctPerson.email,
+        topics: req.topics,
+      });
+      sails.log("attempting to send summary mail to: " + distinctPerson.email);
     }
   },
-
-
-  arePersonsEqual: function (p1, p2) {
-    return p1.name === p2.name || p1.email === p2.email;
-  },
-
-
 };
