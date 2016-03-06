@@ -72,12 +72,14 @@ module.exports.routes = {
   'post /User': 'UserController.create',
 
   // endpoints for meetingserien controller
+  'GET /meetingseries/listen': 'MeetingController.listen',
   'POST /meetingseries/create': 'MeetingSeriesController.create',
   'POST /meetingseries/update': 'MeetingSeriesController.update',
   'GET /meetingseries/view/:id': 'MeetingSeriesController.view',
   'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
   // endpoints for meeting controller
+  'GET /meeting/listen': 'MeetingController.listen',
   'POST /meeting/create': 'MeetingController.create',
   'POST /meeting/create/:series_id': 'MeetingController.createFromSeries',
   'POST /meeting/createAttendee': 'MeetingController.createAttendee',
@@ -94,6 +96,7 @@ module.exports.routes = {
   'GET /person/current': 'PersonController.getCurrent',
 
   // endpoints for agendaitem controller
+  'GET /topic/listen': 'AgendaItemController.listen',
   'POST /topic/create': 'AgendaItemController.create',
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
   'POST /topic/update': 'AgendaItemController.update',
