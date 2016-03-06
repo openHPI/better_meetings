@@ -184,7 +184,7 @@ AppDispatcher.register(function (payload) {
       break;
 		case FluxServerConstants.MEETING_RECEIVE:
 			loadMeetingData(action.data);
-			MeetingDataAPI.subscribeAndListen(_allTodoItems, _meeting.topics);
+			MeetingDataAPI.subscribeAndListen(_meeting.topics, _allTodoItems);
 			break;
 
 		case FluxServerConstants.TOPIC_SERVER_UPDATE:
