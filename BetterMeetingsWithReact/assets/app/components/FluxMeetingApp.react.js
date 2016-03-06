@@ -85,25 +85,10 @@ var FluxMeetingApp = React.createClass({
                 <FluxMeetingTimer timer={this.state.meeting.timer}/>
               </div>
             </div>
+            <div className="row">
+              <button className="btn btn-info" onClick={this._onClick}>End Meeting</button>
+            </div>
           </div>
-			return (
-				<div className="content">
-					<div className="container-fluid">
-						<div className="row">
-							<FluxMeetingProgress total={this.state.meeting.topics.length} index={this.state.selectedTopic} />
-						</div>
-						<div className="row">
-			                <div className="col-md-9 col-lg-9">
-			                  <h2>{this.state.title}</h2>
-			                </div>
-							<div className="col-md-3 col-lg-3">
-								<FluxMeetingTimer timer={this.state.meeting.timer} />
-							</div>
-						</div>
-						<div className="row">
-							<button className="btn btn-info" onClick={this._onClick}>End Meeting</button>
-						</div>
-					</div>
 
           <div className="container">
             <div className="row">
@@ -132,57 +117,54 @@ var FluxMeetingApp = React.createClass({
               </div>
             </div>
           </div>
-					<div className="container">
-		              <div className="row">
-		                <div className="col-md-4 col-lg-4">
-		                	<div className="row">
-		                		<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		                  		<FluxTopicList items={this.state.meeting.topics} selected={this.state.selectedTopic} />
-		                		</div>
-		                	</div>
-		                	<div className="row">
-		                		<div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          			    			<FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit} />
-          							<FluxAttendeeForm />
-          							<FluxTodoItemCreateForm attendees={this.state.meeting.attendees} />
-          							<FluxTodoItemUpdateForm attendees={this.state.meeting.attendees} item={this.state.editingTodoItem} canEdit={ this.state.canEdit } />
-		                		</div>
-		                	</div>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-4 col-lg-4">
+                <div className="row">
+                  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <FluxTopicList items={this.state.meeting.topics} selected={this.state.selectedTopic}/>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
+                    <FluxAttendeeForm />
+                    <FluxTodoItemCreateForm attendees={this.state.meeting.attendees}/>
+                    <FluxTodoItemUpdateForm attendees={this.state.meeting.attendees} item={this.state.editingTodoItem}
+                                            canEdit={ this.state.canEdit }/>
+                  </div>
+                </div>
 
 
-		                </div>
-		                <div className="col-md-8 col-lg-8">
-		                  <div className="row">
-		                    <div className="col-md-12 col-lg-12">
-		                      <FluxTopicDetails selected={this.state.meeting.topics[this.state.selectedTopic]} />
-		                    </div>
-		                  </div>
-		                  <div className="row">
-		                    <div className="col-md-12 col-lg-12">
-		                      <div className="flux-todolist">
-		                        <FluxTodoList allItems={this.state.allTodoItems} items={this.state.meeting.topics[this.state.selectedTopic].todos} attendees={this.state.meeting.attendees} canEdit={this.state.canEdit} />
-		                      </div>
-		                    </div>
-		                  </div>
-		                 </div>
-						</div>
-						<div className="row">
-							<div className="col-xs-12">
-							</div>
-						</div>
-					</div>
+              </div>
+              <div className="col-md-8 col-lg-8">
+                <div className="row">
+                  <div className="col-md-12 col-lg-12">
+                    <FluxTopicDetails selected={this.state.meeting.topics[this.state.selectedTopic]}/>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12 col-lg-12">
+                    <div className="flux-todolist">
+                      <FluxTodoList allItems={this.state.allTodoItems}
+                                    items={this.state.meeting.topics[this.state.selectedTopic].todos}
+                                    attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xs-12">
+              </div>
+            </div>
+          </div>
 
           <div className="container-fluid">
             <div>
               <FluxQrViewer qrcode={this.state.qrcode}/>
             </div>
           </div>
-
-          <FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
-          <FluxAttendeeForm />
-          <FluxTodoItemCreateForm attendees={this.state.meeting.attendees}/>
-          <FluxTodoItemUpdateForm attendees={this.state.meeting.attendees} item={this.state.editingTodoItem}
-                                  canEdit={ this.state.canEdit }/>
         </div>
       );
     }
@@ -196,15 +178,11 @@ var FluxMeetingApp = React.createClass({
   // Methode to setState based upon Store changes
   _onChange: function () {
     this.setState(getMeetingState());
-  }
-	// Methode to setState based upon Store changes
-	_onChange: function() {
-		this.setState(getMeetingState());
-	},
+  },
 
-	_onClick: function() {
-		FluxMeetingActions.endMeeting();
-	}
+  _onClick: function () {
+    FluxMeetingActions.endMeeting();
+  }
 
 });
 
