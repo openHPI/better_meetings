@@ -38,7 +38,7 @@ var FluxServerActions = {
 		})
 	},
 
-	updateTopic: function(topic, previousTopic) {
+	updateTopic: function(topic) {
 		AppDispatcher.handleAction({
 			actionType: FluxServerConstants.TOPIC_SERVER_UPDATE,
 			data: { topic: topic, previousTopic: previousTopic }
@@ -65,10 +65,10 @@ var FluxServerActions = {
 	 * @param {Object} item The updated todo item
 	 * @param {Object} previousItem The the item before the update
 	 */
-	updateTodoItem: function(item, previousItem) {
+	updateTodoItem: function(item) {
 		AppDispatcher.handleAction({
 			actionType: FluxServerConstants.TODO_SERVER_UPDATE,
-			data: { item: item, previousItem: previousItem }
+			data: item
 		})
 	},
 

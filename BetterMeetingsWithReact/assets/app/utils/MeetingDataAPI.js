@@ -26,7 +26,6 @@ module.exports = {
    */
   subscribeAndListen: function (topicList, todoitemList) {
 
-
     var todoitems = [];
     for (var item in todoitemList){
       todoitems.push(todoitemList[item].id);
@@ -36,13 +35,11 @@ module.exports = {
       topicitems.push(topicList[item].id);
     };
 
-    console.dir(topicitems);
-
-
     io.socket.on('connect', function () {
       console.log('Connected to server');
       console.log('Socket session: ' + this.id);
 
+      // Subscribe to agendaitems
       io.socket.get('/agendaitem/listen', topicList, function (resData, jwres) {});
 
       io.socket.on('agendaitem', function onServerSentEvent(msg) {
@@ -51,7 +48,7 @@ module.exports = {
 
           case 'updated':
             console.log('PUBSUB: Updated Topic: ' + msg.data);
-            FluxServerActions.updateTopic(msg.data, msg.id);
+            FluxServerActions.updateTopic(msg.data);
             break;
 
           default:
@@ -62,7 +59,6 @@ module.exports = {
       });
 
       // Subscribe to todoitem
-      console.log(todoitemList);
       io.socket.get('/todoitem/listen', todoitemList, function (resData, jwres) {});
 
       io.socket.on('todoitem', function onServerSentEvent(msg) {
@@ -76,7 +72,7 @@ module.exports = {
 
           case 'updated':
             console.log('PUBSUB: Updated TodoItem: ' + msg.data);
-            FluxServerActions.updateTodoItem(msg.data, msg.id);
+            FluxServerActions.updateTodoItem(msg.data);
             break;
 
           case 'destroyed':
@@ -192,7 +188,8 @@ module.exports = {
   },
 
   updateTopic: function(data) {
-    io.socket.post('/agendaitem/update', data, function(data, jwres) {});
+    console.log(data);
+    io.socket.post('/topic/update', data, function(data, jwres) {});
   },
 
   /**
