@@ -30,17 +30,17 @@ var FluxMeetingTimer = React.createClass({
       seconds = '0' + seconds;
     }
 
-    var panelClass = " panel-info";
+    var panelClass = "panel-info";
 
     if ( minutes * 60 + seconds < 0.2 * this.state.totaltime )
-      panelClass = " panel-warning";
+      panelClass = "panel-warning";
     
     if ( minutes < 0 )
-      panelClass = " panel-danger";
+      panelClass = "panel-danger";
 
     return (
-      <div id="timer" className={ "panel panel-colorful" + panelClass }>
-        <h3 className="panel-title">{minutes} : {seconds} min</h3>
+      <div id="timer" className={ "col-md-1 panel panel-colorful " + panelClass }>
+        <span className="panel-title">{minutes} : {seconds}</span>
       </div>
     );
   }
