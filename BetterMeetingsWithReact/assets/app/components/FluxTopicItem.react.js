@@ -5,11 +5,12 @@ var FluxMeetingActions = require('../actions/FluxMeetingActions');
 var FluxTopicItem = React.createClass({
 
 	// Select agenda item via Action
-	_onClick: function(event) {
-		if(this.props.level === 0)
-			FluxMeetingActions.toggleDoneTopic(this.props.index);
-		else
-			FluxMeetingActions.selectTopic(this.props.index);
+	selectTopic: function(event) {
+		FluxMeetingActions.selectTopic(this.props.index);
+	},
+
+	toggleDone: function(event) {
+		FluxMeetingActions.toggleDoneTopic(this.props.index);
 	},
 
 	// Render agenda View
@@ -25,9 +26,11 @@ var FluxTopicItem = React.createClass({
 
 		else {
 			return (
-	            <li className={"agenda-item level-" + level} onClick={this._onClick}>
-	            	<label className={ item.done ? "form-checkbox form-icon form-no-label btn btn-primary active" : "form-checkbox form-icon form-no-label btn btn-primary active" }><input type="checkbox" checked={item.done}/></label>
-	                <h3 className="agenda-title">{ item.title }</h3>
+	            <li className={"agenda-item level-" + level}>
+	            	<label className={ item.done ? "form-checkbox form-icon form-no-label btn btn-primary active" : "form-checkbox form-icon form-no-label btn btn-primary" }>
+	            		<input type="checkbox" onChange={this.toggleDone} checked={item.done}/>
+	            	</label>
+	                <h3 className="agenda-title" onClick={this.selectTopic} >{ item.title }</h3>
 	            </li>
 			);
 		}

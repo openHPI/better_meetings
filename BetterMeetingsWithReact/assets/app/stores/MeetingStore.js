@@ -62,6 +62,15 @@ function getIndexOfTodoItem (item, todoitems) {
 	}
 }
 
+function updateTopic (item, previousItem) {
+	for (var i = 0; i < _meeting.topics.length; i++) {
+		if(_meeting.topics[i].id === item.id){
+			_meeting.topics[i] === item;
+			return;
+		}
+	}
+}
+
 function addTodoItem (item) {
 	for (var i = 0; i < _meeting.topics.length; i++) {
 		if(_meeting.topics[i].id === item.owner){
@@ -189,6 +198,10 @@ AppDispatcher.register(function(payload) {
 			loadMeetingData(action.data);
 			break;
 
+		case FluxServerConstants.TOPIC_SERVER_UPDATE:
+			updateTopic(action.data.item);
+			break;
+
 		case FluxServerConstants.TODO_ADD:
 			addTodoItem(action.data);
 			_meeting.topics[_selectedTopic].todos.unshift(action.data);
@@ -264,7 +277,7 @@ AppDispatcher.register(function(payload) {
 			break;
 
 		case FluxMeetingConstants.MEETING_END:
-			MeetingDataAPI.endMeeting(_meeting.id);
+			MeetingDataAPI.endMeeting(_meeting);
 			break;
 
 		default:
