@@ -26,7 +26,18 @@ module.exports = {
    */
   subscribeAndListen: function (topicList, todoitemList) {
 
-    console.dir(todoitemList);
+
+    var todoitems = [];
+    for (var item in todoitemList){
+      todoitems.push(todoitemList[item].id);
+    };
+    var topicitems = [];
+    for (var item in topicList){
+      topicitems.push(topicList[item].id);
+    };
+
+    console.dir(topicitems);
+
 
     io.socket.on('connect', function () {
       console.log('Connected to server');
