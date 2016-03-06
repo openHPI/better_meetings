@@ -90,7 +90,21 @@ var FluxMeetingApp = React.createClass({
 					<div className="container">
 		              <div className="row">
 		                <div className="col-md-4 col-lg-4">
-		                  <FluxTopicList items={this.state.meeting.topics} selected={this.state.selectedTopic} />
+		                	<div class="row">
+		                		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		                  		<FluxTopicList items={this.state.meeting.topics} selected={this.state.selectedTopic} />
+		                		</div>
+		                	</div>
+		                	<div class="row">
+		                		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          			    			<FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit} />
+          							<FluxAttendeeForm />
+          							<FluxTodoItemCreateForm attendees={this.state.meeting.attendees} />
+          							<FluxTodoItemUpdateForm attendees={this.state.meeting.attendees} item={this.state.editingTodoItem} canEdit={ this.state.canEdit } />
+		                		</div>
+		                	</div>
+		                
+
 		                </div>
 		                <div className="col-md-8 col-lg-8">
 		                  <div className="row">
@@ -113,11 +127,7 @@ var FluxMeetingApp = React.createClass({
 						</div>
 					</div>
 
-	    			<FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit} />
-					<FluxAttendeeForm />
-					<FluxTodoItemCreateForm attendees={this.state.meeting.attendees} />
-					<FluxTodoItemUpdateForm attendees={this.state.meeting.attendees} item={this.state.editingTodoItem} canEdit={ this.state.canEdit } />
-				</div>
+	    			</div>
 			);
 		}
 
