@@ -23,15 +23,18 @@ module.exports = {
     topics: [
       {
         title: 'Verlauf Webprogrammierungs Seminar',
-        description: 'Überblick über alle Gruppen / Demo Vorträge'
+        description: 'Überblick über alle Gruppen / Demo Vorträge',
+        done: false,
       },
       {
         title: 'Neue Technologien',
-        description: 'Was gibt es neues in der Welt des Internets?'
+        description: 'Was gibt es neues in der Welt des Internets?',
+        done: false,
       },
       {
         title: 'Ausblick',
-        description: 'Punkte für die nächste Woche'
+        description: 'Punkte für die nächste Woche',
+        done: false,
       }
     ],
     todos: [
@@ -171,15 +174,18 @@ module.exports = {
   generateExampleTopics: function (req, res) {
     var topic1 = {
       'title': this.conf.topics[0].title,
-      'description': this.conf.topics[0].description
+      'description': this.conf.topics[0].description,
+      'done': this.conf.topics[0].done,
     };
     var topic2 = {
       'title': this.conf.topics[1].title,
-      'description': this.conf.topics[1].description
+      'description': this.conf.topics[1].description,
+      'done': this.conf.topics[1].done,
     };
     var topic3 = {
       'title': this.conf.topics[2].title,
-      'description': this.conf.topics[2].description
+      'description': this.conf.topics[2].description,
+      'done': this.conf.topics[2].done,
     };
 
     var topics = [topic1, topic2, topic3];
@@ -199,11 +205,13 @@ module.exports = {
             var meetingseries = cre;
             var title = topics[i].title;
             var description = topics[i].description;
+            var done = topics[i].done;
 
             agendaitem.findOrCreate({
               meetingseries: meetingseries,
               title: title,
-              description: description
+              description: description,
+              done: done,
             }).exec(function createAgendaItems(err, cre) {
               if (err) {
                 sails.log('AgendaItem not created' + err);

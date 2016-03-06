@@ -15,7 +15,8 @@ module.exports = {
     var description = req.param('description');
     var todos = req.param('todos');
     var subAgendaItems = req.param('subAgendaItems');
-    if (meetingseries && title) {
+    var done = req.param('done');
+    if (meetingseries && title && done != null) {
       AgendaItem.create(
         {
           meetingseries: meetingseries,
@@ -23,6 +24,7 @@ module.exports = {
           description: description,
           todos: todos,
           subAgendaItems: subAgendaItems,
+          done: done,
         })
         .exec(function createAgendaItem(err, created) {
           if (err) {
@@ -39,6 +41,7 @@ module.exports = {
                 description: created.description,
                 todos: created.todos,
                 subAgendaItems: created.subAgendaItems,
+                done: done,
               });
           }
         });
@@ -74,20 +77,16 @@ module.exports = {
   },
 
   update: function (req, res) {
-    var id = req.param('id');
+    var agendaItemId = req.param('id');
     var meetingseries = req.param('meetingseries');
     var title = req.param('title');
     var description = req.param('description');
     var todos = req.param('todos');
     var done = req.param('done');
     var subAgendaItems = req.param('subAgendaItems');
-    if (id && meetingseries && title && description && todos &&
-      subAgendaItems && req.isSocket) {
-      agendaitem.update(
-        {
-          'id': id
-        },
-        {
+    if (agendaItemId && meetingseries && title && description && todos &&
+      subAgendaItems && done != null && req.isSocket) {
+      agendaitem.update({id: agendaItemId}).set({
           meetingseries: meetingseries,
           title: title,
           description: description,
@@ -98,25 +97,28 @@ module.exports = {
         .exec(function updateAgendaItem(err, updated) {
           if (err) {
             sails.log('AgendaItem not updated ' + err);
-          }
-          else if (!updated) {
-            sails.log('Update error for Person ' + err);
-          }
-          else {
-            sails.log('Updated AgendaItem: ' + updated.title);
-            agendaitem.publishUpdate(id,
-              {
-                meetingseries:    updated.meetingseries,
-                title:            updated.title,
-                description:      updated.description,
-                todos:            updated.todos,
-                done:             updated.done,
-                subAgendaItems:   updated.subAgendaItems,
-              });
+          } else {
+            sails.log('Updated AgendaItem: ' + updated[0].title);
+
+            updated[0].save(function (err) {
+              if (err) {
+                sails.log("Error while saving update to AgendaItem " + updated[0].title);
+              } else {
+                sails.log("Successfully saved updates to AgendaItem " + updated[0].title);
+                agendaitem.publishUpdate(updated[0].id, {
+                  id:             updated[0].id,
+                  meetingseries:  updated[0].meetingseries,
+                  title:          updated[0].title,
+                  description:    updated[0].description,
+                  todos:          updated[0].todos,
+                  done:           updated[0].done,
+                  subAgendaItems: updated[0].subAgendaItems,
+                });
+              }
+            });
           }
         });
-    }
-    else {
+    } else {
       res.send('agendaitem');
       sails.log('AgendaItem not updated: too few parameters');
     }

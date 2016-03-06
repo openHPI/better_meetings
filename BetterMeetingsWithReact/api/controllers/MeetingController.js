@@ -178,6 +178,7 @@ module.exports = {
               } else {
                 sails.log("Successfully saved updates to Meeting " + updated[0].title);
                 todoitem.publishUpdate(updated[0].id, {
+                  id:                 updated[0].id,
                   topics:             updated[0].topics,
                   attendees:          updated[0].attendees,
                   isInitialCreation:  updated[0].isInitialCreation,
@@ -299,28 +300,71 @@ module.exports = {
     }
   },
 
+
   endMeeting: function (req, res) {
     // send summary email to everyone who provided at least email, attendees and members
     // TODO: delete guests who only provided name or nothing
     //var distinctPersons = [...new Set([...req.attendees, ...req.members])];
-    var distinctPersons =  req.attendees.concat(req.members);
+    var _meeting = req.allParams();
+    console.dir(req.allParams());
+    var _meetingSeriesId = _meeting.series.id;
+    var _meetingSeries = null;
+    sails.log("got meeting " + _meeting.title);
+    sails.log("got meetingseries with id " + _meetingSeriesId);
 
-    for (var i = 0; i < distinctPersons.length; i++) {
-      for (var j = i + 1; j < distinctPersons.length; j++) {
-        if (distinctPersons[i].name === distinctPersons[j].name || distinctPersons[i].email === distinctPersons[j].email) {
-          distinctPersons.splice(j, 1);
+    meetingseries.findOne(_meetingSeriesId).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+        if (err) {
+          sails.log("Error: Could not find meetingseries");
+        } else {
+          sails.log("Found meetingseries with title " + meetingSeriesAnswer.title);
+          _meetingSeries = meetingSeriesAnswer;
+
+          var distinctPersons =  this.arrayUnion(_meeting.attendees,_meetingSeries.members);
+
+          sails.log("distinct persons are");
+          for (var i in distinctPersons) {
+            sails.log(distinctPersons[i]);
+          }
+
+          var content = EmailService.computeEmailContent(req.topics);
+          sails.log("Length of email content: " + content.length);
+          sails.log("The email content is: " + content);
+
+          for (var i in distinctPersons) {
+            sails.log("attempting to send summary mail to: " + distinctPersons[i].email);
+            if (distinctPersons[i].email) {
+              sails.log("sent topics are: " + _meeting.topics);
+              EmailService.sendSummary({
+                recipientName: distinctPersons[i].name,
+                to: distinctPersons[i].email,
+                content: content,
+              });
+
+            }
+          }
+        }
+    });
+
+  },
+
+  arrayUnion: function (arr1, arr2) {
+    var union = arr1.concat(arr2);
+
+    for (var i = 0; i < union.length; i++) {
+      for (var j = i + 1; j < union.length; j++) {
+        if (this.arePersonsEqual(union[i], union[j])) {
+          union.splice(j, 1);
           j--;
         }
       }
     }
-    //sails.log("Email testing: distinct Persons are: " + distinctPersons);
-    for (var distinctPerson in distinctPersons) {
-      if (distinctPerson.email) EmailService.sendSummary({
-        recipientName: distinctPerson.name,
-        to: distinctPerson.email,
-        topics: req.topics,
-      });
-      sails.log("attempting to send summary mail to: " + distinctPerson.email);
-    }
+    return union;
   },
+
+
+  arePersonsEqual: function (p1, p2) {
+    return p1.name === p2.name || p1.email === p2.email;
+  },
+
+
 };

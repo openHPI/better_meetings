@@ -82,6 +82,7 @@ module.exports = {
               } else {
                 sails.log("Successfully saved updates to MeetingSeries " + updated[0].title);
                 meetingseries.publishUpdate(updated[0].id, {
+                  id:           updated[0].id,
                   admins:       updated[0].admins,
                   title:        updated[0].title,
                   meeting:      updated[0].meeting,
