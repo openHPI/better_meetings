@@ -8,7 +8,6 @@
   <!--STYLES-->
   <link rel="stylesheet" href="/styles/importer.css">
   <!--STYLES END-->
-
 </head>
 
 <body>
@@ -129,6 +128,17 @@
 <script src="/js/dependencies/nifty.min.js"></script>
 <script src="/js/dependencies/pace.min.js"></script>
 <!--SCRIPTS END-->
+
+<script>
+  jQuery(function () {
+    jQuery(".grid").sortable({
+      tolerance: 'pointer',
+      revert: 'invalid',
+      placeholder: 'span2 well placeholder tile',
+      forceHelperSize: true
+    });
+  });
+</script>
 
 </body>
 </html>

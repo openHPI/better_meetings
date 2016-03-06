@@ -89,34 +89,6 @@ var FluxMeetingApp = React.createClass({
               <button className="btn btn-info" onClick={this._onClick}>End Meeting</button>
             </div>
           </div>
-
-          <div className="container">
-            <div className="row">
-              <div className="col-md-4 col-lg-4">
-                <FluxTopicList items={this.state.meeting.topics} selected={this.state.selectedTopic}/>
-              </div>
-              <div className="col-md-8 col-lg-8">
-                <div className="row">
-                  <div className="col-md-12 col-lg-12">
-                    <FluxTopicDetails selected={this.state.meeting.topics[this.state.selectedTopic]}/>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12 col-lg-12">
-                    <div className="flux-todolist">
-                      <FluxTodoList allItems={this.state.allTodoItems}
-                                    items={this.state.meeting.topics[this.state.selectedTopic].todos}
-                                    attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-xs-12">
-              </div>
-            </div>
-          </div>
           <div className="container">
             <div className="row">
               <div className="col-md-4 col-lg-4">
@@ -156,13 +128,8 @@ var FluxMeetingApp = React.createClass({
             </div>
             <div className="row">
               <div className="col-xs-12">
+                <FluxQrViewer qrcode={this.state.qrcode}/>
               </div>
-            </div>
-          </div>
-
-          <div className="container-fluid">
-            <div>
-              <FluxQrViewer qrcode={this.state.qrcode}/>
             </div>
           </div>
         </div>

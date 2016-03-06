@@ -19,19 +19,23 @@ var FluxQrViewer = React.createClass({
 
     var smallSvgStyle = {
       width: '50px',
-      height: '50px',
-      display: 'inline - block',
-      float: 'none',
+      height: '50px'
     }
 
     return (
-      <div>
-        <OverlayTrigger trigger="hover" placement="top" overlay={
-          <Popover title="Meeting Code" style={ svgContainerStyle }>
-            <div dangerouslySetInnerHTML={{__html: qrcode}} style={ svgContainerStyle }></div>
-          </Popover>}>
-          <div className="center-block" dangerouslySetInnerHTML={{__html: qrcode}} style={ smallSvgStyle }></div>
-        </OverlayTrigger>
+
+      <div className="panel">
+        <div className="panel-heading">
+          <div className="panel-body">
+            <OverlayTrigger trigger="hover" placement="top" overlay={
+                <Popover title="Meeting Code" style={ svgContainerStyle }>
+                  <div dangerouslySetInnerHTML={{__html: qrcode}} style={ svgContainerStyle }></div>
+                  </Popover>}>
+              <div className="center-block" dangerouslySetInnerHTML={{__html: qrcode}} style={ smallSvgStyle }></div>
+            </OverlayTrigger>
+          </div>
+        </div>
+
       </div>
     );
   }

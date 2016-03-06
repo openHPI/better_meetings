@@ -219,57 +219,22 @@
       <div class="modal-body">
         <form action="/meeting/create/<%= meetingseries.id %>" method="post">
           <% var i = 0 %>
-          <% _.each(meetingseries.topics, function (topics) { %>
-          <div class="text-left checkbox">
-            <label class="form-checkbox form-icon form-text">
-              <%= topics.title %>
-              <input type="checkbox" name="topic<%= i %>">
-            </label>
+          <div class="row grid span2">
+            <% _.each(meetingseries.topics, function (topics) { %>
+            <div class="well span2 tile">
+              <div class="text-left checkbox">
+                <label class="form-checkbox form-icon form-text">
+                  <%= topics.title %>
+                  <input type="checkbox" name="topic<%= i %>">
+                </label>
+              </div>
+            </div>
+            <% i++ %>
+            <% }) %>
           </div>
-          <% i++ %>
-          <% }) %>
           <button class="btn btn-success btn-block" type="submit">Erstellen</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-
-<script>
-  function create_meeting_modal() {
-
-    bootbox.dialog({
-      title: 'Meeting erstellen',
-      message: 'Wähle die Themen die im Meeting enthalten sein sollen' +
-      '<form action="/meeting/create/<%= meetingseries.id %>" method="post">' +
-      '<% var i = 0 %>' +
-      '<% _.each(meetingseries.topics, function (topics) { %>' +
-      '<div class="text-left checkbox">' +
-      '<label class="form-checkbox form-icon form-text">' +
-      '<input type="checkbox" name="topic<%= i %>"> <%= topics.title %></input>' +
-      '</label>' +
-      '</div>' +
-      '<% i++ %>' +
-      '<% }) %>' +
-      '<button class="btn btn-success btn-block" type="submit">Erstellen</button>' +
-      '</form>',
-      buttons: {
-        success: {
-          label: "Erstellen",
-          className: "btn-success",
-          callback: function () {
-
-          }
-        }, danger: {
-          label: "Abbrechen!",
-          className: "btn-danger",
-          callback: function () {
-            console.log("meeting from series <%= meetingseries.title %> not created");
-          }
-        },
-      }
-    });
-  }
-
-</script>
