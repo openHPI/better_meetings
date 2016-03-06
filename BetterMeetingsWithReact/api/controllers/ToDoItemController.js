@@ -70,63 +70,50 @@ module.exports = {
 
     if (todoItemId && title && description && done !== null && req.isSocket) {
       sails.log("number of params ok");
-     // todoitem.findOne(todoItemId).exec(function updateTodoItem(error, todoitemAnswer) {
-        todoitem.update({id: todoItemId}).set({
+      todoitem.update({id: todoItemId})
+      .set({
           title:        title,
           done:         done,
           description:  description,
           owner:        owner,
           author:       author,
           assignee:     assignee,
-        }).exec(function updateToDoItem(err, updated) {
-          sails.log("exec ok");
-          if (err) {
-            sails.log('ToDoItem not updated ' + err);
-          } else {
-            sails.log('Updated ToDoItem: ' + updated[0].title);
-            //console.dir(updated);
-            // todoitem.find().populate({id: updated[0].id}).exec(function populateUpdate(error, res){
-            //   if (error) {
-            //     sails.log("Error while finding ToDoItem update record " + updated[0].title);
-            //   }
+      })
+      .exec(function updateToDoItem(err, updated) {
+        sails.log("exec ok");
+          
+        if (err) {
+          sails.log('ToDoItem not updated ' + err);
+        } else {
+          sails.log('Updated ToDoItem: ' + updated[0].title);
+          
+          updated[0].save(function (err) {
+            if (err) {
+              sails.log("Error while saving update to ToDoItem " + updated[0].title);
+            } else {
+              sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
+              todoitem.publishUpdate(updated[0].id, { 
+                title: updated[0].title,
+                done: updated[0].done,
+                description: updated[0].description,
+                owner: updated[0].owner,
+                author: updated[0].author,
+                assignee: updated[0].assignee,
+                
 
-            updated[0].save(function (erro) {
-              if (erro) {
-                sails.log("Error while saving update to ToDoItem " + updated[0].title);
-              } else {
-                sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
-              }
-            });
 
-            todoitem.publishUpdate(updated[0].id, {
-              title: updated[0].title,
-              done: updated[0].done,
-              description: updated[0].description,
-              owner: updated[0].owner,
-              author: updated[0].author,
-              assignee: updated[0].assignee,
-            }/*,options.previous*/, req, {
-              previous: {
-                title:        updated[0].title,
-                done:         updated[0].done,
-                description:  updated[0].description,
-                owner:        updated[0].owner,
-                author:       updated[0].author,
-                assignee:     updated[0].assignee,
-              }
-            }
-            );
-            //return res.ok();
-            //});
-          }
+              });
+            };
+          });
 
-        });
-      //});
+        }});
+
+
 
     } else {
       sails.log('ToDoItem not updated: too few parameters');
       res.send('todoitem');
-      //res.redirect('/todoitem/view/'+id);
+ 
     }
   },
 

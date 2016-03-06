@@ -36,6 +36,8 @@ module.exports = {
 
       io.socket.on('todoitem', function onServerSentEvent(msg) {
 
+        console.log(msg);
+
         switch (msg.verb) {
 
           case 'created':
@@ -45,11 +47,13 @@ module.exports = {
 
           case 'updated':
             console.log('PUBSUB: Updated TodoItem: ' + msg.data);
-            FluxServerActions.updateTodoItem(msg.data, msg.previous);
+            console.dir(msg);
+            FluxServerActions.updateTodoItem(msg.data, msg.id);
             break;
 
           case 'destroyed':
             console.log('PUBSUB: Delete Todoitem: ' + msg.previous);
+            console.log(msg);
             FluxServerActions.removeTodoItem(msg.previous);
             break;
 
