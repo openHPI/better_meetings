@@ -31,7 +31,7 @@ module.exports = {
       console.log('Socket session: ' + this.id);
 
       // Subscribe to todoitem
-
+      console.log(todoitemList);
       io.socket.get('/todoitem/listen', todoitemList, function (resData, jwres) {});
 
       io.socket.on('todoitem', function onServerSentEvent(msg) {

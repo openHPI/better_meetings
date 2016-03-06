@@ -28,7 +28,7 @@ var FluxMeetingApp = require('./components/FluxMeetingApp.react');
 MeetingDataAPI.getUser();
 MeetingDataAPI.getMeetingData();
 
-var todoitemList = MeetingStore.getAllTodoItems;
+var todoitemList = MeetingStore.getAllTodoItems();
 
 MeetingDataAPI.subscribeAndListen(todoitemList);
 
