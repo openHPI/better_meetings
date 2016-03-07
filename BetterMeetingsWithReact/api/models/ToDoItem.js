@@ -26,10 +26,14 @@ module.exports = {
       via: 'todos',
     },
     assignee: {
-      type: 'integer',
+      type: 'string',
       required: false
     },
     done: {
+      type: 'boolean',
+      required: true
+    },
+    important: {
       type: 'boolean',
       required: true
     }

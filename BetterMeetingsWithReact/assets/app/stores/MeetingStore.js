@@ -28,7 +28,6 @@ function loadMeetingData(meeting) {
   _isMeetingDataLoaded = true;
   _meeting = meeting;
   _selectedTopic = 0;
-  console.dir(meeting);
   _allTodoItems = getAllTodoItems();
   _canEdit = isUserAdmin();
 }
@@ -226,7 +225,6 @@ AppDispatcher.register(function (payload) {
 
     case FluxMeetingConstants.TODO_EDIT:
       _editingTodoItem = action.data;
-      jQuery('#updateTodoItemModal').modal();
       break;
 
     case FluxMeetingConstants.TODO_USER_UPDATE:

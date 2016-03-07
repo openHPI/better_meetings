@@ -89,19 +89,6 @@ var FluxAgendaActions = {
 		})
 	},
 
-	/**
-	 * Toggles the state of the done attribute of a todo item
-	 * 
-	 * @method toggleDone
-	 * @param {Object} item The todo item
-	 */
-	toggleDoneTodoItem: function(item) {
-		AppDispatcher.handleAction({
-			actionType: FluxMeetingConstants.TODO_TOGGLE_DONE,
-			data: item
-		})
-	},
-
 	swapTodoItems: function(item, item2) {
 		AppDispatcher.handleAction({
 			actionType: FluxMeetingConstants.TODO_SWAP,

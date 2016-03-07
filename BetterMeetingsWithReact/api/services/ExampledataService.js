@@ -23,29 +23,35 @@ module.exports = {
     topics: [
       {
         title: 'Verlauf Webprogrammierungs Seminar',
-        description: 'Überblick über alle Gruppen / Demo Vorträge'
+        description: 'Überblick über alle Gruppen / Demo Vorträge',
+        done: false,
       },
       {
         title: 'Neue Technologien',
-        description: 'Was gibt es neues in der Welt des Internets?'
+        description: 'Was gibt es neues in der Welt des Internets?',
+        done: false,
       },
       {
         title: 'Ausblick',
-        description: 'Punkte für die nächste Woche'
+        description: 'Punkte für die nächste Woche',
+        done: false,
       }
     ],
     todos: [
       {
         title: 'Gruppenkurzfassung',
-        description: 'Vorstellung aller Gruppen und ihrer Projekte'
+        description: 'Vorstellung aller Gruppen und ihrer Projekte',
+        assignee: "Alexander",
       },
       {
         title: 'Nutzung des BetterMeeting Tools',
-        description: 'Warum ist das Tool so gut und hilft auf professionellen Niveau?'
+        description: 'Warum ist das Tool so gut und hilft auf professionellen Niveau?',
+        assignee: "Emma"
       },
       {
         title: 'Demo-Präsentationen',
-        description: 'Planung der Veranstaltung'
+        description: 'Planung der Veranstaltung',
+        assignee: "Julius"
       }
     ],
   },
@@ -171,15 +177,18 @@ module.exports = {
   generateExampleTopics: function (req, res) {
     var topic1 = {
       'title': this.conf.topics[0].title,
-      'description': this.conf.topics[0].description
+      'description': this.conf.topics[0].description,
+      'done': this.conf.topics[0].done,
     };
     var topic2 = {
       'title': this.conf.topics[1].title,
-      'description': this.conf.topics[1].description
+      'description': this.conf.topics[1].description,
+      'done': this.conf.topics[1].done,
     };
     var topic3 = {
       'title': this.conf.topics[2].title,
-      'description': this.conf.topics[2].description
+      'description': this.conf.topics[2].description,
+      'done': this.conf.topics[2].done,
     };
 
     var topics = [topic1, topic2, topic3];
@@ -199,11 +208,13 @@ module.exports = {
             var meetingseries = cre;
             var title = topics[i].title;
             var description = topics[i].description;
+            var done = topics[i].done;
 
             agendaitem.findOrCreate({
               meetingseries: meetingseries,
               title: title,
-              description: description
+              description: description,
+              done: done,
             }).exec(function createAgendaItems(err, cre) {
               if (err) {
                 sails.log('AgendaItem not created' + err);
@@ -221,17 +232,20 @@ module.exports = {
     var todo1 = {
       'done': false,
       'title': this.conf.todos[0].title,
-      'description': this.conf.todos[0].description
+      'description': this.conf.todos[0].description,
+      'assignee' : this.conf.todos[0].assignee,
     };
     var todo2 = {
       'done': false,
       'title': this.conf.todos[1].title,
-      'description': this.conf.todos[1].description
+      'description': this.conf.todos[1].description,
+      'assignee' : this.conf.todos[1].assignee,
     };
     var todo3 = {
       'done': true,
       'title': this.conf.todos[2].title,
-      'description': this.conf.todos[2].description
+      'description': this.conf.todos[2].description,
+      //'assignee' : this.conf.todos[2].assignee,
     };
 
     var todos = [todo1, todo2, todo3];
@@ -251,15 +265,17 @@ module.exports = {
             var done = todos[i].done;
             var title = todos[i].title;
             var description = todos[i].description;
+            var assignee = todos[i].assignee;
 
             todoitem.findOrCreate({
               owner: owner,
               done: done,
               title: title,
-              description: description
+              description: description,
+              assignee: assignee,
             }).exec(function createTodoItems(err, cre) {
               if (err) {
-                sails.log('TodoItem not created' + err);
+                sails.log('TodoItem not created ' + err);
               } else {
                 sails.log('TodoItem created: ' + JSON.stringify(cre));
               }

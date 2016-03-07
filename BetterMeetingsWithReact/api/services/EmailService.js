@@ -4,13 +4,39 @@
 
 module.exports = {
 
-  sendSummary: function (req, res) {
+  computeEmailContent: function (meetingSeriesTopics) {
+    sails.log("whole meetingTopics are:");
+    sails.log(meetingSeriesTopics);
 
-    var content = computeEmailContent(req.topics);
+    var htmlString = '';
+
+    sails.log("test agendaitem: " + meetingSeriesTopics[0].title);
+    sails.log("test todoitem: " + meetingSeriesTopics[0].todos[0].title);
+    for (var _agendaitem in meetingSeriesTopics) {
+      htmlString = htmlString.concat("#", meetingSeriesTopics[_agendaitem].title, "\n");
+      htmlString = htmlString.concat("##", meetingSeriesTopics[_agendaitem].description, "\n");
+      htmlString = htmlString.concat("##", meetingSeriesTopics[_agendaitem].done, "\n");
+      var currAgendaItem = meetingSeriesTopics[_agendaitem];
+      for (var _todoitem in currAgendaItem.todos) {
+        htmlString = htmlString.concat("###", currAgendaItem.todos[_todoitem].title, "\n");
+        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].description, "\n");
+        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].assignee, "\n");
+        htmlString = htmlString.concat("####", currAgendaItem.todos[_todoitem].done, "\n");
+      }
+    }
+    sails.log("length of markdown string before parsing is: " + htmlString.length);
+    sails.log("html string before parsing: " + htmlString);
+    htmlString = MarkdownService.parseMarkdown(htmlString);
+    return htmlString;
+  },
+
+
+  sendSummary: function (req, res) {
 
     // sails.hooks.email.send(template, data, options, cb)
     sails.hooks.email.send(
       'testEmail',
+      //req.content,
       {
         recipientName: req.recipientName,
         senderName: 'BetterMeetings',
@@ -20,14 +46,14 @@ module.exports = {
         from: 'BetterMeetings <postmaster@youremail.mailgun.org>',
         to: req.to,
         subject: 'Your BetterMeetings Summary',
-        html: content,
+        html: req.content,
       },
       function (err) {
         console.log(err || 'Summary is sent');
       }
     )
 
-    return res.send('Email Test');
+    //return res.send('Email Test');
   },
 
   sendInvitation: function () {
@@ -54,23 +80,6 @@ module.exports = {
     )
 
     return res.send('Email Test');
-  },
-
-  computeEmailContent: function (topics) {
-    var htmlString = '';
-    for (var agendaitem in topics.todos) {
-      htmlString += MarkdownService.parseMarkdown(agendaitem.title) + '\n';
-      htmlString += MarkdownService.parseMarkdown(agendaitem.description) + '\n';
-      htmlString += MarkdownService.parseMarkdown(agendaitem.done) + '\n';
-      for (var todoitem in agendaitem.todos) {
-        htmlString += MarkdownService.parseMarkdown(todoitem.title) + '\n';
-        htmlString += MarkdownService.parseMarkdown(todoitem.description) + '\n';
-        htmlString += MarkdownService.parseMarkdown(todoitem.assignee) + '\n';
-        htmlString += MarkdownService.parseMarkdown(todoitem.done) + '\n';
-      }
-    }
-
-    return htmlString;
   },
 
 };

@@ -188,7 +188,6 @@ module.exports = {
   },
 
   updateTopic: function(data) {
-    console.log(data);
     io.socket.post('/topic/update', data, function (data, jwres) {
     });
   },

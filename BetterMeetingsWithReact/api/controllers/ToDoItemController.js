@@ -18,6 +18,7 @@ module.exports = {
     var author = req.param('author');
     var assignee = req.param('assignee');
     var done = req.param('done');
+    var important = req.param('important');
 
     if (title && owner && author) {
       todoitem.create(
@@ -27,7 +28,8 @@ module.exports = {
           owner: owner,
           author: author,
           assignee: assignee,
-          done: done
+          done: done,
+          important: important
         })
         .exec(function createToDoItem(err, created) {
           if (err) {
@@ -43,7 +45,8 @@ module.exports = {
                 owner: created.owner,
                 author: created.author,
                 assignee: assignee,
-                done: created.done
+                done: created.done,
+                important: created.important
               });
           }
         })
@@ -65,6 +68,7 @@ module.exports = {
     var owner = req.param('owner');
     var author = req.param('author');
     var assignee = req.param('assignee');
+    var important = req.param('important');
     sails.log("after param assigmnment");
 
 
@@ -77,6 +81,7 @@ module.exports = {
           owner:        owner,
           author:       author,
           assignee:     assignee,
+          important:    important,
       })
       .exec(function updateToDoItem(err, updated) {
         sails.log("exec ok");
@@ -93,7 +98,6 @@ module.exports = {
               sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
 
               todoitem.publishUpdate(updated[0].id, {
-
                 id: updated[0].id,
                 title: updated[0].title,
                 done: updated[0].done,
@@ -101,6 +105,7 @@ module.exports = {
                 owner: updated[0].owner,
                 author: updated[0].author,
                 assignee: updated[0].assignee,
+                important: updated[0].important,
               });
             }
           });
@@ -162,6 +167,7 @@ module.exports = {
                   owner: todoitemAnswer[0].owner,
                   author: todoitemAnswer[0].author,
                   assignee: todoitemAnswer[0].assignee,
+                  important: todoitemAnswer[0].important,
                 }
               });
 
