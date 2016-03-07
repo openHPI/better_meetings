@@ -291,14 +291,17 @@ module.exports = {
 
   startMeeting: function (req, res) {
 
+    var _meetingSeries = req.allParams();
 
-    var link = UrlService.generate_unique_url();
-    for (var member in req.members) {
-      EmailService.sendInvitation(
-        {
+    var link = _meetingSeries.instances[0].url;
+
+    //var content = EmailService.computeInviteEmailContent("www.bettermeetings.com/meetingseries/1/testInvite", _meetingSeries.title);
+    var content = EmailService.computeInviteEmailContent(link, _meetingSeries.title);
+    for (var member in _meetingSeries.members) {
+      EmailService.sendInvitation({
           recipientName: member.name,
           to: member.email,
-          meetingLink: link
+          content: content,
         });
     }
   },
@@ -330,8 +333,9 @@ module.exports = {
           sails.log(distinctPersons[i]);
         }
 
-        var content = EmailService.computeEmailContent(_meeting);
-        sails.log("Length of email content: " + content.length);
+        //var content = EmailService.computeSummaryEmailContent(_meeting, "www.bettermeetings.com/meetingseries/1/globalUrlTest");
+        var content = EmailService.computeSummaryEmailContent(_meeting, _meetingSeries.url);
+        //sails.log("Length of email content: " + content.length);
         sails.log("The email content is: " + content);
 
         for (var i in distinctPersons) {
@@ -341,6 +345,7 @@ module.exports = {
               recipientName: distinctPersons[i].name,
               to: distinctPersons[i].email,
               content: content,
+              title: _meeting.title,
             });
 
           }

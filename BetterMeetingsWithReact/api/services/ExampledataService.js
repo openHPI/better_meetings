@@ -11,9 +11,9 @@ module.exports = {
 
   conf: {
     person: {
-      email_admin1: 'ajay.kesar@student.hpi.de',
-      email_admin2: 'ajaykes@hotmail.de',
-      email_member1: 'kesar@uni-potsdam.de'
+      email_admin1: 'alex_admin@hpi.de',
+      email_admin2: 'emma_admin@hpi.de',
+      email_member1: 'julius@hpi.de'
     },
     meetingseries: {
       title: 'Internet-Technologien und Systeme - Meeting',
