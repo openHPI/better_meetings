@@ -178,7 +178,7 @@ module.exports = {
               } else {
                 sails.log("Successfully saved updates to Meeting " + updated[0].title);
                 todoitem.publishUpdate(updated[0].id, {
-                  id:                 updated[0].id,
+                  id: updated[0].id,
                   topics:             updated[0].topics,
                   attendees:          updated[0].attendees,
                   isInitialCreation:  updated[0].isInitialCreation,
@@ -314,35 +314,35 @@ module.exports = {
     sails.log("got meetingseries with id " + _meetingSeriesId);
 
     meetingseries.findOne(_meetingSeriesId).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
-        if (err) {
-          sails.log("Error: Could not find meetingseries");
-        } else {
-          sails.log("Found meetingseries with title " + meetingSeriesAnswer.title);
-          _meetingSeries = meetingSeriesAnswer;
+      if (err) {
+        sails.log("Error: Could not find meetingseries");
+      } else {
+        sails.log("Found meetingseries with title " + meetingSeriesAnswer.title);
+        _meetingSeries = meetingSeriesAnswer;
 
-          var distinctPersons =  self.arrayUnion(_meeting.attendees, _meetingSeries.members);
+        var distinctPersons = self.arrayUnion(_meeting.attendees, _meetingSeries.members);
 
-          sails.log("distinct persons are");
-          for (var i in distinctPersons) {
-            sails.log(distinctPersons[i]);
-          }
+        sails.log("distinct persons are");
+        for (var i in distinctPersons) {
+          sails.log(distinctPersons[i]);
+        }
 
-          var content = EmailService.computeEmailContent(_meeting.topics);
-          sails.log("Length of email content: " + content.length);
-          sails.log("The email content is: " + content);
+        var content = EmailService.computeEmailContent(_meeting.topics);
+        sails.log("Length of email content: " + content.length);
+        sails.log("The email content is: " + content);
 
-          for (var i in distinctPersons) {
-            sails.log("attempting to send summary mail to: " + distinctPersons[i].email);
-            if (distinctPersons[i].email) {
-              EmailService.sendSummary({
-                recipientName: distinctPersons[i].name,
-                to: distinctPersons[i].email,
-                content: content,
-              });
+        for (var i in distinctPersons) {
+          sails.log("attempting to send summary mail to: " + distinctPersons[i].email);
+          if (distinctPersons[i].email) {
+            EmailService.sendSummary({
+              recipientName: distinctPersons[i].name,
+              to: distinctPersons[i].email,
+              content: content,
+            });
 
-            }
           }
         }
+      }
     });
 
   },

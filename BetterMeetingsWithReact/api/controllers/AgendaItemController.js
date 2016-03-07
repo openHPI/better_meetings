@@ -105,12 +105,12 @@ module.exports = {
               } else {
                 sails.log("Successfully saved updates to AgendaItem " + updated[0].title);
                 agendaitem.publishUpdate(updated[0].id, {
-                  id:             updated[0].id,
-                  meetingseries:  updated[0].meetingseries,
-                  title:          updated[0].title,
-                  description:    updated[0].description,
-                  todos:          updated[0].todos,
-                  done:           updated[0].done,
+                  id: updated[0].id,
+                  meetingseries: updated[0].meetingseries,
+                  title: updated[0].title,
+                  description: updated[0].description,
+                  todos: updated[0].todos,
+                  done: updated[0].done,
                   subAgendaItems: updated[0].subAgendaItems,
                 });
               }

@@ -16,7 +16,7 @@ var FluxTodoList = React.createClass({
     dragStart: function(e) {
         this.dragged = e.currentTarget;
         e.dataTransfer.effectAllowed = 'move';
-        
+
         // Firefox requires dataTransfer data to be set
         e.dataTransfer.setData("text/html", e.currentTarget);
     },
@@ -38,19 +38,19 @@ var FluxTodoList = React.createClass({
         e.preventDefault();
         this.dragged.style.display = "none";
         if(e.target.className === "placeholder") return;
-        
+
         this.over = e.target;
         // Inside the dragOver method
         var relY = e.clientY - this.over.offsetTop;
         var height = this.over.offsetHeight / 2;
         var parent = e.target.parentNode;
-        
+
         if(relY > height) {
             console.log("after ", this.over.dataset.id);
             this.nodePlacement = "after";
             parent.insertBefore(placeholder, e.target.nextElementSibling);
         }
-        
+
         else if(relY < height) {
             console.log("after ", this.over.dataset.id);
             this.nodePlacement = "before"
@@ -61,29 +61,30 @@ var FluxTodoList = React.createClass({
     renderTodoList: function(items, draggable) {
         var canEdit = this.props.canEdit;
 
-        var sortedItems = [];
+      var sortedItems = [];
 
-        for (var i = 0; i < items.length; i++) {
-            if (items[i].important === undefined || items[i].important === null || !items[i].important)
-                sortedItems.push(items[i]);
-            else
-                sortedItems.unshift(items[i]);
-        }
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].important === undefined || items[i].important === null || !items[i].important)
+          sortedItems.push(items[i]);
+        else
+          sortedItems.unshift(items[i]);
+      }
 
-        if (sortedItems.length > 0) {
+      if (sortedItems.length > 0) {
 
-            return sortedItems.map(function(item, i) {
-                if(item.id === this.props.editingTodoItem) {
-                    return(
-                        <FluxTodoItemUpdate key={i} item={item} index={i} canEdit={canEdit} />
-                    );
-                }
+        return sortedItems.map(function (item, i) {
+          if (item.id === this.props.editingTodoItem) {
+            return (
+              <FluxTodoItemUpdate key={i} item={item} index={i} canEdit={canEdit}/>
+            );
+          }
 
-                else {
-                    return (
-                        <FluxTodoItem key={i} draggable={draggable} onDragStart={this.dragStart} onDragEnd={this.dragEnd} item={item} index={i} canEdit={canEdit} />
-                    );
-                }
+          else {
+            return (
+              <FluxTodoItem key={i} draggable={draggable} onDragStart={this.dragStart} onDragEnd={this.dragEnd}
+                            item={item} index={i} canEdit={canEdit}/>
+            );
+          }
             }, this);
         }
     },

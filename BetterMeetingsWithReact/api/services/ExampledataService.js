@@ -233,13 +233,13 @@ module.exports = {
       'done': false,
       'title': this.conf.todos[0].title,
       'description': this.conf.todos[0].description,
-      'assignee' : this.conf.todos[0].assignee,
+      'assignee': this.conf.todos[0].assignee,
     };
     var todo2 = {
       'done': false,
       'title': this.conf.todos[1].title,
       'description': this.conf.todos[1].description,
-      'assignee' : this.conf.todos[1].assignee,
+      'assignee': this.conf.todos[1].assignee,
     };
     var todo3 = {
       'done': true,

@@ -11,11 +11,11 @@ var FluxTodoItemCreateForm = React.createClass({
     createTodoItem: function(event) {
 
         if (!this.state.title) return;
-        
-        var item = { 
-          title: this.state.title, 
-          description: this.state.description, 
-          assignee: null, 
+
+      var item = {
+        title: this.state.title,
+        description: this.state.description,
+        assignee: null,
           done: false,
           important: false
         };
@@ -23,10 +23,10 @@ var FluxTodoItemCreateForm = React.createClass({
 
         this.setState({ title: '', description: '' });
 
-        jQuery('#createTodoItemModal').modal('hide');
-        jQuery(".modal-backdrop").each( function() {
-          this.remove();
-        });
+      jQuery('#createTodoItemModal').modal('hide');
+      jQuery(".modal-backdrop").each(function () {
+        this.remove();
+      });
     },
 
     render: function() {

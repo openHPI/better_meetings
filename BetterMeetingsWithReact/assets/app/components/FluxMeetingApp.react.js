@@ -92,32 +92,33 @@ var FluxMeetingApp = React.createClass({
                   <button className="btn btn-info" onClick={this._onClick}>End Meeting</button>
                 </div>
 
-              <div className="row">
-                <div className="col-md-4 col-lg-4">
-                  <div className="row">
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                      <FluxTopicList items={this.state.meeting.topics} selected={this.state.selectedTopic}/>
+                <div className="row">
+                  <div className="col-md-4 col-lg-4">
+                    <div className="row">
+                      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <FluxTopicList items={this.state.meeting.topics} selected={this.state.selectedTopic}/>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-md-8 col-lg-8">
-                  <div className="row">
-                    <div className="col-md-12 col-lg-12">
-                      <FluxTopicDetails selected={this.state.meeting.topics[this.state.selectedTopic]}/>
+                  <div className="col-md-8 col-lg-8">
+                    <div className="row">
+                      <div className="col-md-12 col-lg-12">
+                        <FluxTopicDetails selected={this.state.meeting.topics[this.state.selectedTopic]}/>
+                      </div>
                     </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12 col-lg-12">
-                      <div className="flux-todolist">
-                        <FluxTodoList
-                          allItems={this.state.allTodoItems}
-                          items={this.state.meeting.topics[this.state.selectedTopic].todos}
-                          attendees={this.state.meeting.attendees} canEdit={this.state.canEdit} editingTodoItem={this.state.editingTodoItem} />
+                    <div className="row">
+                      <div className="col-md-12 col-lg-12">
+                        <div className="flux-todolist">
+                          <FluxTodoList
+                            allItems={this.state.allTodoItems}
+                            items={this.state.meeting.topics[this.state.selectedTopic].todos}
+                            attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}
+                            editingTodoItem={this.state.editingTodoItem}/>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
                 <div className="row">
                   <div className="col-xs-12">
@@ -125,21 +126,22 @@ var FluxMeetingApp = React.createClass({
                   </div>
                 </div>
 
-            </div>
-          </div>
-
-          <aside id="aside-container">
-            <div id="aside">
-              <div className="nano">
-                <div className="nano-content">
-                  <FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
-                </div>
               </div>
             </div>
-          </aside>
 
-          <FluxTodoItemCreateForm attendees={this.state.meeting.attendees}/>
+            <aside id="aside-container">
+              <div id="aside">
+                <div className="nano">
+                  <div className="nano-content">
+                    <FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
+                  </div>
+                </div>
+              </div>
+            </aside>
 
+            <FluxTodoItemCreateForm attendees={this.state.meeting.attendees}/>
+
+          </div>
         </div>
       );
     }

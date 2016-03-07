@@ -81,7 +81,7 @@ module.exports = {
           owner:        owner,
           author:       author,
           assignee:     assignee,
-          important:    important,
+          important: important,
       })
       .exec(function updateToDoItem(err, updated) {
         sails.log("exec ok");

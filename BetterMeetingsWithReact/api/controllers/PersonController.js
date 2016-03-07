@@ -223,7 +223,7 @@ module.exports = {
               }
             });
             person.publishUpdate(updated[0].id, {
-                id:               updated[0].id,
+              id: updated[0].id,
                 name:             updated[0].name,
                 password:         updated[0].password,
                 email:            updated[0].email,
