@@ -1,6 +1,7 @@
 var React = require('react');
 var FluxMeetingActions = require('../actions/FluxMeetingActions');
 var FluxTodoItem = require('./FluxTodoItem.react');
+var FluxTodoItemUpdate = require('./FluxTodoItemUpdate.react');
 
 var placeholder = document.createElement("li");
 placeholder.className = "todo-item placeholder";
@@ -58,14 +59,31 @@ var FluxTodoList = React.createClass({
     },
 
     renderTodoList: function(items, draggable) {
-        var item = this.props.items;
         var canEdit = this.props.canEdit;
-        if (items.length > 0) {
 
-            return items.map(function(item, i) {
-                return (
-                    <FluxTodoItem key={i} draggable={draggable} onDragStart={this.dragStart} onDragEnd={this.dragEnd} item={item} index={i} canEdit={canEdit} />
-                );
+        var sortedItems = [];
+
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].important === undefined || items[i].important === null || !items[i].important)
+                sortedItems.push(items[i]);
+            else
+                sortedItems.unshift(items[i]);
+        }
+
+        if (sortedItems.length > 0) {
+
+            return sortedItems.map(function(item, i) {
+                if(item.id === this.props.editingTodoItem) {
+                    return(
+                        <FluxTodoItemUpdate key={i} item={item} index={i} canEdit={canEdit} />
+                    );
+                }
+
+                else {
+                    return (
+                        <FluxTodoItem key={i} draggable={draggable} onDragStart={this.dragStart} onDragEnd={this.dragEnd} item={item} index={i} canEdit={canEdit} />
+                    );
+                }
             }, this);
         }
     },

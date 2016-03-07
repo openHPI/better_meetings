@@ -8,7 +8,6 @@ module.exports = keyMirror({
 	TODO_EDIT: null,			// Change a todo item
 	TODO_USER_UPDATE: null,		// Updates a todo item
 	TODO_DESTROY: null,			// Destroy a todo item
-	TODO_TOGGLE_DONE: null,		// Toggles done state of a todo item
 	TODO_SWAP: null,			// Sorts todolist
 	ATTENDEE_CREATE: null,		// Adds a member to membergroup
 	TOPIC_SELECT: null,			// Selects a agenda item

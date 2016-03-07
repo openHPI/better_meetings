@@ -10,25 +10,23 @@ var FluxTodoItemCreateForm = React.createClass({
     // Add item to list via Actions
     createTodoItem: function(event) {
 
-        jQuery('#createTodoItemModal').modal('hide');
-        jQuery(".modal-backdrop").each( function() {
-          this.remove();
-        });
-        
-
-        event.preventDefault();
-
         if (!this.state.title) return;
         
         var item = { 
           title: this.state.title, 
           description: this.state.description, 
           assignee: null, 
-          done: false 
+          done: false,
+          important: false
         };
         FluxMeetingActions.createTodoItem(item);
 
         this.setState({ title: '', description: '' });
+
+        jQuery('#createTodoItemModal').modal('hide');
+        jQuery(".modal-backdrop").each( function() {
+          this.remove();
+        });
     },
 
     render: function() {

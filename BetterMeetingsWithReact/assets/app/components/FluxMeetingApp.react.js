@@ -15,7 +15,6 @@ var FluxQrViewer = require('./FluxQrViewer.react');
 
 var FluxTodoList = require('./FluxTodoList.react');
 var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
-var FluxTodoItemUpdateForm = require('./FluxTodoItemUpdateForm.react');
 
 var FluxTest = require('./FluxTest.react');
 
@@ -112,7 +111,7 @@ var FluxMeetingApp = React.createClass({
                         <FluxTodoList
                           allItems={this.state.allTodoItems}
                           items={this.state.meeting.topics[this.state.selectedTopic].todos}
-                          attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
+                          attendees={this.state.meeting.attendees} canEdit={this.state.canEdit} editingTodoItem={this.state.editingTodoItem} />
                       </div>
                     </div>
                   </div>
@@ -127,6 +126,7 @@ var FluxMeetingApp = React.createClass({
 
             </div>
           </div>
+
           <aside id="aside-container">
             <div id="aside">
               <div className="nano">
@@ -138,10 +138,7 @@ var FluxMeetingApp = React.createClass({
           </aside>
 
           <FluxTodoItemCreateForm attendees={this.state.meeting.attendees}/>
-          <FluxTodoItemUpdateForm
-            attendees={this.state.meeting.attendees}
-            item={this.state.editingTodoItem}
-            canEdit={ this.state.canEdit }/>
+          
         </div>
       );
     }

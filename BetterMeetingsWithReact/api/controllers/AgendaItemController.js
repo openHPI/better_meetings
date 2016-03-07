@@ -84,8 +84,7 @@ module.exports = {
     var todos = req.param('todos');
     var done = req.param('done');
     var subAgendaItems = req.param('subAgendaItems');
-    if (agendaItemId && meetingseries && title && description && todos &&
-      subAgendaItems && done != null && req.isSocket) {
+    if (agendaItemId && meetingseries && title && description && done != null && req.isSocket) {
       agendaitem.update({id: agendaItemId}).set({
           meetingseries: meetingseries,
           title: title,

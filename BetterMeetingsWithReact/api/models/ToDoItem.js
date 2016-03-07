@@ -32,6 +32,10 @@ module.exports = {
     done: {
       type: 'boolean',
       required: true
+    },
+    important: {
+      type: 'boolean',
+      required: true
     }
   }
 };
