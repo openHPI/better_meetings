@@ -158,13 +158,15 @@ module.exports = {
     var isInitialCreation = req.param('isInitialCreation');
     var startTime = req.param('startTime');
     var meetingId = req.param('id');
+    var url = req.param('url');
 
-    if (meetingId && topics && attendees && (isInitialCreation != null) && startTime && req.isSocket) {
+    if (meetingId && topics && attendees && isInitialCreation != null && startTime && url && req.isSocket) {
       meeting.update({id: meetingId}).set({
           topics:             topics,
           attendees:          attendees,
           isInitialCreation:  isInitialCreation,
           startTime:          startTime,
+          url:                url,
         })
         .exec(function updateMeeting(err, updated) {
           if (err) {
@@ -183,6 +185,7 @@ module.exports = {
                   attendees:          updated[0].attendees,
                   isInitialCreation:  updated[0].isInitialCreation,
                   startTime:          updated[0].startTime,
+                  url:                updated[0].url,
                 });
               }
             });
@@ -327,7 +330,7 @@ module.exports = {
           sails.log(distinctPersons[i]);
         }
 
-        var content = EmailService.computeEmailContent(_meeting.topics);
+        var content = EmailService.computeEmailContent(_meeting);
         sails.log("Length of email content: " + content.length);
         sails.log("The email content is: " + content);
 

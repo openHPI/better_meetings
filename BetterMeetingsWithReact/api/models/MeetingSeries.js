@@ -39,6 +39,11 @@ module.exports = {
       type: 'integer',
       required: true
     },
+    url: {
+      type: 'string',
+      required: false,
+      unique: true,
+    },
   }
 };
 

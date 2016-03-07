@@ -11,9 +11,9 @@ module.exports = {
 
   conf: {
     person: {
-      email_admin1: 'alex_admin@hpi.de',
-      email_admin2: 'emma_admin@hpi.de',
-      email_member1: 'julius@hpi.de'
+      email_admin1: 'ajay.kesar@student.hpi.de',
+      email_admin2: 'ajaykes@hotmail.de',
+      email_member1: 'kesar@uni-potsdam.de'
     },
     meetingseries: {
       title: 'Internet-Technologien und Systeme - Meeting',
@@ -234,18 +234,21 @@ module.exports = {
       'title': this.conf.todos[0].title,
       'description': this.conf.todos[0].description,
       'assignee': this.conf.todos[0].assignee,
+      'important': true,
     };
     var todo2 = {
       'done': false,
       'title': this.conf.todos[1].title,
       'description': this.conf.todos[1].description,
       'assignee': this.conf.todos[1].assignee,
+      'important': false,
     };
     var todo3 = {
       'done': true,
       'title': this.conf.todos[2].title,
       'description': this.conf.todos[2].description,
-      //'assignee' : this.conf.todos[2].assignee,
+      //'assignee': this.conf.todos[2].assignee,
+      'important': false,
     };
 
     var todos = [todo1, todo2, todo3];
@@ -266,6 +269,7 @@ module.exports = {
             var title = todos[i].title;
             var description = todos[i].description;
             var assignee = todos[i].assignee;
+            var important = todos[i].important;
 
             todoitem.findOrCreate({
               owner: owner,
@@ -273,6 +277,7 @@ module.exports = {
               title: title,
               description: description,
               assignee: assignee,
+              important: important,
             }).exec(function createTodoItems(err, cre) {
               if (err) {
                 sails.log('TodoItem not created ' + err);
