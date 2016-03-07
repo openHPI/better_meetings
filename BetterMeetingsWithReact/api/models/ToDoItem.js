@@ -26,7 +26,7 @@ module.exports = {
       via: 'todos',
     },
     assignee: {
-      type: 'integer',
+      type: 'string',
       required: false
     },
     done: {
