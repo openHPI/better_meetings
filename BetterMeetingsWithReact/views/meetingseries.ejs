@@ -126,10 +126,10 @@
             <h3 class="panel-title">Topics</h3>
           </div>
           <div class="panel-body">
-            <ul class="list-group bg-trans">
+            <ul class="list-group bg-trans" id="dragListTopics">
               <% _.each(meetingseries.topics, function (topic) { %>
               <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
-                <%= topic.title %>
+                <i class="fa fa-arrows-v"></i> <%= topic.title %>
               </li>
               <% }) %>
             </ul>
@@ -219,15 +219,14 @@
       <div class="modal-body">
         <form action="/meeting/create/<%= meetingseries.id %>" method="post">
           <% var i = 0 %>
-          <div class="row grid span2">
+          <div id="dragListMeetingCreation">
             <% _.each(meetingseries.topics, function (topics) { %>
-            <div class="well span2 tile">
-              <div class="text-left checkbox">
-                <label class="form-checkbox form-icon form-text">
-                  <%= topics.title %>
-                  <input type="checkbox" name="topic<%= i %>">
-                </label>
-              </div>
+            <div class="text-left checkbox">
+              <i class="fa fa-arrows-v"></i>
+              <label class="form-checkbox form-icon form-text">
+                <%= topics.title %>
+                <input type="checkbox" name="topic<%= i %>">
+              </label>
             </div>
             <% i++ %>
             <% }) %>

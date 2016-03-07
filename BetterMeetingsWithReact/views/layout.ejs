@@ -12,7 +12,7 @@
 
 <body>
 
-<div id="container" class="effect mainnav-out aside-in">
+<div id="container" class="effect mainnav-out">
 
   <!--<header>-->
   <header id="navbar">
@@ -88,11 +88,10 @@
   </header>
   <!--</header>-->
 
-  <div class="bb-alert alert alert-info" style="display: none;">
-    <span></span>
+  <!-- den container bitte drin lassen - der ist nicht umsonst da -->
+  <div id="content-container">
+    <%- body %>
   </div>
-
-  <%- body %>
 
 </div><!-- #container -->
 <!--
@@ -124,31 +123,19 @@
 <script src="/js/dependencies/jquery-1.12.0.min.js"></script>
 <script src="/js/dependencies/nifty.min.js"></script>
 <script src="/js/dependencies/pace.min.js"></script>
+<script src="/js/dependencies/sortable.min.js"></script>
 <!--SCRIPTS END-->
 
 <script>
+  Sortable.create(dragListTopics, {
+    handle: '.fa fa-arrows-v',
+    animation: 150
+  });
 
-  jQuery(function () {
-    jQuery('li').removeClass('ui-corner-bottom');
-    jQuery('ul')
-      .addClass('ui-corner-top')
-      .removeClass('ui-corner-all')
-      .sortable({
-        'containment': 'parent',
-        'opacity': 0.6,
-        update: function (event, ui) {
-          alert("dropped");
-        }
-      });
-
-  //  jQuery(function () {
-  //    jQuery(".grid").sortable({
-  //      tolerance: 'pointer',
-  //      revert: 'invalid',
-  //      placeholder: 'span2 well placeholder tile',
-  //      forceHelperSize: true
-  //    });
-  //  });
+  Sortable.create(dragListMeetingCreation, {
+    handle: '.fa fa-arrows-v',
+    animation: 150
+  });
 </script>
 
 </body>
