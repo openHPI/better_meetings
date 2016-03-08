@@ -21,38 +21,86 @@ module.exports = {
     sails.log(_meeting.topics);
 
     var htmlString = '';
+    //htmlString = htmlString.concat("![HPI Logo] (/assets/images/HPI.jpg)", "\n");
 
-    htmlString = htmlString.concat("![HPI Logo] (/assets/images/HPI.jpg)", "\n");
-    htmlString = htmlString.concat("#", "**", _meeting.title, "**", "\n");
-    if  (_meeting.description != null && _meeting.description != "") {
-      htmlString = htmlString.concat("\t", _meeting.description, "\n");
-    }
-    for (var _agendaitem = 0; _agendaitem <_meeting.topics.length; _agendaitem++) {
-      sails.log("Jetziges Agendaitem: ", _agendaitem);
-      htmlString = htmlString.concat("###", "**", (_agendaitem) + 1, ". ",_meeting.topics[_agendaitem].title, "**", "\n");
-      htmlString = htmlString.concat("\t", _meeting.topics[_agendaitem].description, "\n");
-      htmlString = htmlString.concat("done: ", _meeting.topics[_agendaitem].done, "\n");
+    htmlString = this.buildMeetingString(htmlString, _meeting);
 
-      var currAgendaItem = _meeting.topics[_agendaitem];
-      for (var _todoitem in currAgendaItem.todos) {
-        htmlString = htmlString.concat("###", "*",currAgendaItem.todos[_todoitem].title, "*", "\n");
-        htmlString = htmlString.concat("\t" , currAgendaItem.todos[_todoitem].description, "\n");
-        if (currAgendaItem.todos[_todoitem].assignee != null) {
-          htmlString = htmlString.concat("\n", "+ assigned to: ", currAgendaItem.todos[_todoitem].assignee, "\n");
-        }
-        htmlString = htmlString.concat("+ done: ", currAgendaItem.todos[_todoitem].done, "\n");
-        htmlString = htmlString.concat("+ important: ", currAgendaItem.todos[_todoitem].important, "\n");
-      }
-    }
-    if (_globalUrl != null && _globalUrl != "")  {
+    if (_globalUrl != null && _globalUrl != "")
       htmlString = htmlString.concat("\n", "[Global valid link for all meetings of this meeting group](",_globalUrl ,")");
-    }
+
+
     //htmlString = htmlString.concat("[Unsubscribe from further summary emails of this meeting group](",_unsubUrl ,")");
 
     //sails.log("length of markdown string before parsing is: " + htmlString.length);
     //sails.log("html string before parsing: " + htmlString);
+
     htmlString = MarkdownService.parseMarkdown(htmlString);
     return htmlString;
+  },
+
+
+  buildMeetingString: function (_string, _meeting) {
+    if (_meeting.title != null && _meeting.title != "")
+      _string = _string.concat("#", "**", _meeting.title, "**", "\n");
+
+    if  (_meeting.description != null && _meeting.description != "")
+      _string = _string.concat("\t", _meeting.description, "\n");
+
+    _string = this.buildAgendaItemString(_string, _meeting.topics);
+
+    return _string
+  },
+
+
+  buildAgendaItemString: function (_string, _agendaitems) {
+
+    for (var _agendaitem = 0; _agendaitem < _agendaitems.length; _agendaitem++) {
+      if (_agendaitems[_agendaitem].title != null && _agendaitems[_agendaitem].title != "")
+        _string = _string.concat("\n", "###", "**", (_agendaitem) + 1, ". ",_agendaitems[_agendaitem].title, "**", "\n");
+
+      if (_agendaitems[_agendaitem].description != null && _agendaitems[_agendaitem].description != "")
+        _string = _string.concat("\t", _agendaitems[_agendaitem].description, "\n");
+
+      if (_agendaitems[_agendaitem].done != null) {
+        if (_agendaitems[_agendaitem].done === true)
+          _string = _string.concat("\n", "done: ", "yes", "\n");
+        else
+          _string = _string.concat("\n", "done: ", "no", "\n");
+      }
+
+      if (_agendaitems[_agendaitem].todos != null)
+        _string = this.buildTodoItemString(_string, _agendaitems[_agendaitem].todos);
+    }
+    return _string
+  },
+
+
+  buildTodoItemString: function (_string, _todoitems) {
+    for (var _todoitem in _todoitems) {
+      if (_todoitems[_todoitem].title != null && _todoitems[_todoitem].title != "")
+        _string = _string.concat("\n", "###", "*",_todoitems[_todoitem].title, "*", "\n");
+
+      if (_todoitems[_todoitem].description != null && _todoitems[_todoitem].description != "")
+        _string = _string.concat("\t" , _todoitems[_todoitem].description, "\n");
+
+      if (_todoitems[_todoitem].assignee != null && _todoitems[_todoitem].assignee != "")
+        _string = _string.concat("\n", "+ assigned to: ", _todoitems[_todoitem].assignee, "\n");
+
+      if (_todoitems[_todoitem].done != null) {
+        if (_todoitems[_todoitem].done === true)
+          _string = _string.concat("\n", "+ done: ", "yes", "\n");
+        else
+          _string = _string.concat("\n", "+ done: ", "no", "\n");
+      }
+      if (_todoitems[_todoitem].important != null) {
+        if (_todoitems[_todoitem].important === true)
+          _string = _string.concat("\n", "+ important: ", "yes", "\n");
+        else
+          _string = _string.concat("\n", "+ important: ", "no", "\n");
+      }
+    }
+
+    return _string
   },
 
 
@@ -81,6 +129,7 @@ module.exports = {
 
     //return res.send('Email Test');
   },
+
 
   sendInvitation: function () {
 
