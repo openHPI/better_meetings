@@ -27,8 +27,9 @@ module.exports = {
     if  (_meeting.description != null && _meeting.description != "") {
       htmlString = htmlString.concat("\t", _meeting.description, "\n");
     }
-    for (var _agendaitem in _meeting.topics) {
-      htmlString = htmlString.concat("###", "**", _agendaitem + 1, ". ",_meeting.topics[_agendaitem].title, "**", "\n");
+    for (var _agendaitem = 0; _agendaitem <_meeting.topics.length; _agendaitem++) {
+      sails.log("Jetziges Agendaitem: ", _agendaitem);
+      htmlString = htmlString.concat("###", "**", (_agendaitem) + 1, ". ",_meeting.topics[_agendaitem].title, "**", "\n");
       htmlString = htmlString.concat("\t", _meeting.topics[_agendaitem].description, "\n");
       htmlString = htmlString.concat("done: ", _meeting.topics[_agendaitem].done, "\n");
 
@@ -36,7 +37,9 @@ module.exports = {
       for (var _todoitem in currAgendaItem.todos) {
         htmlString = htmlString.concat("###", "*",currAgendaItem.todos[_todoitem].title, "*", "\n");
         htmlString = htmlString.concat("\t" , currAgendaItem.todos[_todoitem].description, "\n");
-        htmlString = htmlString.concat("\n", "+ assigned to: ", currAgendaItem.todos[_todoitem].assignee, "\n");
+        if (currAgendaItem.todos[_todoitem].assignee != null) {
+          htmlString = htmlString.concat("\n", "+ assigned to: ", currAgendaItem.todos[_todoitem].assignee, "\n");
+        }
         htmlString = htmlString.concat("+ done: ", currAgendaItem.todos[_todoitem].done, "\n");
         htmlString = htmlString.concat("+ important: ", currAgendaItem.todos[_todoitem].important, "\n");
       }
