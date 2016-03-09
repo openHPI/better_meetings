@@ -80,7 +80,6 @@ p, .p {
     color: white;
     font-size: 48px;
     padding: 0;
-    .center-block;
   }
 }
 
@@ -179,14 +178,30 @@ p, .p {
 ====================================*/
 .list-todo {
   list-style-type: none;
-  font-size: 2.0em;
   .todo-item {
+    .panel-title {
+      font-size: 2.0em;
+    }
     .todo-control {
       float: right;
       display: none;
     }
+    .form-checkbox {
+      font-size: 2.0em;
+    }
+    &.updating {
+      &:hover {
+        background-color: @white;
+      }
+    }
+    &.highlighted {
+      background-color: @primary;
+      &:hover {
+        background-color: darken(@primary, 10%);
+      }
+    }
     &:hover {
-      background-color: #f0f2f6;
+      background-color: @grey;
       .todo-control {
         display: block;
       }

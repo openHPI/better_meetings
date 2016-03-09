@@ -13,10 +13,10 @@ var FluxTodoItem = React.createClass({
         FluxMeetingActions.destroyTodoItem(this.props.item);
     },
 
-  toggleImportant: function (event) {
-    this.props.item.important = !this.props.item.important
-    FluxMeetingActions.updateTodoItem(this.props.item);
-  },
+    toggleImportant: function (event) {
+        this.props.item.important = !this.props.item.important;
+        FluxMeetingActions.updateTodoItem(this.props.item);
+    },
 
     // Mark an item as done
     toggleDone: function(event) {
@@ -31,7 +31,7 @@ var FluxTodoItem = React.createClass({
         var canEdit = this.props.canEdit;
 
         return (
-            <li className={ item.done ? "todo-item done" : "todo-item" } data-id={index} draggable={this.props.draggable} onDragStart={this.props.onDragStart} onDragEnd={this.props.onDragEnd}>
+            <li className={ item.important ? "todo-item highlighted" : "todo-item" } data-id={index} draggable={this.props.draggable} onDragStart={this.props.onDragStart} onDragEnd={this.props.onDragEnd}>
                 <label className= { item.done ? "form-checkbox form-icon active" : "form-checkbox form-icon"}>
                     <input type="checkbox" onChange={this.toggleDone} checked={item.done}/>
                     <span>{item.title}</span>

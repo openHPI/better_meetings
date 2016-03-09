@@ -254,6 +254,7 @@ AppDispatcher.register(function (payload) {
 
     case FluxMeetingConstants.TOPIC_SELECT:
       _selectedTopic = action.data;
+      _editingTodoItem = -1;
       break;
 
     case FluxMeetingConstants.TOPIC_TOGGLE_DONE:

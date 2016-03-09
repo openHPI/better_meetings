@@ -2,18 +2,7 @@ var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import InlineEdit from 'react-edit-inline';
-
-function getTodoItemUpdateState() {
-  return {
-    title: '',
-    description: '',
-    assignee: [],
-    done: false,
-    important: false
-  };
-}
+import {RIEToggle, RIEInput, RIENumber, RIETags} from 'riek';
 
 var FluxTodoItemUpdate = React.createClass({
 
@@ -39,26 +28,26 @@ var FluxTodoItemUpdate = React.createClass({
     });
   },
 
-  titleChanged: function (title) {
-    this.setState({title: title});
+  editItem: function(event) {
+    FluxMeetingActions.editTodoItem(-1);
   },
 
-  descriptionChanged: function (description) {
-    this.setState({description: description});
+  // Remove item from list via action
+  deleteItem: function(event) {
+    FluxMeetingActions.destroyTodoItem(this.props.item);
+  },
+
+  toggleImportant: function (event) {
+    this.props.item.important = !this.props.item.important;
+    FluxMeetingActions.updateTodoItem(this.props.item);
+  },
+
+  changedCallback: function (newState) {
+    this.setState(newState);
   },
 
   customValidateTitle: function (title) {
     return (title.length > 0 && title.length < 64);
-  },
-
-  // Edits a todo item via Actions
-  editTodoItem: function (event) {
-    if (!this.state.title) {
-      return;
-    }
-
-    FluxMeetingActions.updateTodoItem(this.state.title, this.state.description, this.state.assignee);
-    this.setState(getTodoItemUpdateState);
   },
 
   render: function () {
@@ -66,28 +55,44 @@ var FluxTodoItemUpdate = React.createClass({
     var canEdit = this.props.canEdit;
 
     return (
-      <li className={ item.done ? "panel todo-item done" : "panel todo-item" } draggable={false}>
+      <li className={ "panel panel-bordered-primary todo-item updating" + (item.done ? " done" : "") } draggable={false}>
 
         <div className="panel-heading">
-          <h3 className="panel-title">Basic Form Elements</h3>
+          <div className="panel-control">
+              <button className="btn btn-xs btn-danger add-tooltip" onClick={this.deleteItem}><i className="fa fa-times"></i></button>
+              <button className="btn btn-xs btn-default add-tooltip" onClick={this.editItem}><i className="fa fa-exclamation-circle"></i></button>
+              <button className="btn btn-xs btn-default add-tooltip" onClick={this.toggleImportant}><i className={ item.important ? "fa fa-star" : "fa fa-star-o" }></i></button>
+          </div>
+          <h3 className="panel-title">
+            <RIEInput
+              value={this.state.title}
+              change={this.changedCallback}
+              propName="title"
+              validate={this.customValidateTitle} />
+          </h3>
         </div>
 
         <form className="panel-body form-horizontal form-padding">
-
-          <div className='form-group'>
-            <label className='col-md-3 control-label'>Title</label>
-            <div className='col-md-9'>
-              <InlineEdit validate={this.customValidateTitle} text={this.state.title} paramName='title'
-                          change={this.titleChanged}/>
-              <small className='help-block'>Please enter a title</small>
-            </div>
-          </div>
 
           <div className='form-group'>
             <label className='col-md-3 control-label'>Description</label>
             <div className='col-md-9'>
               <textarea className='description-textarea' rows='9' className='form-control'
                         defaultValue={this.state.description}></textarea>
+              <small className='help-block'>Please enter a description</small>
+            </div>
+          </div>
+
+          <div className='form-group'>
+            <label className='col-md-3 control-label'>Assignees</label>
+            <div className='col-md-9'>
+              <RIETags
+                value={['Peter Zwegat', 'Max Mustermann']}
+                change={this.changedCallback}
+                maxTags={5}
+                minTags={0}
+                propName="assignee"
+                placeholder="New responsible person" />
               <small className='help-block'>Please enter a description</small>
             </div>
           </div>
