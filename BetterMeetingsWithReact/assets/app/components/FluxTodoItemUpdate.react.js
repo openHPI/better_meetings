@@ -9,8 +9,11 @@ var FluxTodoItemUpdate = React.createClass({
   getInitialState: function () {
     var item = this.props.item;
     return {
+      id: item.id,
       title: item.title,
       description: item.description,
+      owner: item.owner,
+      author: item.author,
       assignee: item.assignee,
       done: item.done,
       important: item.important
@@ -20,8 +23,11 @@ var FluxTodoItemUpdate = React.createClass({
   componentWillReceiveProps: function () {
     var item = this.props.item;
     this.setState({
+      id: item.id,
       title: item.title,
       description: item.title,
+      owner: item.owner,
+      author: item.author,
       assignee: item.assignee,
       done: item.done,
       important: item.important
@@ -44,6 +50,10 @@ var FluxTodoItemUpdate = React.createClass({
 
   changedCallback: function (newState) {
     this.setState(newState);
+  },
+
+  saveChanges: function (event) {
+    FluxMeetingActions.updateTodoItem(this.state);
   },
 
   customValidateTitle: function (title) {
@@ -77,8 +87,7 @@ var FluxTodoItemUpdate = React.createClass({
           <div className='form-group'>
             <label className='col-md-3 control-label'>Description</label>
             <div className='col-md-9'>
-              <textarea className='description-textarea' rows='9' className='form-control'
-                        defaultValue={this.state.description}></textarea>
+              <textarea className='description-textarea' rows='9' className='form-control' defaultValue={this.state.description}></textarea>
               <small className='help-block'>Please enter a description</small>
             </div>
           </div>
@@ -97,7 +106,12 @@ var FluxTodoItemUpdate = React.createClass({
             </div>
           </div>
 
+          <div className="text-right">
+            <button className="btn btn-primary" onClick={this.saveChanges}>Save changes</button>
+          </div>
+
         </form>
+
       </li>
     );
   }
