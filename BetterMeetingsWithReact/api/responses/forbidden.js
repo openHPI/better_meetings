@@ -12,8 +12,7 @@
  * ```
  */
 
-module.exports = function forbidden (data, options) {
-
+module.exports = function forbidden(data, options) {
   // Get access to `req`, `res`, & `sails`
   var req = this.req;
   var res = this.res;
@@ -24,9 +23,10 @@ module.exports = function forbidden (data, options) {
 
   // Log error to console
   if (data !== undefined) {
-    sails.log.verbose('Sending 403 ("Forbidden") response: \n',data);
+    sails.log.verbose('Sending 403 ("Forbidden") response: \n', data);
+  } else {
+    sails.log.verbose('Sending 403 ("Forbidden") response');
   }
-  else sails.log.verbose('Sending 403 ("Forbidden") response');
 
   // Only include errors in response if application environment
   // is not set to 'production'.  In production, we shouldn't
@@ -51,27 +51,23 @@ module.exports = function forbidden (data, options) {
     return res.view(options.view, { data: data });
   }
 
-  // If no second argument provided, try to serve the default view,
-  // but fall back to sending JSON(P) if any errors occur.
-  else return res.view('403', { data: data }, function (err, html) {
-
-    // If a view error occured, fall back to JSON(P).
+  return res.view('403', { data: data }, function (err, html) {
+    // If a view error occurred, fall back to JSON(P).
     if (err) {
       //
       // Additionally:
       // • If the view was missing, ignore the error but provide a verbose log.
       if (err.code === 'E_VIEW_FAILED') {
-        sails.log.verbose('res.forbidden() :: Could not locate view for error page (sending JSON instead).  Details: ',err);
-      }
-      // Otherwise, if this was a more serious error, log to the console with the details.
-      else {
-        sails.log.warn('res.forbidden() :: When attempting to render error page view, an error occured (sending JSON instead).  Details: ', err);
+        sails.log.verbose('res.forbidden() :: Could not locate view for error page (sending JSON instead).  ' +
+          'Details: ', err);
+      } else {
+        sails.log.warn('res.forbidden() :: When attempting to render error page view, ' +
+          'an error occured (sending JSON instead).  Details: ', err);
       }
       return res.jsonx(data);
     }
 
     return res.send(html);
   });
-
 };
 

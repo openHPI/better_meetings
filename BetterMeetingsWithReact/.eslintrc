@@ -12,11 +12,28 @@
     "es6": true
   },
   "globals": {
+    // sails
+    "sails": 1,
+    // models
     "meeting": 1,
     "meetingseries": 1,
     "person": 1,
     "agendaitem": 1,
-    "todoitem": 1
+    "todoitem": 1,
+    // services
+    "DeepPopulateService": 1,
+    "EmailService": 1,
+    "MarkdownService": 1,
+    "PersonService": 1,
+    "QrCodeService": 1,
+    "UrlService": 1,
+    // controller
+    "AgendaItem": 1,
+    "Dashboard": 1,
+    "Meeting": 1,
+    "MeetingSeries": 1,
+    "Person": 1,
+    "ToDoItem": 1
   },
   "ecmaFeatures": {
     "jsx": true
@@ -27,6 +44,7 @@
       2,
       "never"
     ],
+
     // Code style
     "indent": [
       2,
@@ -35,6 +53,15 @@
     "quotes": [
       2,
       "single"
+    ],
+    "no-param-reassign": 0,
+    "max-len": [
+      2,
+      120,
+      4,
+      {
+        "ignoreUrls": true
+      }
     ]
   }
 }
