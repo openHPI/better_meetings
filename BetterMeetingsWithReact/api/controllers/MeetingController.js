@@ -334,7 +334,7 @@ module.exports = {
         }
 
         //var content = EmailService.computeSummaryEmailContent(_meeting, "www.bettermeetings.com/meetingseries/1/globalUrlTest");
-        var content = EmailService.computeSummaryEmailContent(_meeting, _meetingSeries.url);
+        var content = EmailService.computeSummaryEmailContent(_meeting, _meeting.url);
         //sails.log("Length of email content: " + content.length);
         sails.log("The email content is: " + content);
 
