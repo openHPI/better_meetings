@@ -243,6 +243,7 @@ AppDispatcher.register(function (payload) {
       break;
 
     case FluxMeetingConstants.ATTENDEE_CREATE:
+      console.dir(action.data);
       action.data.id = _meeting.id;
       MeetingDataAPI.createAttendee(action.data);
       break;

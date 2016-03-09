@@ -42,7 +42,7 @@ var FluxTopicList = React.createClass({
 							<li><a onClick={this.selectNext}><i className="fa fa-angle-double-right"></i></a></li>
 						</ul>
 					</div>
-					<h3 className="panel-title"><span className="badge">{count}</span> Themen</h3>
+					<h3 className="panel-title">TOPIC {selected + 1} / {count} </h3>
 				</div>
 				<div className="flux-agenda-list panel-body">
 					<ul>

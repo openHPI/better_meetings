@@ -157,18 +157,12 @@ p, .p {
 /*==============================
 =            ATTENDEES            =
 ==============================*/
-.flux-memberlist-list {
-  ul {
-    list-style: none;
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-    li {
-      display: inline;
-      padding: 5px 10px;
-      p {
-        display: block;
-      }
+
+.list-attendees {
+  list-style-type: none;
+  .list-group-item {
+    &.user {
+      background-color: #000000 !important;
     }
   }
 }
