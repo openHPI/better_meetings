@@ -242,18 +242,15 @@ AppDispatcher.register(function (payload) {
       _meeting.topics[_selectedTopic].todos[action.data.item2] = temp;
       break;
 
-    case FluxMeetingConstants.TODO_TOGGLE_DONE:
-      action.data.done = !action.data.done;
-      MeetingDataAPI.updateTodoItem(action.data);
-      break;
-
     case FluxMeetingConstants.ATTENDEE_CREATE:
+      console.dir(action.data);
       action.data.id = _meeting.id;
       MeetingDataAPI.createAttendee(action.data);
       break;
 
     case FluxMeetingConstants.TOPIC_SELECT:
       _selectedTopic = action.data;
+      _editingTodoItem = -1;
       break;
 
     case FluxMeetingConstants.TOPIC_TOGGLE_DONE:

@@ -11,21 +11,28 @@ var FluxMeetingActions = require('../actions/FluxMeetingActions');
  */
 var FluxAttendeeItem = React.createClass({
 
-  render: function () {
-    var attendee = this.props.attendee;
+    getRandomImage: function(min, max) {
+        var random = Math.floor((Math.random() * max) + min);
+        return ("/images/av" + random + ".png");
+    },
 
-    return (
-      <a href="#" className="list-group-item">
-        <div className="media-left">
-          <img className="img-circle img-xs" src="/images/av2.png" alt="Profile Picture"/>
-        </div>
-        <div className="media-body">
-          <div className="text-lg">{attendee.name}</div>
-          <span className="text-muted">{attendee.email}</span>
-        </div>
-      </a>
-    );
-  }
+    render: function(){
+
+        var attendee = this.props.attendee;
+        var isUser = this.props.isUser;
+
+        return (
+            <a href="" className={"list-group-item" + (isUser ? " user" : "") }>
+                <div className="media-left">
+                    <img className="img-circle img-xs" src={this.getRandomImage(1,6)} alt="Profile Picture" />
+                </div>
+                <div className="media-body">
+                	<div className="text-lg">{attendee.name}</div>
+                    <span className="text-muted">{attendee.email}</span>
+                </div>
+            </a>
+        );
+    }
 });
 
 module.exports = FluxAttendeeItem;

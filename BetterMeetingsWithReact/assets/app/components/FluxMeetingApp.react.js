@@ -132,9 +132,7 @@ var FluxMeetingApp = React.createClass({
             <aside id="aside-container">
               <div id="aside">
                 <div className="nano">
-                  <div className="nano-content">
-                    <FluxAttendeeList attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}/>
-                  </div>
+                  <FluxAttendeeList admins={this.state.meeting.admins} attendees={this.state.meeting.attendees} user={this.state.user} canEdit={this.state.canEdit}/>
                 </div>
               </div>
             </aside>
