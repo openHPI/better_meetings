@@ -43,6 +43,9 @@ module.exports = {
     if (_meeting.title != null && _meeting.title != '')
       _string = _string.concat('#', '**', _meeting.title, '**', '\n');
 
+    if (_meeting.startTime != null)
+      _string = _string.concat('\t', 'From ', _meeting.startTime, '\n');
+
     if (_meeting.description != null && _meeting.description != '')
       _string = _string.concat('\t', _meeting.description, '\n');
 
@@ -60,6 +63,9 @@ module.exports = {
 
       if (_agendaitems[_agendaitem].description != null && _agendaitems[_agendaitem].description != '')
         _string = _string.concat('\t', _agendaitems[_agendaitem].description, '\n');
+
+      if (_agendaitems[_agendaitem].note != null && _agendaitems[_agendaitem].note != '')
+        _string = _string.concat('\n', '+ note: ', _agendaitems[_agendaitem].note, '\n');
 
       if (_agendaitems[_agendaitem].done != null) {
         if (_agendaitems[_agendaitem].done === true)
@@ -82,6 +88,9 @@ module.exports = {
 
       if (_todoitems[_todoitem].description != null && _todoitems[_todoitem].description != '')
         _string = _string.concat('\t', _todoitems[_todoitem].description, '\n');
+
+      if (_todoitems[_todoitem].note != null && _todoitems[_todoitem].note != '')
+        _string = _string.concat('\n', '+ note: ', _todoitems[_todoitem].note, '\n');
 
       if (_todoitems[_todoitem].assignee != null && _todoitems[_todoitem].assignee != '')
         _string = _string.concat('\n', '+ assigned to: ', _todoitems[_todoitem].assignee, '\n');
@@ -131,7 +140,7 @@ module.exports = {
   },
 
 
-  sendInvitation: function () {
+  sendInvitation: function (req, res) {
 
     // sails.hooks.email.send(template, data, options, cb)
     sails.hooks.email.send(

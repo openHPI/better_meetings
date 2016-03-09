@@ -24,16 +24,19 @@ module.exports = {
       {
         title: 'Verlauf Webprogrammierungs Seminar',
         description: 'Überblick über alle Gruppen / Demo Vorträge',
+        note: 'Externen Gutachter einladen',
         done: false,
       },
       {
         title: 'Neue Technologien',
         description: 'Was gibt es neues in der Welt des Internets?',
+        note: 'Externen Gutachter einladen',
         done: false,
       },
       {
         title: 'Ausblick',
         description: 'Punkte für die nächste Woche',
+        note: 'Externen Gutachter einladen',
         done: false,
       }
     ],
@@ -41,16 +44,19 @@ module.exports = {
       {
         title: 'Gruppenkurzfassung',
         description: 'Vorstellung aller Gruppen und ihrer Projekte',
+        note: 'evtl. Grillabend planen',
         assignee: "Alexander",
       },
       {
         title: 'Nutzung des BetterMeeting Tools',
         description: 'Warum ist das Tool so gut und hilft auf professionellen Niveau?',
+        note: 'Pro/Contra Tabelle anlegen',
         assignee: "Emma"
       },
       {
         title: 'Demo-Präsentationen',
         description: 'Planung der Veranstaltung',
+        note: 'noch Termin zum Üben klären',
         assignee: "Julius"
       }
     ],
@@ -179,16 +185,19 @@ module.exports = {
       'title': this.conf.topics[0].title,
       'description': this.conf.topics[0].description,
       'done': this.conf.topics[0].done,
+      'note': this.conf.topics[0].note,
     };
     var topic2 = {
       'title': this.conf.topics[1].title,
       'description': this.conf.topics[1].description,
       'done': this.conf.topics[1].done,
+      'note': this.conf.topics[1].note,
     };
     var topic3 = {
       'title': this.conf.topics[2].title,
       'description': this.conf.topics[2].description,
       'done': this.conf.topics[2].done,
+      'note': this.conf.topics[2].note,
     };
 
     var topics = [topic1, topic2, topic3];
@@ -235,6 +244,7 @@ module.exports = {
       'description': this.conf.todos[0].description,
       'assignee': this.conf.todos[0].assignee,
       'important': true,
+      'note': this.conf.todos[0].note,
     };
     var todo2 = {
       'done': false,
@@ -242,6 +252,7 @@ module.exports = {
       'description': this.conf.todos[1].description,
       'assignee': this.conf.todos[1].assignee,
       'important': false,
+      'note': this.conf.todos[1].note,
     };
     var todo3 = {
       'done': true,
@@ -249,6 +260,7 @@ module.exports = {
       'description': this.conf.todos[2].description,
       //'assignee': this.conf.todos[2].assignee,
       'important': false,
+      'note': this.conf.todos[2].note,
     };
 
     var todos = [todo1, todo2, todo3];
@@ -270,6 +282,7 @@ module.exports = {
             var description = todos[i].description;
             var assignee = todos[i].assignee;
             var important = todos[i].important;
+            var note = todos[i].note;
 
             todoitem.findOrCreate({
               owner: owner,
@@ -278,6 +291,7 @@ module.exports = {
               description: description,
               assignee: assignee,
               important: important,
+              note: note,
             }).exec(function createTodoItems(err, cre) {
               if (err) {
                 sails.log('TodoItem not created ' + err);
