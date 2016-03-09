@@ -7,30 +7,26 @@
 
 
 module.exports = {
-
-
-// if just email + name are provided, it's a guest
-  // if nothing is provided, it's also a guest
-
+  // if just email + name are provided, it's a guest
   create: function (req, res) {
-    sails.log('Creation of Person started');
-    sails.log(req.param('name'));
     var name = req.param('name');
     var password = req.param('password');
     var email = req.param('email');
+
+    sails.log('Creation of Person started');
+    sails.log(req.param('name'));
 
     if (name && password && email) {
       person.create(
         {
           name: name,
           password: password,
-          email: email,
+          email: email
         })
         .exec(function createPerson(err, created) {
           if (err) {
             console.log('Person not created' + err);
-          }
-          else {
+          } else {
             console.log('Created Person: ' + created.name);
             person.publishCreate(
               {
@@ -39,71 +35,62 @@ module.exports = {
                 password: created.password,
                 email: created.email
               });
-
           }
-        })
-    }
-    else if (name && email) {
+        });
+    } else if (name && email) {
       person.create(
         {
           name: name,
-          email: email,
+          email: email
         })
         .exec(function createPerson(err, created) {
           if (err) {
             console.log('Person not created' + err);
-          }
-          else {
+          } else {
             console.log('Created Person: ' + created.name);
             person.publishCreate(
               {
                 id: created.id,
                 name: created.name,
-                email: created.email,
+                email: created.email
               });
           }
         });
-    }
-    else if (email) {
+    } else if (email) {
       person.create(
         {
-          email: email,
+          email: email
         })
         .exec(function createPerson(err, created) {
           if (err) {
             console.log('Person not created' + err);
-          }
-          else {
+          } else {
             console.log('Created Person: ' + created.name);
             person.publishCreate(
               {
                 id: created.id,
-                email: created.email,
+                email: created.email
               });
           }
         });
-    }
-    else if (name) {
+    } else if (name) {
       person.create(
         {
-          name: name,
+          name: name
         })
         .exec(function createGuestPerson(err, created) {
           if (err) {
             console.log('Guest-Person not created' + err);
-          }
-          else {
+          } else {
             console.log('Created Guest-Person: ' + created.name);
             person.publishCreate(
               {
                 id: created.id,
-                name: created.name,
+                name: created.name
               });
-
           }
         });
-    }
-    else {
+    } else {
       res.send('person');
       console.log('Person not created: too few parameters');
     }
@@ -111,69 +98,65 @@ module.exports = {
 
 
   view: function (req, res) {
-
     var id = req.param('id', null);
     person.findOne(id).exec(function displayList(err, items) {
       console.log(items);
       res.response = items;
       res.render('person',
         {
-          'model': 'person'
+          model: 'person'
         });
     });
   },
 
   getCurrent: function (req, res) {
+    var user;
 
     if (req.session.me) {
-      var user = {
+      user = {
         id: req.session.me.id,
         name: req.session.me.name,
         email: req.session.me.email,
-        isAdmin: req.session.me.isAdmin,
+        isAdmin: req.session.me.isAdmin
       };
 
       res.send(
         {
-          'user': user
+          user: user
         });
-    }
-    else
+    } else {
       res.send(
         {
-          'user': null
+          user: null
         });
+    }
   },
 
   viewAll: function (req, res) {
-
     person.find().exec(function displayPersonList(err, items) {
       if (err) return res.serverError(err);
       sails.log('person:' + items);
       return res.view('person',
         {
-          users: items,
+          users: items
         });
     });
-
   },
-
 
   delete: function (req, res) {
     var meetingSeriesID = req.param('meetingSeriesID', null);
     if (meetingSeriesID && req.isSocket) {
-      meetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+      meetingseries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
         meetingseries.destroy(
           {
             id: meetingSeriesAnswer.id
           })
-          .exec(function destroy(err) {
-            if (err) {
+          .exec(function destroy(destroyErr) {
+            if (destroyErr) {
               sails.log('Error while deleting meetingseries');
               res.send('Error');
-            }
-            else {
-              sails.log('Successfully deleted ' + meetingseriesID);
+            } else {
+              sails.log('Successfully deleted ' + meetingSeriesID);
               meetingseries.publishDestroy(
                 {
                   id: meetingSeriesAnswer.id
@@ -186,9 +169,6 @@ module.exports = {
 
 
   update: function (req, res) {
-
-    sails.log('Update started');
-    sails.log(req.param('name'));
     var name = req.param('name');
     var password = req.param('password');
     var email = req.param('email');
@@ -198,56 +178,48 @@ module.exports = {
     var isAdmin = req.param('isAdmin');
     var personId = req.param('id');
 
-    if (personId && name && password && email && todos && assignedMeetings &&
-      createdMeetings && isAdmin != null && req.isSocket) {
-      person.update({id: personId}).set({
-        name:             name,
-        password:         password,
-        email:            email,
-        todos:            todos,
-        assignedMeetings: assignedMeetings,
-        createdMeetings:  createdMeetings,
-        isAdmin:          isAdmin,
-      })
-        .exec(function updatePerson(err, updated) {
-          if (err) {
-            sails.log('Person not updated ' + err);
-          } else {
-            sails.log('Updated Person: ' + updated[0].name);
+    sails.log('Update started');
+    sails.log(req.param('name'));
 
-            updated[0].save(function (err) {
-              if (err) {
-                sails.log("Error while saving update to Person " + updated[0].title);
-              } else {
-                sails.log("Successfully saved updates to Person " + updated[0].title);
-              }
-            });
-            person.publishUpdate(updated[0].id, {
-              id: updated[0].id,
-                name:             updated[0].name,
-                password:         updated[0].password,
-                email:            updated[0].email,
-                todos:            updated[0].todos,
-                assignedMeetings: updated[0].assignedMeetings,
-                createdMeetings:  updated[0].createdMeetings,
-                isAdmin:          updated[0].isAdmin,
-              });
-          }
-        });
-    }
-    else {
+    if (personId && name && password && email && todos && assignedMeetings &&
+      createdMeetings && isAdmin !== null && req.isSocket) {
+      person.update({ id: personId }).set({
+        name: name,
+        password: password,
+        email: email,
+        todos: todos,
+        assignedMeetings: assignedMeetings,
+        createdMeetings: createdMeetings,
+        isAdmin: isAdmin
+      }).exec(function updatePerson(err, updated) {
+        if (err) {
+          sails.log('Person not updated ' + err);
+        } else {
+          sails.log('Updated Person: ' + updated[0].name);
+          updated[0].save(function (saveErr) {
+            if (saveErr) {
+              sails.log('Error while saving update to Person ' + updated[0].title);
+            } else {
+              sails.log('Successfully saved updates to Person ' + updated[0].title);
+            }
+          });
+          person.publishUpdate(updated[0].id, {
+            id: updated[0].id,
+            name: updated[0].name,
+            password: updated[0].password,
+            email: updated[0].email,
+            todos: updated[0].todos,
+            assignedMeetings: updated[0].assignedMeetings,
+            createdMeetings: updated[0].createdMeetings,
+            isAdmin: updated[0].isAdmin
+          });
+        }
+      });
+    } else {
       res.send('person');
       sails.log('Person not updated: too few parameters');
     }
   },
-
-
-  exampledata: function (req, res) {
-
-    ExampledataService.generateExamplePersons(req, res);
-
-  },
-
 
   login: function (req, res) {
     var name = req.param('name');
@@ -258,48 +230,41 @@ module.exports = {
       if (typeof email === 'undefined' || email === '') {
         return res.badRequest('Es wird Ihre E-Mail Adresse benötigt!');
       }
-      else {
-        if (typeof name === 'undefined' || name === '') {
-          return this.loginEmail(req, res);
-        }
-        else {
-          return this.loginGuest(req, res);
-        }
+
+      if (typeof name === 'undefined' || name === '') {
+        return this.loginEmail(req, res);
       }
+
+      return this.loginGuest(req, res);
     }
-    else {
-      if (typeof email === 'undefined' || email === '') {
-        return res.badRequest('Es wird Ihre E-Mail Adresse benötigt!');
-      }
-      else {
-        return this.loginAdmin(req, res);
-      }
+
+    if (typeof email === 'undefined' || email === '') {
+      return res.badRequest('Es wird Ihre E-Mail Adresse benötigt!');
     }
+
+    return this.loginAdmin(req, res);
   },
 
-
   loginGuest: function (req, res) {
-    console.log('login with name');
-
     var name = req.param('name');
     var email = req.param('email');
 
     var invalidRedirect = '/login';
     var successRedirect = '/dashboard';
 
+    console.log('login with name');
+
     person.attemptLoginEmail(
-      {
-        email: email
-      },
+      { email: email },
       function (err, user) {
         if (!user) {
-          person.attemptLoginGuestOrCreate(
+          return person.attemptLoginGuestOrCreate(
             {
               email: email,
               name: name
             },
-            function (err, cre) {
-              if (err) return res.negotiate(err);
+            function (loginErr, cre) {
+              if (loginErr) return res.negotiate(loginErr);
 
               if (!cre) {
                 console.log('login guest failed');
@@ -311,43 +276,43 @@ module.exports = {
                 return res.redirect(invalidRedirect);
               }
 
-              person.findOne({email: cre.email}).populateAll().exec(function foundPerson(err, person) {
-                console.log('login guest successfully');
+              return person.findOne({ email: cre.email }).populateAll()
+                .exec(function foundPerson(personFoundErr, person) {
+                  console.log('login guest successfully');
 
-                req.session.me = {
-                  id: person.id,
-                  name: person.name,
-                  email: person.email,
-                  isAdmin: person.isAdmin,
-                  todos: person.todos,
-                  createdMeetings: person.createdMeetings,
-                  assignedMeetings: person.assignedMeetings,
-                };
+                  req.session.me = {
+                    id: person.id,
+                    name: person.name,
+                    email: person.email,
+                    isAdmin: person.isAdmin,
+                    todos: person.todos,
+                    createdMeetings: person.createdMeetings,
+                    assignedMeetings: person.assignedMeetings
+                  };
 
-                if (req.wantsJSON || !successRedirect) {
-                  return res.ok();
-                }
-                return res.redirect(successRedirect);
-              });
+                  if (req.wantsJSON || !successRedirect) {
+                    return res.ok();
+                  }
+
+                  return res.redirect(successRedirect);
+                });
             });
         }
-        else {
-          if (user.isAdmin) {
-            return res.redirect('/login/admin/' + email);
-          }
-          else {
-            return res.redirect('/login/login');
-          }
+
+        if (user.isAdmin) {
+          return res.redirect('/login/admin/' + email);
         }
+
+        return res.redirect('/login/login');
       });
   },
 
 
   loginEmail: function (req, res) {
-    console.log('login with email');
-
     var email = req.param('email');
     var successRedirect = '/dashboard';
+
+    console.log('login with email');
 
     person.attemptLoginEmail(
       {
@@ -365,29 +330,27 @@ module.exports = {
           // start admin modal
           return res.redirect('/login/admin/' + email);
         }
-        else {
-          req.session.me = {
-            id: person.id,
-            name: person.name,
-            email: person.email,
-            isAdmin: person.isAdmin,
-            todos: person.todos,
-            createdMeetings: person.createdMeetings,
-            assignedMeetings: person.assignedMeetings,
-          };
 
-          return res.redirect(successRedirect);
-        }
+        req.session.me = {
+          id: person.id,
+          name: person.name,
+          email: person.email,
+          isAdmin: person.isAdmin,
+          todos: person.todos,
+          createdMeetings: person.createdMeetings,
+          assignedMeetings: person.assignedMeetings
+        };
+
+        return res.redirect(successRedirect);
       });
   },
 
 
   loginAdmin: function (req, res) {
-    console.log('login with password');
-
     var email = req.param('email');
     var password = req.param('password');
     var successRedirect = '/dashboard';
+    console.log('login with password');
 
     person.attemptLoginAdmin(
       {
@@ -409,7 +372,7 @@ module.exports = {
           isAdmin: person.isAdmin,
           todos: person.todos,
           createdMeetings: person.createdMeetings,
-          assignedMeetings: person.assignedMeetings,
+          assignedMeetings: person.assignedMeetings
         };
 
         return res.redirect(successRedirect);
@@ -417,7 +380,6 @@ module.exports = {
   },
 
   logout: function (req, res) {
-
     req.session.me = null;
 
     if (req.wantsJSON) {
@@ -427,9 +389,7 @@ module.exports = {
     return res.redirect('/');
   },
 
-
   signup: function (req, res) {
-
     person.signup(
       {
         name: req.param('name'),
@@ -439,8 +399,8 @@ module.exports = {
       function (err, cre) {
         if (err) return res.negotiate(err);
 
-        person.findOne({email: cre.email}).populateAll().exec(function foundPerson(err, person) {
-          if (err) return res.negotiate(err);
+        return person.findOne({ email: cre.email }).populateAll().exec(function foundPerson(personFindErr, person) {
+          if (personFindErr) return res.negotiate(personFindErr);
 
           req.session.me = person;
 
@@ -453,14 +413,12 @@ module.exports = {
       });
   },
 
-
   createMeetingSeries: function (req, res) {
     return res.json(
       {
         todo: 'createMeetingSeries() is not implemented yet!'
       });
   },
-
 
   deleteMeetingSeries: function (req, res) {
     return res.json(
@@ -469,14 +427,12 @@ module.exports = {
       });
   },
 
-
   readMeetingSeries: function (req, res) {
     return res.json(
       {
         todo: 'readMeeting() is not implemented yet!'
       });
   },
-
 
   updateMeetingSeries: function (req, res) {
     return res.json(
@@ -492,14 +448,12 @@ module.exports = {
       });
   },
 
-
   createMeeting: function (req, res) {
     return res.json(
       {
         todo: 'createMeeting() is not implemented yet!'
       });
   },
-
 
   deleteMeeting: function (req, res) {
     return res.json(
@@ -508,14 +462,12 @@ module.exports = {
       });
   },
 
-
   updateMeeting: function (req, res) {
     return res.json(
       {
         todo: 'updateJourFixe() is not implemented yet!'
       });
   },
-
 
   setAssignee: function (req, res) {
     return res.json(
@@ -524,14 +476,12 @@ module.exports = {
       });
   },
 
-
   isDone: function (req, res) {
     return res.json(
       {
         todo: 'isDone() is not implemented yet!'
       });
   },
-
 
   setDone: function (req, res) {
     return res.json(
@@ -540,14 +490,12 @@ module.exports = {
       });
   },
 
-
   startMeeting: function (req, res) {
     return res.json(
       {
         todo: 'startMeeting() is not implemented yet!'
       });
   },
-
 
   endMeeting: function (req, res) {
     return res.json(
@@ -556,7 +504,6 @@ module.exports = {
       });
   },
 
-
   finishToDoItem: function (req, res) {
     return res.json(
       {
@@ -564,14 +511,17 @@ module.exports = {
       });
   },
 
+  listen: function (req) {
+    var testArray = [];
+    var i;
 
-  listen: function (req, res) {
     if (req.isSocket) {
       person.watch(req);
-      var testArray = [];
-      for (var i = 1; i < 100; i++) {
+
+      for (i = 1; i < 100; i++) {
         testArray.push(i);
       }
+
       person.subscribe(req, testArray);
       console.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'person\'.');
