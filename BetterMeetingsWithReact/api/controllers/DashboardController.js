@@ -8,61 +8,68 @@
 module.exports = {
 
   view: function (req, res) {
-    person.findOne(req.session.me.id).populate('createdMeetings').populate('assignedMeetings').exec(function found(err, person) {
-      if (err) {
-        sails.log.error('ERR:', err);
-      }
+    person.findOne(req.session.me.id)
+      .populate('createdMeetings')
+      .populate('assignedMeetings')
+      .exec(function found(err, person) {
+        var meetingseriesList;
+        var meetingHistory;
 
-      if (!person) {
-        console.log('no person found');
-        return;
-      }
+        if (err) {
+          sails.log.error('ERR:', err);
+        }
 
-      var meetingseriesList = person.createdMeetings || [];
-      var meetingHistory = person.assignedMeetings || [];
+        if (!person) {
+          console.log('no person found');
+          return;
+        }
 
-      meetingHistory.sort(function compare(a, b) {
-        if (a.startTime < b.startTime)
-          return 1;
-        else if (a.startTime > b.startTime)
-          return -1;
-        else
-          return 0;
-      });
+        meetingseriesList = person.createdMeetings || [];
+        meetingHistory = person.assignedMeetings || [];
 
-      if (meetingseriesList.length == 0) {
-        return res.view('dashboard', {
-          meetingseriesList: meetingseriesList,
-          meetingHistory: meetingHistory
-        });
-      }
-
-      DeepPopulateService.populateDeep('person', person,
-        'createdMeetings.instances',
-        function (err, person) {
-          if (err) {
-            console.log('ERR: ');
-            console.log(err);
+        meetingHistory.sort(function compare(a, b) {
+          if (a.startTime < b.startTime) {
+            return 1;
+          } else if (a.startTime > b.startTime) {
+            return -1;
           }
 
-          meetingseriesList = person.createdMeetings;
+          return 0;
+        });
 
-          meetingseriesList.sort(function compare(a, b) {
-            if (a.updatedAt < b.updatedAt)
-              return 1;
-            else if (a.updatedAt > b.updatedAt)
-              return -1;
-            else
-              return 0;
-          });
-
-          return res.view('dashboard', {
+        if (meetingseriesList.length === 0) {
+          res.view('dashboard', {
             meetingseriesList: meetingseriesList,
             meetingHistory: meetingHistory
           });
-        });
-    });
-  },
+          return;
+        }
 
+        DeepPopulateService.populateDeep('person', person,
+          'createdMeetings.instances',
+          function (populateErr, populatedPerson) {
+            if (populateErr) {
+              console.log('ERR: ');
+              console.log(populateErr);
+            }
+
+            meetingseriesList = populatedPerson.createdMeetings;
+
+            meetingseriesList.sort(function compare(a, b) {
+              if (a.updatedAt < b.updatedAt) {
+                return 1;
+              } else if (a.updatedAt > b.updatedAt) {
+                return -1;
+              }
+
+              return 0;
+            });
+
+            return res.view('dashboard', {
+              meetingseriesList: meetingseriesList,
+              meetingHistory: meetingHistory
+            });
+          });
+      });
+  }
 };
-
