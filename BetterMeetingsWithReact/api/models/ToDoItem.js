@@ -36,7 +36,10 @@ module.exports = {
     important: {
       type: 'boolean',
       required: true
-    }
+    },
+    note: {
+      type: 'string',
+    },
   }
 };
 

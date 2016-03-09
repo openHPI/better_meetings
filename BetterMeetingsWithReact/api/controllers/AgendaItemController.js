@@ -16,6 +16,7 @@ module.exports = {
     var todos = req.param('todos');
     var subAgendaItems = req.param('subAgendaItems');
     var done = req.param('done');
+    var note = req.param('note');
     if (meetingseries && title && done != null) {
       AgendaItem.create(
         {
@@ -25,6 +26,7 @@ module.exports = {
           todos: todos,
           subAgendaItems: subAgendaItems,
           done: done,
+          note: note,
         })
         .exec(function createAgendaItem(err, created) {
           if (err) {
@@ -41,7 +43,8 @@ module.exports = {
                 description: created.description,
                 todos: created.todos,
                 subAgendaItems: created.subAgendaItems,
-                done: done,
+                done: created.done,
+                note: created.note,
               });
           }
         });
@@ -84,7 +87,8 @@ module.exports = {
     var todos = req.param('todos');
     var done = req.param('done');
     var subAgendaItems = req.param('subAgendaItems');
-    if (agendaItemId && meetingseries && title && description && done != null && req.isSocket) {
+    var note = req.param('note');
+    if (agendaItemId && meetingseries && title && done != null && req.isSocket) {
       agendaitem.update({id: agendaItemId}).set({
           meetingseries: meetingseries,
           title: title,
@@ -92,6 +96,7 @@ module.exports = {
           todos: todos,
           done: done,
           subAgendaItems: subAgendaItems,
+          note: note,
         })
         .exec(function updateAgendaItem(err, updated) {
           if (err) {
@@ -112,6 +117,7 @@ module.exports = {
                   todos: updated[0].todos,
                   done: updated[0].done,
                   subAgendaItems: updated[0].subAgendaItems,
+                  note: updated[0].note,
                 });
               }
             });
@@ -156,6 +162,7 @@ module.exports = {
                   done:           agendaItemAnswer[0].done,
                   todos:          agendaItemAnswer[0].todos,
                   subAgendaItems: agendaItemAnswer[0].subAgendaItems,
+                  note:           agendaItemAnswer[0].note,
                 }
               });
             }
