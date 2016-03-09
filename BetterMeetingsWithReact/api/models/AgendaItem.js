@@ -38,7 +38,10 @@ module.exports = {
       type: 'string',
       required: false,
       unique: true,
-    }
+    },
+    note: {
+      type: 'string',
+    },
 
   }
 };

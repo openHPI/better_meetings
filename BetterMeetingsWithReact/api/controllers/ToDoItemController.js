@@ -19,8 +19,9 @@ module.exports = {
     var assignee = req.param('assignee');
     var done = req.param('done');
     var important = req.param('important');
+    var note = req.param('note');
 
-    if (title && owner && author) {
+    if (title && owner && author && important != null && done != null) {
       todoitem.create(
         {
           title: title,
@@ -29,7 +30,8 @@ module.exports = {
           author: author,
           assignee: assignee,
           done: done,
-          important: important
+          important: important,
+          note: note,
         })
         .exec(function createToDoItem(err, created) {
           if (err) {
@@ -46,7 +48,8 @@ module.exports = {
                 author: created.author,
                 assignee: assignee,
                 done: created.done,
-                important: created.important
+                important: created.important,
+                note: created.note,
               });
           }
         })
@@ -69,10 +72,11 @@ module.exports = {
     var author = req.param('author');
     var assignee = req.param('assignee');
     var important = req.param('important');
+    var note = req.param('note');
     sails.log("after param assigmnment");
 
 
-    if (todoItemId && title && description && done !== null && req.isSocket) {
+    if (todoItemId && title && done !== null && important != null && req.isSocket) {
       sails.log("number of params ok");
       todoitem.update({id: todoItemId}).set({
           title:        title,
@@ -81,7 +85,8 @@ module.exports = {
           owner:        owner,
           author:       author,
           assignee:     assignee,
-          important: important,
+          important:    important,
+          note:         note,
       })
       .exec(function updateToDoItem(err, updated) {
         sails.log("exec ok");
@@ -106,6 +111,7 @@ module.exports = {
                 author: updated[0].author,
                 assignee: updated[0].assignee,
                 important: updated[0].important,
+                note: updated[0].important,
               });
             }
           });
@@ -168,6 +174,7 @@ module.exports = {
                   author: todoitemAnswer[0].author,
                   assignee: todoitemAnswer[0].assignee,
                   important: todoitemAnswer[0].important,
+                  note: todoitemAnswer[0].note,
                 }
               });
 
