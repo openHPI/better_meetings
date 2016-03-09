@@ -63,7 +63,7 @@
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "lint": "eslint assets",
+    "lint": "node_modules\\eslint\\bin\\eslint.js assets",
     "test": "eslint assets && grunt test"
   },
   "main": "app.js",

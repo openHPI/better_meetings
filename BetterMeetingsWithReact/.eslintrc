@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "airbnb/legacy"
+  ],
   "parser": "babel-eslint",
   "plugins": [
     "react"
@@ -9,18 +12,29 @@
     "es6": true
   },
   "globals": {
-    "__DEV__": true,
-    "__SERVER__": true
+    "meeting": 1,
+    "meetingseries": 1,
+    "person": 1,
+    "agendaitem": 1,
+    "todoitem": 1
   },
   "ecmaFeatures": {
     "jsx": true
   },
   "rules": {
     // Strict mode
-    "strict": [2, "never"],
-
+    "strict": [
+      2,
+      "never"
+    ],
     // Code style
-    "indent": [2, 2],
-    "quotes": [2, "single"]
+    "indent": [
+      2,
+      2
+    ],
+    "quotes": [
+      2,
+      "single"
+    ]
   }
 }

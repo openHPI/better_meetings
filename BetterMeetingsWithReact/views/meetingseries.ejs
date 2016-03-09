@@ -8,6 +8,7 @@
 </ol>
 
 <div id="page-content">
+
   <div class="row">
     <div class="col-xs-12">
       <div class="panel panel-info">
@@ -55,9 +56,9 @@
                 <div class="col-xs-6">
                   <div class="pad-ver media">
                     <div class="media-left">
-	                                        <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
-					                			<i class="fa fa-user fa-2x"></i>
-					                		</span>
+                      <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
+                        <i class="fa fa-user fa-2x"></i>
+                      </span>
                     </div>
                     <div class="media-body">
                       <p class="h3 text-thin media-heading">Members: <%= meetingseries.members.length %></p>
@@ -83,6 +84,7 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-12 col-lg-7">
       <div class="panel panel-info">
@@ -138,6 +140,7 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-12">
       <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#createMeetingModal">Erstelle
@@ -145,6 +148,7 @@
       </button>
     </div>
   </div>
+
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="newTopicModal">
@@ -219,7 +223,7 @@
       <div class="modal-body">
         <form action="/meeting/create/<%= meetingseries.id %>" method="post">
           <% var i = 0 %>
-          <div id="dragListMeetingCreation">
+          <div id="dragListMeetingCreation" name="dragListMeetingCreation">
             <% _.each(meetingseries.topics, function (topics) { %>
             <div class="text-left checkbox">
               <i class="fa fa-arrows-v"></i>
