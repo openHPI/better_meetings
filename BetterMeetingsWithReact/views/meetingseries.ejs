@@ -1,154 +1,158 @@
-<div id="page-title">
-  <h1 class="page-header text-overflow"><%= meetingseries.title %></h1>
-</div>
+<div class="boxed">
+  <div id="content-container">
+    <div id="page-title">
+      <h1 class="page-header text-overflow"><%= meetingseries.title %></h1>
+    </div>
 
-<ol class="breadcrumb">
-  <li><a href="/dashboard">Dashboard</a></li>
-  <li class="active">Meetingserie</li>
-</ol>
+    <ol class="breadcrumb">
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li class="active">Meetingserie</li>
+    </ol>
 
-<div id="page-content">
+    <div id="page-content">
 
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <div class="panel-control">
-            <button id="demo-panel-network-refresh" data-toggle="panel-overlay" data-target="#demo-panel-network"
-                    class="btn">
-              <i class="fa fa-rotate-right"></i>
-            </button>
-            <div class="btn-group">
-              <button class="dropdown-toggle btn" data-toggle="dropdown" aria-expanded="false"><i
-                  class="fa fa-gear"></i></button>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="panel-control">
+                <button id="demo-panel-network-refresh" data-toggle="panel-overlay" data-target="#demo-panel-network"
+                        class="btn">
+                  <i class="fa fa-rotate-right"></i>
+                </button>
+                <div class="btn-group">
+                  <button class="dropdown-toggle btn" data-toggle="dropdown" aria-expanded="false"><i
+                      class="fa fa-gear"></i></button>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+              </div>
+              <h3 class="panel-title">Information</h3>
             </div>
-          </div>
-          <h3 class="panel-title">Information</h3>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-xs-12">
-              <%= meetingseries.description %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-12">
+                  <%= meetingseries.description %>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-xs-6">
-                  <div class="pad-ver media">
-                    <div class="media-left">
-	                    <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
-					               <i class="fa fa-user fa-2x"></i>
-					            </span>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="pad-ver media">
+                        <div class="media-left">
+    	                    <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
+    					               <i class="fa fa-user fa-2x"></i>
+    					            </span>
+                        </div>
+                        <div class="media-body">
+                          <p class="h3 text-thin media-heading">Administrators: <%= meetingseries.admins.length %></p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="media-body">
-                      <p class="h3 text-thin media-heading">Administrators: <%= meetingseries.admins.length %></p>
+                    <div class="col-xs-6">
+                      <div class="pad-ver media">
+                        <div class="media-left">
+                          <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
+                            <i class="fa fa-user fa-2x"></i>
+                          </span>
+                        </div>
+                        <div class="media-body">
+                          <p class="h3 text-thin media-heading">Members: <%= meetingseries.members.length %></p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-6">
-                  <div class="pad-ver media">
-                    <div class="media-left">
-                      <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
-                        <i class="fa fa-user fa-2x"></i>
-                      </span>
-                    </div>
-                    <div class="media-body">
-                      <p class="h3 text-thin media-heading">Members: <%= meetingseries.members.length %></p>
-                    </div>
-                  </div>
+                <div class="col-xs-6 col-lg-6">
+                  <ul class="list-group bg-trans mar-no">
+                    <li class="list-group-item">
+                      <span class="badge badge-success"><%= meetingseries.instances.length %></span>
+                      Meetings
+                    </li>
+                    <li class="list-group-item">
+                      <span class="badge badge-success"><%= meetingseries.timer %></span>
+                      Timer
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-            <div class="col-xs-6 col-lg-6">
-              <ul class="list-group bg-trans mar-no">
-                <li class="list-group-item">
-                  <span class="badge badge-success"><%= meetingseries.instances.length %></span>
-                  Meetings
-                </li>
-                <li class="list-group-item">
-                  <span class="badge badge-success"><%= meetingseries.timer %></span>
-                  Timer
-                </li>
-              </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-lg-7">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Meetings</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table table-hover table-vcenter">
+                <thead>
+                <tr>
+                  <th class="min-width">Id</th>
+                  <th>Date</th>
+                  <th class="text-center">Summary</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% i = 1 %>
+                <% _.each(meetingseries.instances, function (meeting) { %>
+                <tr>
+                  <td class="text-center">
+                    <span class="icon-wrap icon-wrap-sm icon-circle bg-success"><%= i %></span>
+                  </td>
+                  <td>
+                    <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.title %></span>
+                  </td>
+                  <td class="text-center">
+                    <button><i class="fa fa-download"></i></button>
+                  </td>
+                </tr>
+                <% i++ %>
+                <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-lg-5">
+          <div id="topics-panel">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">Topics</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group bg-trans" id="dragListTopics">
+                  <% _.each(meetingseries.topics, function (topic) { %>
+                  <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
+                    <i class="fa fa-arrows-v"></i> <%= topic.title %>
+                  </li>
+                  <% }) %>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-12 col-lg-7">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title">Meetings</h3>
-        </div>
-        <div class="panel-body">
-          <table class="table table-hover table-vcenter">
-            <thead>
-            <tr>
-              <th class="min-width">Id</th>
-              <th>Date</th>
-              <th class="text-center">Summary</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% i = 1 %>
-            <% _.each(meetingseries.instances, function (meeting) { %>
-            <tr>
-              <td class="text-center">
-                <span class="icon-wrap icon-wrap-sm icon-circle bg-success"><%= i %></span>
-              </td>
-              <td>
-                <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.title %></span>
-              </td>
-              <td class="text-center">
-                <button><i class="fa fa-download"></i></button>
-              </td>
-            </tr>
-            <% i++ %>
-            <% }) %>
-            </tbody>
-          </table>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#createMeetingModal">Erstelle
+            Meeting
+          </button>
         </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-lg-5">
-      <div id="topics-panel">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Topics</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="list-group bg-trans" id="dragListTopics">
-              <% _.each(meetingseries.topics, function (topic) { %>
-              <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
-                <i class="fa fa-arrows-v"></i> <%= topic.title %>
-              </li>
-              <% }) %>
-            </ul>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-xs-12">
-      <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#createMeetingModal">Erstelle
-        Meeting
-      </button>
-    </div>
-  </div>
-
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="newTopicModal">

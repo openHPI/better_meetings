@@ -1,133 +1,137 @@
-<div id="page-title">
-  <h1 class="page-header text-overflow">Dashboard</h1>
-</div>
-<div id="page-content">
-  <% if (req.session.me.isAdmin) { %>
-  <div class="row">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">Meine Meetingserien</h3>
-      </div>
-      <div class="panel-body">
-        <% _.each(meetingseriesList, function (meetingseries) { %>
-        <div class="row">
-          <p class="pull-right">Stand: <%= new Date(meetingseries.updatedAt).toLocaleString() %></p>
-        </div>
-        <div class="row">
-          <div class="col-xs-8 col-lg-8">
-            <h4><a class="text-success" href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
-            </h4>
-            <% if (meetingseries.description) { %>
-            <p><%= meetingseries.description %></p>
-            <% } %>
-          </div>
-          <div class="col-xs-4 col-lg-4">
-            <ul class="list-group bg-trans mar-no">
-              <li class="list-group-item">
-                <span class="badge badge-success"><%= meetingseries.instances.length %></span>
-                Gehaltene Meetings
-              </li>
-              <% if (meetingseries.instances.length > 0) { %>
-              <li class="list-group-item">
-              <span class="badge badge-success">
-                <% if (meetingseries.instances[0].startTime) { %>
-                <%= meetingseries.instances[0].startTime %>
-                <% } else { %>
-                Kein Zeitpunkt bekannt
-                <% } %>
-              </span>
-                Zuletzt gehaltenes Meeting
-              </li>
-              <% } %>
-            </ul>
-          </div>
-        </div>
-        <hr>
-        <% }) %>
-        <div class="row">
-          <% if (meetingseriesList.length == 0) { %>
-          <h4 class="pull-left text-success">Du hast leider keine Meetingserien. Erstelle doch eine.</h4>
-          <% } %>
-          <button type="button" class="btn btn-success btn-lg pull-right" data-toggle="modal"
-                  data-target="#newMeetingSeriesModal">Neue Serie
-            erstellen
-          </button>
-        </div>
-      </div>
+<div class="boxed">
+  <div id="content-container">
+    <div id="page-title">
+      <h1 class="page-header text-overflow">Dashboard</h1>
     </div>
-    <br>
-  </div>
-
-  <% } else { %>
-
-  <div class="row">
-    <div class="col-sm-offset-3 col-sm-6 text-center">
-      <br>
-
-      <h3>Willkommen <%= req.session.me.name %></h3>
-      <br>
-      <p class="h4 text-thin media-heading">
-        Da du nur einen Gastakkount besitzt, ist es dir leider nicht möglich eine Meetingserie zu starten.
-      </p>
-      <p class="h4 text-thin media-heading">
-        <a href="/signup">Registriere</a> dich bitte, um Meetings erstellen zu können.
-      </p>
-      <br>
-      <p class="h4 text-thin media-heading">
-        Einem Meeting beiwohnen kannst du jedoch jetzt schon. Schaue in die Timeline.
-      </p>
-      <p class="h4 text-thin media-heading">
-        Vielleicht findet sich dort das ein oder andere Meeting.
-      </p>
-      <br>
-    </div>
-  </div>
-  <br/>
-  <br/>
-  <br/>
-  <% } %>
-
-  <div class=" row">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">Meeting Timeline</h3>
-      </div>
-      <div class="panel-body">
-
-        <div class="timeline">
-          <div class="timeline-header">
-            <div class="timeline-header-title bg-success">Jetzt</div>
+    <div id="page-content">
+      <% if (req.session.me.isAdmin) { %>
+      <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Meine Meetingserien</h3>
           </div>
-          <% _.each(meetingHistory, function (meeting) { %>
-          <div class="timeline-entry">
-            <div class="timeline-stat">
-              <div class="timeline-icon"></div>
-              <div class="timeline-time">
-                <% if (meeting.startTime) { %>
-                <%= meeting.startTime %>
-                <% } else { %>
-                Kein Zeitpunkt gegeben
+          <div class="panel-body">
+            <% _.each(meetingseriesList, function (meetingseries) { %>
+            <div class="row">
+              <p class="pull-right">Stand: <%= new Date(meetingseries.updatedAt).toLocaleString() %></p>
+            </div>
+            <div class="row">
+              <div class="col-xs-8 col-lg-8">
+                <h4><a class="text-success" href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
+                </h4>
+                <% if (meetingseries.description) { %>
+                <p><%= meetingseries.description %></p>
                 <% } %>
               </div>
+              <div class="col-xs-4 col-lg-4">
+                <ul class="list-group bg-trans mar-no">
+                  <li class="list-group-item">
+                    <span class="badge badge-success"><%= meetingseries.instances.length %></span>
+                    Gehaltene Meetings
+                  </li>
+                  <% if (meetingseries.instances.length > 0) { %>
+                  <li class="list-group-item">
+                  <span class="badge badge-success">
+                    <% if (meetingseries.instances[0].startTime) { %>
+                    <%= meetingseries.instances[0].startTime %>
+                    <% } else { %>
+                    Kein Zeitpunkt bekannt
+                    <% } %>
+                  </span>
+                    Zuletzt gehaltenes Meeting
+                  </li>
+                  <% } %>
+                </ul>
+              </div>
             </div>
-            <div class="timeline-label">
-              <h5><a class="text-success text-lg" href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
-              <% if (meeting.description) { %>
-              <p><%= meeting.description %></p>
+            <hr>
+            <% }) %>
+            <div class="row">
+              <% if (meetingseriesList.length == 0) { %>
+              <h4 class="pull-left text-success">Du hast leider keine Meetingserien. Erstelle doch eine.</h4>
+              <% } %>
+              <button type="button" class="btn btn-success btn-lg pull-right" data-toggle="modal"
+                      data-target="#newMeetingSeriesModal">Neue Serie
+                erstellen
+              </button>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+
+      <% } else { %>
+
+      <div class="row">
+        <div class="col-sm-offset-3 col-sm-6 text-center">
+          <br>
+
+          <h3>Willkommen <%= req.session.me.name %></h3>
+          <br>
+          <p class="h4 text-thin media-heading">
+            Da du nur einen Gastakkount besitzt, ist es dir leider nicht möglich eine Meetingserie zu starten.
+          </p>
+          <p class="h4 text-thin media-heading">
+            <a href="/signup">Registriere</a> dich bitte, um Meetings erstellen zu können.
+          </p>
+          <br>
+          <p class="h4 text-thin media-heading">
+            Einem Meeting beiwohnen kannst du jedoch jetzt schon. Schaue in die Timeline.
+          </p>
+          <p class="h4 text-thin media-heading">
+            Vielleicht findet sich dort das ein oder andere Meeting.
+          </p>
+          <br>
+        </div>
+      </div>
+      <br/>
+      <br/>
+      <br/>
+      <% } %>
+
+      <div class=" row">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Meeting Timeline</h3>
+          </div>
+          <div class="panel-body">
+
+            <div class="timeline">
+              <div class="timeline-header">
+                <div class="timeline-header-title bg-success">Jetzt</div>
+              </div>
+              <% _.each(meetingHistory, function (meeting) { %>
+              <div class="timeline-entry">
+                <div class="timeline-stat">
+                  <div class="timeline-icon"></div>
+                  <div class="timeline-time">
+                    <% if (meeting.startTime) { %>
+                    <%= meeting.startTime %>
+                    <% } else { %>
+                    Kein Zeitpunkt gegeben
+                    <% } %>
+                  </div>
+                </div>
+                <div class="timeline-label">
+                  <h5><a class="text-success text-lg" href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
+                  <% if (meeting.description) { %>
+                  <p><%= meeting.description %></p>
+                  <% } %>
+                </div>
+              </div>
+              <% }) %>
+              <% if (meetingHistory.length == 0) { %>
+              <div class="timeline-entry">
+                <div class="timeline-stat">
+                  <div class="timeline-icon"></div>
+                </div>
+                <div class="timeline-label">
+                  <h5 class="text-success text-lg">Du hast leider keine Meetings in deiner Timeline :(</h5>
+                </div>
+              </div>
               <% } %>
             </div>
           </div>
-          <% }) %>
-          <% if (meetingHistory.length == 0) { %>
-          <div class="timeline-entry">
-            <div class="timeline-stat">
-              <div class="timeline-icon"></div>
-            </div>
-            <div class="timeline-label">
-              <h5 class="text-success text-lg">Du hast leider keine Meetings in deiner Timeline :(</h5>
-            </div>
-          </div>
-          <% } %>
         </div>
       </div>
     </div>

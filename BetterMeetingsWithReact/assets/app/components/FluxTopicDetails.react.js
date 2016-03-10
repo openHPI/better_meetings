@@ -6,6 +6,19 @@ var FluxMeetingActions = require('../actions/FluxMeetingActions');
 // Flux todolist view
 var FluxTopicDetails = React.createClass({
 
+    renderSubitemList: function() {
+        var selected = this.props.selected;
+        if (selected.subitems !== undefined && selected.subitems !== null && selected.subitems.length > 0) {
+            return selected.subitems.map(function (item, index) {
+                return (
+                    <li className="list-item">
+                        {item}
+                    </li>
+                );
+            });
+        }
+    },
+
     render: function(){
         var selected = this.props.selected;
 
@@ -15,13 +28,21 @@ var FluxTopicDetails = React.createClass({
                     <h3 className="panel-title">DETAILS</h3>
                 </div>
                 <div className="panel-body">
-                    <div className="flux-agendaDetails-description">
-                        <p>{selected.description}</p>
+                    <div className="row">
+                        <div className="topicDetails-description">
+                            <p>{selected.description}</p>
+                        </div>
                     </div>
-                    <div className={ (selected.subitems === undefined && selected.subitems === null) ? "flux-agendaDetails-subitems" : "flux-agendaDetails-subitems hidden-container" }>
-                        <h4>Subitems</h4>
+                    <div className="row">
+                        <div className={ (selected.subitems === undefined && selected.subitems === null) ? "list-group-item col-md-6 col-xs-12" : "hidden-container" }>
+                            <h4>Subitems</h4>
+                            { this.renderSubitemList() }
+                        </div>
+                        <div className={ (selected.note === undefined && selected.note === null) ? "flux-agendaDetails-notes col-md-6 col-xs-12" : "hidden-container" }>
+                            <h4>Note</h4>
+                            {selected.note}
+                        </div>
                     </div>
-                    <p className={ selected.done ? "flux-agendaDetails-done" : "flux-agendaDetails-done hidden-container" }>[done]</p>
                 </div>
                 <div className="panel-footer">
                     <form className="flux-agendaDetails-upload" action="#" method="post" encType="multipart/form-data">

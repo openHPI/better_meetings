@@ -32,6 +32,10 @@ var FluxAttendeeList = React.createClass({
       FluxMeetingActions.createAttendee(this.state);
     },
 
+    closeAside: function () {
+      FluxMeetingActions.toggleAside();
+    },
+
     renderAttendeeList: function (event) {
       var user = this.props.user;
       var admins = this.props.admins;

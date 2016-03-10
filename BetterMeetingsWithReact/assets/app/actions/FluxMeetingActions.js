@@ -25,6 +25,32 @@ var FluxAgendaActions = {
 	},
 
 	/**
+	 * Selects an agenda item
+	 * 
+	 * @method selectAgendaItem
+	 * @param {Integer} index The index of the selected agenda item 
+	 */
+	toggleDoneTopic: function(topic) {
+		AppDispatcher.handleAction({
+			actionType: FluxMeetingConstants.TOPIC_TOGGLE_DONE,
+			data: topic
+		})
+	},
+
+	/**
+	 * Uploads and attaches a file to a topic
+	 * 
+	 * @method uploadFileToTopic
+	 * @param {Object} member The new attendee
+	 */
+	uploadFileToTopic: function() {
+		AppDispatcher.handleAction({
+			actionType: FluxMeetingConstants.TOPIC_UPLOAD,
+			data: data
+		})
+	},
+
+	/**
 	 * Adds a new todo item to the todolist
 	 * 
 	 * @method createTodoItem
@@ -83,6 +109,12 @@ var FluxAgendaActions = {
 		})
 	},
 
+	toggleAside: function () {
+		AppDispatcher.handleAction({
+			actionType: FluxMeetingConstants.ASIDE_TOGGLE
+		})
+	},
+
 	/**
 	 * Creates a new attendee
 	 * 
@@ -93,19 +125,6 @@ var FluxAgendaActions = {
 		AppDispatcher.handleAction({
 			actionType: FluxMeetingConstants.ATTENDEE_CREATE,
 			data: person
-		})
-	},
-
-	/**
-	 * Uploads and attaches a file to a topic
-	 * 
-	 * @method uploadFileToTopic
-	 * @param {Object} member The new attendee
-	 */
-	uploadFileToTopic: function() {
-		AppDispatcher.handleAction({
-			actionType: FluxMeetingConstants.TOPIC_UPLOAD,
-			data: data
 		})
 	},
 

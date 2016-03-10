@@ -242,6 +242,11 @@ AppDispatcher.register(function (payload) {
       _meeting.topics[_selectedTopic].todos[action.data.item2] = temp;
       break;
 
+    case FluxMeetingConstants.ASIDE_TOGGLE:
+      console.log('toggle Aside');
+      $.niftyAside('toggleHideShow');
+      break;
+
     case FluxMeetingConstants.ATTENDEE_CREATE:
       console.dir(action.data);
       action.data.id = _meeting.id;

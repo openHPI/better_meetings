@@ -183,13 +183,12 @@ module.exports = {
    * @method attachFileToTopic
    * @param {Object} data The new member
    */
-  attachFileToTopic: function () {
-     io.socket.post();
+  attachFileToTopic: function (file) {
+     io.socket.post('/topic/upload', file, function (data, jwres) {});
   },
 
   updateTopic: function(data) {
-    io.socket.post('/topic/update', data, function (data, jwres) {
-    });
+    io.socket.post('/topic/update', data, function (data, jwres) {});
   },
 
   /**
