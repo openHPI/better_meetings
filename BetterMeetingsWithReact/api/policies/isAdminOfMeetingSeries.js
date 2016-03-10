@@ -7,12 +7,16 @@
  *
  */
 module.exports = function (req, res, next) {
+  var meetingId;
+  var email;
+  var admins;
+  var i;
 
-  if (req.session.me && req.session.me.isAdmin == true) {
-    var meeting_id = req.param('id');
-    var email = req.session.me.email;
+  if (req.session.me && req.session.me.isAdmin === true) {
+    meetingId = req.param('id');
+    email = req.session.me.email;
 
-    meetingseries.findOne(meeting_id).populate('admins').exec(function findMeetingSerien(err, cre) {
+    return meetingseries.findOne(meetingId).populate('admins').exec(function findMeetingSerien(err, cre) {
       if (err) {
         sails.log.error('ERR:', err);
 
@@ -25,9 +29,9 @@ module.exports = function (req, res, next) {
       }
 
       if (cre) {
-        var admins = cre.admins;
+        admins = cre.admins;
 
-        for (var i = 0; i < admins.length; i++) {
+        for (i = 0; i < admins.length; i++) {
           if (admins[i].email === email) {
             return next();
           }
@@ -40,11 +44,11 @@ module.exports = function (req, res, next) {
 
       return res.forbidden('Access denied.');
     });
-  } else {
-    if (req.wantsJSON) {
-      return res.send(403);
-    }
-
-    return res.forbidden('Access denied.');
   }
+
+  if (req.wantsJSON) {
+    return res.send(403);
+  }
+
+  return res.forbidden('Access denied.');
 };

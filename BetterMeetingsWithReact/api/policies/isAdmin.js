@@ -7,9 +7,8 @@
  *
  */
 module.exports = function (req, res, next) {
-
   if (req.session.me) {
-    if (req.session.me.isAdmin == true) return next();
+    if (req.session.me.isAdmin === true) return next();
   }
 
   if (req.wantsJSON) {

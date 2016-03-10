@@ -8,7 +8,6 @@
  *
  */
 module.exports = function (req, res, next) {
-
   // If `req.session.me` exists, that means the user is logged in.
   if (req.session.me) return next();
 
