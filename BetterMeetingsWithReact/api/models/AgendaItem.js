@@ -13,36 +13,35 @@ module.exports = {
 
     meetingseries: {
       model: 'meetingseries',
-      required: true,
+      required: true
     },
     title: {
       type: 'string',
-      required: true,
+      required: true
     },
     description: {
       type: 'string',
-      required: false,
+      required: false
     },
     todos: {
       collection: 'todoitem',
-      via: 'owner',
+      via: 'owner'
     },
     subAgendaItems: {
-      type: 'array',
+      type: 'array'
     },
     done: {
       type: 'boolean',
-      required: false,
+      required: false
     },
     attachedFile: {
       type: 'string',
       required: false,
-      unique: true,
+      unique: true
     },
     note: {
-      type: 'string',
-    },
-
+      type: 'string'
+    }
   }
 };
 

@@ -12,18 +12,18 @@ module.exports = {
   attributes: {
     title: {
       type: 'string',
-      required: true,
+      required: true
     },
     description: {
       type: 'string',
-      required: false,
+      required: false
     },
     owner: {
       model: 'agendaitem'
     },
     author: {
       model: 'person',
-      via: 'todos',
+      via: 'todos'
     },
     assignee: {
       type: 'string',
@@ -38,8 +38,8 @@ module.exports = {
       required: true
     },
     note: {
-      type: 'string',
-    },
+      type: 'string'
+    }
   }
 };
 

@@ -38,8 +38,8 @@ module.exports = {
       via: 'admins'
     },
     isAdmin: {
-      type: 'boolean',
-    },
+      type: 'boolean'
+    }
   },
 
   /**
@@ -56,13 +56,12 @@ module.exports = {
   signup: function (inputs, cb) {
     // Create a person
     person.create({
-        name: inputs.name,
-        email: inputs.email,
-        // TODO: But encrypt the password first
-        password: inputs.password,
-        isAdmin: true,
-      })
-      .exec(cb);
+      name: inputs.name,
+      email: inputs.email,
+      // TODO: But encrypt the password first
+      password: inputs.password,
+      isAdmin: true
+    }).exec(cb);
   },
 
 
@@ -78,9 +77,7 @@ module.exports = {
 
   attemptLoginEmail: function (inputs, cb) {
     // Create a person
-    person.findOne({
-        email: inputs.email
-      })
+    person.findOne({ email: inputs.email })
       .populateAll()
       .exec(cb);
   },
@@ -88,22 +85,19 @@ module.exports = {
   attemptLoginAdmin: function (inputs, cb) {
     // Create a person
     person.findOne({
-        email: inputs.email,
-        // TODO: But encrypt the password first
-        password: inputs.password
-      })
-      .populateAll()
-      .exec(cb);
+      email: inputs.email,
+      // TODO: But encrypt the password first
+      password: inputs.password
+    }).populateAll().exec(cb);
   },
 
   attemptLoginGuestOrCreate: function (inputs, cb) {
     // Create a person
     person.findOrCreate({
-        name: inputs.name,
-        email: inputs.email,
-        isAdmin: false
-      })
-      .exec(cb);
+      name: inputs.name,
+      email: inputs.email,
+      isAdmin: false
+    }).exec(cb);
   }
 };
 
