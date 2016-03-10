@@ -11,9 +11,8 @@ module.exports = {
    * */
   renderQrCode: function (url, size) {
     var qr = require('node-qr-image');
+    var svgString = qr.imageSync(url, { type: 'svg' });
 
-    var svg_string = qr.imageSync(url, {type: 'svg'});
-
-    return svg_string.replace('viewBox="0 0 27 27"', 'viewBox="0 0 27 27" width=' + size + ' height=' + size);
+    return svgString.replace('viewBox="0 0 27 27"', 'viewBox="0 0 27 27" width=' + size + ' height=' + size);
   }
 };
