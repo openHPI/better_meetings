@@ -8,7 +8,6 @@
 module.exports = {
 
   create: function (req, res) {
-
     var admins = req.param('admins') || [req.session.me];
     var title = req.param('title');
     var timer = 900;
@@ -17,7 +16,7 @@ module.exports = {
       meetingseries.create({
         admins: admins,
         title: title,
-        timer: timer,
+        timer: timer
       }).exec(function createMeetingSeries(err, created) {
         if (err) {
           console.log('[bm-error] meetingseries not created: ' + err);
@@ -27,19 +26,17 @@ module.exports = {
             id: created.id,
             admins: created.admins,
             title: created.title,
-            timer: created.timer,
+            timer: created.timer
           });
         }
         if (!req.isSocket) {
           res.redirect('/dashboard');
         }
       });
-    }
-    else if (req.isSocket) {
+    } else if (req.isSocket) {
       sails.log('MeetingSeries with socket id ' + sails.sockets.id(req) +
         ' is now subscribed to the model class \'meetingseries\'.');
-    }
-    else {
+    } else {
       res.send('meetingseries');
       console.log('MeetingSeries not created: too few parameters');
     }
@@ -47,8 +44,6 @@ module.exports = {
 
 
   update: function (req, res) {
-    sails.log('Update started');
-    sails.log(req.param('title'));
     var admins = req.param('admins');
     var title = req.param('title');
     var meeting = req.param('meeting');
@@ -59,45 +54,47 @@ module.exports = {
     var topics = req.param('topics');
     var meetingSeriesId = req.param('id');
 
+    sails.log('Update started');
+    sails.log(req.param('title'));
+
     if (meetingSeriesId && admins && title && meeting && url && timer && members &&
       description && topics && req.isSocket) {
-      meetingseries.update({id: meetingSeriesId}).set({
-          admins:       admins,
-          title:        title,
-          meeting:      meeting,
-          url:          url,
-          timer:        timer,
-          members:      members,
-          description:  description,
-          topics:       topics,
+      meetingseries.update({ id: meetingSeriesId }).set({
+        admins: admins,
+        title: title,
+        meeting: meeting,
+        url: url,
+        timer: timer,
+        members: members,
+        description: description,
+        topics: topics
       }).exec(function updateMeetingSeries(err, updated) {
-          if (err) {
-            sails.log('MeetingSeries not updated ' + err);
-          } else {
-            sails.log('Updated MeetingSeries: '   + updated[0].title);
+        if (err) {
+          sails.log('MeetingSeries not updated ' + err);
+        } else {
+          sails.log('Updated MeetingSeries: ' + updated[0].title);
 
-            updated[0].save(function (err) {
-              if (err) {
-                sails.log("Error while saving update to MeetingSeries " + updated[0].title);
-              } else {
-                sails.log("Successfully saved updates to MeetingSeries " + updated[0].title);
-                meetingseries.publishUpdate(updated[0].id, {
-                  id:           updated[0].id,
-                  admins:       updated[0].admins,
-                  title:        updated[0].title,
-                  meeting:      updated[0].meeting,
-                  url:          updated[0].url,
-                  timer:        updated[0].timer,
-                  members:      updated[0].members,
-                  description:  updated[0].description,
-                  topics:       updated[0].topics,
-                });
-              }
-            });
-          }
-        });
-    }
-    else {
+          updated[0].save(function (updateErr) {
+            if (updateErr) {
+              sails.log('Error while saving update to MeetingSeries ' + updated[0].title);
+            } else {
+              sails.log('Successfully saved updates to MeetingSeries ' + updated[0].title);
+              meetingseries.publishUpdate(updated[0].id, {
+                id: updated[0].id,
+                admins: updated[0].admins,
+                title: updated[0].title,
+                meeting: updated[0].meeting,
+                url: updated[0].url,
+                timer: updated[0].timer,
+                members: updated[0].members,
+                description: updated[0].description,
+                topics: updated[0].topics
+              });
+            }
+          });
+        }
+      });
+    } else {
       res.send('meetingseries');
       sails.log('MeetingSeries not updated: too few parameters');
     }
@@ -106,28 +103,28 @@ module.exports = {
 
   view: function (req, res) {
     var id = req.param('id', null);
-    meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, cre) {
+
+    return meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, cre) {
       if (err) {
         sails.log.error('ERR:', err);
       }
 
       if (!cre) {
         console.log('no meetingseries with id ' + id + ' found :(');
-        return;
       }
 
-      if (cre.topics.length == 0) {
+      if (cre.topics.length === 0) {
         return res.view('meetingseries',
           {
             meetingseries: cre
           });
       }
 
-      DeepPopulateService.populateDeep('meetingseries', cre,
+      return DeepPopulateService.populateDeep('meetingseries', cre,
         'topics.todos',
-        function (err, item) {
-          if (err) {
-            sails.log.error('ERR:', err);
+        function (populateErr, item) {
+          if (populateErr) {
+            sails.log.error('ERR:', populateErr);
           }
 
           return res.view('meetingseries',
@@ -135,7 +132,6 @@ module.exports = {
               meetingseries: item
             });
         });
-
     });
   },
 
@@ -143,18 +139,17 @@ module.exports = {
   delete: function (req, res) {
     var meetingSeriesID = req.param('meetingSeriesID', null);
     if (meetingSeriesID && req.isSocket) {
-      meetingSeries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+      meetingseries.findOne(meetingSeriesID).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
         meetingseries.destroy(
           {
             id: meetingSeriesAnswer.id
           })
-          .exec(function destroy(err) {
-            if (err) {
+          .exec(function destroy(destroyErr) {
+            if (destroyErr) {
               sails.log('Error while deleting meetingseries');
               res.send('Error');
-            }
-            else {
-              sails.log('Successfully deleted ' + meetingseriesID);
+            } else {
+              sails.log('Successfully deleted ' + meetingSeriesID);
               meetingseries.publishDestroy(
                 {
                   id: meetingSeriesAnswer.id
@@ -166,16 +161,18 @@ module.exports = {
   },
 
 
-  listen: function (req, res) {
+  listen: function (req) {
+    var testArray = [];
+    var i;
+
     if (req.isSocket) {
       meetingseries.watch(req);
-      var testArray = [];
-      for (var i = 1; i < 100; i++) {
+      for (i = 1; i < 100; i++) {
         testArray.push(i);
       }
       meetingseries.subscribe(req, testArray);
       console.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'meetingseries\'.');
     }
-  },
+  }
 };
