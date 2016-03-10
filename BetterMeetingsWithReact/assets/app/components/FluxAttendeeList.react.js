@@ -12,72 +12,76 @@ var FluxAttendeeItem = require('./FluxAttendeeItem.react');
  */
 var FluxAttendeeList = React.createClass({
 
-    getInitialState: function() {
-      return {name: '', email: ''};
-    },
+  getInitialState: function () {
+    return { name: '', email: '' };
+  },
 
-    handleNameChanges: function(event) {
-      this.setState({name: event.target.value})
-    },
+  handleNameChanges: function (event) {
+    this.setState({ name: event.target.value })
+  },
 
-    handleEmailChanges: function(event) {
-      this.setState({email: event.target.value});
-    },
+  handleEmailChanges: function (event) {
+    this.setState({ email: event.target.value });
+  },
 
-    createAttendee: function (argument) {
-      
-      if (!this.state.name)
-        return;
+  createAttendee: function (argument) {
 
-      FluxMeetingActions.createAttendee(this.state);
-    },
+    if (!this.state.name)
+      return;
 
-    closeAside: function () {
-      FluxMeetingActions.toggleAside();
-    },
+    FluxMeetingActions.createAttendee(this.state);
+  },
 
-    renderAttendeeList: function (event) {
-      var user = this.props.user;
-      var admins = this.props.admins;
-      var attendees = this.props.attendees;
-      
-      var isUser = false;
+  closeAside: function () {
+    FluxMeetingActions.toggleAside();
+  },
 
-      if(attendees.length > 0) {
+  renderAttendeeList: function (event) {
+    var user = this.props.user;
+    var admins = this.props.admins;
+    var attendees = this.props.attendees;
 
-        return attendees.map(function (attendee, index) {
+    var isUser = false;
 
-          isUser = attendee.id === user.id;
-                  
-          return (
-            <FluxAttendeeItem key={index} attendee={attendee} isUser={isUser}/>
-          );
-        });
-      }
-    },
+    if (attendees.length > 0) {
 
-    render: function(){
-        var canEdit = this.props.canEdit;
+      return attendees.map(function (attendee, index) {
 
-        return(
-          <div className="nano-content">
-            <div className="list-group bg-trans list-attendees">
-              {this.renderAttendeeList()}
-            </div>
-            <form className={ canEdit ? "form-horizontal" : "hidden-container" }>
-              <div className="col-xs-12">
-                <input type="text" className="form-control" placeholder="Name" value={this.state.name} onChange={this.handleNameChanges}/>
-              </div>
-              <div className="col-xs-12">
-                <input type="text" className="form-control" placeholder="E-Mail" value={this.state.email} onChange={this.handleEmailChanges}/>
-              </div>
-            </form>
-            <div className="text-right col-xs-12">
-              <button type="button" className={ canEdit ? "btn btn-info btn-labeled fa fa-plus" : "hidden-container" } onClick={this.createAttendee}>Add guest</button>
-            </div>
-          </div>
+        isUser = attendee.id === user.id;
+
+        return (
+          <FluxAttendeeItem key={index} attendee={attendee} isUser={isUser}/>
         );
+      });
     }
+  },
+
+  render: function () {
+    var canEdit = this.props.canEdit;
+
+    return (
+      <div className="nano-content">
+        <div className="list-group bg-trans list-attendees">
+          {this.renderAttendeeList()}
+        </div>
+        <form className={ canEdit ? "form-horizontal" : "hidden-container" }>
+          <div className="col-xs-12">
+            <input type="text" className="form-control" placeholder="Name" value={this.state.name}
+                   onChange={this.handleNameChanges}/>
+          </div>
+          <div className="col-xs-12">
+            <input type="text" className="form-control" placeholder="E-Mail" value={this.state.email}
+                   onChange={this.handleEmailChanges}/>
+          </div>
+        </form>
+        <div className="text-right col-xs-12">
+          <button type="button" className={ canEdit ? "btn btn-info btn-labeled fa fa-plus" : "hidden-container" }
+                  onClick={this.createAttendee}>Add guest
+          </button>
+        </div>
+      </div>
+    );
+  }
 });
 
 module.exports = FluxAttendeeList;

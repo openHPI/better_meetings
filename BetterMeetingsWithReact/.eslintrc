@@ -14,6 +14,8 @@
   "globals": {
     // sails
     "sails": 1,
+    // jQuery
+    "jQuery": 1,
 
     // models
     "meeting": 1,
