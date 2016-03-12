@@ -1,4 +1,5 @@
 var React = require('react');
+var ProgressBar = require('react-bootstrap').ProgressBar;
 
 // AgendaProgress
 var FluxMeetingProgress = React.createClass({
@@ -12,11 +13,7 @@ var FluxMeetingProgress = React.createClass({
 
 		return (
 			<div className="flux-agendaProgress-container">
-				<div className="progress">
-					<div id="agenda-progress-bar" className="progress-bar progress-bar-info" role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={progressbarStyle}>
-				    	{Math.round(percentage)}%
-					</div>
-				</div>
+				<ProgressBar now={percentage} label="%(percent)s%" />
 			</div>
 		);
 	}
