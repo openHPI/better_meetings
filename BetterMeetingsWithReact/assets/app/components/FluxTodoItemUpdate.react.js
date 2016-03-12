@@ -14,7 +14,7 @@ var FluxTodoItemUpdate = React.createClass({
       description: item.description,
       owner: item.owner,
       author: item.author,
-      assignee: item.assignee,
+      assignee: item.assignee === null ? new Set(["Bergen", "Asmara", "Göteborg", "Newcastle", "Seattle"]) : new Set(item.assignee),
       done: item.done,
       important: item.important
     };
@@ -28,7 +28,7 @@ var FluxTodoItemUpdate = React.createClass({
       description: item.title,
       owner: item.owner,
       author: item.author,
-      assignee: item.assignee,
+      assignee: item.assignee === null ? new Set(["Bergen", "Asmara", "Göteborg", "Newcastle", "Seattle"]) : new Set(item.assignee),
       done: item.done,
       important: item.important
     });
@@ -58,6 +58,10 @@ var FluxTodoItemUpdate = React.createClass({
 
   customValidateTitle: function (title) {
     return (title.length > 0 && title.length < 64);
+  },
+
+  isAttendee: function () {
+    return true;
   },
 
   render: function () {
@@ -96,12 +100,15 @@ var FluxTodoItemUpdate = React.createClass({
             <label className='col-md-3 control-label'>Assignees</label>
             <div className='col-md-9'>
               <RIETags
-                value={['Peter Zwegat', 'Max Mustermann']}
+                value={this.state.assignee}
                 change={this.changedCallback}
                 maxTags={5}
                 minTags={0}
-                propName="assignee"
-                placeholder="New responsible person" />
+                propName='assignee'
+                placeholder='New responsible person'
+                className='tags'
+                validate={this.isAttendee}
+              />
               <small className='help-block'>Please enter a description</small>
             </div>
           </div>

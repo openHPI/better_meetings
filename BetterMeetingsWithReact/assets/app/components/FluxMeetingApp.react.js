@@ -6,7 +6,6 @@ var FluxTopicList = require('./FluxTopicList.react');
 var FluxTopicDetails = require('./FluxTopicDetails.react');
 
 var FluxAttendeeList = require('./FluxAttendeeList.react');
-var FluxAttendeeForm = require('./FluxAttendeeForm.react');
 
 var FluxMeetingTimer = require('./FluxMeetingTimer.react');
 var FluxMeetingProgress = require('./FluxMeetingProgress.react');
@@ -15,8 +14,6 @@ var FluxQrViewer = require('./FluxQrViewer.react');
 
 var FluxTodoList = require('./FluxTodoList.react');
 var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
-
-var FluxTest = require('./FluxTest.react');
 
 function getMeetingState() {
   return {

@@ -51,9 +51,6 @@ module.exports.routes = {
   },
   'get /meeting/id/:url': 'MeetingController.view',
   'get /dashboard': 'DashboardController.view',
-  'get /admin': {
-    view: 'admin'
-  },
   '/person/': {
     controller: 'person',
     action: 'viewAll',

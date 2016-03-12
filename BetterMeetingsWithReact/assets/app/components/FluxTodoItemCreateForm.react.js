@@ -4,7 +4,11 @@ var FluxMeetingActions = require('../actions/FluxMeetingActions');
 var FluxTodoItemCreateForm = React.createClass({
 
     getInitialState: function() {
-        return { title: '', description: '' };
+        return { title: '', description: '', assignees: [], important: false};
+    },
+
+    toggleImportant: function() {
+      this.setState({important: !this.state.important})
     },
 
     // Add item to list via Actions
@@ -12,21 +16,19 @@ var FluxTodoItemCreateForm = React.createClass({
 
         if (!this.state.title) return;
 
-      var item = {
-        title: this.state.title,
-        description: this.state.description,
-        assignee: null,
+        var item = {
+          title: this.state.title,
+          description: this.state.description,
+          assignee: this.state.assignees,
           done: false,
-          important: false
+          important: this.state.important
         };
+
         FluxMeetingActions.createTodoItem(item);
 
-        this.setState({ title: '', description: '' });
+        this.setState({ title: '', description: '', assignees: [], important: false});
 
-      jQuery('#createTodoItemModal').modal('hide');
-      jQuery(".modal-backdrop").each(function () {
-        this.remove();
-      });
+        jQuery('#createTodoItemModal').modal('hide');
     },
 
     render: function() {
@@ -37,8 +39,11 @@ var FluxTodoItemCreateForm = React.createClass({
                   <div className="modal-header">
                     <button className="close" data-dismiss="modal"><span>×</span></button>
                     <h4 className="modal-title">New todo item</h4>
+                    <a className="btn btn-xs btn-default add-tooltip" onClick={this.toggleImportant}>
+                      <i className={ this.state.important ? "fa fa-star" : "fa fa-star-o" }></i>
+                    </a>
                   </div>
-                  <div className="modal-body">
+                  <form className="modal-body form-horizontal form-padding">
                     <div className="form-group">
                       <label className="col-md-3 control-label">Title</label>
                       <div className="col-md-9">
@@ -53,7 +58,18 @@ var FluxTodoItemCreateForm = React.createClass({
                         <small className="help-block">Please enter a description</small>
                       </div>
                     </div>
-                  </div>
+                    <div className="form-group">
+                      <label className="col-md-3 control-label">Assignees</label>
+                      <input type="text" className="form-control" placeholder="Add a tag" value="Sport, Movie, Documents, Video" data-role="tagsinput" style={ {display: 'none'} } readOnly={true} />
+                      <div className="bootstrap-tagsinput col-md-9">
+                        <span className="tag label label-primary">Sport<span data-role="remove"></span></span>
+                        <span className="tag label label-primary"> Movie<span data-role="remove"></span></span>
+                        <span className="tag label label-primary"> Documents<span data-role="remove"></span></span>
+                        <span className="tag label label-primary"> Video<span data-role="remove"></span></span>
+                        <input type="text" placeholder="Add a tag" style={ {width: '9em !important'} } />
+                      </div>
+                    </div>
+                  </form>
                   <div className="modal-footer">
                     <button type="submit" className="btn btn-success" onClick={this.createTodoItem}>Create new</button>
                   </div>

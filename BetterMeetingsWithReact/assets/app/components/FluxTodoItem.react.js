@@ -1,8 +1,12 @@
 var React = require('react');
 var FluxMeetingActions = require('../actions/FluxMeetingActions');
 
+var Sortable = require('react-sortable');
+
 // Flux todolist view
 var FluxTodoItem = React.createClass({
+
+    mixins: [Sortable],
 
     editItem: function(event) {
       FluxMeetingActions.editTodoItem(this.props.item.id);
@@ -31,7 +35,7 @@ var FluxTodoItem = React.createClass({
         var canEdit = this.props.canEdit;
 
         return (
-            <li className={ item.important ? "todo-item highlighted" : "todo-item" } data-id={index} draggable={this.props.draggable} onDragStart={this.props.onDragStart} onDragEnd={this.props.onDragEnd}>
+            <li className={ item.important ? "todo-item highlighted" : "todo-item" }>
                 <label className= { item.done ? "form-checkbox form-icon active" : "form-checkbox form-icon"}>
                     <input type="checkbox" onChange={this.toggleDone} checked={item.done}/>
                     <span>{item.title}</span>

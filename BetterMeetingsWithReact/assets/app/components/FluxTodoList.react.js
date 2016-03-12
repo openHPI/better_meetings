@@ -3,9 +3,6 @@ var FluxMeetingActions = require('../actions/FluxMeetingActions');
 var FluxTodoItem = require('./FluxTodoItem.react');
 var FluxTodoItemUpdate = require('./FluxTodoItemUpdate.react');
 
-var placeholder = document.createElement("li");
-placeholder.className = "todo-item placeholder";
-
 // Flux todolist view
 var FluxTodoList = React.createClass({
 
@@ -13,49 +10,11 @@ var FluxTodoList = React.createClass({
         return {data: this.props.items};
     },
 
-    dragStart: function(e) {
-        this.dragged = e.currentTarget;
-        e.dataTransfer.effectAllowed = 'move';
-
-        // Firefox requires dataTransfer data to be set
-        e.dataTransfer.setData("text/html", e.currentTarget);
-    },
-
-    dragEnd: function(e) {
-        this.dragged.style.display = "block";
-        this.dragged.parentNode.removeChild(placeholder);
-
-        // Update data
-        var item = Number(this.dragged.dataset.id);
-        var item2 = Number(this.over.dataset.id);
-        if(item < item2) item2--;
-        if(this.nodePlacement === "after") item2++;
-
-        FluxMeetingActions.swapTodoItems(item, item2);
-    },
-
-    dragOver: function(e) {
-        e.preventDefault();
-        this.dragged.style.display = "none";
-        if(e.target.className === "placeholder") return;
-
-        this.over = e.target;
-        // Inside the dragOver method
-        var relY = e.clientY - this.over.offsetTop;
-        var height = this.over.offsetHeight / 2;
-        var parent = e.target.parentNode;
-
-        if(relY > height) {
-            console.log("after ", this.over.dataset.id);
-            this.nodePlacement = "after";
-            parent.insertBefore(placeholder, e.target.nextElementSibling);
-        }
-
-        else if(relY < height) {
-            console.log("after ", this.over.dataset.id);
-            this.nodePlacement = "before"
-            parent.insertBefore(placeholder, e.target);
-        }
+    sort: function (items, dragging) {
+        var data = this.state.data;
+        data.items = items;
+        data.dragging = dragging;
+        this.setState({data: data});
     },
 
     renderTodoList: function(items, draggable) {
@@ -81,8 +40,7 @@ var FluxTodoList = React.createClass({
 
           else {
             return (
-              <FluxTodoItem key={i} draggable={draggable} onDragStart={this.dragStart} onDragEnd={this.dragEnd}
-                            item={item} index={i} canEdit={canEdit}/>
+              <FluxTodoItem sort={this.sort} data={this.state.data} key={i} item={item} index={i} canEdit={canEdit}/>
             );
           }
             }, this);

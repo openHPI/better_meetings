@@ -1,7 +1,7 @@
 var React = require('react');
 
-require('react-bootstrap').OverlayTrigger;
-require('react-bootstrap').Popover;
+var OverlayTrigger = require('react-bootstrap').OverlayTrigger;
+var Popover = require('react-bootstrap').Popover;
 
 // Flux qrcode view
 var FluxQrViewer = React.createClass({
