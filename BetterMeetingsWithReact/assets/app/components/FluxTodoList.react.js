@@ -40,7 +40,7 @@ var FluxTodoList = React.createClass({
 
           else {
             return (
-              <FluxTodoItem sort={this.sort} data={this.state.data} key={i} item={item} index={i} canEdit={canEdit}/>
+              <FluxTodoItem sort={this.sort} data={this.state.data} key={i} item={item} index={i} canEdit={canEdit} draggable={draggable} />
             );
           }
             }, this);

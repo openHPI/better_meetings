@@ -35,7 +35,7 @@ var FluxTodoItem = React.createClass({
         var canEdit = this.props.canEdit;
 
         return (
-            <li className={ item.important ? "todo-item highlighted" : "todo-item" }>
+            <li className={ item.important ? "todo-item highlighted" : "todo-item" } draggable={this.props.draggable} >
                 <label className= { item.done ? "form-checkbox form-icon active" : "form-checkbox form-icon"}>
                     <input type="checkbox" onChange={this.toggleDone} checked={item.done}/>
                     <span>{item.title}</span>

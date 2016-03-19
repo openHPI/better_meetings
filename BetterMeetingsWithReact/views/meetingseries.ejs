@@ -16,70 +16,93 @@
           <div class="panel panel-info">
             <div class="panel-heading">
               <div class="panel-control">
-                <button id="demo-panel-network-refresh" data-toggle="panel-overlay" data-target="#demo-panel-network"
-                        class="btn">
-                  <i class="fa fa-rotate-right"></i>
-                </button>
-                <div class="btn-group">
-                  <button class="dropdown-toggle btn" data-toggle="dropdown" aria-expanded="false"><i
-                      class="fa fa-gear"></i></button>
-                  <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-                </div>
+                <!--Nav tabs-->
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#meetingseries-information-box-1" aria-expanded="true">Description</a>
+                  </li>
+                  <li class=""><a data-toggle="tab" href="#meetingseries-information-box-2" aria-expanded="false">General</a>
+                  </li>
+                </ul>
               </div>
               <h3 class="panel-title">Information</h3>
             </div>
             <div class="panel-body">
-              <div class="row">
-                <div class="col-xs-12">
-                  <%= meetingseries.description %>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">
+              <div class="tab-content">
+                <div id="meetingseries-information-box-1" class="tab-pane fade active in">
                   <div class="row">
-                    <div class="col-xs-6">
-                      <div class="pad-ver media">
-                        <div class="media-left">
-    	                    <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
-    					               <i class="fa fa-user fa-2x"></i>
-    					            </span>
-                        </div>
-                        <div class="media-body">
-                          <p class="h3 text-thin media-heading">Administrators: <%= meetingseries.admins.length %></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-6">
-                      <div class="pad-ver media">
-                        <div class="media-left">
-                          <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
-                            <i class="fa fa-user fa-2x"></i>
-                          </span>
-                        </div>
-                        <div class="media-body">
-                          <p class="h3 text-thin media-heading">Members: <%= meetingseries.members.length %></p>
-                        </div>
-                      </div>
+                    <div class="col-xs-12">
+                      <%= meetingseries.description %>
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-6 col-lg-6">
-                  <ul class="list-group bg-trans mar-no">
-                    <li class="list-group-item">
-                      <span class="badge badge-success"><%= meetingseries.instances.length %></span>
-                      Meetings
-                    </li>
-                    <li class="list-group-item">
-                      <span class="badge badge-success"><%= meetingseries.timer %></span>
-                      Timer
-                    </li>
-                  </ul>
+                <div id="meetingseries-information-box-2" class="tab-pane fade">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <div class="pad-ver media">
+                            <div class="media-left">
+                              <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
+                                 <i class="fa fa-user fa-2x"></i>
+                              </span>
+                            </div>
+                            <div class="media-body">
+                              <p class="h3 text-thin media-heading">Administrators: <%= meetingseries.admins.length %></p>
+                              <button class="btn" data-target="#admins-collapse" data-toggle="collapse" aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
+                              <div id="admins-collapse" class="collapse" aria-expanded="true">
+                                <ul class="list-group bg-trans">
+                                  <% _.each(meetingseries.admins, function (admin) { %>
+                                  <li class="list-group-item">
+                                    <%= admin.name %>
+                                  </li>
+                                  <% }) %>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-6">
+                          <div class="pad-ver media">
+                            <div class="media-left">
+                              <span class="icon-wrap icon-wrap-xs icon-circle bg-success">
+                                <i class="fa fa-user fa-2x"></i>
+                              </span>
+                            </div>
+                            <div class="media-body">
+                              <p class="h3 text-thin media-heading">Members: <%= meetingseries.members.length %></p>
+                              <button class="btn" data-target="#members-collapse" data-toggle="collapse" aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
+                              <div id="members-collapse" class="collapse" aria-expanded="true">
+                                <ul class="list-group bg-trans">
+                                  <% _.each(meetingseries.members, function (member) { %>
+                                  <li class="list-group-item">
+                                    <%= member.name %>
+                                  </li>
+                                  <% }) %>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 table-responsive">
+
+                      <table class="table table-striped">
+                        <thead></thead>
+                        <tbody>
+                          <tr>
+                            <td>Meetings</td>
+                            <td><%= meetingseries.instances.length %></td>
+                          </tr>
+
+                          <tr>
+                            <td>Timer</td>
+                            <td><%= meetingseries.timer %></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -225,21 +248,71 @@
         <h4 class="modal-title">Create Meeting</h4>
       </div>
       <div class="modal-body">
-        <form action="/meeting/create/<%= meetingseries.id %>" method="post">
-          <% var i = 0 %>
-          <div id="dragListMeetingCreation" name="dragListMeetingCreation">
-            <% _.each(meetingseries.topics, function (topics) { %>
-            <div class="text-left checkbox">
-              <i class="fa fa-arrows-v"></i>
-              <label class="form-checkbox form-icon form-text">
-                <%= topics.title %>
-                <input type="checkbox" name="topic<%= i %>">
-              </label>
+        <form class="panel-body form-horizontal form-padding" action="/meeting/create/<%= meetingseries.id %>" method="post">
+          
+          <div class="form-group">
+            <label class="col-md-3 control-label">Meetingseries</label>
+            <div class="col-md-9">
+              <input type="text" id="demo-readonly-input" class="form-control" placeholder="<%= meetingseries.title %>" readonly="">
             </div>
-            <% i++ %>
-            <% }) %>
           </div>
-          <button class="btn btn-success btn-block" type="submit">Erstellen</button>
+
+          <div class="form-group" id="dragListMeetingCreation" name="dragListMeetingCreation">
+            <label class='col-md-3 control-label'>Topics</label>
+            <div class='col-md-9'>
+              <% var i = 0 %>
+              <% _.each(meetingseries.topics, function (topics) { %>
+              <div class="text-left checkbox">
+                <i class="fa fa-arrows-v"></i>
+                <label class="form-checkbox form-icon form-text">
+                  <%= topics.title %>
+                  <input type="checkbox" name="topic<%= i %>">
+                </label>
+              </div>
+              <% i++ %>
+              <% }) %>
+              <small class='help-block'>Choose the topics</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class='col-md-3 control-label'>Invitations</label>
+            <div class='col-md-9'>
+              <% var i = 0 %>
+              <% _.each(meetingseries.admins, function (admin) { %>
+              <div class="text-left checkbox">
+                <label class="form-checkbox form-icon form-text">
+                  <%= admin.name %>
+                  <input type="checkbox" name="admin<%= i %>">
+                </label>
+              </div>
+              <% i++ %>
+              <% }) %>
+              <% _.each(meetingseries.members, function (member) { %>
+              <div class="text-left checkbox">
+                <label class="form-checkbox form-icon form-text">
+                  <%= member.name %>
+                  <input type="checkbox" name="member<%= i %>">
+                </label>
+              </div>
+              <% i++ %>
+              <% }) %>
+              <small class='help-block'>Invite persons</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class='col-md-3 control-label'>Date</label>
+            <div class="col-md-9 input-group date">
+                <input id="meeting-datepicker" type="text" class="form-control">
+                <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
+            </div>
+          </div>
+
+          <div className="text-right">
+            <button class="btn btn-primary" type="submit">Create</button>
+          </div>
+          
         </form>
       </div>
     </div>
