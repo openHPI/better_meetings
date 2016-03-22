@@ -31,7 +31,9 @@
                 <div id="meetingseries-information-box-1" class="tab-pane fade active in">
                   <div class="row">
                     <div class="col-xs-12">
-                      <%= meetingseries.description %>
+                      <p class="meetingseries-information-descritpion">
+                        <%= meetingseries.description === undefined ? 'Please enter a description' : meetingseries.description %>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -48,6 +50,7 @@
                             </div>
                             <div class="media-body">
                               <p class="h3 text-thin media-heading">Administrators: <%= meetingseries.admins.length %></p>
+                              <button class="btn" data-toggle="modal" data-target="#createPersonModal" data-person="admin"><i class="fa fa-plus"></i></button>
                               <button class="btn" data-target="#admins-collapse" data-toggle="collapse" aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
                               <div id="admins-collapse" class="collapse" aria-expanded="true">
                                 <ul class="list-group bg-trans">
@@ -70,6 +73,7 @@
                             </div>
                             <div class="media-body">
                               <p class="h3 text-thin media-heading">Members: <%= meetingseries.members.length %></p>
+                              <button class="btn" data-toggle="modal" data-target="#createPersonModal" data-person="member"><i class="fa fa-plus"></i></button>
                               <button class="btn" data-target="#members-collapse" data-toggle="collapse" aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
                               <div id="members-collapse" class="collapse" aria-expanded="true">
                                 <ul class="list-group bg-trans">
@@ -97,7 +101,7 @@
 
                           <tr>
                             <td>Timer</td>
-                            <td><%= meetingseries.timer %></td>
+                            <td class="meetingseries-information-timer"><%= meetingseries.timer %></td>
                           </tr>
                         </tbody>
                       </table>
@@ -150,13 +154,20 @@
           <div id="topics-panel">
             <div class="panel panel-info">
               <div class="panel-heading">
+                <div class="panel-control">
+                  <button class="btn btn-default" data-toggle="modal" data-target="#createTopicModal"><i class="fa fa-plus"></i></button>
+                </div>
                 <h3 class="panel-title">Topics</h3>
               </div>
               <div class="panel-body">
                 <ul class="list-group bg-trans" id="dragListTopics">
                   <% _.each(meetingseries.topics, function (topic) { %>
                   <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
-                    <i class="fa fa-arrows-v"></i> <%= topic.title %>
+                    <i class="fa fa-arrows-v"></i><%= topic.title %>
+                    <div class="list-item-control text-right">
+                      <a class="btn btn-xs btn-danger add-tooltip"><i class="fa fa-times"></i></a>
+                      <a class="btn btn-xs btn-default add-tooltip"><i class="fa fa-exclamation-circle"></i></a>
+                    </div>
                   </li>
                   <% }) %>
                 </ul>
@@ -178,32 +189,93 @@
   </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="newTopicModal">
+<div class="modal fade" tabindex="-1" role="dialog" id="createPersonModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button class="close" data-dismiss="modal"><span>×</span></button>
-        <h4 class="modal-title">New Topic</h4>
+        <h4 class="modal-title">Create new Person</h4>
       </div>
       <div class="modal-body">
-        <input type="text" class="id-input form-control" value="<%= meetingseries.id %>" style="display: none;">
-        <div class="form-group">
-          <label class="col-md-3 control-label">Topic title</label>
-          <div class="col-md-9">
-            <input class="title-input" type="text" class="form-control" placeholder="Title"/>
-            <small class="help-block">Please enter a the topic title</small>
+        <form class="panel-body form-horizontal form-padding" action="/meetingseries/createPerson" method="post">
+          
+          <div class="form-group">
+            <label class="col-md-3 control-label">Type</label>
+            <div class="col-md-9">
+              <input id="person-type" type="text" class="form-control" placeholder="type" readonly="">
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">Description</label>
-          <div class="col-md-9">
-            <textarea class="description-textarea" rows="9" class="form-control" placeholder="Description"></textarea>
-            <small class="help-block">Please enter a the description</small>
+
+          <div class="form-group">
+            <label class='col-md-3 control-label'>Name</label>
+            <div class='col-md-9'>
+              <input type="text" placeholder="Name" class="form-control">
+              <small class='help-block'>Choose the topics</small>
+            </div>
           </div>
-        </div>
+
+          <div class="form-group">
+            <label class='col-md-3 control-label'>Email</label>
+            <div class='col-md-9'>
+              <input type="text" placeholder="Email" class="form-control">
+              <small class='help-block'>Choose the topics</small>
+            </div>
+          </div>
+
+          <div class="text-right">
+            <button class="btn btn-primary" type="submit">Create</button>
+          </div>
+          
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-success" id="newTopicModalSubmit">Create new</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="createTopicModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal"><span>×</span></button>
+        <h4 class="modal-title">Create new Topic</h4>
+      </div>
+      <div class="modal-body">
+        <form class="panel-body form-horizontal form-padding" action="/meetingseries/createTopic" method="post">
+          
+          <div class="form-group">
+            <input type="text" class="form-control" value="<%= meetingseries.id %>" style="display: none;">
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Title</label>
+            <div class="col-md-9">
+              <input class="title-input" type="text" class="form-control" placeholder="Title"/>
+              <small class="help-block">Please enter the topic title</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Description</label>
+            <div class="col-md-9">
+              <textarea class="description-textarea" rows="9" class="form-control" placeholder="Description"></textarea>
+              <small class="help-block">Please enter the topic description</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Subitems</label>
+            <div class="col-md-9">
+              <input class="title-input" type="text" class="form-control" placeholder="Subitem"/>
+              <button class="btn"><i class="fa fa-plus"></i></button>
+              <small class="help-block">Please enter the topic title</small>
+            </div>
+          </div>
+
+          <div class="text-right">
+            <button class="btn btn-primary" type="submit">Create</button>
+          </div>
+          
+        </form>
       </div>
     </div>
   </div>
@@ -309,7 +381,7 @@
             </div>
           </div>
 
-          <div className="text-right">
+          <div class="text-right">
             <button class="btn btn-primary" type="submit">Create</button>
           </div>
           

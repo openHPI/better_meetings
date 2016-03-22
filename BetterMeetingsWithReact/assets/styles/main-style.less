@@ -32,6 +32,19 @@ p, .p {
   color: @white;
 }
 
+.list-group-item {
+  &:hover {
+    .list-item-control{
+      display: block;
+    }
+  }
+}
+
+.list-item-control {
+  float: right;
+  display: none;
+}
+
 /*==============================
 =            HEADER            =
 ==============================*/
