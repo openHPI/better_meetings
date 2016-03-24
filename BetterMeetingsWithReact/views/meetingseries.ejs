@@ -129,6 +129,7 @@
                 <tr>
                   <th class="min-width">Id</th>
                   <th>Date</th>
+                  <th class="text-center">Start</th>
                   <th class="text-center">Summary</th>
                 </tr>
                 </thead>
@@ -140,7 +141,10 @@
                     <span class="icon-wrap icon-wrap-sm icon-circle bg-success"><%= i %></span>
                   </td>
                   <td>
-                    <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.startTime %></span>
+                    <span class="text-muted"><i class="fa fa-clock-o" style="padding-right: 10px;"></i><%= meeting.startTime %></span>
+                  </td>
+                  <td class="text-center">
+                    <button class="start-meeting-button btn btn-primary" data-user="<%= req.session.me.id %>" data-id="<%= meeting.id %>">Start Meeting</button>
                   </td>
                   <td class="text-center">
                     <button><i class="fa fa-download"></i></button>
@@ -245,7 +249,7 @@
           <!-- meetingseries -->
 
           <div>
-            <input type="text" class="form-control" value="<%= meetingseries.id %>" style="display: none;">
+            <input type="text" name="meetingseries" class="form-control" value="<%= meetingseries.id %>" style="display: none;">
           </div>
 
           <!-- title -->
@@ -253,7 +257,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Title</label>
             <div class="col-md-9">
-              <input type="text" class="form-control" placeholder="Title"/>
+              <input type="text" name="title" class="form-control" placeholder="Title"/>
               <small class="help-block">Please enter the topic title</small>
             </div>
           </div>
@@ -263,7 +267,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Description</label>
             <div class="col-md-9">
-              <textarea rows="9" class="form-control" placeholder="Description"></textarea>
+              <textarea rows="9" name="description" class="form-control" placeholder="Description"></textarea>
               <small class="help-block">Please enter the topic description</small>
             </div>
           </div>
@@ -273,8 +277,8 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Subitems</label>
             <div class="col-md-9">
-              <input type="text" class="form-control" placeholder="Subitem"/>
-              <button class="btn"><i class="fa fa-plus"></i></button>
+              <input type="text" name="subagendaitem0" class="form-control" placeholder="Subitem"/>
+              <button type="button" id="create-subitem-button" class="btn"><i class="fa fa-plus"></i></button>
               <small class="help-block">Please enter the topic title</small>
             </div>
           </div>
@@ -332,7 +336,7 @@
               <div class="text-left checkbox">
                 <label class="form-checkbox form-icon form-text">
                   <%= admin.name %>
-                  <input type="checkbox" name="admin<%= i %>">
+                  <input type="checkbox" name="person<%= i %>">
                 </label>
               </div>
               <% i++ %>
@@ -341,7 +345,7 @@
               <div class="text-left checkbox">
                 <label class="form-checkbox form-icon form-text">
                   <%= member.name %>
-                  <input type="checkbox" name="member<%= i %>">
+                  <input type="checkbox" name="person<%= i %>">
                 </label>
               </div>
               <% i++ %>
@@ -353,7 +357,7 @@
           <div class="form-group">
             <label class='col-md-3 control-label'>Date</label>
             <div class="col-md-9 input-group date">
-                <input id="meeting-datepicker" type="text" class="form-control">
+                <input id="meeting-datepicker" type="text" name="startTime" class="form-control">
                 <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
             </div>
           </div>

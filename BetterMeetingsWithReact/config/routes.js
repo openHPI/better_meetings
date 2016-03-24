@@ -78,14 +78,14 @@ module.exports.routes = {
   // endpoints for meeting controller
   'GET /meeting/listen': 'MeetingController.listen',
   'POST /meeting/create': 'MeetingController.create',
-  'POST /meeting/create/:series_id': 'MeetingController.createFromSeries',
+  'POST /meeting/create/:meetingseries': 'MeetingController.createFromSeries',
   'POST /meeting/createAttendee': 'MeetingController.createAttendee',
   'POST /meeting/update': 'MeetingController.update',
   'POST /meeting/delete': 'MeetingController.delete',
   'GET /meeting/get': 'MeetingController.get',
   'GET /meeting/:id/end': 'MeetingController.view',
   'GET /meeting/end': 'MeetingController.endMeeting',
-  'GET /meeting/start': 'MeetingController.startMeeting',
+  'GET /meeting/start/:id': 'MeetingController.startMeeting',
 
   // endpoints for meeting controller
   'GET /person/listen': 'PersonController.listen',

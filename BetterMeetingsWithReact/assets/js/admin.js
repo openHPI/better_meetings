@@ -33,9 +33,15 @@ jQuery( document ).ready(function() {
 	    }).disableSelection();
 	});
 
+	jQuery( '.start-meeting-button' ).click( function () {
+		var meetingId = jQuery(this).attr('data-id');
+		var admin = jQuery(this).attr('data-user');
+		jQuery.post('/meeting/start/' + meetingId);
+	});
+
 	/* Meetingseries Topics */
 
-	jQuery( ".delete-button" ).click( function() {
+	jQuery( "#topics-panel .delete-button" ).click( function() {
 		console.log('test');
 	});
 
@@ -46,6 +52,10 @@ jQuery( document ).ready(function() {
 	jQuery('#topics-panel .comment-button').click(function() {
 		console.log('test');
 		jQuery(this).parent().next().css( 'display: block' );
+	});
+
+	jQuery('#create-subitem-button').click(function () {
+		// todo: add subitem
 	});
 	
 	

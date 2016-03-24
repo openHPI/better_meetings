@@ -9,8 +9,11 @@
 module.exports = {
 
   createFromSeries: function (req, res) {
-    var id = req.param('series_id', null);
+    sails.log(req.allParams());
+    var id = req.param('meetingseries');
     var topics = [];
+    var invitations = [];
+    var startTime = req.param('startTime');
 
     meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, series) {
       if (err) {
@@ -25,13 +28,6 @@ module.exports = {
       if (series) {
         UrlService.generate_unique_url(
           function generateUrl(url) {
-            var attendees = [];
-            for (var i = 0; i < series.admins.length; i++) {
-              attendees.push(series.admins[i]);
-            }
-            for (var i = 0; i < series.members.length; i++) {
-              attendees.push(series.members[i]);
-            }
 
             var params = Object.keys(req.allParams());
 
@@ -40,16 +36,22 @@ module.exports = {
                 var index = parseInt(params[i].substring(5), 10);
                 topics.push(series.topics[index]);
               }
+              if (params[i].startsWith('person')) {
+                var index = parseInt(params[i].substring(6), 10);
+                /* TODO invitations.push(person) */
+                
+              }
             }
 
             meeting.create(
               {
-                topics: topics,
                 title: series.title,
                 description: series.description,
+                topics: topics,
                 admins: series.admins,
-                attendees: attendees,
+                attendees: [],
                 isInitialCreation: true,
+                startTime: startTime,
                 timer: series.timer,
                 url: url,
                 series: series
@@ -69,11 +71,14 @@ module.exports = {
                       admins: created.admins,
                       attendees: created.attendees,
                       isInitialCreation: created.isInitialCreation,
+                      startTime: created.startTime,
                       timer: created.timer,
                       url: created.url,
                       series: created.series
                     });
-                  res.redirect('/meeting/id/' + url);
+
+                  /* TODO: Invite peopel in invitations */
+                  
                 }
               });
           }

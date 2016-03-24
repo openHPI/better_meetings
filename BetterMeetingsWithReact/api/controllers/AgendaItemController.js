@@ -18,7 +18,7 @@ module.exports = {
     var done = req.param('done');
     var note = req.param('note');
     if (meetingseries && title) {
-      AgendaItem.create(
+      agendaitem.create(
         {
           meetingseries: meetingseries,
           title: title,
