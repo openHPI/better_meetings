@@ -1,5 +1,7 @@
 jQuery( document ).ready(function() {
 
+	console.log('test');
+
 	/* Meetingseries Information */
 
 	jQuery('.meetingseries-information-descritpion').editable('/meetingseries/update/description', {
@@ -29,24 +31,23 @@ jQuery( document ).ready(function() {
 	    jQuery( "#selected-topics, #all-topics" ).sortable({
 	      connectWith: ".topics-list"
 	    }).disableSelection();
-	  });
-  
-	jQuery( "#newMeetingModalSubmit" ).click(function() {
-
-		var title = jQuery("#meeting-title-input").val();
-		var description = jQuery("#meeting-description-textarea").val();
-		var topics = jQuery("#meeting-topics").children(":checked");
-		var startTime = jQuery("meeting-date-input").val();
-		var timer = jQuery("meeting-timer-input").val();
-		var url = jQuery("meeting-url-input").val();
-
-		jQuery.post( "meeting/create", { title: title, description: description, topics: topics, startTime: startTime, timer: timer, url: url } )
-			.done( function( data ) {
-				console.log( "Created Meeting: " + data );
-			});
 	});
 
-	/* Meetingseries Modal */
+	/* Meetingseries Topics */
+
+	jQuery( ".delete-button" ).click( function() {
+		console.log('test');
+	});
+
+	jQuery('#topics-panel .information-button').click(function() {
+		console.log('test');
+	});
+
+	jQuery('#topics-panel .comment-button').click(function() {
+		console.log('test');
+		jQuery(this).parent().next().css( 'display: block' );
+	});
+	
 	
 
 });

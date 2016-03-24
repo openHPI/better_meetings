@@ -17,7 +17,7 @@ module.exports = {
     var subAgendaItems = req.param('subAgendaItems');
     var done = req.param('done');
     var note = req.param('note');
-    if (meetingseries && title && done != null) {
+    if (meetingseries && title) {
       AgendaItem.create(
         {
           meetingseries: meetingseries,
@@ -25,7 +25,7 @@ module.exports = {
           description: description,
           todos: todos,
           subAgendaItems: subAgendaItems,
-          done: done,
+          done: false,
           note: note,
         })
         .exec(function createAgendaItem(err, created) {

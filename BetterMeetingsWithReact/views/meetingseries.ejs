@@ -118,6 +118,9 @@
         <div class="col-xs-12 col-lg-7">
           <div class="panel panel-info">
             <div class="panel-heading">
+              <div class="panel-control">
+                <button class="btn btn-default" data-toggle="modal" data-target="#createMeetingModal"><i class="fa fa-plus"></i></button>
+              </div>
               <h3 class="panel-title">Meetings</h3>
             </div>
             <div class="panel-body">
@@ -137,7 +140,7 @@
                     <span class="icon-wrap icon-wrap-sm icon-circle bg-success"><%= i %></span>
                   </td>
                   <td>
-                    <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.title %></span>
+                    <span class="text-muted"><i class="fa fa-clock-o"></i><%= meeting.startTime %></span>
                   </td>
                   <td class="text-center">
                     <button><i class="fa fa-download"></i></button>
@@ -165,9 +168,15 @@
                   <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
                     <i class="fa fa-arrows-v"></i><%= topic.title %>
                     <div class="list-item-control text-right">
-                      <a class="btn btn-xs btn-danger add-tooltip"><i class="fa fa-times"></i></a>
-                      <a class="btn btn-xs btn-default add-tooltip"><i class="fa fa-exclamation-circle"></i></a>
+                      <a class="delete-button btn btn-xs btn-danger add-tooltip"><i class="fa fa-times"></i></a>
+                      <a class="information-button btn btn-xs btn-default add-tooltip"><i class="fa fa-exclamation-circle"></i></a>
+                      <a class="comment-button btn btn-xs btn-default add-tooltip"><i class="fa fa-comment"></i></a>
                     </div>
+                    <form class="form-horizontal form-padding" style="display: none">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Add a comment">
+                      </div>
+                    </form>
                   </li>
                   <% }) %>
                 </ul>
@@ -176,15 +185,6 @@
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#createMeetingModal">Erstelle
-            Meeting
-          </button>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
@@ -240,32 +240,40 @@
         <h4 class="modal-title">Create new Topic</h4>
       </div>
       <div class="modal-body">
-        <form class="panel-body form-horizontal form-padding" action="/meetingseries/createTopic" method="post">
+        <form class="panel-body form-horizontal form-padding" action="/topic/create" method="post">
           
-          <div class="form-group">
+          <!-- meetingseries -->
+
+          <div>
             <input type="text" class="form-control" value="<%= meetingseries.id %>" style="display: none;">
           </div>
+
+          <!-- title -->
 
           <div class="form-group">
             <label class="col-md-3 control-label">Title</label>
             <div class="col-md-9">
-              <input class="title-input" type="text" class="form-control" placeholder="Title"/>
+              <input type="text" class="form-control" placeholder="Title"/>
               <small class="help-block">Please enter the topic title</small>
             </div>
           </div>
 
+          <!-- description -->
+
           <div class="form-group">
             <label class="col-md-3 control-label">Description</label>
             <div class="col-md-9">
-              <textarea class="description-textarea" rows="9" class="form-control" placeholder="Description"></textarea>
+              <textarea rows="9" class="form-control" placeholder="Description"></textarea>
               <small class="help-block">Please enter the topic description</small>
             </div>
           </div>
 
+          <!-- subagendaitems -->
+
           <div class="form-group">
             <label class="col-md-3 control-label">Subitems</label>
             <div class="col-md-9">
-              <input class="title-input" type="text" class="form-control" placeholder="Subitem"/>
+              <input type="text" class="form-control" placeholder="Subitem"/>
               <button class="btn"><i class="fa fa-plus"></i></button>
               <small class="help-block">Please enter the topic title</small>
             </div>
@@ -276,37 +284,6 @@
           </div>
           
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="updateTopicModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button class="close" data-dismiss="modal"><span>×</span></button>
-        <h4 class="modal-title">Update Topic</h4>
-      </div>
-      <div class="modal-body">
-        <input type="text" class="id-input form-control" value="<%= meetingseries.id %>" style="display: none;">
-        <div class="form-group">
-          <label class="col-md-3 control-label">Topic title</label>
-          <div class="col-md-9">
-            <input class="title-input" type="text" class="form-control" placeholder="Title"/>
-            <small class="help-block">Please enter a the topic title</small>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">Description</label>
-          <div class="col-md-9">
-            <textarea class="description-textarea" rows="9" class="form-control" placeholder="Description"></textarea>
-            <small class="help-block">Please enter a the description</small>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-success" id="updateTopicModalSubmit">Save changes</button>
       </div>
     </div>
   </div>
