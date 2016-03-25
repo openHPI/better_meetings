@@ -167,14 +167,44 @@
                 <h3 class="panel-title">Topics</h3>
               </div>
               <div class="panel-body">
-                <ul class="list-group bg-trans" id="dragListTopics">
+                <ul class="panel-group accordion" id="dragListTopics">
+                  <% var i = 0; %>
                   <% _.each(meetingseries.topics, function (topic) { %>
-                  <li class="list-group-item" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
-                    <i class="fa fa-arrows-v"></i><%= topic.title %>
-                    <div class="list-item-control text-right">
-                      <a class="delete-button btn btn-xs btn-danger add-tooltip"><i class="fa fa-times"></i></a>
-                      <a class="information-button btn btn-xs btn-default add-tooltip"><i class="fa fa-exclamation-circle"></i></a>
-                      <a class="comment-button btn btn-xs btn-default add-tooltip"><i class="fa fa-comment"></i></a>
+                  <li class="panel" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
+                    <div class="panel-heading">
+                      <div class="panel-control">
+                        <button class="delete-button btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
+                        <button class="information-button btn btn-xs btn-default"><i class="fa fa-exclamation-circle"></i></button>
+                        <button class="comment-button btn btn-xs btn-default"><i class="fa fa-comment"></i></button>
+                      </div>
+                      <h4 class="panel-title">
+                        <i class="fa fa-arrows-v"></i><a data-parent="dragListTopics" data-toggle="collapse" href="#topic-collapse-<%= i %>" aria-expanded="false" class="collapsed"><%= topic.title %></a>
+                      </h4>
+                    </div>
+                    <div id="topic-collapse-<%= i %>" class="panel-collapse collapse" aria-expanded="false">
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <%= topic.description %>
+                            <% if(topic.subitems !== undefined) { %>
+                            <ul class="list-group">
+                              <% _.each(topic.subitems, function (subitem) { %>
+                              <li class="list-group-item">
+                                <%= subitem %>
+                              </li>
+                              <% }) %>
+                            </ul>
+                            <% } %>
+                          </div>
+                          <ul class="list-group col-md-6">
+                            <% _.each(topic.todos, function(todo) { %>
+                            <li class="list-group-item">
+                              <%= todo.title %>
+                            </li>
+                            <% }) %>
+                          </ul> 
+                        </div>
+                      </div>
                     </div>
                     <form class="form-horizontal form-padding" style="display: none">
                       <div class="form-group">
@@ -182,6 +212,7 @@
                       </div>
                     </form>
                   </li>
+                  <% i++ %>
                   <% }) %>
                 </ul>
               </div>
