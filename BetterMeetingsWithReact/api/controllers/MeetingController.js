@@ -39,7 +39,7 @@ module.exports = {
               if (params[i].startsWith('person')) {
                 var index = parseInt(params[i].substring(6), 10);
                 /* TODO invitations.push(person) */
-                
+
               }
             }
 
@@ -78,7 +78,7 @@ module.exports = {
                     });
 
                   /* TODO: Invite peopel in invitations */
-                  
+
                 }
               });
           }
@@ -94,6 +94,9 @@ module.exports = {
     var attendees = req.param('attendees');
     var isInitialCreation = req.param('isInitialCreation');
     var startTime = req.param('startTime');
+    var meetingCreatingAdmin = req.session.me;
+
+    console.log("req.session.me: " + meetingCreatingAdmin);
 
     if (isInitialCreation === false) {
 
