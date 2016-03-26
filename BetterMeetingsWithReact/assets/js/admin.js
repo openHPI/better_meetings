@@ -22,7 +22,7 @@ jQuery( document ).ready(function() {
 		var person = button.data('person'); // Extract info from data-* attributes
 		var modal = $(this);
 		modal.find('.modal-title').text('Create new ' + person);
-		modal.find('#person-type').placeholder = person;
+		modal.find('#person-type').text(person);
 	});
 
 	/* Meeting Modal */
@@ -36,7 +36,7 @@ jQuery( document ).ready(function() {
 	jQuery( '.start-meeting-button' ).click( function () {
 		var meetingId = jQuery(this).attr('data-id');
 		var admin = jQuery(this).attr('data-user');
-		jQuery.post('/meeting/start/' + meetingId);
+		jQuery.post('/meeting/start/' + meetingId, admin);
 	});
 
 	/* Meetingseries Topics */
@@ -50,12 +50,15 @@ jQuery( document ).ready(function() {
 	});
 
 	jQuery('#topics-panel .comment-button').click(function() {
-		console.log('test');
-		jQuery(this).parent().next().css( 'display: block' );
+		jQuery(this).parent().parent().next().next().toggleClass( 'hidden' );
 	});
 
 	jQuery('#create-subitem-button').click(function () {
-		// todo: add subitem
+		var text = jQuery('#create-subitem-input').val();
+		jQuery('#create-subitem-input').val('');
+		var count = jQuery('.subitem-container').attr('data-count');
+		jQuery('.subitem-container').attr('data-count', parseInt(count) + 1);
+		jQuery('.subitem-container').append('<p name="subagendaitem' + count + '">' + text + '</p>');
 	});
 	
 	

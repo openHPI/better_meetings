@@ -167,10 +167,10 @@
                 <h3 class="panel-title">Topics</h3>
               </div>
               <div class="panel-body">
-                <ul class="panel-group accordion" id="dragListTopics">
+                <div class="panel-group accordion" id="dragListTopics">
                   <% var i = 0; %>
                   <% _.each(meetingseries.topics, function (topic) { %>
-                  <li class="panel" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
+                  <div class="panel" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
                     <div class="panel-heading">
                       <div class="panel-control">
                         <button class="delete-button btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
@@ -206,15 +206,16 @@
                         </div>
                       </div>
                     </div>
-                    <form class="form-horizontal form-padding" style="display: none">
+                    <form class="form-inline form-padding hidden">
                       <div class="form-group">
                         <input type="text" class="form-control" placeholder="Add a comment">
+                        <button type="submit" class="btn">Post comment</button>
                       </div>
                     </form>
-                  </li>
+                  </div>
                   <% i++ %>
                   <% }) %>
-                </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -237,7 +238,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Type</label>
             <div class="col-md-9">
-              <input id="person-type" type="text" class="form-control" placeholder="type" readonly="">
+              <p id="person-type" class="form-control-static">type</p>
             </div>
           </div>
 
@@ -245,7 +246,7 @@
             <label class='col-md-3 control-label'>Name</label>
             <div class='col-md-9'>
               <input type="text" placeholder="Name" class="form-control">
-              <small class='help-block'>Choose the topics</small>
+              <small class='help-block'>Please enter the name</small>
             </div>
           </div>
 
@@ -253,7 +254,7 @@
             <label class='col-md-3 control-label'>Email</label>
             <div class='col-md-9'>
               <input type="text" placeholder="Email" class="form-control">
-              <small class='help-block'>Choose the topics</small>
+              <small class='help-block'>Please enter the email address</small>
             </div>
           </div>
 
@@ -308,9 +309,14 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Subitems</label>
             <div class="col-md-9">
-              <input type="text" name="subagendaitem0" class="form-control" placeholder="Subitem"/>
-              <button type="button" id="create-subitem-button" class="btn"><i class="fa fa-plus"></i></button>
-              <small class="help-block">Please enter the topic title</small>
+              <div class="subitem-container" data-count="0"></div>
+              <div class="input-group">
+                <input type="text" id="create-subitem-input" class="form-control" placeholder="Subitem"/>
+                <small class="help-block">Please enter the topic title</small>
+                <span class="input-group-btn">
+                  <button type="button" id="create-subitem-button" class="btn"><i class="fa fa-plus"></i></button>
+                </span>
+              </div>
             </div>
           </div>
 
@@ -337,7 +343,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Meetingseries</label>
             <div class="col-md-9">
-              <input type="text" id="demo-readonly-input" class="form-control" placeholder="<%= meetingseries.title %>" readonly="">
+              <p class="form-control-static"><%= meetingseries.title %></p>
             </div>
           </div>
 
