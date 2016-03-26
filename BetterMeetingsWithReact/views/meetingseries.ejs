@@ -170,12 +170,10 @@
                 <div class="panel-group accordion" id="dragListTopics">
                   <% var i = 0; %>
                   <% _.each(meetingseries.topics, function (topic) { %>
-                  <div class="panel" data-title="<%= topic.title %>" data-description="<%= topic.description %>">
+                  <div class="panel" data-id="<%= topic.id %>">
                     <div class="panel-heading">
                       <div class="panel-control">
-                        <button class="delete-button btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
-                        <button class="information-button btn btn-xs btn-default"><i class="fa fa-exclamation-circle"></i></button>
-                        <button class="comment-button btn btn-xs btn-default"><i class="fa fa-comment"></i></button>
+                        <button class="delete-button btn btn-xs"><i class="fa fa-times"></i></button>
                       </div>
                       <h4 class="panel-title">
                         <i class="fa fa-arrows-v"></i><a data-parent="dragListTopics" data-toggle="collapse" href="#topic-collapse-<%= i %>" aria-expanded="false" class="collapsed"><%= topic.title %></a>
@@ -204,14 +202,18 @@
                             <% }) %>
                           </ul> 
                         </div>
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <form class="form-inline form-padding">
+                              <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Add a comment">
+                                <button type="submit" class="btn">Post comment</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <form class="form-inline form-padding hidden">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Add a comment">
-                        <button type="submit" class="btn">Post comment</button>
-                      </div>
-                    </form>
                   </div>
                   <% i++ %>
                   <% }) %>

@@ -42,15 +42,8 @@ jQuery( document ).ready(function() {
 	/* Meetingseries Topics */
 
 	jQuery( "#topics-panel .delete-button" ).click( function() {
-		console.log('test');
-	});
-
-	jQuery('#topics-panel .information-button').click(function() {
-		console.log('test');
-	});
-
-	jQuery('#topics-panel .comment-button').click(function() {
-		jQuery(this).parent().parent().next().next().toggleClass( 'hidden' );
+		var id = jQuery(this).parent().parent().parent().attr('data-id');
+		jQuery.post('/topic/delete', id);
 	});
 
 	jQuery('#create-subitem-button').click(function () {
