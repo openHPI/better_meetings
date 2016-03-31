@@ -34,11 +34,11 @@ var FluxTopicDetails = React.createClass({
                         </div>
                     </div>
                     <div className="row">
-                        <div className={ (selected.subitems === undefined && selected.subitems === null) ? "list-group-item col-md-6 col-xs-12" : "hidden-container" }>
+                        <div className={ (selected.subitems === undefined && selected.subitems === null) ? "list-group-item col-md-6 col-xs-12" : "hidden" }>
                             <h4>Subitems</h4>
                             { this.renderSubitemList() }
                         </div>
-                        <div className={ (selected.note === undefined && selected.note === null) ? "flux-agendaDetails-notes col-md-6 col-xs-12" : "hidden-container" }>
+                        <div className={ (selected.note === undefined && selected.note === null) ? "flux-agendaDetails-notes col-md-6 col-xs-12" : "hidden" }>
                             <h4>Note</h4>
                             {selected.note}
                         </div>
