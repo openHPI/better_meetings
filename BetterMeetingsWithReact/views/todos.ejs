@@ -18,7 +18,7 @@
               <h3 class="panel-title">Todos</h3>
             </div>
             <div class="panel-body">
-              <% _.each(person.todos, function(todo) { %>
+              <% _.each(todoitems, function(todo) { %>
               <div class="col-md-8">
                 <h4><%= todo.title %></h4>
                 <% if (todo.description) { %>

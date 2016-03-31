@@ -137,16 +137,39 @@ module.exports = {
     }
   },
 
-
   view: function (req, res) {
-    var todoID = req.param('todoItemID', null);
+    person.findOne(req.session.me.id)
+      .populate('todos')
+      .exec(function found(err, person) {
+        var todoitems;
 
-    todoitem.findOne(todoID).done(function (err, model) {
-      res.render('meeting/view',
-        {
-          'model': model
+        if (err) {
+          sails.log.error('ERR:', err);
+        }
+
+        if (!person) {
+          console.log('no person found');
+          return;
+        }
+
+        todoitems = person.todos || [];
+
+        todoitems.sort(function compare(a, b) {
+          if (a.owner < b.owner) {
+            return 1;
+          } 
+          else if (a.owner > b.owner) {
+            return -1;
+          }
+
+          return 0;
         });
-    });
+
+        return res.view('todos', {
+          todoitems: todoitems
+        });
+
+      });
   },
 
 

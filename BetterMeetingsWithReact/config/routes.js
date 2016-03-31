@@ -102,6 +102,7 @@ module.exports.routes = {
   'POST /topic/delete': 'AgendaItemController.delete',
 
   // endpoints for todoitem
+  'GET /todos' : 'TodoItemController.view',
   'GET /todoitem/listen': 'TodoItemController.listen',
   'POST /todoitem/create': 'TodoItemController.create',
   'POST /todoitem/update': 'TodoItemController.update',
