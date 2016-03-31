@@ -311,7 +311,7 @@ module.exports = {
   },
 
 
-  startMeeting: function (req, res) {
+  /*startMeeting: function (req, res) {
 
     var _meetingSeries = req.allParams();
 
@@ -326,6 +326,21 @@ module.exports = {
         content: content,
       });
     }
+  },*/
+
+  startMeeting: function (req, res) {
+    var id = req.param('id', null);
+
+    meeting.findOne(id).exec(function findMeeting (err, meetingAnswer) {
+      if (err) {
+        sails.log.error('Error:', err);
+      }
+      else {
+        meetingAnswer.startTime = Date.now();
+        PersonService.createAttendee({name: req.session.me.name, email: req.session.me.email, password: req.session.me.password, meeting: id});
+        return res.view('meeting');
+      }
+    })
   },
 
 

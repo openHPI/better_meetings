@@ -35,6 +35,8 @@ module.exports.policies = {
   MeetingController: {
     '*': 'isLoggedIn',
 
+    view: true,
+
     start: 'isAdmin',
     end: 'isAdmin',
     createAttendee: 'isAdmin'
