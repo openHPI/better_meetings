@@ -35,8 +35,7 @@ jQuery( document ).ready(function() {
 
 	jQuery( '.start-meeting-button' ).click( function () {
 		var meetingId = jQuery(this).attr('data-id');
-		var admin = jQuery(this).attr('data-user');
-		jQuery.post('/meeting/start/' + meetingId, admin);
+		jQuery.get('/meeting/start/' + meetingId);
 	});
 
 	/* Meetingseries Topics */
