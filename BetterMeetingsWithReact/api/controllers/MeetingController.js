@@ -340,7 +340,7 @@ module.exports = {
         PersonService.createAttendee({name: req.session.me.name, email: req.session.me.email, password: req.session.me.password, meeting: id});
         return res.view('meeting');
       }
-    })
+    });
   },
 
 
