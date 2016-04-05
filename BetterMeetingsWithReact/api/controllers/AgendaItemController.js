@@ -226,11 +226,18 @@ module.exports = {
   listen: function (req, res) {
     if (req.isSocket) {
       agendaitem.watch(req);
-      var testArray = [];
-      for (var i = 1; i < 100; i++) {
-        testArray.push(i);
-      }
-      agendaitem.subscribe(req, testArray);
+      agendaitem.find({}).exec(function (err, result) {
+        if (!err) {
+          var agendaitemsToWatchFor = [];
+          for (var item in result) {
+            console.log(result[item].id);
+            agendaitemsToWatchFor.push(result[item].id);
+          }
+          agendaitem.subscribe(req, agendaitemsToWatchFor);
+        } else {
+          sails.log("Fehler");
+        }
+      });
       sails.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'agendaitem\'.');
     }

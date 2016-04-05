@@ -512,17 +512,22 @@ module.exports = {
   },
 
   listen: function (req) {
-    var testArray = [];
-    var i;
 
     if (req.isSocket) {
       person.watch(req);
 
-      for (i = 1; i < 100; i++) {
-        testArray.push(i);
-      }
-
-      person.subscribe(req, testArray);
+      person.find({}).exec(function (err, result) {
+        if (!err) {
+          var personsToWatchFor = [];
+          for (var item in result) {
+            console.log(result[item].id);
+            personsToWatchFor.push(result[item].id);
+          }
+          person.subscribe(req, personsToWatchFor);
+        } else {
+          sails.log("Fehler");
+        }
+      });
       console.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'person\'.');
     }
