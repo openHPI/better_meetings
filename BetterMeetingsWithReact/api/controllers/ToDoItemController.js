@@ -154,11 +154,19 @@ module.exports = {
     if (req.isSocket) {
       console.dir("Ergebnis:" + req);
       todoitem.watch(req);
-      var testArray = [];
-      for (var i = 1; i < 100; i++) {
-        testArray.push(i);
-      }
-      todoitem.subscribe(req, testArray);
+      todoitem.find({}).exec(function (err, result) {
+        if (!err) {
+          var todoitemsToWatchFor = [];
+          for (var item in result) {
+            console.log(result[item].id);
+            todoitemsToWatchFor.push(result[item].id);
+          }
+          todoitem.subscribe(req, todoitemsToWatchFor);
+        } else {
+          sails.log("Fehler");
+        }
+      });
+
       sails.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'todoitem\'.');
     }

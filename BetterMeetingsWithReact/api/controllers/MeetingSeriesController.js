@@ -167,10 +167,18 @@ module.exports = {
 
     if (req.isSocket) {
       meetingseries.watch(req);
-      for (i = 1; i < 100; i++) {
-        testArray.push(i);
-      }
-      meetingseries.subscribe(req, testArray);
+      meetingseries.find({}).exec(function (err, result) {
+        if (!err) {
+          var meetingseriessToWatchFor = [];
+          for (var item in result) {
+            console.log(result[item].id);
+            meetingseriessToWatchFor.push(result[item].id);
+          }
+          meetingseries.subscribe(req, meetingseriessToWatchFor);
+        } else {
+          sails.log("Fehler");
+        }
+      });
       console.log('User with socket id ' + sails.sockets.getId(req) +
         ' is now subscribed to the model class \'meetingseries\'.');
     }
