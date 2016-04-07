@@ -40,7 +40,11 @@ jQuery( document ).ready(function() {
 		jQuery.get('/meeting/start/' + meetingId);
 	});
 
-	/* Meetingseries Topics */
+	/* Topics */
+
+	jQuery("#createTopicModal").on('show.bs.modal', function () {
+            alert('The modal is about to be shown.');
+    });
 
 	jQuery( "#topics-panel .delete-button" ).click( function() {
 		var id = jQuery(this).parent().parent().parent().attr('data-id');
@@ -52,8 +56,16 @@ jQuery( document ).ready(function() {
 		jQuery('#create-subitem-input').val('');
 		var count = jQuery('.subitem-container').attr('data-count');
 		jQuery('.subitem-container').attr('data-count', parseInt(count) + 1);
-		jQuery('.subitem-container').append('<p name="subagendaitem' + count + '">' + text + '</p>');
+		jQuery('.subitem-container').append('<input type="text" class="form-control" name="subagendaitem' + count + '" value="' + text + '"/>');
 	});
+
+	/* Meetings */
+
+	jQuery( '.download-summary-button' ).click(function () {
+		var meetingId = jQuery(this).attr('data-id');
+		jQuery.get('/meeting/summary/' + meetingId);
+	});
+	
 	
 	
 

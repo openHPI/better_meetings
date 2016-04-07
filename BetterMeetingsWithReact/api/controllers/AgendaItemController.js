@@ -10,13 +10,22 @@ module.exports = {
 
 
   create: function (req, res) {
+    console.log(req.allParams());
     var meetingseries = req.param('meetingseries');
     var title = req.param('title');
     var description = req.param('description');
     var todos = req.param('todos');
-    var subAgendaItems = req.param('subAgendaItems');
-    var done = req.param('done');
+    var subAgendaItems = [];
     var note = req.param('note');
+
+    var params = Object.keys(req.allParams());
+
+    for (var i = 0; i < params.length; i++) {
+      if (params[i].startsWith('subagendaitem')) {
+        subAgendaItems.push(req.param(params[i]));
+      }
+    }
+
     if (meetingseries && title) {
       agendaitem.create(
         {
@@ -33,8 +42,8 @@ module.exports = {
             sails.log('agendaitem not created: ' + err);
           }
           else {
-            sails.log('agendaitem ' + created.title +
-              'created');
+            sails.log('agendaitem ' + created.title + 
+              ' created');
             agendaitem.publishCreate(
               {
                 id: created.id,

@@ -186,21 +186,13 @@ module.exports = {
   },
 
   updatePerson: function (req, res) {
-    var admins = req.param('admins');
-    var title = req.param('title');
-    var meeting = req.param('meeting');
-    var url = req.param('url');
-    var timer = req.param('timer');
-    var members = req.param('members');
-    var description = req.param('description');
-    var topics = req.param('topics');
+    var person = req.param('person');
+    var type = req.param('type');
     var meetingSeriesId = req.param('id');
 
     sails.log('Update started');
-    sails.log(req.param('title'));
 
-    if (meetingSeriesId && admins && title && meeting && url && timer && members &&
-      description && topics && req.isSocket) {
+    if (meetingSeriesId) {
       meetingseries.update({ id: meetingSeriesId }).set({
         admins: admins,
         title: title,

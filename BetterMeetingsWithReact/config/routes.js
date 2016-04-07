@@ -87,6 +87,7 @@ module.exports.routes = {
   'GET /meeting/get': 'MeetingController.get',
   'GET /meeting/end': 'MeetingController.endMeeting',
   'GET /meeting/start/:id': 'MeetingController.startMeeting',
+  'GET /meeting/summary/:id': 'MeetingController.downloadSummary',
 
   // endpoints for meeting controller
   'GET /person/listen': 'PersonController.listen',

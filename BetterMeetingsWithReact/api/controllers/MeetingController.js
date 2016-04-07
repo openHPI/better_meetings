@@ -308,6 +308,10 @@ module.exports = {
 
   },
 
+  downloadSummary: function (req, res) {
+
+  },
+
 
   shareLink: function (req, res) {
 

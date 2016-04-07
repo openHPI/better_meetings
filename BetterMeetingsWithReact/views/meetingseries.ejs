@@ -127,7 +127,7 @@
               <table class="table table-hover table-vcenter">
                 <thead>
                 <tr>
-                  <th class="min-width">Id</th>
+                  <th class="min-width">#</th>
                   <th>Date</th>
                   <th class="text-center">Start</th>
                   <th class="text-center">Summary</th>
@@ -147,7 +147,7 @@
                     <button class="start-meeting-button btn btn-primary" data-id="<%= meeting.id %>">Start Meeting</button>
                   </td>
                   <td class="text-center">
-                    <button><i class="fa fa-download"></i></button>
+                    <button class="download-summary-button" data-id="<%= meeting.id %>"><i class="fa fa-download"></i></button>
                   </td>
                 </tr>
                 <% i++ %>
@@ -184,11 +184,11 @@
                         <div class="row">
                           <div class="col-md-6">
                             <%= topic.description %>
-                            <% if(topic.subitems !== undefined) { %>
+                            <% if(topic.subAgendaItems !== undefined) { %>
                             <ul class="list-group">
-                              <% _.each(topic.subitems, function (subitem) { %>
+                              <% _.each(topic.subAgendaItems, function (subAgendaItem) { %>
                               <li class="list-group-item">
-                                <%= subitem %>
+                                <%= subAgendaItem %>
                               </li>
                               <% }) %>
                             </ul>
@@ -369,7 +369,7 @@
 
           <div class="form-group">
             <label class='col-md-3 control-label'>Date</label>
-            <div class="col-md-9 input-group date">
+            <div class="col-md-9 input-group date" data-provide="datepicker">
                 <input id="meeting-datepicker" type="text" name="startTime" class="form-control">
                 <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
             </div>
