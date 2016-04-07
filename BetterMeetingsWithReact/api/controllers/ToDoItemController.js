@@ -60,7 +60,6 @@ module.exports = {
     }
   },
 
-
   update: function (req, res) {
     sails.log('Update started');
     sails.log(req.param('title') + " ID: " + req.param('id'));
@@ -122,6 +121,34 @@ module.exports = {
     }
   },
 
+  addNote: function (req, res) {
+    var todoitemId = req.param('id');
+    var note = req.param('note');
+
+    if (todoitemId && note) {
+      todoitem.update({id: todoitemId}).set({
+        note: note
+      })
+      .exec(function addedNote(err, updated) {
+        if (err) {
+          sails.log('ToDoItem not updated ' + err);
+        } else {
+          sails.log('Updated ToDoItem: ' + updated[0].title);
+
+          updated[0].save(function (err) {
+            if (err) {
+              sails.log("Error while saving update to ToDoItem " + updated[0].title);
+            } else {
+              sails.log("Successfully saved updates to ToDoItem " + updated[0].title);
+            }
+          });
+        }});
+    } else {
+      res.send('todoitem');
+      sails.log('ToDoItem not updated: to few parameters');
+    }
+
+  },
 
   listen: function (req, res) {
     if (req.isSocket) {

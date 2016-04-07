@@ -204,7 +204,7 @@
                         </div>
                         <div class="row">
                           <div class="col-xs-12">
-                            <form class="form-inline form-padding">
+                            <form class="form-inline form-padding" action="/topic/<%= topic.id %>/createNote">
                               <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Add a comment">
                                 <button type="submit" class="btn">Post comment</button>
@@ -364,32 +364,6 @@
               <% i++ %>
               <% }) %>
               <small class='help-block'>Choose the topics</small>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class='col-md-3 control-label'>Invitations</label>
-            <div class='col-md-9'>
-              <% var i = 0 %>
-              <% _.each(meetingseries.admins, function (admin) { %>
-              <div class="text-left checkbox">
-                <label class="form-checkbox form-icon form-text">
-                  <%= admin.name %>
-                  <input type="checkbox" name="person<%= i %>">
-                </label>
-              </div>
-              <% i++ %>
-              <% }) %>
-              <% _.each(meetingseries.members, function (member) { %>
-              <div class="text-left checkbox">
-                <label class="form-checkbox form-icon form-text">
-                  <%= member.name %>
-                  <input type="checkbox" name="person<%= i %>">
-                </label>
-              </div>
-              <% i++ %>
-              <% }) %>
-              <small class='help-block'>Invite persons</small>
             </div>
           </div>
 

@@ -99,6 +99,7 @@ module.exports.routes = {
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
   'POST /topic/update': 'AgendaItemController.update',
   'POST /topic/delete': 'AgendaItemController.delete',
+  'POST /topic/:id/createNote': 'AgendaItemController.addNote',
 
   // endpoints for todoitem
   'GET /todos' : 'TodoItemController.view',

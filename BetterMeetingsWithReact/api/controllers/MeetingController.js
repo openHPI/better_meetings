@@ -12,7 +12,6 @@ module.exports = {
     sails.log(req.allParams());
     var id = req.param('meetingseries');
     var topics = [];
-    var invitations = [];
     var startTime = req.param('startTime');
 
     meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, series) {
@@ -36,11 +35,6 @@ module.exports = {
                 var index = parseInt(params[i].substring(5), 10);
                 topics.push(series.topics[index]);
               }
-              if (params[i].startsWith('person')) {
-                var index = parseInt(params[i].substring(6), 10);
-                /* TODO invitations.push(person) */
-
-              }
             }
 
             meeting.create(
@@ -52,6 +46,7 @@ module.exports = {
                 attendees: [],
                 isInitialCreation: true,
                 startTime: startTime,
+                status: 0,
                 timer: series.timer,
                 url: url,
                 series: series
@@ -72,13 +67,14 @@ module.exports = {
                       attendees: created.attendees,
                       isInitialCreation: created.isInitialCreation,
                       startTime: created.startTime,
+                      status: created.status,
                       timer: created.timer,
                       url: created.url,
                       series: created.series
                     });
 
-                  /* TODO: Invite peopel in invitations */
-
+                  /* TODO: Invite member */
+                  
                 }
               });
           }

@@ -35,8 +35,9 @@ module.exports = {
     startTime: {
       type: 'datetime'
     },
-    date: {
-      type: 'datetime'
+    status: {
+      type: 'integer',
+      required: true
     },
     timer: {
       type: 'integer',
