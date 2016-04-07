@@ -232,7 +232,41 @@ module.exports = {
   },
 
   createNote: function (req, res) {
-    // nyi
+    var agendaItemId = req.param('id');
+    var note = req.param('note');
+    if (agendaItemId && note) {
+      agendaitem.update({id: agendaItemId}).set({
+          note: note,
+        })
+        .exec(function updateAgendaItem(err, updated) {
+          if (err) {
+            sails.log('AgendaItem not updated ' + err);
+          } else {
+            sails.log('Updated AgendaItem: ' + updated[0].title);
+
+            updated[0].save(function (err) {
+              if (err) {
+                sails.log("Error while saving update to AgendaItem " + updated[0].title);
+              } else {
+                sails.log("Successfully saved updates to AgendaItem " + updated[0].title);
+                agendaitem.publishUpdate(updated[0].id, {
+                  id: updated[0].id,
+                  meetingseries: updated[0].meetingseries,
+                  title: updated[0].title,
+                  description: updated[0].description,
+                  todos: updated[0].todos,
+                  done: updated[0].done,
+                  subAgendaItems: updated[0].subAgendaItems,
+                  note: updated[0].note,
+                });
+              }
+            });
+          }
+        });
+    } else {
+      res.send('agendaitem');
+      sails.log('AgendaItem not updated: too few parameters');
+    }
   },
 
 

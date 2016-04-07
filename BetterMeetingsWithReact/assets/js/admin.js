@@ -16,8 +16,6 @@ jQuery( document ).ready(function() {
         tooltip   	: 'Click to edit...'
     });
 
-    /* Meetingseries Person */
-
     jQuery('#createPersonModal').on('show.bs.modal', function (event) {
     	console.log('test');
 		var button = $(event.relatedTarget); // Button that triggered the modal
@@ -25,19 +23,6 @@ jQuery( document ).ready(function() {
 		var modal = $(this);
 		modal.find('.modal-title').text('Create new ' + person);
 		modal.find('#person-type').text(person);
-	});
-
-	/* Meeting Modal */
-
-	jQuery(function() {
-	    jQuery( "#selected-topics, #all-topics" ).sortable({
-	      connectWith: ".topics-list"
-	    }).disableSelection();
-	});
-
-	jQuery( '.start-meeting-button' ).click( function () {
-		var meetingId = jQuery(this).attr('data-id');
-		jQuery.get('/meeting/start/' + meetingId);
 	});
 
 	/* Topics */
@@ -66,6 +51,18 @@ jQuery( document ).ready(function() {
 		jQuery.get('/meeting/summary/' + meetingId);
 	});
 	
+	/* Meeting Modal */
+
+	jQuery(function() {
+	    jQuery( "#selected-topics, #all-topics" ).sortable({
+	      connectWith: ".topics-list"
+	    }).disableSelection();
+	});
+
+	jQuery( '.start-meeting-button' ).click( function () {
+		var meetingId = jQuery(this).attr('data-id');
+		jQuery.get('/meeting/start/' + meetingId);
+	});
 	
 	
 

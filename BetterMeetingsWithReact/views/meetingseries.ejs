@@ -203,10 +203,19 @@
                           </ul> 
                         </div>
                         <div class="row">
+                          <ul class=" list-group col-xs-12">
+                            <% _.each(topic.notes, function(note) { %>
+                            <li class="list-group-item">
+                              <%= note %>
+                            </li>
+                            <% }) %>
+                          </ul>
+                        </div>
+                        <div class="row">
                           <div class="col-xs-12">
-                            <form class="form-inline form-padding" action="/topic/<%= topic.id %>/createNote">
+                            <form class="form-inline form-padding" action="/topic/<%= topic.id %>/createNote" method="post">
                               <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Add a comment">
+                                <input type="text" name="note" class="form-control" placeholder="Add a comment">
                                 <button type="submit" class="btn">Post comment</button>
                               </div>
                             </form>
