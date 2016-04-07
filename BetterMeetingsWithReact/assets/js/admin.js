@@ -4,14 +4,16 @@ jQuery( document ).ready(function() {
 
 	/* Meetingseries Information */
 
-	jQuery('.meetingseries-information-descritpion').editable('/meetingseries/update/description', {
-		indicator : 'Saving...',
-        tooltip   : 'Click to edit...'
+	jQuery('.meetingseries-information-descritpion').editable('/meetingseries/updateDescription', {
+		name		: 'description',
+		indicator	: 'Saving...',
+        tooltip  	: 'Click to edit...'
     });
 
-	jQuery('.meetingseries-information-timer').editable('/meetingseries/update/timer', {
-		indicator : 'Saving...',
-        tooltip   : 'Click to edit...'
+	jQuery('.meetingseries-information-timer').editable('/meetingseries/updateTimer', {
+		name		: 'timer',
+		indicator 	: 'Saving...',
+        tooltip   	: 'Click to edit...'
     });
 
     /* Meetingseries Person */

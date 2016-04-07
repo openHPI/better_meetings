@@ -71,6 +71,8 @@ module.exports.routes = {
   'GET /meetingseries/listen': 'MeetingController.listen',
   'POST /meetingseries/create': 'MeetingSeriesController.create',
   'POST /meetingseries/update': 'MeetingSeriesController.update',
+  'POST /meetingseries/updateDescription' : 'MeetingSeriesController.updateDescription',
+  'POST /meetingseries/updateTimer' : 'MeetingSeriesController.updateTimer',
   'GET /meetingseries/view/:id': 'MeetingSeriesController.view',
   'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
@@ -99,7 +101,7 @@ module.exports.routes = {
   'POST /topic/bulkcreate': 'AgendaItemController.bulkcreate',
   'POST /topic/update': 'AgendaItemController.update',
   'POST /topic/delete': 'AgendaItemController.delete',
-  'POST /topic/:id/createNote': 'AgendaItemController.addNote',
+  'POST /topic/:id/createNote': 'AgendaItemController.createNote',
 
   // endpoints for todoitem
   'GET /todos' : 'TodoItemController.view',

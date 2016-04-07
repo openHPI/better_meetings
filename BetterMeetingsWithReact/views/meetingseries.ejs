@@ -31,7 +31,7 @@
                 <div id="meetingseries-information-box-1" class="tab-pane fade active in">
                   <div class="row">
                     <div class="col-xs-12">
-                      <p class="meetingseries-information-descritpion">
+                      <p id="<%= meetingseries.id %>" class="meetingseries-information-descritpion">
                         <%= meetingseries.description === undefined ? 'Please enter a description' : meetingseries.description %>
                       </p>
                     </div>
@@ -101,7 +101,7 @@
 
                           <tr>
                             <td>Timer</td>
-                            <td class="meetingseries-information-timer"><%= meetingseries.timer %></td>
+                            <td id="<%= meetingseries.id %>" class="meetingseries-information-timer"><%= meetingseries.timer %></td>
                           </tr>
                         </tbody>
                       </table>

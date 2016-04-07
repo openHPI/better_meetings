@@ -222,6 +222,10 @@ module.exports = {
     });
   },
 
+  createNote: function (req, res) {
+    // nyi
+  },
+
 
   listen: function (req, res) {
     if (req.isSocket) {
