@@ -1,7 +1,5 @@
 jQuery( document ).ready(function() {
 
-	console.log('test');
-
 	/* Meetingseries Information */
 
 	jQuery('.meetingseries-information-descritpion').editable('/meetingseries/updateDescription', {
@@ -32,8 +30,16 @@ jQuery( document ).ready(function() {
     });
 
 	jQuery( "#topics-panel .delete-button" ).click( function() {
-		var id = jQuery(this).parent().parent().parent().attr('data-id');
-		jQuery.post('/topic/delete', id);
+		var id = parseInt(jQuery(this).attr('data-id'));
+		jQuery.post('/topic/delete', id, function() {
+  			alert( "success" );
+		}).done(function() {
+		    alert( "second success" );
+		}).fail(function() {
+		    alert( "error" );
+		}).always(function() {
+		    alert( "finished" );
+		});
 	});
 
 	jQuery('#create-subitem-button').click(function () {

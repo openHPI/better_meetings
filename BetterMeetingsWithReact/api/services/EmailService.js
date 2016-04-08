@@ -176,7 +176,7 @@ module.exports = {
         html: req.content
       },
       function (err) {
-        console.log(err || 'Invitation is sent');
+        console.log(err || 'Invitation is sent to ' + req.recipientName);
       }
     );
 

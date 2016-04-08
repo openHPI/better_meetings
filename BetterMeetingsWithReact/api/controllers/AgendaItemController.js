@@ -153,8 +153,8 @@ module.exports = {
 
 
   delete: function (req, res) {
-    var agendaItemID = req.param('agendaItemID', null);
-    if (agendaItemID && req.isSocket) {
+    var agendaItemID = req.param('id', null);
+    if (agendaItemID) {
       agendaItem.findOne(agendaItemID).exec(function findAgendaItem(err, agendaItemAnswer) {
         agendaitem.destroy({id: agendaItemAnswer.id}).exec(function destroy(err, agendaItemAnswer) {
             if (err) {

@@ -346,33 +346,28 @@ module.exports = {
                   }*/
 
   startMeeting: function (req, res) {
-    var _meetingId = req.param('id', null);
-    var _meeting = null;
-    var _meetingSeriesId = _meeting.series.id;
-    var _meetingSeries = null;
-    var self = this;
-    var _startTime = Date.now();
+    var meetingId = req.param('id', null);
+    var currentDate = new Date();
+    var startTime = currentDate.getDate();
 
+    sails.log('Today: ' + currentDate);
+    sails.log('Today: ' + startTime);
 
-    meeting.findOne(_meetingId).exec(function findMeeting(err, meetingAnswer) {
+    meeting.findOne(meetingId).exec(function findMeeting(err, meetingAnswer) {
       if (err) {
         sails.log.error('Error:', err);
       } else {
         sails.log('Found meeting with title ' + meetingAnswer.title);
-        _meeting = meetingAnswer[0];
         
-        meetingseries.findOne(_meetingSeriesId).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+        meetingseries.findOne(meetingAnswer.series).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
           if (err) {
             sails.log('Error: Could not find meetingseries');
           } else {
             sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
-            _meetingSeries = meetingSeriesAnswer;
-
-            var distinctPersons = self.arrayUnion(_meeting.attendees, _meetingSeries.members);
-
-            var content = EmailService.computeInviteEmailContent(_meeting.url, _meetingSeries.title);
+            
+            var content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
           
-            for (var member in _meetingSeries.members) {
+            for (var member in meetingSeriesAnswer.members) {
               EmailService.sendInvitation({
                 recipientName: member.name,
                 to: member.email,
@@ -380,8 +375,8 @@ module.exports = {
               });
             }
         
-            meeting.update({id: _meetingId}).set({
-                startTime: _startTime,
+            meeting.update({id: meetingId}).set({
+                startTime: startTime,
             }).exec(function updateMeeting(err, updated) {
               if (err) {
                 sails.log('Meeting not updated ' + err);
@@ -401,7 +396,7 @@ module.exports = {
                       startTime: updated[0].startTime,
                       url: updated[0].url,
                     });
-                    PersonService.createAttendee({name: req.session.me.name, email: req.session.me.email, password: req.session.me.password, meeting: _meetingId});
+                    PersonService.createAttendee({name: req.session.me.name, email: req.session.me.email, password: req.session.me.password, meeting: meetingId});
                     return res.view('meeting');
                   }
                 });

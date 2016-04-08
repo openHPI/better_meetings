@@ -173,7 +173,7 @@
                   <div class="panel" data-id="<%= topic.id %>">
                     <div class="panel-heading">
                       <div class="panel-control">
-                        <button class="delete-button btn btn-xs"><i class="fa fa-times"></i></button>
+                        <button data-id="<%= topic.id %>" class="delete-button btn btn-xs"><i class="fa fa-times"></i></button>
                       </div>
                       <h4 class="panel-title">
                         <i class="fa fa-arrows-v"></i><a data-parent="dragListTopics" data-toggle="collapse" href="#topic-collapse-<%= i %>" aria-expanded="false" class="collapsed"><%= topic.title %></a>
