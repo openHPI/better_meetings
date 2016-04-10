@@ -42,6 +42,7 @@ var jsFilesToInject = [
   //// will be injected here in no particular order.
   'js/dependencies/jquery-1.12.0.min.js',
   'js/dependencies/nifty.min.js',
+  'js/dependencies/bootstrap-datepicker.js',
   'js/dependencies/pace.min.js',
   'js/dependencies/sortable.min.js',
 ];
