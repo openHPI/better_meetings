@@ -13,6 +13,7 @@ module.exports = {
     var id = req.param('meetingseries');
     var topics = [];
     var startTime = req.param('startTime');
+    var self = this;
 
     meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, series) {
       if (err) {
@@ -74,8 +75,9 @@ module.exports = {
                     });
 
                 var content = EmailService.computeInviteEmailContent(created.url, series.title);
-                
-                for (var member in series.members) {
+                var distinctPersons = self.arrayUnion(series.admins, series.members);
+
+                for (var member in distinctPersons) {
                   if (member.email !== null) {
                     EmailService.sendInvitation({
                       recipientName: member.name,
