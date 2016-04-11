@@ -58,17 +58,6 @@ var FluxTodoItemCreateForm = React.createClass({
                         <small className="help-block">Please enter a description</small>
                       </div>
                     </div>
-                    <div className="form-group">
-                      <label className="col-md-3 control-label">Assignees</label>
-                      <input type="text" className="form-control" placeholder="Add a tag" value="Sport, Movie, Documents, Video" data-role="tagsinput" style={ {display: 'none'} } readOnly={true} />
-                      <div className="bootstrap-tagsinput col-md-9">
-                        <span className="tag label label-primary">Sport<span data-role="remove"></span></span>
-                        <span className="tag label label-primary"> Movie<span data-role="remove"></span></span>
-                        <span className="tag label label-primary"> Documents<span data-role="remove"></span></span>
-                        <span className="tag label label-primary"> Video<span data-role="remove"></span></span>
-                        <input type="text" placeholder="Add a tag" style={ {width: '9em !important'} } />
-                      </div>
-                    </div>
                   </form>
                   <div className="modal-footer">
                     <button type="submit" className="btn btn-success" onClick={this.createTodoItem}>Create new</button>

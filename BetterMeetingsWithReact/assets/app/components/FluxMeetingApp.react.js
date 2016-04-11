@@ -17,6 +17,7 @@ var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
 function getMeetingState() {
   return {
     isMeetingDataLoaded: MeetingStore.getIsMeetingDataLoaded(),
+    isMeetingDone: MeetingStore.getIsMeetingDone(),
 
     user: MeetingStore.getUser(),
     canEdit: MeetingStore.canEdit(),
@@ -72,7 +73,7 @@ var FluxMeetingApp = React.createClass({
             <div id="content-container">
               <div id="page-content">
                 <div className="row">
-                  <FluxMeetingProgress total={this.state.meeting.topics.length} index={this.state.selectedTopic}/>
+                  <FluxMeetingProgress total={this.state.meeting.topics.length} index={ this.state.isMeetingDone ? this.state.meeting.topics.length : this.state.selectedTopic}/>
                 </div>
 
                 <div className="row">
@@ -84,7 +85,7 @@ var FluxMeetingApp = React.createClass({
                   </div>
                 </div>
 
-                <div className="row">
+                <div className={ "row" + (this.state.isMeetingDone ? " hidden" : "") }>
                   <div className="col-md-4 col-lg-4">
                     <div className="row">
                       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -112,7 +113,13 @@ var FluxMeetingApp = React.createClass({
                   </div>
                 </div>
 
-                <div className="row">
+                <div className={ "row" + (!this.state.isMeetingDone ? " hidden" : "") }>
+                  <div className="col-md-12">
+                    <center><h2>Meeting Ende</h2></center>
+                  </div>
+                </div>
+
+                <div className={ "row" + (this.state.isMeetingDone ? " hidden" : "") }>
                   <div className="col-xs-12">
                     <FluxQrViewer qrcode={this.state.qrcode}/>
                   </div>
