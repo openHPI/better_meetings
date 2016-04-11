@@ -46,7 +46,7 @@ module.exports = {
                 attendees: [],
                 isInitialCreation: true,
                 startTime: startTime,
-                status: 0,
+                done: false,
                 timer: series.timer,
                 url: url,
                 series: series
@@ -67,7 +67,7 @@ module.exports = {
                       attendees: created.attendees,
                       isInitialCreation: created.isInitialCreation,
                       startTime: created.startTime,
-                      status: created.status,
+                      done: created.status,
                       timer: created.timer,
                       url: created.url,
                       series: created.series

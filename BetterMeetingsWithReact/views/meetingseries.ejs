@@ -144,10 +144,14 @@
                     <span class="text-muted"><i class="fa fa-clock-o" style="padding-right: 10px;"></i><%= meeting.startTime %></span>
                   </td>
                   <td class="text-center">
+                    <% if(!meeting.done) { %>
                     <button class="start-meeting-button btn btn-primary" data-id="<%= meeting.id %>">Start Meeting</button>
+                    <% } %>
                   </td>
                   <td class="text-center">
+                    <% if(meeting.done) { %>
                     <button class="download-summary-button" data-id="<%= meeting.id %>"><i class="fa fa-download"></i></button>
+                    <% } %>
                   </td>
                 </tr>
                 <% i++ %>
