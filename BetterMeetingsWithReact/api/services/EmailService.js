@@ -161,11 +161,15 @@ module.exports = {
   },
 
   sendInvitation: function (req) {
+    _recipient = req.recipientName;
+    if (_recipient === null) {
+      _recipient = "guest";
+    }
     // sails.hooks.email.send(template, data, options, cb)
     sails.hooks.email.send(
       'testEmail',
       {
-        recipientName: req.recipientName,
+        recipientName: _recipient,
         senderName: 'BetterMeetings',
         senderEmail: 'postmaster@youremail.mailgun.org'
       },

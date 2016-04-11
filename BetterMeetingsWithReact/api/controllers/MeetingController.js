@@ -73,10 +73,20 @@ module.exports = {
                       series: created.series
                     });
 
-                  /* TODO: Invite member */
-                  
+                var content = EmailService.computeInviteEmailContent(created.url, series.title);
+                
+                for (var member in series.members) {
+                  if (member.email !== null) {
+                    EmailService.sendInvitation({
+                      recipientName: member.name,
+                      to: member.email,
+                      content: content,
+                    });
+                  }
                 }
-              });
+                  
+              }
+            });
           }
         );
       }
@@ -368,11 +378,13 @@ module.exports = {
             var content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
           
             for (var member in meetingSeriesAnswer.members) {
-              EmailService.sendInvitation({
-                recipientName: member.name,
-                to: member.email,
-                content: content,
-              });
+              if (member.email !== null) {
+                EmailService.sendInvitation({
+                  recipientName: member.name,
+                  to: member.email,
+                  content: content,
+                });
+              }
             }
         
             meeting.update({id: meetingId}).set({
@@ -439,7 +451,7 @@ module.exports = {
         sails.log('The email content is: ' + content);
 
         for (var i in distinctPersons) {
-          sails.log('attempting to send summary mail to: ' + distinctPersons[i].email);
+          //sails.log('attempting to send summary mail to: ' + distinctPersons[i].email);
           if (distinctPersons[i].email) {
             EmailService.sendSummary({
               recipientName: distinctPersons[i].name,
