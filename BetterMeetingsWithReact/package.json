@@ -42,6 +42,7 @@
     "react": "^0.14.0",
     "react-bootstrap": "^0.20.3",
     "react-dom": "^0.14.7",
+    "react-select": "^1.0.0-beta12",
     "react-sortable": "0.0.2",
     "sails": "^0.12.0",
     "sails-disk": "~0.10.0",

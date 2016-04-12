@@ -1,10 +1,23 @@
 var React = require('react');
 var FluxMeetingActions = require('../actions/FluxMeetingActions');
+var Select = require('react-select');
 
 var FluxTodoItemCreateForm = React.createClass({
 
     getInitialState: function() {
-        return { title: '', description: '', assignees: [], important: false};
+        return { title: '', description: '', assignees: [], important: false, options: this.getOptions() };
+    },
+
+    componentWillReceiveProps: function() {
+      this.setState({ options: this.getOptions() });
+    },
+
+    getOptions: function() {
+      var options = [];
+      for (var i = 0; i < this.props.admins.length; i++) {
+        options.push({ value: this.props.admins[i].email, label: this.props.admins[i].name + " (" + this.props.admins[i].email + ")" });
+      }
+      return options;
     },
 
     toggleImportant: function() {
@@ -19,27 +32,28 @@ var FluxTodoItemCreateForm = React.createClass({
         var item = {
           title: this.state.title,
           description: this.state.description,
-          assignee: this.state.assignees,
+          assigneess: assigneess,
           done: false,
           important: this.state.important
         };
 
         FluxMeetingActions.createTodoItem(item);
 
-        this.setState({ title: '', description: '', assignees: [], important: false});
+        this.setState({ title: '', description: '', assigneess: '', important: false});
 
         jQuery('#createTodoItemModal').modal('hide');
     },
 
     render: function() {
+
         return (
             <div className="modal fade" tabIndex="-1" role="dialog" id="createTodoItemModal">
               <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                   <div className="modal-header">
                     <button className="close" data-dismiss="modal"><span>×</span></button>
-                    <h4 className="modal-title">New todo item</h4>
-                    <a className="btn btn-xs btn-default add-tooltip" onClick={this.toggleImportant}>
+                    <h4 className="modal-title" style={ {display: 'inline-block'} }>New todo item</h4>
+                    <a className="btn btn-xs btn-default add-tooltip" onClick={this.toggleImportant} style={ {marginTop: '-7px', marginLeft: '10px'} }>
                       <i className={ this.state.important ? "fa fa-star" : "fa fa-star-o" }></i>
                     </a>
                   </div>
@@ -47,15 +61,22 @@ var FluxTodoItemCreateForm = React.createClass({
                     <div className="form-group">
                       <label className="col-md-3 control-label">Title</label>
                       <div className="col-md-9">
-                        <input className="title-input" type="text" className="form-control" placeholder="Title" onChange={this._titleChange} value={this.state.title} />
+                        <input type="text" className="form-control" placeholder="Title" required={true} onChange={this._titleChange} value={this.state.title} />
                         <small className="help-block">Please enter a title</small>
                       </div>
                     </div>
                     <div className="form-group">
                       <label className="col-md-3 control-label">Description</label>
                       <div className="col-md-9">
-                        <textarea className="description-textarea" rows="9" className="form-control" placeholder="Description" onChange={this._descriptionChange} ref="description" defaultValue={this.state.description}></textarea>
+                        <textarea rows="9" className="form-control" placeholder="Description" onChange={this._descriptionChange} ref="description" defaultValue={this.state.description}></textarea>
                         <small className="help-block">Please enter a description</small>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="col-md-3 control-label">Assignees</label>
+                      <div className="col-md-9">
+                        <Select name="assignees" multi simpleValue value={this.props.assignees} placeholder="Assignees" options={this.state.options} onChange={this._assigneesChange} />
+                        <small className="help-block">Please enter a title</small>
                       </div>
                     </div>
                   </form>
@@ -74,6 +95,10 @@ var FluxTodoItemCreateForm = React.createClass({
 
     _descriptionChange: function() {
       this.setState({ description: this.refs.description.value });
+    },
+
+    _assigneesChange: function(assginees) {
+      this.setState({ assignees: assignees });
     }
 
 });

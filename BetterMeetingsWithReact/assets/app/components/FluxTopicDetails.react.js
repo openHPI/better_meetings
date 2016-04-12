@@ -11,7 +11,7 @@ var FluxTopicDetails = React.createClass({
         if (selected.subAgendaItems !== undefined && selected.subAgendaItems !== null && selected.subAgendaItems.length > 0) {
             return selected.subAgendaItems.map(function (item, index) {
                 return (
-                    <li className="list-item">
+                    <li className="list-item" key={index} >
                         {item}
                     </li>
                 );

@@ -143,7 +143,7 @@ var FluxMeetingApp = React.createClass({
               </div>
             </aside>
 
-            <FluxTodoItemCreateForm attendees={this.state.meeting.attendees}/>
+            <FluxTodoItemCreateForm admins={this.state.meeting.admins} member={this.state.member} attendees={this.state.meeting.attendees} />
 
           </div>
         </div>
