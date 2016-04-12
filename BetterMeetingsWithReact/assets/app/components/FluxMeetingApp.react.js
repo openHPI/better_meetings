@@ -85,7 +85,7 @@ var FluxMeetingApp = React.createClass({
                   </div>
                 </div>
 
-                <div className={ "row" + (this.state.isMeetingDone ? " hidden" : "") }>
+                <div className={ "row" + ((this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
                   <div className="col-md-4 col-lg-4">
                     <div className="row">
                       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -113,13 +113,20 @@ var FluxMeetingApp = React.createClass({
                   </div>
                 </div>
 
-                <div className={ "row" + (!this.state.isMeetingDone ? " hidden" : "") }>
+                <div className={ "row " + (this.state.allTodoItems.length !== 0 ? " hidden" : "")}>
+                  <div className="col-md-12">
+                    <center><h2>Sorry, aber dieses Meeting enthält keine Topics.</h2></center>
+                    <p>Du kannst im Meetingseries View neue Topics anlegen und sie einem neuen Meeting hinzufügen.</p>
+                  </div>
+                </div>
+
+                <div className={ "row" + ((!this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
                   <div className="col-md-12">
                     <center><h2>Meeting Ende</h2></center>
                   </div>
                 </div>
 
-                <div className={ "row" + (this.state.isMeetingDone ? " hidden" : "") }>
+                <div className={ "row" + ((this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
                   <div className="col-xs-12">
                     <FluxQrViewer qrcode={this.state.qrcode}/>
                   </div>
