@@ -77,16 +77,15 @@ module.exports = {
                 var content = EmailService.computeInviteEmailContent(created.url, series.title);
                 var distinctPersons = self.arrayUnion(series.admins, series.members);
 
-                for (var member in distinctPersons) {
-                  if (member.email !== null) {
+                for (var i in distinctPersons) {
+                  if (distinctPersons[i].email !== null) {
                     EmailService.sendInvitation({
-                      recipientName: member.name,
-                      to: member.email,
+                      recipientName: distinctPersons[i].name,
+                      to: distinctPersons[i].email,
                       content: content,
                     });
                   }
                 }
-                  
               }
             });
           }
@@ -114,7 +113,7 @@ module.exports = {
             topics: topics,
             attendees: attendees,
             isInitialCreation: isInitialCreation,
-            startTime: startTime,
+            startTime: startTime
           })
           .exec(function createMeeting(err, created) {
             if (err) {
@@ -128,7 +127,7 @@ module.exports = {
                   topics: created.topics,
                   attendees: created.attendees,
                   isInitialCreation: created.isInitialCreation,
-                  startTime: created.startTime,
+                  startTime: created.startTime
                 });
             }
           });
@@ -361,6 +360,7 @@ module.exports = {
     var meetingId = req.param('id', null);
     var currentDate = new Date();
     var startTime = currentDate.getDate();
+    var self = this;
 
     sails.log('Today: ' + currentDate);
     sails.log('Today: ' + startTime);
@@ -378,12 +378,13 @@ module.exports = {
             sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
             
             var content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
-          
-            for (var member in meetingSeriesAnswer.members) {
-              if (member.email !== null) {
+            var distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
+
+            for (var i in distinctPersons) {
+              if (distinctPersons[i].email !== null) {
                 EmailService.sendInvitation({
-                  recipientName: member.name,
-                  to: member.email,
+                  recipientName: distinctPersons[i].name,
+                  to: distinctPersons[i].email,
                   content: content,
                 });
               }

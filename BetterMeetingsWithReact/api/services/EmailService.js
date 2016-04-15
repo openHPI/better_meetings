@@ -7,10 +7,11 @@ module.exports = {
 
   computeInviteEmailContent: function (_inviteLink, _title) {
     var htmlString = '';
-    htmlString = htmlString.concat('Hi there,', '\n',
-      'We are just letting you know that you have been invited to the Meeting ', _title, '\n');
-    htmlString = htmlString.concat('To participate, press [here](', _inviteLink, ')\n');
-    htmlString = htmlString.concat('Cheers,\nYour BetterMeetings Team');
+    htmlString = htmlString.concat('Hi there,', '\n');
+    htmlString = htmlString.concat('\n', 'We are just letting you know that you have been invited to the Meeting ***', _title, '***.\n');
+    htmlString = htmlString.concat('\n', 'To participate, press [here](', _inviteLink, ').\n');  // TODO: add Domain Link once App is deployed
+    htmlString = htmlString.concat('\n', 'Cheers,', '\n');
+    htmlString = htmlString.concat('\n', 'Your BetterMeetings Team');
 
     htmlString = MarkdownService.parseMarkdown(htmlString);
     return htmlString;
