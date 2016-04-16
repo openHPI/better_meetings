@@ -55,8 +55,7 @@ module.exports = {
               .exec(function createMeeting(err, created) {
                 if (err) {
                   console.log('Meeting not created' + err);
-                }
-                else {
+                } else {
                   console.log('Created Meeting ' + JSON.stringify(created));
                   meeting.publishCreate(
                     {
@@ -86,6 +85,7 @@ module.exports = {
                     });
                   }
                 }
+              res.redirect('meetingseries/view/' + created.series);
               }
             });
           }
