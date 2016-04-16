@@ -17,6 +17,7 @@ var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
 function getMeetingState() {
   return {
     isMeetingDataLoaded: MeetingStore.getIsMeetingDataLoaded(),
+    isMeetingDone: MeetingStore.getIsMeetingDone(),
 
     user: MeetingStore.getUser(),
     canEdit: MeetingStore.canEdit(),
@@ -72,7 +73,7 @@ var FluxMeetingApp = React.createClass({
             <div id="content-container">
               <div id="page-content">
                 <div className="row">
-                  <FluxMeetingProgress total={this.state.meeting.topics.length} index={this.state.selectedTopic}/>
+                  <FluxMeetingProgress total={this.state.meeting.topics.length} index={ this.state.isMeetingDone ? this.state.meeting.topics.length : this.state.selectedTopic}/>
                 </div>
 
                 <div className="row">
@@ -80,11 +81,11 @@ var FluxMeetingApp = React.createClass({
                     <h2>{this.state.meeting.title}</h2>
                   </div>
                   <div className="col-md-3 col-lg-3">
-                    <FluxMeetingTimer timer={this.state.meeting.timer}/>
+                    <FluxMeetingTimer startTime={this.state.meeting.startTime} timer={this.state.meeting.timer} isMeetingDone={this.state.isMeetingDone} />
                   </div>
                 </div>
 
-                <div className="row">
+                <div className={ "row" + ((this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
                   <div className="col-md-4 col-lg-4">
                     <div className="row">
                       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -105,14 +106,27 @@ var FluxMeetingApp = React.createClass({
                             allItems={this.state.allTodoItems}
                             items={this.state.meeting.topics[this.state.selectedTopic].todos}
                             attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}
-                            editingTodoItem={this.state.editingTodoItem}/>
+                            editingTodoItem={this.state.editingTodoItem} admins={this.state.meeting.admins} />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="row">
+                <div className={ "row " + (this.state.allTodoItems.length !== 0 ? " hidden" : "")}>
+                  <div className="col-md-12">
+                    <center><h2>Sorry, aber dieses Meeting enthält keine Topics.</h2></center>
+                    <p>Du kannst im Meetingseries View neue Topics anlegen und sie einem neuen Meeting hinzufügen.</p>
+                  </div>
+                </div>
+
+                <div className={ "row" + ((!this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
+                  <div className="col-md-12">
+                    <center><h2>Meeting Ende</h2></center>
+                  </div>
+                </div>
+
+                <div className={ "row" + ((this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
                   <div className="col-xs-12">
                     <FluxQrViewer qrcode={this.state.qrcode}/>
                   </div>
@@ -129,7 +143,7 @@ var FluxMeetingApp = React.createClass({
               </div>
             </aside>
 
-            <FluxTodoItemCreateForm attendees={this.state.meeting.attendees}/>
+            <FluxTodoItemCreateForm admins={this.state.meeting.admins} member={this.state.member} attendees={this.state.meeting.attendees} />
 
           </div>
         </div>

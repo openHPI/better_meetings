@@ -13,6 +13,7 @@ module.exports = {
     var id = req.param('meetingseries');
     var topics = [];
     var startTime = req.param('startTime');
+    var self = this;
 
     meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, series) {
       if (err) {
@@ -46,7 +47,7 @@ module.exports = {
                 attendees: [],
                 isInitialCreation: true,
                 startTime: startTime,
-                status: 0,
+                done: false,
                 timer: series.timer,
                 url: url,
                 series: series
@@ -67,16 +68,26 @@ module.exports = {
                       attendees: created.attendees,
                       isInitialCreation: created.isInitialCreation,
                       startTime: created.startTime,
-                      status: created.status,
+                      done: created.status,
                       timer: created.timer,
                       url: created.url,
                       series: created.series
                     });
 
-                  /* TODO: Invite member */
-                  
+                var content = EmailService.computeInviteEmailContent(created.url, series.title);
+                var distinctPersons = self.arrayUnion(series.admins, series.members);
+
+                for (var i in distinctPersons) {
+                  if (distinctPersons[i].email !== null) {
+                    EmailService.sendInvitation({
+                      recipientName: distinctPersons[i].name,
+                      to: distinctPersons[i].email,
+                      content: content,
+                    });
+                  }
                 }
-              });
+              }
+            });
           }
         );
       }
@@ -102,7 +113,7 @@ module.exports = {
             topics: topics,
             attendees: attendees,
             isInitialCreation: isInitialCreation,
-            startTime: startTime,
+            startTime: startTime
           })
           .exec(function createMeeting(err, created) {
             if (err) {
@@ -116,7 +127,7 @@ module.exports = {
                   topics: created.topics,
                   attendees: created.attendees,
                   isInitialCreation: created.isInitialCreation,
-                  startTime: created.startTime,
+                  startTime: created.startTime
                 });
             }
           });
@@ -349,6 +360,7 @@ module.exports = {
     var meetingId = req.param('id', null);
     var currentDate = new Date();
     var startTime = currentDate.getDate();
+    var self = this;
 
     sails.log('Today: ' + currentDate);
     sails.log('Today: ' + startTime);
@@ -366,13 +378,16 @@ module.exports = {
             sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
             
             var content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
-          
-            for (var member in meetingSeriesAnswer.members) {
-              EmailService.sendInvitation({
-                recipientName: member.name,
-                to: member.email,
-                content: content,
-              });
+            var distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
+
+            for (var i in distinctPersons) {
+              if (distinctPersons[i].email !== null) {
+                EmailService.sendInvitation({
+                  recipientName: distinctPersons[i].name,
+                  to: distinctPersons[i].email,
+                  content: content,
+                });
+              }
             }
         
             meeting.update({id: meetingId}).set({
@@ -439,7 +454,7 @@ module.exports = {
         sails.log('The email content is: ' + content);
 
         for (var i in distinctPersons) {
-          sails.log('attempting to send summary mail to: ' + distinctPersons[i].email);
+          //sails.log('attempting to send summary mail to: ' + distinctPersons[i].email);
           if (distinctPersons[i].email) {
             EmailService.sendSummary({
               recipientName: distinctPersons[i].name,

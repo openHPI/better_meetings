@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _isMeetingDataLoaded = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null, _qrcode = null;
+var _isMeetingDataLoaded = false, _isMeetingDone = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null, _qrcode = null;
 
 /**
  * Setting the user
@@ -133,6 +133,10 @@ var MeetingStore = _.extend({}, EventEmitter.prototype, {
 
   getIsMeetingDataLoaded: function () {
     return _isMeetingDataLoaded;
+  },
+
+  getIsMeetingDone: function() {
+    return _isMeetingDone;
   },
 
   getMeetingData: function () {
@@ -271,6 +275,7 @@ AppDispatcher.register(function (payload) {
       break;
 
     case FluxMeetingConstants.MEETING_END:
+      _isMeetingDone = true;
       MeetingDataAPI.endMeeting(_meeting);
       break;
 

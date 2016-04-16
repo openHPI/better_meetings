@@ -1,4 +1,5 @@
 var FluxMeetingActions = require('../actions/FluxMeetingActions');
+var Select = require('react-select');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -14,9 +15,10 @@ var FluxTodoItemUpdate = React.createClass({
       description: item.description,
       owner: item.owner,
       author: item.author,
-      assignee: item.assignee === null ? new Set(["Bergen", "Asmara", "Göteborg", "Newcastle", "Seattle"]) : new Set(item.assignee),
+      assignee: item.assignees,
       done: item.done,
-      important: item.important
+      important: item.important,
+      options: this.getOptions()
     };
   },
 
@@ -28,10 +30,19 @@ var FluxTodoItemUpdate = React.createClass({
       description: item.title,
       owner: item.owner,
       author: item.author,
-      assignee: item.assignee === null ? new Set(["Bergen", "Asmara", "Göteborg", "Newcastle", "Seattle"]) : new Set(item.assignee),
+      assignee: item.assignee,
       done: item.done,
-      important: item.important
+      important: item.important,
+      options: this.getOptions()
     });
+  },
+
+  getOptions: function() {
+    var options = [];
+    for (var i = 0; i < this.props.admins.length; i++) {
+      options.push({ value: this.props.admins[i].email, label: this.props.admins[i].name + " (" + this.props.admins[i].email + ")" });
+    }
+    return options;
   },
 
   editItem: function(event) {
@@ -53,15 +64,22 @@ var FluxTodoItemUpdate = React.createClass({
   },
 
   saveChanges: function (event) {
-    FluxMeetingActions.updateTodoItem(this.state);
+    var item = {
+      id: this.state.id,
+      title: this.state.title,
+      description: this.state.title,
+      owner: this.state.owner,
+      author: this.state.author,
+      assignee: this.state.assignee,
+      done: this.state.done,
+      important: this.state.important
+    };
+    
+    FluxMeetingActions.updateTodoItem(item);
   },
 
   customValidateTitle: function (title) {
     return (title.length > 0 && title.length < 64);
-  },
-
-  isAttendee: function () {
-    return true;
   },
 
   render: function () {
@@ -96,20 +114,11 @@ var FluxTodoItemUpdate = React.createClass({
             </div>
           </div>
 
-          <div className='form-group'>
-            <label className='col-md-3 control-label'>Assignees</label>
-            <div className='col-md-9'>
-              <RIETags
-                value={this.state.assignee}
-                change={this.changedCallback}
-                maxTags={5}
-                minTags={0}
-                propName='assignee'
-                placeholder='New responsible person'
-                className='tags'
-                validate={this.isAttendee}
-              />
-              <small className='help-block'>Please enter a description</small>
+          <div className="form-group">
+            <label className="col-md-3 control-label">Assignees</label>
+            <div className="col-md-9">
+              <Select name="assignees" multi simpleValue value={this.props.assignees} placeholder="Assign this todo to someone" options={this.state.options} onChange={this._assigneesChange} />
+              <small className="help-block">Please enter a title</small>
             </div>
           </div>
 
@@ -121,6 +130,10 @@ var FluxTodoItemUpdate = React.createClass({
 
       </li>
     );
+  },
+
+  _assigneesChange: function(assginees) {
+    this.setState({ assignees: assignees });
   }
 
 });
