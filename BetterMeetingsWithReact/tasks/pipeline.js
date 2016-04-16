@@ -10,10 +10,10 @@ var path = require('path')
  * for matching multiple files.)
  */
 
-// BROWSERIFY main file path
-// Browserify task work before copying the files in the .tmp folder
-// so the path sould be something like .tmp/public/js/app.js
-// just change assets/ for .tmp/public/ and then the same path as always
+    // BROWSERIFY main file path
+    // Browserify task work before copying the files in the .tmp folder
+    // so the path sould be something like .tmp/public/js/app.js
+    // just change assets/ for .tmp/public/ and then the same path as always
 var browserifyMainFile = './assets/app/app.js';
 var appRootDir = browserifyMainFile.substring(0, browserifyMainFile.lastIndexOf('/'));
 
@@ -34,17 +34,14 @@ var cssFilesToInject = [
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
-
-  //// Load sails.io before everything else
-  //'vendor/sails.io.js/sails.io.js',
-
-  //// All of the rest of your client-side js files
-  //// will be injected here in no particular order.
+  // All of the rest of your client-side js files
+  // will be injected here in no particular order.
   'js/dependencies/jquery-1.12.0.min.js',
   'js/dependencies/nifty.min.js',
   'js/dependencies/bootstrap-datepicker.js',
   'js/dependencies/pace.min.js',
   'js/dependencies/sortable.min.js',
+  'js/admin.js'
 ];
 
 

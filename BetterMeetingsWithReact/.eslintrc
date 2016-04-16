@@ -16,6 +16,7 @@
     "sails": 1,
     // jQuery
     "jQuery": 1,
+    "$": 1,
 
     // models
     "meeting": 1,
