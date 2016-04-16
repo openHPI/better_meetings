@@ -81,7 +81,7 @@ var FluxMeetingApp = React.createClass({
                     <h2>{this.state.meeting.title}</h2>
                   </div>
                   <div className="col-md-3 col-lg-3">
-                    <FluxMeetingTimer timer={this.state.meeting.timer}/>
+                    <FluxMeetingTimer startTime={this.state.meeting.startTime} timer={this.state.meeting.timer} isMeetingDone={this.state.isMeetingDone} />
                   </div>
                 </div>
 

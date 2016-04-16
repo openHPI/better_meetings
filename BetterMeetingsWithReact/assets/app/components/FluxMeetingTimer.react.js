@@ -4,9 +4,22 @@ var FluxMeetingTimer = React.createClass({
 
   getInitialState: function() {
     return {
-      timer: this.props.timer,
+      timer: this.calculateTimer(),
       totaltime: this.props.timer
     };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.isMeetingDone) {
+      clearInterval(this.interval);
+    }
+  },
+
+  calculateTimer: function() {
+    var now = new Date();
+    var start = this.props.startTime;
+    // var seconds = (now.getTime() - start.getTime()) / 1000;
+    return this.props.timer;
   },
 
   tick: function() {

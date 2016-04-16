@@ -75,7 +75,7 @@ var FluxTodoItemCreateForm = React.createClass({
                     <div className="form-group">
                       <label className="col-md-3 control-label">Assignees</label>
                       <div className="col-md-9">
-                        <Select name="assignees" multi simpleValue value={this.props.assignees} placeholder="Assignees" options={this.state.options} onChange={this._assigneesChange} />
+                        <Select name="assignees" multi simpleValue value={this.props.assignees} placeholder="Assign this todo to someone" options={this.state.options} onChange={this._assigneesChange} />
                         <small className="help-block">Please enter a title</small>
                       </div>
                     </div>
