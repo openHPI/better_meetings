@@ -16,11 +16,11 @@ var FluxMeetingTimer = React.createClass({
   },
 
   calculateTimer: function () {
-    var now = new Date();
-    var start = this.props.startTime;
+    var now = new Date().getTime();
+    var start = new Date(this.props.startTime).getTime();
     var timer = this.props.timer;
-    var timeDiff = now - new Date(start);
-    var newTimer = timer - new Date(timeDiff).getSeconds();
+    var timeDiff = Math.round((now - start) / 1000);
+    var newTimer = timer - timeDiff;
 
     return newTimer;
   },
