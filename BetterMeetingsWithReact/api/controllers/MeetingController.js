@@ -80,17 +80,18 @@ module.exports = {
                   content = EmailService.computeInviteEmailContent(created.url, series.title);
                   distinctPersons = self.arrayUnion(series.admins, series.members);
 
-                  for (i in distinctPersons) {
-                    if (distinctPersons[i].email !== null) {
-                      EmailService.sendInvitation({
-                        recipientName: distinctPersons[i].name,
-                        to: distinctPersons[i].email,
-                        content: content
-                      });
-                    }
+                for (var i in distinctPersons) {
+                  if (distinctPersons[i].email !== null) {
+                    EmailService.sendInvitation({
+                      recipientName: distinctPersons[i].name,
+                      to: distinctPersons[i].email,
+                      content: content,
+                    });
                   }
                 }
-              });
+              res.redirect('meetingseries/view/' + created.series);
+              }
+            });
           }
         );
       }
