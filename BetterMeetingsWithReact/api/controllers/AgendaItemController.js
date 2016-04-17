@@ -53,7 +53,7 @@ module.exports = {
                 todos: created.todos,
                 subAgendaItems: created.subAgendaItems,
                 done: created.done,
-                note: created.note,
+                note: created.note
               });
           }
         });

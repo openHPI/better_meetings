@@ -1,17 +1,17 @@
 jQuery(document).ready(function () {
   /* Meetingseries Information */
 
-  jQuery('.meetingseries-information-descritpion').editable('/meetingseries/updateDescription', {
-    name: 'description',
-    indicator: 'Saving...',
-    tooltip: 'Click to edit...'
-  });
-
-  jQuery('.meetingseries-information-timer').editable('/meetingseries/updateTimer', {
-    name: 'timer',
-    indicator: 'Saving...',
-    tooltip: 'Click to edit...'
-  });
+  // jQuery('.meetingseries-information-descritpion').editable('/meetingseries/updateDescription', {
+  //   name: 'description',
+  //   indicator: 'Saving...',
+  //   tooltip: 'Click to edit...'
+  // });
+  //
+  // jQuery('.meetingseries-information-timer').editable('/meetingseries/updateTimer', {
+  //   name: 'timer',
+  //   indicator: 'Saving...',
+  //   tooltip: 'Click to edit...'
+  // });
 
   jQuery('#createPersonModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
@@ -60,11 +60,11 @@ jQuery(document).ready(function () {
 
   /* Meeting Modal */
 
-  jQuery(function () {
-    jQuery('#selected-topics, #all-topics').sortable({
-      connectWith: '.topics-list'
-    }).disableSelection();
-  });
+  // jQuery(function () {
+  //   jQuery('#selected-topics, #all-topics').sortable({
+  //     connectWith: '.topics-list'
+  //   }).disableSelection();
+  // });
 
   jQuery('.start-meeting-button').click(function () {
     var meetingId = jQuery(this).attr('data-id');

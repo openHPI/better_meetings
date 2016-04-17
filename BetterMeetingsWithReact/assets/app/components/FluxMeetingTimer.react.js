@@ -2,39 +2,42 @@ var React = require('react');
 
 var FluxMeetingTimer = React.createClass({
 
-  getInitialState: function() {
+  getInitialState: function () {
     return {
       timer: this.calculateTimer(),
       totaltime: this.props.timer
     };
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps: function (nextProps) {
     if (nextProps.isMeetingDone) {
       clearInterval(this.interval);
     }
   },
 
-  calculateTimer: function() {
+  calculateTimer: function () {
     var now = new Date();
     var start = this.props.startTime;
-    // var seconds = (now.getTime() - start.getTime()) / 1000;
-    return this.props.timer;
+    var timer = this.props.timer;
+    var timeDiff = now - new Date(start);
+    var newTimer = timer - new Date(timeDiff).getSeconds();
+
+    return newTimer;
   },
 
-  tick: function() {
-    this.setState({timer: this.state.timer - 1});
+  tick: function () {
+    this.setState({ timer: this.state.timer - 1 });
   },
 
-  componentDidMount: function() {
+  componentDidMount: function () {
     this.interval = setInterval(this.tick, 1000);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount: function () {
     clearInterval(this.interval);
   },
 
-  render: function() {
+  render: function () {
 
     var minutes = Math.floor(this.state.timer / 60);
     var seconds = this.state.timer - minutes * 60;
@@ -45,10 +48,10 @@ var FluxMeetingTimer = React.createClass({
 
     var panelClass = "panel-info";
 
-    if ( minutes * 60 + seconds < 0.2 * this.state.totaltime )
+    if (minutes * 60 + seconds < 0.2 * this.state.totaltime)
       panelClass = "panel-warning";
-    
-    if ( minutes < 0 )
+
+    if (minutes < 0)
       panelClass = "panel-danger";
 
     return (

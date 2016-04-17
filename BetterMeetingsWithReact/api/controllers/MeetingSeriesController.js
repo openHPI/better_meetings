@@ -101,10 +101,8 @@ module.exports = {
   },
 
   updateDescription: function (req, res) {
-    console.log(req.allParams());
     var description = req.param('description');
     var meetingSeriesId = req.param('id');
-
 
     sails.log('Update started');
 
@@ -152,7 +150,7 @@ module.exports = {
 
     if (meetingSeriesId && timer) {
       meetingseries.update({ id: meetingSeriesId }).set({
-        timer: timer,
+        timer: timer
       }).exec(function updateMeetingSeries(err, updated) {
         if (err) {
           sails.log('MeetingSeries not updated ' + err);
@@ -295,21 +293,23 @@ module.exports = {
 
 
   listen: function (req) {
-    var testArray = [];
-    var i;
+    var meetingseriessToWatchFor = [];
+    var item;
 
     if (req.isSocket) {
       meetingseries.watch(req);
       meetingseries.find({}).exec(function (err, result) {
         if (!err) {
-          var meetingseriessToWatchFor = [];
-          for (var item in result) {
-            console.log(result[item].id);
-            meetingseriessToWatchFor.push(result[item].id);
+          meetingseriessToWatchFor = [];
+          for (item in result) {
+            if (result.hasOwnProperty(item)) {
+              console.log(result[item].id);
+              meetingseriessToWatchFor.push(result[item].id);
+            }
           }
           meetingseries.subscribe(req, meetingseriessToWatchFor);
         } else {
-          sails.log("Fehler");
+          sails.log(err);
         }
       });
       console.log('User with socket id ' + sails.sockets.getId(req) +

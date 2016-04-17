@@ -12,7 +12,7 @@ module.exports = {
       .populate('createdMeetings')
       .populate('assignedMeetings')
       .exec(function found(err, person) {
-        var meetingseriesList;
+        var createdMeetings;
         var meetingHistory;
 
         if (err) {
@@ -24,7 +24,7 @@ module.exports = {
           return;
         }
 
-        meetingseriesList = person.createdMeetings || [];
+        createdMeetings = person.createdMeetings || [];
         meetingHistory = person.assignedMeetings || [];
 
         meetingHistory.sort(function compare(a, b) {
@@ -37,9 +37,9 @@ module.exports = {
           return 0;
         });
 
-        if (meetingseriesList.length === 0) {
+        if (createdMeetings.length === 0) {
           res.view('dashboard', {
-            meetingseriesList: meetingseriesList,
+            meetingseriesList: createdMeetings,
             meetingHistory: meetingHistory
           });
           return;
@@ -53,9 +53,9 @@ module.exports = {
               console.log(populateErr);
             }
 
-            meetingseriesList = populatedPerson.createdMeetings;
+            createdMeetings = populatedPerson.createdMeetings;
 
-            meetingseriesList.sort(function compare(a, b) {
+            createdMeetings.sort(function compare(a, b) {
               if (a.updatedAt < b.updatedAt) {
                 return 1;
               } else if (a.updatedAt > b.updatedAt) {
@@ -66,7 +66,7 @@ module.exports = {
             });
 
             return res.view('dashboard', {
-              meetingseriesList: meetingseriesList,
+              meetingseriesList: createdMeetings,
               meetingHistory: meetingHistory
             });
           });

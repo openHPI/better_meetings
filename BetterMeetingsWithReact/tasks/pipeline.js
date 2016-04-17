@@ -1,5 +1,3 @@
-var fs = require('fs');
-var path = require('path')
 /**
  * grunt/pipeline.js
  *
@@ -10,18 +8,19 @@ var path = require('path')
  * for matching multiple files.)
  */
 
-    // BROWSERIFY main file path
-    // Browserify task work before copying the files in the .tmp folder
-    // so the path sould be something like .tmp/public/js/app.js
-    // just change assets/ for .tmp/public/ and then the same path as always
+// BROWSERIFY main file path
+// Browserify task work before copying the files in the .tmp folder
+// so the path sould be something like .tmp/public/js/app.js
+// just change assets/ for .tmp/public/ and then the same path as always
 var browserifyMainFile = './assets/app/app.js';
 var appRootDir = browserifyMainFile.substring(0, browserifyMainFile.lastIndexOf('/'));
 
-//This is the path which tyhe bablify task will look to for transcompiling ES6->ES5
+// This is the path which tyhe bablify task will look to for transcompiling ES6->ES5
 var es6To5SrcJSDir = appRootDir + '/components/es6';
 var es6To5BuildPath = appRootDir + '/build/';
-var typescriptDirectory = appRootDir + '/components/ts/'
-var packagesToInstall = ['grunt-shell', 'grunt-react', 'grunt-browserify', 'grunt-babel', 'react-bootstrap', 'react', 'babel'];
+var typescriptDirectory = appRootDir + '/components/ts/';
+var packagesToInstall = ['grunt-shell', 'grunt-react', 'grunt-browserify', 'grunt-babel', 'react-bootstrap',
+  'react', 'babel'];
 // CSS files to inject in order
 //
 // (if you're using LESS with the built-in default config, you'll want
@@ -41,6 +40,7 @@ var jsFilesToInject = [
   'js/dependencies/bootstrap-datepicker.js',
   'js/dependencies/pace.min.js',
   'js/dependencies/sortable.min.js',
+  'js/dependencies/date.min.js',
   'js/admin.js'
 ];
 
@@ -58,6 +58,8 @@ var templateFilesToInject = [
   'templates/**/*.html'
 ];
 
+require('fs');
+require('path');
 
 // Prefix relative paths to source files so they point to the proper locations
 // (i.e. where the other Grunt tasks spit them out, or in some cases, where

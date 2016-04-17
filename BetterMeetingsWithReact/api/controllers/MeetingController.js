@@ -8,16 +8,21 @@
 
 module.exports = {
 
-  createFromSeries: function (req, res) {
-    sails.log(req.allParams());
+  createFromSeries: function (req) {
     var id = req.param('meetingseries');
     var topics = [];
     var startTime = req.param('startTime');
     var self = this;
+    var i;
+    var index;
+    var content;
+    var distinctPersons;
 
-    meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, series) {
-      if (err) {
-        sails.log.error('ERR:', err);
+    sails.log(req.allParams());
+
+    meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(errMeetingFind, series) {
+      if (errMeetingFind) {
+        sails.log.error('ERR:', errMeetingFind);
       }
 
       if (!series) {
@@ -28,12 +33,11 @@ module.exports = {
       if (series) {
         UrlService.generate_unique_url(
           function generateUrl(url) {
-
             var params = Object.keys(req.allParams());
 
-            for (var i = 0; i < params.length; i++) {
+            for (i = 0; i < params.length; i++) {
               if (params[i].startsWith('topic')) {
-                var index = parseInt(params[i].substring(5), 10);
+                index = parseInt(params[i].substring(5), 10);
                 topics.push(series.topics[index]);
               }
             }
@@ -44,7 +48,7 @@ module.exports = {
                 description: series.description,
                 topics: topics,
                 admins: series.admins,
-                attendees: [],
+                attendees: series.admins,
                 isInitialCreation: true,
                 startTime: startTime,
                 done: false,
@@ -55,8 +59,7 @@ module.exports = {
               .exec(function createMeeting(err, created) {
                 if (err) {
                   console.log('Meeting not created' + err);
-                }
-                else {
+                } else {
                   console.log('Created Meeting ' + JSON.stringify(created));
                   meeting.publishCreate(
                     {
@@ -74,20 +77,20 @@ module.exports = {
                       series: created.series
                     });
 
-                var content = EmailService.computeInviteEmailContent(created.url, series.title);
-                var distinctPersons = self.arrayUnion(series.admins, series.members);
+                  content = EmailService.computeInviteEmailContent(created.url, series.title);
+                  distinctPersons = self.arrayUnion(series.admins, series.members);
 
-                for (var i in distinctPersons) {
-                  if (distinctPersons[i].email !== null) {
-                    EmailService.sendInvitation({
-                      recipientName: distinctPersons[i].name,
-                      to: distinctPersons[i].email,
-                      content: content,
-                    });
+                  for (i in distinctPersons) {
+                    if (distinctPersons[i].email !== null) {
+                      EmailService.sendInvitation({
+                        recipientName: distinctPersons[i].name,
+                        to: distinctPersons[i].email,
+                        content: content
+                      });
+                    }
                   }
                 }
-              }
-            });
+              });
           }
         );
       }
@@ -96,17 +99,16 @@ module.exports = {
 
 
   create: function (req, res) {
-
     var topics = req.param('topics');
     var attendees = req.param('attendees');
     var isInitialCreation = req.param('isInitialCreation');
     var startTime = req.param('startTime');
     var meetingCreatingAdmin = req.session.me;
 
-    console.log("req.session.me: " + meetingCreatingAdmin);
+    console.log('req.session.me: ' + meetingCreatingAdmin);
+    attendees.push(meetingCreatingAdmin);
 
     if (isInitialCreation === false) {
-
       if (topics && attendees && isInitialCreation && startTime) {
         meeting.create(
           {
@@ -118,8 +120,7 @@ module.exports = {
           .exec(function createMeeting(err, created) {
             if (err) {
               console.log('Meeting not created' + err);
-            }
-            else {
+            } else {
               console.log('Created Meeting');
               meeting.publishCreate(
                 {
@@ -132,12 +133,10 @@ module.exports = {
             }
           });
       }
-    }
-    else if (req.isSocket) {
+    } else if (req.isSocket) {
       sails.log('Meeting with socket id ' + sails.sockets.id(req) +
         ' is now subscribed to the model class \'meeting\'.');
-    }
-    else {
+    } else {
       res.send('meeting');
       console.log('Meeting not created: too few parameters');
     }
@@ -147,32 +146,27 @@ module.exports = {
   delete: function (req, res) {
     var meetingID = req.param('meetingID', null);
     if (meetingID && req.isSocket) {
-      meeting.findOne(meetingID).exec(function findMeeting(err, meetingAnswer) {
-        meeting.destroy(
-          {
-            id: meetingAnswer.id
-          })
-          .exec(function destroy(err) {
-            if (err) {
-              sails.log('Error while deleting meeting');
-              res.send('Error');
-            }
-            else {
-              sails.log('Successfully deleted ' + meetingID);
-              meeting.publishDestroy(
-                {
-                  id: meetingAnswer.id
-                });
-            }
-          });
-      });
+      meeting.destroy(
+        {
+          id: meetingID
+        })
+        .exec(function destroy(err) {
+          if (err) {
+            sails.log('Error while deleting meeting');
+            res.send('Error');
+          } else {
+            sails.log('Successfully deleted ' + meetingID);
+            meeting.publishDestroy(
+              {
+                id: meetingID
+              });
+          }
+        });
     }
   },
 
 
   update: function (req, res) {
-
-    sails.log('Update started');
     var topics = req.param('topics');
     var attendees = req.param('attendees');
     var isInitialCreation = req.param('isInitialCreation');
@@ -180,18 +174,20 @@ module.exports = {
     var meetingId = req.param('id');
     var url = req.param('url');
 
-    if (meetingId && topics && attendees && isInitialCreation != null && startTime && url && req.isSocket) {
+    sails.log('Update started');
+
+    if (meetingId && topics && attendees && isInitialCreation !== null && startTime && url && req.isSocket) {
       meeting
-        .update({id: meetingId}).set({
+        .update({ id: meetingId }).set({
           topics: topics,
           attendees: attendees,
           isInitialCreation: isInitialCreation,
           startTime: startTime,
-          url: url,
+          url: url
         })
-        .exec(function updateMeeting(err, updated) {
-          if (err) {
-            sails.log('Meeting not updated ' + err);
+        .exec(function updateMeeting(errUpdateMeeting, updated) {
+          if (errUpdateMeeting) {
+            sails.log('Meeting not updated ' + errUpdateMeeting);
           } else {
             sails.log('Updated Meeting: ' + updated[0].title);
 
@@ -206,7 +202,7 @@ module.exports = {
                   attendees: updated[0].attendees,
                   isInitialCreation: updated[0].isInitialCreation,
                   startTime: updated[0].startTime,
-                  url: updated[0].url,
+                  url: updated[0].url
                 });
               }
             });
@@ -226,19 +222,19 @@ module.exports = {
 
   get: function (req, res) {
     var url;
-    if (req.wantsJSON) {
-      var path = req.socket.request.headers.referer;
-      console.log(path);
+    var path;
+    var segments;
+    var qrcode;
 
-      var segments = path.split('/');
-      console.log(segments);
+    if (req.wantsJSON) {
+      path = req.socket.request.headers.referer;
+      segments = path.split('/');
 
       if (segments[segments.length - 2] === 'id' && segments[segments.length -
         3] === 'meeting') {
         url = path.split('/').pop();
       }
-    }
-    else {
+    } else {
       url = req.param('url');
     }
     console.log('search for meeting with url: ' + url);
@@ -248,9 +244,9 @@ module.exports = {
         url: url
       })
       .populateAll()
-      .exec(function findMeeting(err, cre) {
-        if (err) {
-          sails.log.error('ERR:', err);
+      .exec(function findMeeting(errMeetingFind, cre) {
+        if (errMeetingFind) {
+          sails.log.error('ERR:', errMeetingFind);
         }
 
         if (!cre) {
@@ -258,40 +254,41 @@ module.exports = {
           return;
         }
 
-        console.log(cre.topics);
-
         DeepPopulateService.populateDeep('meeting', cre, 'topics.todos',
           function (err, meeting) {
             if (err) {
               sails.log.error('ERR:', err);
             }
 
-            var qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
-            console.log(meeting.topics);
+            qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
 
             res.send(
               {
-                'meeting': meeting,
-                'qrcode': qrcode
+                meeting: meeting,
+                qrcode: qrcode
               });
           });
       });
   },
 
 
-  listen: function (req, res) {
+  listen: function (req) {
+    var meetingsToWatchFor = [];
+    var item;
+
     if (req.isSocket) {
       meeting.watch(req);
       meeting.find({}).exec(function (err, result) {
         if (!err) {
-          var meetingsToWatchFor = [];
-          for (var item in result) {
-            console.log(result[item].id);
-            meetingsToWatchFor.push(result[item].id);
+          for (item in result) {
+            if (result.hasOwnProperty(item)) {
+              console.log(result[item].id);
+              meetingsToWatchFor.push(result[item].id);
+            }
           }
           meeting.subscribe(req, meetingsToWatchFor);
         } else {
-          sails.log("Fehler");
+          sails.log(err);
         }
       });
       console.log('User with socket id ' + sails.sockets.getId(req) +
@@ -328,70 +325,43 @@ module.exports = {
 
   },
 
-
-  /*startMeeting: function (req, res) {
-
-    var _meetingSeries = req.allParams();
-
-    var link = _meetingSeries.instances[0].url;
-
-    //var content = EmailService.computeInviteEmailContent("www.bettermeetings.com/meetingseries/1/testInvite", _meetingSeries.title);
-    var content = EmailService.computeInviteEmailContent(link, _meetingSeries.title);
-    for (var member in _meetingSeries.members) {
-      EmailService.sendInvitation({
-        recipientName: member.name,
-        to: member.email,
-        content: content,
-      });
-    }
-  },*/
-
-  /*meeting.findOne(_meetingId).exec(function findMeeting (err, meetingAnswer) {
-                  if (err) {
-                    sails.log.error('Error:', err);
-                  }
-                  else {
-                    meetingAnswer.startTime = Date.now();
-                    PersonService.createAttendee({name: req.session.me.name, email: req.session.me.email, password: req.session.me.password, meeting: _meetingId});
-                    return res.view('meeting');
-                  }*/
-
   startMeeting: function (req, res) {
     var meetingId = req.param('id', null);
-    var currentDate = new Date();
-    var startTime = currentDate.getDate();
+    var startTime = new Date();
     var self = this;
+    var content;
+    var distinctPersons;
+    var i;
 
-    sails.log('Today: ' + currentDate);
-    sails.log('Today: ' + startTime);
+    console.log('start meeting ' + meetingId);
 
     meeting.findOne(meetingId).exec(function findMeeting(err, meetingAnswer) {
       if (err) {
         sails.log.error('Error:', err);
       } else {
         sails.log('Found meeting with title ' + meetingAnswer.title);
-        
+
         meetingseries.findOne(meetingAnswer.series).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
           if (err) {
             sails.log('Error: Could not find meetingseries');
           } else {
             sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
-            
-            var content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
-            var distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
 
-            for (var i in distinctPersons) {
+            content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
+            distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
+
+            for (i in distinctPersons) {
               if (distinctPersons[i].email !== null) {
                 EmailService.sendInvitation({
                   recipientName: distinctPersons[i].name,
                   to: distinctPersons[i].email,
-                  content: content,
+                  content: content
                 });
               }
             }
-        
-            meeting.update({id: meetingId}).set({
-                startTime: startTime,
+
+            meeting.update({ id: meetingId }).set({
+              startTime: startTime
             }).exec(function updateMeeting(err, updated) {
               if (err) {
                 sails.log('Meeting not updated ' + err);
@@ -400,39 +370,45 @@ module.exports = {
                 updated[0].save(function (err) {
                   if (err) {
                     sails.log('Error while saving update to Meeting ' + updated[0].title);
-                  } else {
-                    sails.log('Successfully saved updates to Meeting ' + updated[0].title);
-
-                    meeting.publishUpdate(updated[0].id, {
-                      id: updated[0].id,
-                      topics: updated[0].topics,
-                      attendees: updated[0].attendees,
-                      isInitialCreation: updated[0].isInitialCreation,
-                      startTime: updated[0].startTime,
-                      url: updated[0].url,
-                    });
-                    PersonService.createAttendee({name: req.session.me.name, email: req.session.me.email, password: req.session.me.password, meeting: meetingId});
-                    return res.view('meeting');
+                    return null;
                   }
+                  sails.log('Successfully saved updates to Meeting ' + updated[0].title);
+
+                  meeting.publishUpdate(updated[0].id, {
+                    id: updated[0].id,
+                    topics: updated[0].topics,
+                    attendees: updated[0].attendees,
+                    isInitialCreation: updated[0].isInitialCreation,
+                    startTime: updated[0].startTime,
+                    url: updated[0].url
+                  });
+                  PersonService.createAttendee({
+                    name: req.session.me.name,
+                    email: req.session.me.email,
+                    password: req.session.me.password,
+                    meeting: meetingId
+                  });
+                  return res.view('meeting');
                 });
               }
             });
           }
         });
-    }});
+      }
+    });
   },
 
   endMeeting: function (req, res) {
     // send summary email to everyone who provided at least email, attendees and members
     // TODO: delete guests who only provided name or nothing
-    //var distinctPersons = [...new Set([...req.attendees, ...req.members])];
+    // var distinctPersons = [...new Set([...req.attendees, ...req.members])];
     var _meeting = req.allParams();
-    //console.dir(req.allParams());
+    // console.dir(req.allParams());
     var _meetingSeriesId = _meeting.series.id;
     var _meetingSeries = null;
     var self = this;
-    //sails.log('got meeting ' + _meeting.title);
-    //sails.log('got meetingseries with id ' + _meetingSeriesId);
+    // sails.log('got meeting ' + _meeting.title);
+    // sails.log('got meetingseries with id ' + _meetingSeriesId);
 
     meetingseries.findOne(_meetingSeriesId).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
       if (err) {
@@ -448,9 +424,9 @@ module.exports = {
           sails.log(distinctPersons[i]);
         }
 
-        //var content = EmailService.computeSummaryEmailContent(_meeting, "www.bettermeetings.com/meetingseries/1/globalUrlTest");
+        // var content = EmailService.computeSummaryEmailContent(_meeting, "www.bettermeetings.com/meetingseries/1/globalUrlTest");
         var content = EmailService.computeSummaryEmailContent(_meeting, _meeting.url);
-        //sails.log("Length of email content: " + content.length);
+        // sails.log("Length of email content: " + content.length);
         sails.log('The email content is: ' + content);
 
         for (var i in distinctPersons) {
@@ -460,14 +436,12 @@ module.exports = {
               recipientName: distinctPersons[i].name,
               to: distinctPersons[i].email,
               content: content,
-              title: _meeting.title,
+              title: _meeting.title
             });
-
           }
         }
       }
     });
-
   },
 
   arrayUnion: function (arr1, arr2) {
@@ -484,10 +458,7 @@ module.exports = {
     return union;
   },
 
-
   arePersonsEqual: function (p1, p2) {
     return p1.name === p2.name || p1.email === p2.email;
-  },
-
-
+  }
 };
