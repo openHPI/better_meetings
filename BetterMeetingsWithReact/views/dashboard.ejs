@@ -99,7 +99,7 @@
 
             <div class="timeline">
               <div class="timeline-header">
-                <div class="timeline-header-title bg-success">Jetzt</div>
+                <div class="timeline-header-title bg-success">Future</div>
               </div>
               <% _.each(meetingHistory, function (meeting) { %>
               <div class="timeline-entry">
@@ -109,7 +109,7 @@
                     <% if (meeting.scheduledAt) { %>
                     <%= meeting.scheduledAt %>
                     <% } else { %>
-                    Kein Zeitpunkt gegeben
+                    No timestep given
                     <% } %>
                   </div>
                 </div>
@@ -127,7 +127,7 @@
                   <div class="timeline-icon"></div>
                 </div>
                 <div class="timeline-label">
-                  <h5 class="text-success text-lg">Du hast leider keine Meetings in deiner Timeline :(</h5>
+                  <h5 class="text-success text-lg">No meetings in your timeline :(</h5>
                 </div>
               </div>
               <% } %>

@@ -49,9 +49,12 @@
                               </span>
                             </div>
                             <div class="media-body">
-                              <p class="h3 text-thin media-heading">Administrators: <%= meetingseries.admins.length %></p>
-                              <button class="btn" data-toggle="modal" data-target="#createPersonModal" data-person="admin"><i class="fa fa-plus"></i></button>
-                              <button class="btn" data-target="#admins-collapse" data-toggle="collapse" aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
+                              <p class="h3 text-thin media-heading">
+                                Administrators: <%= meetingseries.admins.length %></p>
+                              <button class="btn" data-toggle="modal" data-target="#createPersonModal"
+                                      data-person="admin"><i class="fa fa-plus"></i></button>
+                              <button class="btn" data-target="#admins-collapse" data-toggle="collapse"
+                                      aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
                               <div id="admins-collapse" class="collapse" aria-expanded="true">
                                 <ul class="list-group bg-trans">
                                   <% _.each(meetingseries.admins, function (admin) { %>
@@ -73,8 +76,10 @@
                             </div>
                             <div class="media-body">
                               <p class="h3 text-thin media-heading">Members: <%= meetingseries.members.length %></p>
-                              <button class="btn" data-toggle="modal" data-target="#createPersonModal" data-person="member"><i class="fa fa-plus"></i></button>
-                              <button class="btn" data-target="#members-collapse" data-toggle="collapse" aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
+                              <button class="btn" data-toggle="modal" data-target="#createPersonModal"
+                                      data-person="member"><i class="fa fa-plus"></i></button>
+                              <button class="btn" data-target="#members-collapse" data-toggle="collapse"
+                                      aria-expanded="true"><i class="fa fa-chevron-down"></i></button>
                               <div id="members-collapse" class="collapse" aria-expanded="true">
                                 <ul class="list-group bg-trans">
                                   <% _.each(meetingseries.members, function (member) { %>
@@ -94,15 +99,16 @@
                       <table class="table table-striped">
                         <thead></thead>
                         <tbody>
-                          <tr>
-                            <td>Meetings</td>
-                            <td><%= meetingseries.instances.length %></td>
-                          </tr>
+                        <tr>
+                          <td>Meetings</td>
+                          <td><%= meetingseries.instances.length %></td>
+                        </tr>
 
-                          <tr>
-                            <td>Timer</td>
-                            <td id="<%= meetingseries.id %>" class="meetingseries-information-timer"><%= meetingseries.timer %></td>
-                          </tr>
+                        <tr>
+                          <td>Timer</td>
+                          <td id="<%= meetingseries.id %>"
+                              class="meetingseries-information-timer"><%= meetingseries.timer %></td>
+                        </tr>
                         </tbody>
                       </table>
                     </div>
@@ -119,11 +125,12 @@
           <div class="panel panel-info">
             <div class="panel-heading">
               <div class="panel-control">
-                <button class="btn btn-default" data-toggle="modal" data-target="#createMeetingModal"><i class="fa fa-plus"></i></button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#createMeetingModal"><i
+                    class="fa fa-plus"></i></button>
               </div>
               <h3 class="panel-title">Meetings</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
               <table class="table table-hover table-vcenter">
                 <thead>
                 <tr>
@@ -146,12 +153,14 @@
                   </td>
                   <td class="text-center">
                     <% if(!meeting.done) { %>
-                    <button class="start-meeting-button btn btn-primary" data-id="<%= meeting.id %>">Start Meeting</button>
+                    <button class="start-meeting-button btn btn-primary" data-id="<%= meeting.id %>">Start Meeting
+                    </button>
                     <% } %>
                   </td>
                   <td class="text-center">
                     <% if(meeting.done) { %>
-                    <button class="download-summary-button" data-id="<%= meeting.id %>"><i class="fa fa-download"></i></button>
+                    <button class="download-summary-button" data-id="<%= meeting.id %>"><i class="fa fa-download"></i>
+                    </button>
                     <% } %>
                   </td>
                 </tr>
@@ -167,7 +176,8 @@
             <div class="panel panel-info">
               <div class="panel-heading">
                 <div class="panel-control">
-                  <button class="btn btn-default" data-toggle="modal" data-target="#createTopicModal"><i class="fa fa-plus"></i></button>
+                  <button class="btn btn-default" data-toggle="modal" data-target="#createTopicModal"><i
+                      class="fa fa-plus"></i></button>
                 </div>
                 <h3 class="panel-title">Topics</h3>
               </div>
@@ -178,10 +188,13 @@
                   <div class="panel" data-id="<%= topic.id %>">
                     <div class="panel-heading">
                       <div class="panel-control">
-                        <button data-id="<%= topic.id %>" class="delete-button btn btn-xs"><i class="fa fa-times"></i></button>
+                        <button data-id="<%= topic.id %>" class="delete-button btn btn-xs"><i class="fa fa-times"></i>
+                        </button>
                       </div>
                       <h4 class="panel-title">
-                        <i class="fa fa-arrows-v"></i><a data-parent="dragListTopics" data-toggle="collapse" href="#topic-collapse-<%= i %>" aria-expanded="false" class="collapsed"><%= topic.title %></a>
+                        <i class="fa fa-arrows-v"></i><a data-parent="dragListTopics" data-toggle="collapse"
+                                                         href="#topic-collapse-<%= i %>" aria-expanded="false"
+                                                         class="collapsed"><%= topic.title %></a>
                       </h4>
                     </div>
                     <div id="topic-collapse-<%= i %>" class="panel-collapse collapse" aria-expanded="false">
@@ -218,7 +231,8 @@
                         </div>
                         <div class="row">
                           <div class="col-xs-12">
-                            <form class="form-inline form-padding" action="/topic/<%= topic.id %>/createNote" method="post">
+                            <form class="form-inline form-padding" action="/topic/<%= topic.id %>/createNote"
+                                  method="post">
                               <div class="form-group">
                                 <input type="text" name="note" class="form-control" placeholder="Add a comment">
                                 <button type="submit" class="btn">Post comment</button>
@@ -297,7 +311,8 @@
           <!-- meetingseries -->
 
           <div>
-            <input type="text" name="meetingseries" class="form-control" value="<%= meetingseries.id %>" style="display: none;">
+            <input type="text" name="meetingseries" class="form-control" value="<%= meetingseries.id %>"
+                   style="display: none;">
           </div>
 
           <!-- title -->
@@ -354,7 +369,8 @@
         <h4 class="modal-title">Create Meeting</h4>
       </div>
       <div class="modal-body">
-        <form class="panel-body form-horizontal form-padding" action="/meeting/create/<%= meetingseries.id %>" method="post">
+        <form class="panel-body form-horizontal form-padding" action="/meeting/create/<%= meetingseries.id %>"
+              method="post">
 
           <div class="form-group">
             <label class="col-md-3 control-label">Meetingseries</label>
@@ -385,7 +401,7 @@
             <label class='col-md-3 control-label'>Date</label>
             <div class="col-md-9 input-group date" data-provide="datepicker">
               <input id="meeting-datepicker" type="text" name="scheduledAt" class="form-control">
-                <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
+              <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
             </div>
           </div>
 

@@ -1,6 +1,9 @@
 var React = require('react');
 var MeetingStore = require('../stores/MeetingStore');
 
+/* eslint-disable */
+var FluxMeetingApp;
+
 var FluxTopicList = require('./FluxTopicList.react');
 var FluxTopicDetails = require('./FluxTopicDetails.react');
 
@@ -13,6 +16,7 @@ var FluxQrViewer = require('./FluxQrViewer.react');
 
 var FluxTodoList = require('./FluxTodoList.react');
 var FluxTodoItemCreateForm = require('./FluxTodoItemCreateForm.react');
+/* eslint-enable */
 
 function getMeetingState() {
   return {
@@ -45,7 +49,7 @@ function getMeetingState() {
  * @require FluxTodoList
  *
  */
-var FluxMeetingApp = React.createClass({
+FluxMeetingApp = React.createClass({
 
   // Get initial state from stores
   getInitialState: function () {
@@ -64,17 +68,18 @@ var FluxMeetingApp = React.createClass({
 
   // Render our child components, passing state via props
   render: function () {
-
     if (this.state.isMeetingDataLoaded) {
-
       return (
         <div id="container" className="effect aside-in">
           <div className="boxed">
             <div id="content-container">
               <div id="page-content">
                 <div className="row">
-                  <FluxMeetingProgress total={this.state.meeting.topics.length}
-                                       index={ this.state.isMeetingDone ? this.state.meeting.topics.length : this.state.selectedTopic}/>
+                  <FluxMeetingProgress
+                    total={ this.state.meeting.topics.length }
+                    index={ this.state.isMeetingDone ?
+                      this.state.meeting.topics.length :
+                      this.state.selectedTopic}/>
                 </div>
 
                 <div className="row">
@@ -88,7 +93,8 @@ var FluxMeetingApp = React.createClass({
                 </div>
 
                 <div
-                  className={ "row" + ((this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
+                  className={ 'row' + ((this.state.isMeetingDone || this.state.meeting.topics.length === 0)
+                    ? ' hidden' : '') }>
                   <div className="col-md-4 col-lg-4">
                     <div className="row">
                       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -124,14 +130,16 @@ var FluxMeetingApp = React.createClass({
                 </div>
 
                 <div
-                  className={ "row" + ((!this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
+                  className={ 'row' + ((!this.state.isMeetingDone || this.state.meeting.topics.length === 0)
+                    ? ' hidden' : '') }>
                   <div className="col-md-12">
                     <center><h2>Meeting Ende</h2></center>
                   </div>
                 </div>
 
                 <div
-                  className={ "row" + ((this.state.isMeetingDone || this.state.allTodoItems.length === 0) ? " hidden" : "") }>
+                  className={ 'row' + ((this.state.isMeetingDone || this.state.meeting.topics.length === 0)
+                    ? ' hidden' : '') }>
                   <div className="col-xs-12">
                     <FluxQrViewer qrcode={this.state.qrcode}/>
                   </div>
@@ -157,10 +165,7 @@ var FluxMeetingApp = React.createClass({
       );
     }
 
-    else {
-      return <div>Lädt Meeting Informationen... </div>
-    }
-
+    return <div>Lädt Meeting Informationen... </div>;
   },
 
   // Methode to setState based upon Store changes

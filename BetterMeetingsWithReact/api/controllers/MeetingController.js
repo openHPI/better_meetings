@@ -360,7 +360,8 @@ module.exports = {
             }
 
             meeting.update({ id: meetingId }).set({
-              startTime: startTime
+              startTime: startTime,
+              scheduledAt: startTime
             }).exec(function updateMeeting(err, updated) {
               if (err) {
                 sails.log('Meeting not updated ' + err);
@@ -379,6 +380,7 @@ module.exports = {
                     attendees: updated[0].attendees,
                     isInitialCreation: updated[0].isInitialCreation,
                     startTime: updated[0].startTime,
+                    scheduledAt: updated[0].scheduledAt,
                     url: updated[0].url
                   });
                   PersonService.createAttendee({
@@ -429,7 +431,7 @@ module.exports = {
         sails.log('The email content is: ' + content);
 
         for (var i in distinctPersons) {
-          //sails.log('attempting to send summary mail to: ' + distinctPersons[i].email);
+          // sails.log('attempting to send summary mail to: ' + distinctPersons[i].email);
           if (distinctPersons[i].email) {
             EmailService.sendSummary({
               recipientName: distinctPersons[i].name,

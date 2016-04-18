@@ -28,9 +28,9 @@ module.exports = {
         meetingHistory = person.assignedMeetings || [];
 
         meetingHistory.sort(function compare(a, b) {
-          if (a.startTime < b.startTime) {
+          if (a.scheduledAt < b.scheduledAt) {
             return 1;
-          } else if (a.startTime > b.startTime) {
+          } else if (a.scheduledAt > b.scheduledAt) {
             return -1;
           }
 
@@ -56,10 +56,10 @@ module.exports = {
             createdMeetings = populatedPerson.createdMeetings;
 
             createdMeetings.sort(function compare(a, b) {
-              if (a.updatedAt < b.updatedAt) {
-                return 1;
-              } else if (a.updatedAt > b.updatedAt) {
+              if (a.updatedAt > b.updatedAt) {
                 return -1;
+              } else if (a.updatedAt < b.updatedAt) {
+                return 1;
               }
 
               return 0;
