@@ -1,17 +1,17 @@
 jQuery(document).ready(function () {
   /* Meetingseries Information */
 
-  // jQuery('.meetingseries-information-descritpion').editable('/meetingseries/updateDescription', {
-  //   name: 'description',
-  //   indicator: 'Saving...',
-  //   tooltip: 'Click to edit...'
-  // });
-  //
-  // jQuery('.meetingseries-information-timer').editable('/meetingseries/updateTimer', {
-  //   name: 'timer',
-  //   indicator: 'Saving...',
-  //   tooltip: 'Click to edit...'
-  // });
+  jQuery('.meetingseries-information-descritpion').editable('/meetingseries/updateDescription', {
+    name: 'description',
+    indicator: 'Saving...',
+    tooltip: 'Click to edit...'
+  });
+
+  jQuery('.meetingseries-information-timer').editable('/meetingseries/updateTimer', {
+    name: 'timer',
+    indicator: 'Saving...',
+    tooltip: 'Click to edit...'
+  });
 
   jQuery('#createPersonModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
@@ -71,5 +71,13 @@ jQuery(document).ready(function () {
     jQuery.get('/meeting/start/' + meetingId);
   });
 
+  Sortable.create(dragListTopics, {
+    handle: '.fa fa-arrows-v',
+    animation: 150
+  });
 
+  Sortable.create(dragListMeetingCreation, {
+    handle: '.fa fa-arrows-v',
+    animation: 150
+  });
 });

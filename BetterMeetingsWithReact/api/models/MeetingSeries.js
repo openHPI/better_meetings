@@ -38,7 +38,7 @@ module.exports = {
     timer: {
       type: 'integer',
       required: true
-    },
+    }
   }
 };
 

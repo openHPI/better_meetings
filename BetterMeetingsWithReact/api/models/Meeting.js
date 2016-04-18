@@ -35,6 +35,10 @@ module.exports = {
     startTime: {
       type: 'datetime'
     },
+    scheduledAt: {
+      type: 'datetime',
+      required: true
+    },
     done: {
       type: 'boolean',
       required: true

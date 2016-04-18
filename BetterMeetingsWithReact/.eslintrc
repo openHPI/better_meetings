@@ -14,9 +14,10 @@
   "globals": {
     // sails
     "sails": 1,
-    // jQuery
+    // libs
     "jQuery": 1,
     "$": 1,
+    "Sortable": 1,
 
     // models
     "meeting": 1,

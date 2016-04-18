@@ -17,7 +17,8 @@
             </div>
             <div class="row">
               <div class="col-xs-8 col-lg-8">
-                <h4><a class="text-success" href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
+                <h4><a class="text-success"
+                       href="meetingseries/view/<%= meetingseries.id %>"><%= meetingseries.title %></a>
                 </h4>
                 <% if (meetingseries.description) { %>
                 <p><%= meetingseries.description %></p>
@@ -32,8 +33,8 @@
                   <% if (meetingseries.instances.length > 0) { %>
                   <li class="list-group-item">
                   <span class="badge badge-success">
-                    <% if (meetingseries.instances[0].startTime) { %>
-                    <%= meetingseries.instances[0].startTime %>
+                    <% if (meetingseries.instances[meetingseries.instances.length - 1].scheduledAt) { %>
+                    <%= meetingseries.instances[meetingseries.instances.length - 1].scheduledAt %>
                     <% } else { %>
                     Kein Zeitpunkt bekannt
                     <% } %>
@@ -105,8 +106,8 @@
                 <div class="timeline-stat">
                   <div class="timeline-icon"></div>
                   <div class="timeline-time">
-                    <% if (meeting.startTime) { %>
-                    <%= meeting.startTime %>
+                    <% if (meeting.scheduledAt) { %>
+                    <%= meeting.scheduledAt %>
                     <% } else { %>
                     Kein Zeitpunkt gegeben
                     <% } %>

@@ -8,17 +8,15 @@
 
 module.exports = {
 
-  createFromSeries: function (req) {
+  createFromSeries: function (req, res) {
     var id = req.param('meetingseries');
     var topics = [];
-    var startTime = req.param('startTime');
+    var scheduledAt = req.param('scheduledAt');
     var self = this;
     var i;
     var index;
     var content;
     var distinctPersons;
-
-    sails.log(req.allParams());
 
     meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(errMeetingFind, series) {
       if (errMeetingFind) {
@@ -50,7 +48,7 @@ module.exports = {
                 admins: series.admins,
                 attendees: series.admins,
                 isInitialCreation: true,
-                startTime: startTime,
+                scheduledAt: scheduledAt,
                 done: false,
                 timer: series.timer,
                 url: url,
@@ -60,7 +58,7 @@ module.exports = {
                 if (err) {
                   console.log('Meeting not created' + err);
                 } else {
-                  console.log('Created Meeting ' + JSON.stringify(created));
+                  console.log('Created Meeting @id:' + created.id);
                   meeting.publishCreate(
                     {
                       id: created.id,
@@ -70,7 +68,7 @@ module.exports = {
                       admins: created.admins,
                       attendees: created.attendees,
                       isInitialCreation: created.isInitialCreation,
-                      startTime: created.startTime,
+                      scheduledAt: created.scheduledAt,
                       done: created.status,
                       timer: created.timer,
                       url: created.url,
@@ -80,18 +78,18 @@ module.exports = {
                   content = EmailService.computeInviteEmailContent(created.url, series.title);
                   distinctPersons = self.arrayUnion(series.admins, series.members);
 
-                for (var i in distinctPersons) {
-                  if (distinctPersons[i].email !== null) {
-                    EmailService.sendInvitation({
-                      recipientName: distinctPersons[i].name,
-                      to: distinctPersons[i].email,
-                      content: content,
-                    });
+                  for (var i in distinctPersons) {
+                    if (distinctPersons[i].email !== null) {
+                      EmailService.sendInvitation({
+                        recipientName: distinctPersons[i].name,
+                        to: distinctPersons[i].email,
+                        content: content
+                      });
+                    }
                   }
+                  res.redirect('meetingseries/view/' + created.series);
                 }
-              res.redirect('meetingseries/view/' + created.series);
-              }
-            });
+              });
           }
         );
       }
@@ -103,20 +101,20 @@ module.exports = {
     var topics = req.param('topics');
     var attendees = req.param('attendees');
     var isInitialCreation = req.param('isInitialCreation');
-    var startTime = req.param('startTime');
+    var scheduledAt = req.param('scheduledAt');
     var meetingCreatingAdmin = req.session.me;
 
     console.log('req.session.me: ' + meetingCreatingAdmin);
     attendees.push(meetingCreatingAdmin);
 
     if (isInitialCreation === false) {
-      if (topics && attendees && isInitialCreation && startTime) {
+      if (topics && attendees && isInitialCreation && scheduledAt) {
         meeting.create(
           {
             topics: topics,
             attendees: attendees,
             isInitialCreation: isInitialCreation,
-            startTime: startTime
+            scheduledAt: scheduledAt
           })
           .exec(function createMeeting(err, created) {
             if (err) {
@@ -129,7 +127,7 @@ module.exports = {
                   topics: created.topics,
                   attendees: created.attendees,
                   isInitialCreation: created.isInitialCreation,
-                  startTime: created.startTime
+                  scheduledAt: created.scheduledAt
                 });
             }
           });

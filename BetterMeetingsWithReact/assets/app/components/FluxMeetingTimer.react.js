@@ -22,11 +22,17 @@ var FluxMeetingTimer = React.createClass({
     var timeDiff = Math.round((now - start) / 1000);
     var newTimer = timer - timeDiff;
 
+    if (!this.props.startTime) {
+      return timer;
+    }
+
     return newTimer;
   },
 
   tick: function () {
-    this.setState({ timer: this.state.timer - 1 });
+    if (this.props.startTime) {
+      this.setState({ timer: this.state.timer - 1 });
+    }
   },
 
   componentDidMount: function () {
