@@ -35,7 +35,6 @@ var cssFilesToInject = [
 var jsFilesToInject = [
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/dependencies/jquery-1.12.0.min.js',
   'js/dependencies/jeditable.min.js',
   'js/dependencies/nifty.min.js',
   'js/dependencies/bootstrap-datepicker.js',
