@@ -400,12 +400,13 @@
           <div class="form-group">
             <label class='col-md-3 control-label'>Date</label>
             <div class="col-md-9 input-group date" data-provide="datepicker">
-              <input id="meeting-datepicker" type="text" name="scheduledAt" class="form-control">
+              <input id="meeting-datepicker" type="text" name="scheduledAt" class="form-control"
+                     value=<%= (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + new Date().getFullYear() %> readOnly>
               <span class="input-group-addon"><i class="fa fa-clock-o fa-lg"></i></span>
             </div>
           </div>
 
-          <div class="text-right">
+          <div class="text-right form-group">
             <button class="btn btn-primary" type="submit">Create</button>
           </div>
 

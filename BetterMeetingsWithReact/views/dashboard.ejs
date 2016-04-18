@@ -34,7 +34,7 @@
                   <li class="list-group-item">
                   <span class="badge badge-success">
                     <% if (meetingseries.instances[meetingseries.instances.length - 1].scheduledAt) { %>
-                    <%= meetingseries.instances[meetingseries.instances.length - 1].scheduledAt %>
+                    <%= new Date(meetingseries.instances[meetingseries.instances.length - 1].scheduledAt).toLocaleString().replace("00:00:00", "") %>
                     <% } else { %>
                     Kein Zeitpunkt bekannt
                     <% } %>
@@ -107,7 +107,7 @@
                   <div class="timeline-icon"></div>
                   <div class="timeline-time">
                     <% if (meeting.scheduledAt) { %>
-                    <%= meeting.scheduledAt %>
+                    <%= new Date(meeting.scheduledAt).toLocaleString().replace("00:00:00", "") %>
                     <% } else { %>
                     No timestep given
                     <% } %>
