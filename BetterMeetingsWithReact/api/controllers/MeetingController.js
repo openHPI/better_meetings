@@ -348,68 +348,73 @@ module.exports = {
 
     console.log('start meeting ' + meetingId);
 
-    meeting.findOne(meetingId).exec(function findMeeting(err, meetingAnswer) {
+    return meeting.findOne(meetingId).exec(function findMeeting(err, meetingAnswer) {
       if (err) {
         sails.log.error('Error:', err);
-      } else {
-        sails.log('Found meeting with title ' + meetingAnswer.title);
+        return null;
+      }
+      sails.log('Found meeting with title ' + meetingAnswer.title);
 
-        meetingseries.findOne(meetingAnswer.series).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
-          if (err) {
-            sails.log('Error: Could not find meetingseries');
-          } else {
-            sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
+      return meetingseries.findOne(meetingAnswer.series).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+        if (err) {
+          sails.log('Error: Could not find meetingseries');
+          return null;
+        }
+        sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
 
-            content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
-            distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
+        content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
+        distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
 
-            for (i in distinctPersons) {
-              if (distinctPersons[i].email !== null) {
-                EmailService.sendInvitation({
-                  recipientName: distinctPersons[i].name,
-                  to: distinctPersons[i].email,
-                  content: content
-                });
-              }
+        for (i in distinctPersons) {
+          if (distinctPersons.hasOwnProperty(i)) {
+            if (distinctPersons[i].email !== null) {
+              EmailService.sendInvitation({
+                recipientName: distinctPersons[i].name,
+                to: distinctPersons[i].email,
+                content: content
+              });
             }
+          }
+        }
 
-            meeting.update({ id: meetingId }).set({
-              startTime: startTime,
-              scheduledAt: startTime
-            }).exec(function updateMeeting(err, updated) {
+        return meeting.update({ id: meetingId }).set({
+          startTime: startTime,
+          scheduledAt: startTime
+        }).exec(function updateMeeting(err, updated) {
+          if (err) {
+            sails.log('Meeting not updated ' + err);
+          } else {
+            sails.log('Updated Meeting: ' + updated[0].title);
+            updated[0].save(function (err) {
               if (err) {
-                sails.log('Meeting not updated ' + err);
-              } else {
-                sails.log('Updated Meeting: ' + updated[0].title);
-                updated[0].save(function (err) {
-                  if (err) {
-                    sails.log('Error while saving update to Meeting ' + updated[0].title);
-                    return null;
-                  }
-                  sails.log('Successfully saved updates to Meeting ' + updated[0].title);
-
-                  meeting.publishUpdate(updated[0].id, {
-                    id: updated[0].id,
-                    topics: updated[0].topics,
-                    attendees: updated[0].attendees,
-                    isInitialCreation: updated[0].isInitialCreation,
-                    startTime: updated[0].startTime,
-                    scheduledAt: updated[0].scheduledAt,
-                    url: updated[0].url
-                  });
-                  PersonService.createAttendee({
-                    name: req.session.me.name,
-                    email: req.session.me.email,
-                    password: req.session.me.password,
-                    meeting: meetingId
-                  });
-                  return res.view('meeting');
-                });
+                sails.log('Error while saving update to Meeting ' + updated[0].title);
+                return null;
               }
+              sails.log('Successfully saved updates to Meeting ' + updated[0].title);
+
+              meeting.publishUpdate(updated[0].id, {
+                id: updated[0].id,
+                topics: updated[0].topics,
+                attendees: updated[0].attendees,
+                isInitialCreation: updated[0].isInitialCreation,
+                startTime: updated[0].startTime,
+                scheduledAt: updated[0].scheduledAt,
+                url: updated[0].url
+              });
+              return PersonService.createAttendee({
+                name: req.session.me.name,
+                email: req.session.me.email,
+                password: req.session.me.password,
+                meeting: meetingId
+              }, function () {
+                console.log('redirect to: /meeting/id/' + updated[0].url);
+                // redirect not working - don't now why
+                return res.redirect('/meeting/id/' + updated[0].url);
+              });
             });
           }
         });
-      }
+      });
     });
   },
 

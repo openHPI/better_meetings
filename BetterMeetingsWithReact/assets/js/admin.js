@@ -14,8 +14,8 @@ jQuery(document).ready(function () {
   });
 
   /* Meetingseries General */
-  
-  jQuery('#addAdmin-button, addMember-button').click(function() {
+
+  jQuery('#addAdmin-button, addMember-button').click(function () {
     jQuery('#createPersonModal').modal('show');
   });
 
@@ -32,18 +32,18 @@ jQuery(document).ready(function () {
 
   /* Topics */
 
-  jQuery('#topics-panel .delete-button').click(function () {
-    var id = parseInt(jQuery(this).attr('data-id'));
-    jQuery.post('/topic/delete', id, function () {
-      alert('success');
-    }).done(function () {
-      alert('second success');
-    }).fail(function () {
-      alert('error');
-    }).always(function () {
-      alert('finished');
-    });
-  });
+  // jQuery('#topics-panel .delete-button').click(function () {
+  //   var id = parseInt(jQuery(this).attr('data-id'));
+  //   jQuery.post('/topic/delete', id, function () {
+  //     alert('success');
+  //   }).done(function () {
+  //     alert('second success');
+  //   }).fail(function () {
+  //     alert('error');
+  //   }).always(function () {
+  //     alert('finished');
+  //   });
+  // });
 
   jQuery('#create-subitem-button').click(function () {
     var text = jQuery('#create-subitem-input').val();
@@ -73,12 +73,41 @@ jQuery(document).ready(function () {
     jQuery.get('/meeting/start/' + meetingId);
   });
 
-  Sortable.create(dragListTopics, {
+  jQuery('#deleteTopicModal').on('show.bs.modal', function (event) {
+    var button = jQuery(event.relatedTarget); // Button that triggered the modal
+    var topicId = button.data('id'); // Extract info from data-* attributes
+    var topicTitle = button.data('title'); // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods
+    // instead.
+    var modal = jQuery(this);
+
+    console.log('open delete modal');
+    console.log(event);
+
+    modal.find('#id').val(topicId);
+    modal.find('#title').val(topicTitle);
+  })
+
+  Sortable.create(document.getElementById('dragListTopics'), {
     handle: '.fa fa-arrows-v',
-    animation: 150
+    animation: 150,
+    onAdd: function (evt) {
+      console.log('add:', evt.item);
+    },
+    // onUpdate: function (evt) { console.log('update:', evt.item); },
+    onRemove: function (evt) {
+      console.log('remove:', evt.item);
+    },
+    onStart: function (evt) {
+      console.log('onStart.foo:', evt);
+    },
+    onEnd: function (evt) {
+      console.log('onEnd.foo:', evt);
+    }
   });
 
-  Sortable.create(dragListMeetingCreation, {
+  Sortable.create(document.getElementById('dragListMeetingCreation'), {
     handle: '.fa fa-arrows-v',
     animation: 150
   });

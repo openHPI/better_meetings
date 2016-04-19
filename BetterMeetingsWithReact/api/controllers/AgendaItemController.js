@@ -42,7 +42,7 @@ module.exports = {
             sails.log('agendaitem not created: ' + err);
           }
           else {
-            sails.log('agendaitem ' + created.title + 
+            sails.log('agendaitem ' + created.title +
               ' created');
             agendaitem.publishCreate(
               {
@@ -55,6 +55,7 @@ module.exports = {
                 done: created.done,
                 note: created.note
               });
+            res.redirect("meetingseries/view/" + meetingseries);
           }
         });
     }
@@ -98,7 +99,7 @@ module.exports = {
     var subAgendaItems = req.param('subAgendaItems');
     var note = req.param('note');
     if (agendaItemId && meetingseries && title && done != null && req.isSocket) {
-      agendaitem.update({id: agendaItemId}).set({
+      agendaitem.update({ id: agendaItemId }).set({
           meetingseries: meetingseries,
           title: title,
           description: description,
@@ -146,7 +147,7 @@ module.exports = {
       res.response = items;
       res.render('agendaitem',
         {
-          'model': 'agendaitem'
+          model: 'agendaitem'
         });
     });
   },
@@ -154,28 +155,33 @@ module.exports = {
 
   delete: function (req, res) {
     var agendaItemID = req.param('id', null);
+
+    console.log('try to delete topic @id:' + agendaItemID);
+
     if (agendaItemID) {
-      agendaItem.findOne(agendaItemID).exec(function findAgendaItem(err, agendaItemAnswer) {
-        agendaitem.destroy({id: agendaItemAnswer.id}).exec(function destroy(err, agendaItemAnswer) {
-            if (err) {
-              sails.log('Error while deleting agendaitem');
-              res.send('Error');
-            }
-            else {
-              sails.log('Successfully deleted ' + agendaitemID);
-              agendaitem.publishDestroy(agendaItemAnswer[0].id, undefined, {
-                previous: {
-                  title:          agendaItemAnswer[0].title,
-                  meetingseries:  agendaItemAnswer[0].meetingseries,
-                  description:    agendaItemAnswer[0].description,
-                  done:           agendaItemAnswer[0].done,
-                  todos:          agendaItemAnswer[0].todos,
-                  subAgendaItems: agendaItemAnswer[0].subAgendaItems,
-                  note:           agendaItemAnswer[0].note,
-                }
-              });
-            }
-          });
+      agendaitem.findOne(agendaItemID).exec(function findAgendaItem(err, agendaItemAnswer) {
+        agendaitem.destroy({ id: agendaItemAnswer.id }).exec(function destroy(err, agendaItemAnswer) {
+          if (err) {
+            sails.log('Error while deleting agendaitem');
+            res.send('Error');
+          } else {
+            sails.log('Successfully deleted ' + agendaItemID);
+            agendaitem.publishDestroy(agendaItemAnswer.id, undefined, {
+              previous: {
+                title: agendaItemAnswer.title,
+                meetingseries: agendaItemAnswer.meetingseries,
+                description: agendaItemAnswer.description,
+                done: agendaItemAnswer.done,
+                todos: agendaItemAnswer.todos,
+                subAgendaItems: agendaItemAnswer.subAgendaItems,
+                note: agendaItemAnswer.note
+              }
+            });
+
+            res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+            res.redirect('back');
+          }
+        });
       });
     }
   },
@@ -235,7 +241,7 @@ module.exports = {
     var agendaItemId = req.param('id');
     var note = req.param('note');
     if (agendaItemId && note) {
-      agendaitem.update({id: agendaItemId}).set({
+      agendaitem.update({ id: agendaItemId }).set({
           note: note,
         })
         .exec(function updateAgendaItem(err, updated) {
