@@ -55,6 +55,7 @@ module.exports = {
                 done: created.done,
                 note: created.note
               });
+            res.redirect("meetingseries/view/" + meetingseries);
           }
         });
     }
