@@ -261,11 +261,25 @@ module.exports = {
 
             qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
 
-            res.send(
+            meetingseries.findOne( meeting.series ).populateAll().exec(function findMeetingSeries(err, meetingSeriesAnswer) {
+              if (err) {
+                sails.log.error('ERR:', err);
+              }
+
+              if(!meetingSeriesAnswer) {
+                console.log('no meetingSeriesAnswer with id ' + meeting.series + ' found');
+                return;
+              }
+
+              res.send(
               {
                 meeting: meeting,
-                qrcode: qrcode
+                qrcode: qrcode,
+                members: meetingSeriesAnswer.members,
+                admins: meetingSeriesAnswer.admins
               });
+
+            });
           });
       });
   },

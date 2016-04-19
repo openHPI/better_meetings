@@ -6,7 +6,7 @@ var _ = require('underscore');
 var MeetingDataAPI = require('../utils/MeetingDataAPI');
 
 // Define initial data
-var _isMeetingDataLoaded = false, _isMeetingDone = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null, _qrcode = null;
+var _isMeetingDataLoaded = false, _isMeetingDone = false, _user = null, _meeting = null, _canEdit = false, _selectedTopic = 0, _allTodoItems = [], _editingTodoItem = null, _qrcode = null, _options = [];
 
 /**
  * Setting the user
@@ -116,6 +116,25 @@ function removeTodoItem(item) {
   _allTodoItems.splice(index, 1);
 }
 
+function generateAssigneeOptions () {
+  var options = [];
+  var persons = _meeting.admins.concat(_meeting.members, _meeting.attendees);
+  var uniqPersons = [];
+  
+  jQuery.each(persons, function (i, person) {
+    if(jQuery.inArray(person, uniqPersons) === -1)
+      uniqPersons.push(person);
+  });
+
+  console.log(uniqPersons);
+
+  for (var i = 0; i < uniqPersons.length; i++) {
+    options.push({ value: uniqPersons[i].email, label: uniqPersons[i].name + " (" + uniqPersons[i].email + ")" });
+  }
+
+  _options = options;
+}
+
 /**
  * Handles the actions for the meeting
  *
@@ -145,6 +164,10 @@ var MeetingStore = _.extend({}, EventEmitter.prototype, {
 
   getQrCode: function () {
     return _qrcode;
+  },
+
+  getAssigneeOptions: function () {
+    return _options;
   },
 
   // Return selected agenda item
@@ -194,6 +217,8 @@ AppDispatcher.register(function (payload) {
     case FluxServerConstants.MEETING_RECEIVE:
       loadMeetingData(action.data.meeting);
       _qrcode = action.data.qrcode;
+      _meeting['members'] = action.data.members;
+      generateAssigneeOptions();
       MeetingDataAPI.subscribeAndListen(_meeting.topics, _allTodoItems);
       break;
 
@@ -217,6 +242,7 @@ AppDispatcher.register(function (payload) {
 
     case FluxServerConstants.ATTENDEE_ADD:
       _meeting.attendees.push(action.data);
+      generateAssigneeOptions();
       break;
 
     // Respond to client actions

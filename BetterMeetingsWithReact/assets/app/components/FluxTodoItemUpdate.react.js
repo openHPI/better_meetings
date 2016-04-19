@@ -33,16 +33,8 @@ var FluxTodoItemUpdate = React.createClass({
       assignee: item.assignee,
       done: item.done,
       important: item.important,
-      options: this.getOptions()
+      options: this.props.options
     });
-  },
-
-  getOptions: function() {
-    var options = [];
-    for (var i = 0; i < this.props.admins.length; i++) {
-      options.push({ value: this.props.admins[i].email, label: this.props.admins[i].name + " (" + this.props.admins[i].email + ")" });
-    }
-    return options;
   },
 
   editItem: function(event) {

@@ -5,19 +5,11 @@ var Select = require('react-select');
 var FluxTodoItemCreateForm = React.createClass({
 
     getInitialState: function() {
-        return { title: '', description: '', assignees: [], important: false, options: this.getOptions() };
+        return { title: '', description: '', assignees: [], important: false, options: this.props.options };
     },
 
     componentWillReceiveProps: function() {
-      this.setState({ options: this.getOptions() });
-    },
-
-    getOptions: function() {
-      var options = [];
-      for (var i = 0; i < this.props.admins.length; i++) {
-        options.push({ value: this.props.admins[i].email, label: this.props.admins[i].name + " (" + this.props.admins[i].email + ")" });
-      }
-      return options;
+      this.setState({ options: this.props.options });
     },
 
     toggleImportant: function() {

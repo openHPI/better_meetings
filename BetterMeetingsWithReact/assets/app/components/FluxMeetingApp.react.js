@@ -28,6 +28,7 @@ function getMeetingState() {
 
     meeting: MeetingStore.getMeetingData(),
     qrcode: MeetingStore.getQrCode(),
+    assingeeOptions: MeetingStore.getAssigneeOptions(),
     selectedTopic: MeetingStore.getSelectedTopic(),
     allTodoItems: MeetingStore.getAllTodoItems(),
     editingTodoItem: MeetingStore.getEditingTodoItem()
@@ -114,8 +115,9 @@ FluxMeetingApp = React.createClass({
                           <FluxTodoList
                             allItems={this.state.allTodoItems}
                             items={this.state.meeting.topics[this.state.selectedTopic].todos}
-                            attendees={this.state.meeting.attendees} canEdit={this.state.canEdit}
-                            editingTodoItem={this.state.editingTodoItem} admins={this.state.meeting.admins}/>
+                            canEdit={this.state.canEdit}
+                            editingTodoItem={this.state.editingTodoItem} 
+                            options={this.state.options} />
                         </div>
                       </div>
                     </div>
@@ -151,14 +153,12 @@ FluxMeetingApp = React.createClass({
             <aside id="aside-container">
               <div id="aside">
                 <div className="nano">
-                  <FluxAttendeeList admins={this.state.meeting.admins} attendees={this.state.meeting.attendees}
-                                    user={this.state.user} canEdit={this.state.canEdit}/>
+                  <FluxAttendeeList admins={this.state.meeting.admins} attendees={this.state.meeting.attendees} user={this.state.user} canEdit={this.state.canEdit}/>
                 </div>
               </div>
             </aside>
 
-            <FluxTodoItemCreateForm admins={this.state.meeting.admins} member={this.state.member}
-                                    attendees={this.state.meeting.attendees}/>
+            <FluxTodoItemCreateForm options={this.state.assingeeOptions} />
 
           </div>
         </div>
