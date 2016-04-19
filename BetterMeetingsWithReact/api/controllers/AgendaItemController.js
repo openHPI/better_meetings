@@ -164,18 +164,21 @@ module.exports = {
             sails.log('Error while deleting agendaitem');
             res.send('Error');
           } else {
-            sails.log('Successfully deleted ' + agendaitemID);
-            agendaitem.publishDestroy(agendaItemAnswer[0].id, undefined, {
+            sails.log('Successfully deleted ' + agendaItemID);
+            agendaitem.publishDestroy(agendaItemAnswer.id, undefined, {
               previous: {
-                title: agendaItemAnswer[0].title,
-                meetingseries: agendaItemAnswer[0].meetingseries,
-                description: agendaItemAnswer[0].description,
-                done: agendaItemAnswer[0].done,
-                todos: agendaItemAnswer[0].todos,
-                subAgendaItems: agendaItemAnswer[0].subAgendaItems,
-                note: agendaItemAnswer[0].note,
+                title: agendaItemAnswer.title,
+                meetingseries: agendaItemAnswer.meetingseries,
+                description: agendaItemAnswer.description,
+                done: agendaItemAnswer.done,
+                todos: agendaItemAnswer.todos,
+                subAgendaItems: agendaItemAnswer.subAgendaItems,
+                note: agendaItemAnswer.note
               }
             });
+
+            res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+            res.redirect('back');
           }
         });
       });

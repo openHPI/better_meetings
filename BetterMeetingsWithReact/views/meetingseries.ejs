@@ -189,7 +189,7 @@
                     <div class="panel-heading">
                       <div class="panel-control">
                         <button data-toggle="modal" data-target="#deleteTopicModal"
-                                data-topicId="<%= topic.id %>" data-topicTitle="<%= topic.title %>"
+                                data-id="<%= topic.id %>" data-title="<%= topic.title %>"
                                 class="delete-button btn btn-xs"><i class="fa fa-times"></i>
                         </button>
                       </div>
@@ -375,8 +375,11 @@
 
           <!-- topic -->
 
-          <div>
-            <input id="id" type="text" name="id" class="form-control" readonly> <!--style="display: none;"-->
+          <div class="form-group" style="display: none;">
+            <label class="col-md-3 control-label">ID</label>
+            <div class="col-md-9">
+              <input id="id" type="text" name="id" class="form-control" readonly>
+            </div>
           </div>
 
           <!-- title -->
@@ -398,11 +401,9 @@
             </div>
           </div>
 
-          <div class="text-left">
-            <button class="btn btn-primary class=close" data-dismiss="modal">Cancel</button>
-          </div>
           <div class="text-right">
-            <button class="btn btn-primary" type="submit">Delete</button>
+            <button class="btn btn-primary class=close" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-warning" type="submit">Delete</button>
           </div>
 
         </form>
