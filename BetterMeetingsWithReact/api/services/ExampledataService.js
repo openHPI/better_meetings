@@ -25,19 +25,19 @@ module.exports = {
         title: 'Verlauf Webprogrammierungs Seminar',
         description: 'Überblick über alle Gruppen / Demo Vorträge',
         note: 'Externen Gutachter einladen',
-        done: false,
+        done: false
       },
       {
         title: 'Neue Technologien',
         description: 'Was gibt es neues in der Welt des Internets?',
         note: 'Externen Gutachter einladen',
-        done: false,
+        done: false
       },
       {
         title: 'Ausblick',
         description: 'Punkte für die nächste Woche',
         note: 'Externen Gutachter einladen',
-        done: false,
+        done: false
       }
     ],
     todos: [
@@ -45,50 +45,55 @@ module.exports = {
         title: 'Gruppenkurzfassung',
         description: 'Vorstellung aller Gruppen und ihrer Projekte',
         note: 'evtl. Grillabend planen',
-        assignee: "Alexander",
+        assignee: 'Alexander'
       },
       {
         title: 'Nutzung des BetterMeeting Tools',
         description: 'Warum ist das Tool so gut und hilft auf professionellen Niveau?',
         note: 'Pro/Contra Tabelle anlegen',
-        assignee: "Emma"
+        assignee: 'Emma'
       },
       {
         title: 'Demo-Präsentationen',
         description: 'Planung der Veranstaltung',
         note: 'noch Termin zum Üben klären',
-        assignee: "Julius"
+        assignee: 'Julius'
       }
-    ],
+    ]
   },
 
   generateExamplePersons: function (req, res) {
+    var name;
+    var password;
+    var email;
+    var isAdmin;
+    var i;
 
     var person1 = {
-      'email': this.conf.person.email_admin1,
-      'password': 'password',
-      'name': 'Alexander',
-      'isAdmin': true
+      email: this.conf.person.email_admin1,
+      password: 'password',
+      name: 'Alexander',
+      isAdmin: true
     };
     var person2 = {
-      'email': this.conf.person.email_admin2,
-      'password': 'password',
-      'name': 'Emma',
-      'isAdmin': true
+      email: this.conf.person.email_admin2,
+      password: 'password',
+      name: 'Emma',
+      isAdmin: true
     };
     var person3 = {
-      'email': this.conf.person.email_member1,
-      'password': 'password',
-      'name': 'Julius',
-      'isAdmin': false
+      email: this.conf.person.email_member1,
+      password: 'password',
+      name: 'Julius',
+      isAdmin: false
     };
     var persons = [person1, person2, person3];
 
-    for (var i = 0; i < 3; i++) {
-      var name = persons[i].name;
-      var password = persons[i].password;
-      var email = persons[i].email;
-      var isAdmin = persons[i].isAdmin;
+    for (i = 0; i < 3; i++) {
+      name = persons[i].name;
+      password = persons[i].password;
+      email = persons[i].email;
+      isAdmin = persons[i].isAdmin;
 
       person.findOrCreate({
         name: name,
@@ -101,12 +106,11 @@ module.exports = {
         } else {
           sails.log('person created: ' + JSON.stringify(cre));
         }
-      })
+      });
     }
   },
 
   generateExampleMeetingSeries: function (req, res) {
-
     var admins = [];
     var members = [];
     var title = this.conf.meetingseries.title;
@@ -119,34 +123,22 @@ module.exports = {
 
     person.findOne({
       email: email1
-    }).exec(function findPerson(err, admin1) {
-      if (err) {
-      } else {
-        if (!admin1) {
-        } else {
-          admins.push(admin1);
-        }
+    }).exec(function (err, admin1) {
+      if (admin1) {
+        admins.push(admin1);
       }
 
       person.findOne({
         email: email2
-      }).exec(function findPerson(err, admin2) {
-        if (err) {
-        } else {
-          if (!admin2) {
-          } else {
-            admins.push(admin2);
-          }
+      }).exec(function (err, admin2) {
+        if (admin2) {
+          admins.push(admin2);
         }
         person.findOne({
           email: email3
         }).exec(function findPerson(err, member1) {
-          if (err) {
-          } else {
-            if (!member1) {
-            } else {
-              members.push(member1);
-            }
+          if (member1) {
+            members.push(member1);
           }
 
           meetingseries.findOne({
@@ -182,22 +174,22 @@ module.exports = {
 
   generateExampleTopics: function (req, res) {
     var topic1 = {
-      'title': this.conf.topics[0].title,
-      'description': this.conf.topics[0].description,
-      'done': this.conf.topics[0].done,
-      'note': this.conf.topics[0].note,
+      title: this.conf.topics[0].title,
+      description: this.conf.topics[0].description,
+      done: this.conf.topics[0].done,
+      note: this.conf.topics[0].note
     };
     var topic2 = {
-      'title': this.conf.topics[1].title,
-      'description': this.conf.topics[1].description,
-      'done': this.conf.topics[1].done,
-      'note': this.conf.topics[1].note,
+      title: this.conf.topics[1].title,
+      description: this.conf.topics[1].description,
+      done: this.conf.topics[1].done,
+      note: this.conf.topics[1].note
     };
     var topic3 = {
-      'title': this.conf.topics[2].title,
-      'description': this.conf.topics[2].description,
-      'done': this.conf.topics[2].done,
-      'note': this.conf.topics[2].note,
+      title: this.conf.topics[2].title,
+      description: this.conf.topics[2].description,
+      done: this.conf.topics[2].done,
+      note: this.conf.topics[2].note
     };
 
     var topics = [topic1, topic2, topic3];
@@ -212,7 +204,6 @@ module.exports = {
         if (!cre) {
           sails.log('Topics not created' + err);
         } else {
-
           for (var i = 0; i < 3; i++) {
             var meetingseries = cre;
             var title = topics[i].title;
@@ -223,14 +214,14 @@ module.exports = {
               meetingseries: meetingseries,
               title: title,
               description: description,
-              done: done,
+              done: done
             }).exec(function createAgendaItems(err, cre) {
               if (err) {
                 sails.log('AgendaItem not created' + err);
               } else {
                 sails.log('AgendaItem created: ' + JSON.stringify(cre));
               }
-            })
+            });
           }
         }
       }
