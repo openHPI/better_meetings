@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-  /* Meetingseries Information */
+  /* Meetingseries Description */
 
   jQuery('.meetingseries-information-descritpion').editable('/meetingseries/updateDescription', {
     name: 'description',
@@ -13,10 +13,16 @@ jQuery(document).ready(function () {
     tooltip: 'Click to edit...'
   });
 
+  /* Meetingseries General */
+  
+  jQuery('#addAdmin-button, addMember-button').click(function() {
+    jQuery('#createPersonModal').modal('show');
+  });
+
   jQuery('#createPersonModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
+    var button = jQuery(event.relatedTarget); // Button that triggered the modal
     var person = button.data('person'); // Extract info from data-* attributes
-    var modal = $(this);
+    var modal = jQuery(this);
 
     console.log('test');
 
@@ -26,22 +32,18 @@ jQuery(document).ready(function () {
 
   /* Topics */
 
-  jQuery('#createTopicModal').on('show.bs.modal', function () {
-    alert('The modal is about to be shown.');
+  jQuery('#topics-panel .delete-button').click(function () {
+    var id = parseInt(jQuery(this).attr('data-id'));
+    jQuery.post('/topic/delete', id, function () {
+      alert('success');
+    }).done(function () {
+      alert('second success');
+    }).fail(function () {
+      alert('error');
+    }).always(function () {
+      alert('finished');
+    });
   });
-
-  // jQuery('#topics-panel .delete-button').click(function () {
-  //   var id = parseInt(jQuery(this).attr('data-id'));
-  //   jQuery.post('/topic/delete', id, function () {
-  //     alert('success');
-  //   }).done(function () {
-  //     alert('second success');
-  //   }).fail(function () {
-  //     alert('error');
-  //   }).always(function () {
-  //     alert('finished');
-  //   });
-  // });
 
   jQuery('#create-subitem-button').click(function () {
     var text = jQuery('#create-subitem-input').val();
