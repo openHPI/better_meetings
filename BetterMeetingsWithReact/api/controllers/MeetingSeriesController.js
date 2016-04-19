@@ -131,7 +131,7 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
-              res.redirect("meetingseries/view/" + meetingSeriesID);
+            
             }
           });
         }
@@ -174,7 +174,7 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
-              res.redirect("meetingseries/view/" + meetingSeriesID);
+              
             }
           });
         }
