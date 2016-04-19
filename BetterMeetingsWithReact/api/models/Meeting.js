@@ -21,6 +21,11 @@ module.exports = {
     topics: {
       collection: 'agendaitem'
     },
+    topicOrder: {
+      // id_id_id_id --bsp--> 1_6_23_8_9
+      type: 'string',
+      required: false
+    },
     admins: {
       collection: 'person'
     },

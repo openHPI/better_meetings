@@ -78,7 +78,7 @@ module.exports = {
                   content = EmailService.computeInviteEmailContent(created.url, series.title);
                   distinctPersons = self.arrayUnion(series.admins, series.members);
 
-                  for (var i in distinctPersons) {
+                  for (i in distinctPersons) {
                     if (distinctPersons[i].email !== null) {
                       EmailService.sendInvitation({
                         recipientName: distinctPersons[i].name,
@@ -261,25 +261,25 @@ module.exports = {
 
             qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
 
-            meetingseries.findOne( meeting.series ).populateAll().exec(function findMeetingSeries(err, meetingSeriesAnswer) {
-              if (err) {
-                sails.log.error('ERR:', err);
-              }
+            meetingseries.findOne(meeting.series).populateAll()
+              .exec(function findMeetingSeries(errFindSeries, meetingSeriesAnswer) {
+                if (errFindSeries) {
+                  sails.log.error('ERR:', errFindSeries);
+                }
 
-              if(!meetingSeriesAnswer) {
-                console.log('no meetingSeriesAnswer with id ' + meeting.series + ' found');
-                return;
-              }
+                if (!meetingSeriesAnswer) {
+                  console.log('no meetingSeriesAnswer with id ' + meeting.series + ' found');
+                  return;
+                }
 
-              res.send(
-              {
-                meeting: meeting,
-                qrcode: qrcode,
-                members: meetingSeriesAnswer.members,
-                admins: meetingSeriesAnswer.admins
+                res.send(
+                  {
+                    meeting: meeting,
+                    qrcode: qrcode,
+                    members: meetingSeriesAnswer.members,
+                    admins: meetingSeriesAnswer.admins
+                  });
               });
-
-            });
           });
       });
   },
@@ -310,7 +310,7 @@ module.exports = {
   },
 
 
-  createAttendee: function (req, res) {
+  createAttendee: function (req) {
     var name = req.param('name', null);
     var email = req.param('email', null);
     var password = req.param('password', null);
@@ -326,16 +326,16 @@ module.exports = {
 
 
   getAttendees: function (req, res) {
-
+    console.log(res);
   },
 
   downloadSummary: function (req, res) {
-
+    console.log(res);
   },
 
 
   shareLink: function (req, res) {
-
+    console.log(res);
   },
 
   startMeeting: function (req, res) {
@@ -355,66 +355,67 @@ module.exports = {
       }
       sails.log('Found meeting with title ' + meetingAnswer.title);
 
-      return meetingseries.findOne(meetingAnswer.series).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
-        if (err) {
-          sails.log('Error: Could not find meetingseries');
-          return null;
-        }
-        sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
+      return meetingseries.findOne(meetingAnswer.series)
+        .exec(function findMeetingSeries(errFindSeries, meetingSeriesAnswer) {
+          if (errFindSeries) {
+            sails.log('Error: Could not find meetingseries');
+            return null;
+          }
+          sails.log('Found meetingseries with title ' + meetingSeriesAnswer.title);
 
-        content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
-        distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
+          content = EmailService.computeInviteEmailContent(meetingAnswer.url, meetingSeriesAnswer.title);
+          distinctPersons = self.arrayUnion(meetingSeriesAnswer.admins, meetingSeriesAnswer.members);
 
-        for (i in distinctPersons) {
-          if (distinctPersons.hasOwnProperty(i)) {
-            if (distinctPersons[i].email !== null) {
-              EmailService.sendInvitation({
-                recipientName: distinctPersons[i].name,
-                to: distinctPersons[i].email,
-                content: content
-              });
+          for (i in distinctPersons) {
+            if (distinctPersons.hasOwnProperty(i)) {
+              if (distinctPersons[i].email !== null) {
+                EmailService.sendInvitation({
+                  recipientName: distinctPersons[i].name,
+                  to: distinctPersons[i].email,
+                  content: content
+                });
+              }
             }
           }
-        }
 
-        return meeting.update({ id: meetingId }).set({
-          startTime: startTime,
-          scheduledAt: startTime
-        }).exec(function updateMeeting(err, updated) {
-          if (err) {
-            sails.log('Meeting not updated ' + err);
-          } else {
-            sails.log('Updated Meeting: ' + updated[0].title);
-            updated[0].save(function (err) {
-              if (err) {
-                sails.log('Error while saving update to Meeting ' + updated[0].title);
-                return null;
-              }
-              sails.log('Successfully saved updates to Meeting ' + updated[0].title);
+          return meeting.update({ id: meetingId }).set({
+            startTime: startTime,
+            scheduledAt: startTime
+          }).exec(function updateMeeting(errUpdateMeeting, updated) {
+            if (errUpdateMeeting) {
+              sails.log('Meeting not updated ' + errUpdateMeeting);
+            } else {
+              sails.log('Updated Meeting: ' + updated[0].title);
+              updated[0].save(function (errUpdate) {
+                if (errUpdate) {
+                  sails.log('Error while saving update to Meeting ' + updated[0].title);
+                  return null;
+                }
+                sails.log('Successfully saved updates to Meeting ' + updated[0].title);
 
-              meeting.publishUpdate(updated[0].id, {
-                id: updated[0].id,
-                topics: updated[0].topics,
-                attendees: updated[0].attendees,
-                isInitialCreation: updated[0].isInitialCreation,
-                startTime: updated[0].startTime,
-                scheduledAt: updated[0].scheduledAt,
-                url: updated[0].url
+                meeting.publishUpdate(updated[0].id, {
+                  id: updated[0].id,
+                  topics: updated[0].topics,
+                  attendees: updated[0].attendees,
+                  isInitialCreation: updated[0].isInitialCreation,
+                  startTime: updated[0].startTime,
+                  scheduledAt: updated[0].scheduledAt,
+                  url: updated[0].url
+                });
+                return PersonService.createAttendee({
+                  name: req.session.me.name,
+                  email: req.session.me.email,
+                  password: req.session.me.password,
+                  meeting: meetingId
+                }, function () {
+                  console.log('redirect to: /meeting/id/' + updated[0].url);
+                  // redirect not working - don't now why
+                  return res.redirect('/meeting/id/' + updated[0].url);
+                });
               });
-              return PersonService.createAttendee({
-                name: req.session.me.name,
-                email: req.session.me.email,
-                password: req.session.me.password,
-                meeting: meetingId
-              }, function () {
-                console.log('redirect to: /meeting/id/' + updated[0].url);
-                // redirect not working - don't now why
-                return res.redirect('/meeting/id/' + updated[0].url);
-              });
-            });
-          }
+            }
+          });
         });
-      });
     });
   },
 
@@ -466,9 +467,11 @@ module.exports = {
 
   arrayUnion: function (arr1, arr2) {
     var union = arr1.concat(arr2);
+    var i;
+    var j;
 
-    for (var i = 0; i < union.length; i++) {
-      for (var j = i + 1; j < union.length; j++) {
+    for (i = 0; i < union.length; i++) {
+      for (j = i + 1; j < union.length; j++) {
         if (this.arePersonsEqual(union[i], union[j])) {
           union.splice(j, 1);
           j--;

@@ -108,7 +108,7 @@ module.exports = {
 
     if (meetingSeriesId && description) {
       meetingseries.update({ id: meetingSeriesId }).set({
-        description: description,
+        description: description
       }).exec(function updateMeetingSeries(err, updated) {
         if (err) {
           sails.log('MeetingSeries not updated ' + err);
@@ -210,56 +210,6 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
-
-            }
-          });
-        }
-      });
-    } else {
-      res.send('meetingseries');
-      sails.log('MeetingSeries not updated: too few parameters');
-    }
-  },
-
-  updatePerson: function (req, res) {
-    var person = req.param('person');
-    var type = req.param('type');
-    var meetingSeriesId = req.param('id');
-
-    sails.log('Update started');
-
-    if (meetingSeriesId) {
-      meetingseries.update({ id: meetingSeriesId }).set({
-        admins: admins,
-        title: title,
-        meeting: meeting,
-        url: url,
-        timer: timer,
-        members: members,
-        description: description,
-        topics: topics
-      }).exec(function updateMeetingSeries(err, updated) {
-        if (err) {
-          sails.log('MeetingSeries not updated ' + err);
-        } else {
-          sails.log('Updated MeetingSeries: ' + updated[0].title);
-
-          updated[0].save(function (updateErr) {
-            if (updateErr) {
-              sails.log('Error while saving update to MeetingSeries ' + updated[0].title);
-            } else {
-              sails.log('Successfully saved updates to MeetingSeries ' + updated[0].title);
-              meetingseries.publishUpdate(updated[0].id, {
-                id: updated[0].id,
-                admins: updated[0].admins,
-                title: updated[0].title,
-                meeting: updated[0].meeting,
-                url: updated[0].url,
-                timer: updated[0].timer,
-                members: updated[0].members,
-                description: updated[0].description,
-                topics: updated[0].topics
-              });
             }
           });
         }
@@ -313,6 +263,8 @@ module.exports = {
 
             for (i in order) {
               if (order.hasOwnProperty(i)) {
+                if (!topicHash[order[i]]) continue;
+
                 topics.push(topicHash[order[i]]);
                 delete topicHash[order[i]];
               }
@@ -320,10 +272,13 @@ module.exports = {
 
             keys = Object.keys(topicHash);
             for (i in keys) {
+              if (!topicHash[keys[i]]) continue;
+
               if (keys.hasOwnProperty(i)) {
-                topics.push(topicHash[i]);
+                topics.push(topicHash[keys[i]]);
               }
             }
+
             item.topics = topics;
           }
 
