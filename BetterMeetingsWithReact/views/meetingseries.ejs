@@ -182,7 +182,7 @@
                 <h3 class="panel-title">Topics</h3>
               </div>
               <div class="panel-body">
-                <div class="panel-group accordion" id="dragListTopics">
+                <div class="panel-group accordion" id="dragListTopics" data-id=<%= meetingseries.id %>>
                   <% var i = 0; %>
                   <% _.each(meetingseries.topics, function (topic) { %>
                   <div class="panel" data-id="<%= topic.id %>">

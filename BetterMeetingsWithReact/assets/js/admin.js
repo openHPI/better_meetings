@@ -32,19 +32,6 @@ jQuery(document).ready(function () {
 
   /* Topics */
 
-  // jQuery('#topics-panel .delete-button').click(function () {
-  //   var id = parseInt(jQuery(this).attr('data-id'));
-  //   jQuery.post('/topic/delete', id, function () {
-  //     alert('success');
-  //   }).done(function () {
-  //     alert('second success');
-  //   }).fail(function () {
-  //     alert('error');
-  //   }).always(function () {
-  //     alert('finished');
-  //   });
-  // });
-
   jQuery('#create-subitem-button').click(function () {
     var text = jQuery('#create-subitem-input').val();
     jQuery('#create-subitem-input').val('');
@@ -103,7 +90,30 @@ jQuery(document).ready(function () {
       console.log('onStart.foo:', evt);
     },
     onEnd: function (evt) {
-      console.log('onEnd.foo:', evt);
+      var list = evt.to;
+      var id = jQuery(list).data('id');
+      var order;
+      var child;
+
+      for (child in list.children) {
+        if (list.children.hasOwnProperty(child)) {
+          if (!order) {
+            order = jQuery(list.children[child]).data('id');
+          } else {
+            order += '_' + jQuery(list.children[child]).data('id');
+          }
+        }
+      }
+
+      jQuery.post('/meetingseries/updateTopicOrder', { id: id, order: order }, function () {
+        console.log('success');
+      }).done(function () {
+        console.log('second success');
+      }).fail(function () {
+        console.log('error');
+      }).always(function () {
+        console.log('finished');
+      });
     }
   });
 

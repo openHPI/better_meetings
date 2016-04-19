@@ -31,6 +31,11 @@ module.exports = {
       collection: 'agendaitem',
       via: 'meetingseries'
     },
+    topicOrder: {
+      // id_id_id_id --bsp--> 1_6_23_8_9
+      type: 'string',
+      required: false
+    },
     instances: {
       collection: 'meeting',
       via: 'series'
@@ -41,5 +46,3 @@ module.exports = {
     }
   }
 };
-
-

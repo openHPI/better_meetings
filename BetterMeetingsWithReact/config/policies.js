@@ -26,10 +26,9 @@ module.exports.policies = {
   },
 
   MeetingSeriesController: {
-    '*': 'isAdmin',
+    '*': 'isAdminOfMeetingSeries',
 
-    view: 'isAdminOfMeetingSeries',
-    update: 'isAdminOfMeetingSeries'
+    create: 'isAdmin'
   },
 
   MeetingController: {

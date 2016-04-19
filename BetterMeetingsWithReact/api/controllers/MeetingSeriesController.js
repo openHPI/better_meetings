@@ -131,7 +131,43 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
-            
+            }
+          });
+        }
+      });
+    } else {
+      res.send('meetingseries');
+      sails.log('MeetingSeries not updated: too few parameters');
+    }
+  },
+
+  updateTopicOrder: function (req, res) {
+    var order = req.param('order');
+    var meetingSeriesId = req.param('id');
+
+    sails.log('Update started');
+
+    if (meetingSeriesId && order) {
+      meetingseries.update({ id: meetingSeriesId }).set({
+        topicOrder: order
+      }).exec(function updateMeetingSeries(err, updated) {
+        if (err) {
+          sails.log('MeetingSeries not updated ' + err);
+        } else {
+          sails.log('Updated MeetingSeries: ' + updated[0].title);
+
+          updated[0].save(function (updateErr) {
+            if (updateErr) {
+              sails.log('Error while saving update to MeetingSeries ' + updated[0].title);
+            } else {
+              sails.log('Successfully saved updates to MeetingSeries ' + updated[0].title);
+              meetingseries.publishUpdate(updated[0].id, {
+                id: updated[0].id,
+                topicOrder: updated[0].topicOrder
+              });
+
+              console.log('new topic order: ' + updated[0].topicOrder);
+              console.log('new topic order: ' + updated[0].topicOrder.split('_'));
             }
           });
         }
@@ -174,7 +210,7 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
-              
+
             }
           });
         }
@@ -236,6 +272,12 @@ module.exports = {
 
   view: function (req, res) {
     var id = req.param('id', null);
+    var order;
+    var keys;
+    var topic;
+    var topics = [];
+    var topicHash = new Array();
+    var i;
 
     return meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, cre) {
       if (err) {
@@ -258,6 +300,31 @@ module.exports = {
         function (populateErr, item) {
           if (populateErr) {
             sails.log.error('ERR:', populateErr);
+          }
+
+          if (item.topicOrder) {
+            order = item.topicOrder.split('_');
+
+            for (topic in item.topics) {
+              if (item.topics.hasOwnProperty(topic)) {
+                topicHash[item.topics[topic].id] = item.topics[topic];
+              }
+            }
+
+            for (i in order) {
+              if (order.hasOwnProperty(i)) {
+                topics.push(topicHash[order[i]]);
+                delete topicHash[order[i]];
+              }
+            }
+
+            keys = Object.keys(topicHash);
+            for (i in keys) {
+              if (keys.hasOwnProperty(i)) {
+                topics.push(topicHash[i]);
+              }
+            }
+            item.topics = topics;
           }
 
           return res.view('meetingseries',

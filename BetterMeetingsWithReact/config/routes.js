@@ -71,8 +71,9 @@ module.exports.routes = {
   'GET /meetingseries/listen': 'MeetingController.listen',
   'POST /meetingseries/create': 'MeetingSeriesController.create',
   'POST /meetingseries/update': 'MeetingSeriesController.update',
-  'POST /meetingseries/updateDescription' : 'MeetingSeriesController.updateDescription',
-  'POST /meetingseries/updateTimer' : 'MeetingSeriesController.updateTimer',
+  'POST /meetingseries/updateDescription': 'MeetingSeriesController.updateDescription',
+  'POST /meetingseries/updateTimer': 'MeetingSeriesController.updateTimer',
+  'POST /meetingseries/updateTopicOrder': 'MeetingSeriesController.updateTopicOrder',
   'GET /meetingseries/view/:id': 'MeetingSeriesController.view',
   'POST /meetingseries/delete': 'MeetingSeriesController.delete',
 
@@ -105,7 +106,7 @@ module.exports.routes = {
   'POST /topic/:id/createNote': 'AgendaItemController.createNote',
 
   // endpoints for todoitem
-  'GET /todos' : 'TodoItemController.view',
+  'GET /todos': 'TodoItemController.view',
   'GET /todoitem/listen': 'TodoItemController.listen',
   'POST /todoitem/create': 'TodoItemController.create',
   'POST /todoitem/update': 'TodoItemController.update',
