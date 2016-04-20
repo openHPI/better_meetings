@@ -104,7 +104,7 @@ module.exports = {
     var description = req.param('description');
     var meetingSeriesId = req.param('id');
 
-    sails.log('Update started');
+    sails.log('Update description started');
 
     if (meetingSeriesId && description) {
       meetingseries.update({ id: meetingSeriesId }).set({
@@ -131,6 +131,7 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
+              res.send(updated[0].description);
             }
           });
         }
@@ -182,8 +183,7 @@ module.exports = {
     var timer = req.param('timer');
     var meetingSeriesId = req.param('id');
 
-    sails.log('Update started');
-    sails.log(req.param('title'));
+    sails.log('Update timer started');
 
     if (meetingSeriesId && timer) {
       meetingseries.update({ id: meetingSeriesId }).set({
@@ -210,6 +210,7 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
+              res.send(updated[0].timer);
             }
           });
         }
