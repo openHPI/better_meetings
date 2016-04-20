@@ -55,10 +55,6 @@ module.exports = {
               }
             }
 
-            console.log(params);
-            console.log(topics);
-            console.log(order);
-
             meeting.create(
               {
                 title: series.title,
