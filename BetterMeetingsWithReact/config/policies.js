@@ -32,19 +32,21 @@ module.exports.policies = {
   },
 
   MeetingController: {
-    '*': 'isLoggedIn',
+    '*': 'isAttendeeOfMeeting',
 
-    view: true,
+    startMeeting: 'isAdminOfMeeting',
+    endMeeting: 'isAdminOfMeeting',
+    delete: 'isAdminOfMeeting',
+    createAttendee: 'isAdminOfMeeting',
 
-    start: 'isAdmin',
-    end: 'isAdmin',
-    createAttendee: 'isAdmin'
+    create: 'isAdmin',
+    createFromSeries: 'isAdmin'
   },
 
   DashboardController: {
-    view: 'isLoggedIn',
+    view: 'isLoggedIn'
   },
 
-  '*': true,
+  '*': true
 
 };

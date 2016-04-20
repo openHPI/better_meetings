@@ -119,20 +119,24 @@ function removeTodoItem(item) {
 
 function generateAssigneeOptions() {
   var options = [];
-  var persons = _meeting.admins.concat(_meeting.members, _meeting.attendees);
+  var persons = _meeting.admins.concat(_meeting.attendees);
   var uniqPersons = [];
+  var i;
+  var key;
 
-  for (var i = 0; i < persons.length; i++)
-    uniqPersons[persons[i]['id']] = persons[i];
+  for (i = 0; i < persons.length; i++) {
+    uniqPersons[persons[i].id] = persons[i];
+  }
 
   persons = new Array();
-  for (var key in uniqPersons)
-    persons.push(uniqPersons[key]);
+  for (key in uniqPersons) {
+    if (uniqPersons.hasOwnProperty(key)) {
+      persons.push(uniqPersons[key]);
+    }
+  }
 
-  console.log(persons);
-
-  for (var i = 0; i < persons.length; i++) {
-    options.push({ value: persons[i].email, label: persons[i].name + " (" + persons[i].email + ")" });
+  for (i = 0; i < persons.length; i++) {
+    options.push({ value: persons[i].email, label: persons[i].name + ' (' + persons[i].email + ')' });
   }
 
   _options = options;
@@ -220,7 +224,7 @@ AppDispatcher.register(function (payload) {
     case FluxServerConstants.MEETING_RECEIVE:
       loadMeetingData(action.data.meeting);
       _qrcode = action.data.qrcode;
-      _meeting['members'] = action.data.members;
+      // _meeting['members'] = action.data.members;
       generateAssigneeOptions();
       MeetingDataAPI.subscribeAndListen(_meeting.topics, _allTodoItems);
       break;

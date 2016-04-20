@@ -13,18 +13,26 @@
       <div class="panel-body">
         <p class="pad-btm">Geben Sie Ihr Admin Passwort ein</p>
         <form action="/login" method="post">
-
+          <div>
+            <% if(typeof redirect !== "undefined"){ %>
+            <input type="text" name="redirect" class="form-control" value="<%= redirect %>" style="display: none;">
+            <% } %>
+          </div>
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></div>
-              <input name="email" type="email" value="alex_admin@hpi.de" class="form-control" value=<%= req.params.email %> readonly>
+              <% if(typeof email !== "undefined"){ %>
+              <input name="email" type="email" class="form-control" value=<%= email %> readonly>
+              <% } else { %>
+              <input name="email" type="email" class="form-control">
+              <% } %>
             </div>
           </div>
 
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-asterisk fa-fw"></i></div>
-              <input name="password" type="password" value="password" class="form-control" placeholder="Passwort">
+              <input name="password" type="password" class="form-control" placeholder="Passwort">
             </div>
           </div>
 

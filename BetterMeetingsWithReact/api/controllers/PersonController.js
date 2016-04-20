@@ -248,9 +248,11 @@ module.exports = {
   loginGuest: function (req, res) {
     var name = req.param('name');
     var email = req.param('email');
-
-    var invalidRedirect = '/login';
+    var redirect = req.param('redirect');
     var successRedirect = '/dashboard';
+    if (redirect) {
+      successRedirect = redirect;
+    }
 
     console.log('login with name');
 
@@ -269,11 +271,11 @@ module.exports = {
               if (!cre) {
                 console.log('login guest failed');
 
-                if (req.wantsJSON || !invalidRedirect) {
+                if (req.wantsJSON) {
                   return res.badRequest(
                     'Invalid email/name combination.');
                 }
-                return res.redirect(invalidRedirect);
+                return res.view('login/login', { redirect: redirect });
               }
 
               return person.findOne({ email: cre.email }).populateAll()
@@ -300,17 +302,21 @@ module.exports = {
         }
 
         if (user.isAdmin) {
-          return res.redirect('/login/admin/' + email);
+          return res.view('login/admin', { email: email, redirect: redirect });
         }
 
-        return res.redirect('/login/login');
+        return res.view('login/login', { redirect: redirect });
       });
   },
 
 
   loginEmail: function (req, res) {
     var email = req.param('email');
+    var redirect = req.param('redirect');
     var successRedirect = '/dashboard';
+    if (redirect) {
+      successRedirect = redirect;
+    }
 
     console.log('login with email');
 
@@ -323,12 +329,12 @@ module.exports = {
 
         if (!person) {
           // start name modal
-          return res.redirect('/login/guest/' + email);
+          return res.view('login/guest', { email: email, redirect: redirect });
         }
 
         if (person.isAdmin) {
           // start admin modal
-          return res.redirect('/login/admin/' + email);
+          return res.view('login/admin', { email: email, redirect: redirect });
         }
 
         req.session.me = {
@@ -349,7 +355,11 @@ module.exports = {
   loginAdmin: function (req, res) {
     var email = req.param('email');
     var password = req.param('password');
+    var redirect = req.param('redirect');
     var successRedirect = '/dashboard';
+    if (redirect) {
+      successRedirect = redirect;
+    }
     console.log('login with password');
 
     person.attemptLoginAdmin(
@@ -362,7 +372,7 @@ module.exports = {
 
         if (!person) {
           // start name modal
-          return res.redirect('/login/admin/' + email);
+          return res.view('login/admin', { email: email, redirect: redirect });
         }
 
         req.session.me = {
@@ -375,6 +385,7 @@ module.exports = {
           assignedMeetings: person.assignedMeetings
         };
 
+        console.log(successRedirect);
         return res.redirect(successRedirect);
       });
   },

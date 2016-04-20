@@ -13,10 +13,16 @@
       <div class="panel-body">
         <p class="pad-btm">Melde dich mit deinem Account an</p>
         <form action="/login" method="post">
+          <div>
+            <% if(typeof redirect !== "undefined"){ %>
+            <input type="text" name="redirect" class="form-control" value="<%= redirect %>" style="display: none;">
+            <% } %>
+          </div>
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></div>
-              <input name="email" value="alex_admin@hpi.de" type="email" class="form-control" placeholder="E-Mail Adresse">
+              <input name="email" type="email" class="form-control"
+                     placeholder="E-Mail Adresse">
             </div>
           </div>
 

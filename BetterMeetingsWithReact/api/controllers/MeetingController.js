@@ -46,6 +46,7 @@ module.exports = {
               }
             }
 
+            console.log(params);
             console.log(topics);
             console.log(order);
 
@@ -107,7 +108,6 @@ module.exports = {
     });
   },
 
-
   create: function (req, res) {
     var topics = req.param('topics');
     var attendees = req.param('attendees');
@@ -154,7 +154,7 @@ module.exports = {
 
 
   delete: function (req, res) {
-    var meetingID = req.param('meetingID', null);
+    var meetingID = req.param('id', null);
     if (meetingID && req.isSocket) {
       meeting.destroy(
         {
@@ -239,7 +239,6 @@ module.exports = {
     if (req.wantsJSON) {
       path = req.socket.request.headers.referer;
       segments = path.split('/');
-
       if (segments[segments.length - 2] === 'id' && segments[segments.length -
         3] === 'meeting') {
         url = path.split('/').pop();
@@ -247,6 +246,7 @@ module.exports = {
     } else {
       url = req.param('url');
     }
+
     console.log('search for meeting with url: ' + url);
 
     meeting.findOne(
@@ -272,24 +272,14 @@ module.exports = {
 
             qrcode = QrCodeService.renderQrCode('http://localhost:1337/meeting/id/' + meeting.url, '250');
 
-            meetingseries.findOne(meeting.series).populateAll()
-              .exec(function findMeetingSeries(errFindSeries, meetingSeriesAnswer) {
-                if (errFindSeries) {
-                  sails.log.error('ERR:', errFindSeries);
-                }
+            if (meeting.topicOrder) {
+              meeting.topics = ItemOrderService.orderItems(meeting.topics, meeting.topicOrder);
+            }
 
-                if (!meetingSeriesAnswer) {
-                  console.log('no meetingSeriesAnswer with id ' + meeting.series + ' found');
-                  return;
-                }
-
-                res.send(
-                  {
-                    meeting: meeting,
-                    qrcode: qrcode,
-                    members: meetingSeriesAnswer.members,
-                    admins: meetingSeriesAnswer.admins
-                  });
+            res.send(
+              {
+                meeting: meeting,
+                qrcode: qrcode
               });
           });
       });
@@ -413,16 +403,16 @@ module.exports = {
                   scheduledAt: updated[0].scheduledAt,
                   url: updated[0].url
                 });
-                return PersonService.createAttendee({
+                PersonService.createAttendee({
                   name: req.session.me.name,
                   email: req.session.me.email,
                   password: req.session.me.password,
                   meeting: meetingId
-                }, function () {
-                  console.log('redirect to: /meeting/id/' + updated[0].url);
-                  // redirect not working - don't now why
-                  res.redirect('/meeting/id/' + updated[0].url);
                 });
+
+                console.log('redirect to: /meeting/id/' + updated[0].url);
+                // redirect not working - don't now why
+                res.redirect('/meeting/id/' + updated[0].url);
               });
             }
           });

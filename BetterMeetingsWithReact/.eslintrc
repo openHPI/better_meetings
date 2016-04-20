@@ -29,6 +29,7 @@
     // services
     "DeepPopulateService": 1,
     "EmailService": 1,
+    "ItemOrderService": 1,
     "MarkdownService": 1,
     "PersonService": 1,
     "QrCodeService": 1,

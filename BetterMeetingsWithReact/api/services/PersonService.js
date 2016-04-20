@@ -4,7 +4,7 @@ module.exports = {
   // Creates a Person and
   // automatically adds it to the attendees of the belonging meeting
   // async.map()
-  createAttendee: function (input, cb) {
+  createAttendee: function (input) {
     var name = input.name;
     var password = input.password;
     var email = input.email;
@@ -45,8 +45,6 @@ module.exports = {
                 if (!errUpdateMeeting) {
                   sails.log('Successfully added new attendee ' + createdOrFoundPerson.name + ' to meeting');
                 }
-
-                return cb();
               });
             }
           });
@@ -84,9 +82,7 @@ module.exports = {
 
                   if (!updated) {
                     sails.log('failed to add' + createdOrFoundPerson.name + 'to attendees');
-                  } else {
-                    return cb();
-                  }
+                  } 
                 });
             }
           });
@@ -115,8 +111,6 @@ module.exports = {
                 if (!errUpdateMeeting) {
                   sails.log('Successfully added new attendee ' + createdGuestPerson.name + ' to meeting');
                 }
-
-                return cb();
               });
             }
           });
@@ -152,8 +146,6 @@ module.exports = {
                 if (!errUpdateMeeting) {
                   sails.log('Successfully added new attendee ' + createdOrFoundPerson.name + ' to meeting');
                 }
-
-                return cb();
               });
             }
           });
@@ -185,8 +177,6 @@ module.exports = {
                 if (!errUpdateMeeting) {
                   sails.log('Successfully added new attendee ' + createdGuestPerson.name + ' to meeting');
                 }
-
-                return cb();
               });
             }
           });

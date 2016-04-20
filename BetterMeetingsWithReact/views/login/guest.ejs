@@ -13,11 +13,19 @@
       <div class="panel-body">
         <p class="pad-btm">Nennen Sie uns Ihren Namen</p>
         <form action="/login" method="post">
-
+          <div>
+            <% if(typeof redirect !== "undefined"){ %>
+            <input type="text" name="redirect" class="form-control" value="<%= redirect %>" style="display: none;">
+            <% } %>
+          </div>
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></div>
-              <input name="email" type="email" class="form-control" value=<%= req.params.email %> readonly>
+              <% if(typeof email !== "undefined"){ %>
+              <input name="email" type="email" class="form-control" value=<%= email %> readonly>
+              <% } else { %>
+              <input name="email" type="email" class="form-control">
+              <% } %>
             </div>
           </div>
 

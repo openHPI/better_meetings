@@ -225,16 +225,12 @@ module.exports = {
     var type = req.param('type');
     var name = req.param('name');
     var email = req.param('email');
+
+    // TODO: make this
   },
 
   view: function (req, res) {
     var id = req.param('id', null);
-    var order;
-    var keys;
-    var topic;
-    var topics = [];
-    var topicHash = new Array();
-    var i;
 
     return meetingseries.findOne(id).populateAll().exec(function findMeetingSerien(err, cre) {
       if (err) {
@@ -260,33 +256,7 @@ module.exports = {
           }
 
           if (item.topicOrder) {
-            order = item.topicOrder.split('_');
-
-            for (topic in item.topics) {
-              if (item.topics.hasOwnProperty(topic)) {
-                topicHash[item.topics[topic].id] = item.topics[topic];
-              }
-            }
-
-            for (i in order) {
-              if (order.hasOwnProperty(i)) {
-                if (!topicHash[order[i]]) continue;
-
-                topics.push(topicHash[order[i]]);
-                delete topicHash[order[i]];
-              }
-            }
-
-            keys = Object.keys(topicHash);
-            for (i in keys) {
-              if (!topicHash[keys[i]]) continue;
-
-              if (keys.hasOwnProperty(i)) {
-                topics.push(topicHash[keys[i]]);
-              }
-            }
-
-            item.topics = topics;
+            item.topics = ItemOrderService.orderItems(item.topics, item.topicOrder);
           }
 
           return res.view('meetingseries',
