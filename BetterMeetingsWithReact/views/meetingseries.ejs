@@ -430,20 +430,22 @@
             </div>
           </div>
 
-          <div class="form-group" id="dragListMeetingCreation" name="dragListMeetingCreation">
+          <div class="form-group">
             <label class='col-md-3 control-label'>Topics</label>
             <div class='col-md-9'>
-              <% var i = 0 %>
-              <% _.each(meetingseries.topics, function (topics) { %>
-              <div class="text-left checkbox">
-                <i class="fa fa-arrows-v"></i>
-                <label class="form-checkbox form-icon form-text">
-                  <%= topics.title %>
-                  <input type="checkbox" name="topic<%= i %>">
-                </label>
+              <div id="dragListMeetingCreation" name="dragListMeetingCreation">
+                <% var i = 0 %>
+                <% _.each(meetingseries.topics, function (topics) { %>
+                <div class="text-left checkbox">
+                  <i class="fa fa-arrows-v"></i>
+                  <label class="form-checkbox form-icon form-text">
+                    <%= topics.title %>
+                    <input type="checkbox" name="topic<%= i %>">
+                  </label>
+                </div>
+                <% i++ %>
+                <% }) %>
               </div>
-              <% i++ %>
-              <% }) %>
               <small class='help-block'>Choose the topics</small>
             </div>
           </div>

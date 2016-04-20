@@ -32,21 +32,32 @@ module.exports = {
         UrlService.generate_unique_url(
           function generateUrl(url) {
             var params = Object.keys(req.allParams());
+            var order;
+
+            console.log(params);
 
             for (i = 0; i < params.length; i++) {
               if (params[i].startsWith('topic')) {
                 index = parseInt(params[i].substring(5), 10);
                 topics.push(series.topics[index]);
+                if (order) {
+                  order += '_' + series.topics[index].id;
+                } else {
+                  order = series.topics[index].id;
+                }
               }
             }
+
+            console.log(topics);
 
             meeting.create(
               {
                 title: series.title,
                 description: series.description,
                 topics: topics,
+                topicOrder: order,
                 admins: series.admins,
-                attendees: series.admins,
+                attendees: series.admins + series.members,
                 isInitialCreation: true,
                 scheduledAt: scheduledAt,
                 done: false,
@@ -63,6 +74,7 @@ module.exports = {
                     {
                       id: created.id,
                       topics: created.topics,
+                      topicOrder: created.topicOrder,
                       title: created.topics,
                       description: created.topics,
                       admins: created.admins,

@@ -74,7 +74,7 @@ jQuery(document).ready(function () {
 
     modal.find('#id').val(topicId);
     modal.find('#title').val(topicTitle);
-  })
+  });
 
   Sortable.create(document.getElementById('dragListTopics'), {
     handle: '.fa fa-arrows-v',
@@ -117,8 +117,12 @@ jQuery(document).ready(function () {
     }
   });
 
-  Sortable.create(document.getElementById('dragListMeetingCreation'), {
-    handle: '.fa fa-arrows-v',
-    animation: 150
+  jQuery('#createMeetingModal').on('show.bs.modal', function () {
+    console.log(document.getElementById('dragListMeetingCreation'));
+
+    Sortable.create(document.getElementById('dragListMeetingCreation'), {
+      handle: '.fa fa-arrows-v',
+      animation: 150
+    });
   });
 });
