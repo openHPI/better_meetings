@@ -267,17 +267,12 @@
       <div class="modal-body">
         <form class="panel-body form-horizontal form-padding" action="/meetingseries/createPerson" method="post">
 
-          <div class="form-group">
-            <label class="col-md-3 control-label">Type</label>
-            <div class="col-md-9">
-              <p id="person-type" class="form-control-static">type</p>
-            </div>
-          </div>
+          <input id="person-type" class="hidden" type="text" name="type">
 
           <div class="form-group">
             <label class='col-md-3 control-label'>Name</label>
             <div class='col-md-9'>
-              <input type="text" placeholder="Name" class="form-control">
+              <input type="text" name="name" placeholder="Name" class="form-control">
               <small class='help-block'>Please enter the name</small>
             </div>
           </div>
@@ -285,7 +280,7 @@
           <div class="form-group">
             <label class='col-md-3 control-label'>Email</label>
             <div class='col-md-9'>
-              <input type="text" placeholder="Email" class="form-control">
+              <input type="text" name="email" placeholder="Email" class="form-control">
               <small class='help-block'>Please enter the email address</small>
             </div>
           </div>

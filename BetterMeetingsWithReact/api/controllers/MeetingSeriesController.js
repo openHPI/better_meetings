@@ -104,7 +104,7 @@ module.exports = {
     var description = req.param('description');
     var meetingSeriesId = req.param('id');
 
-    sails.log('Update started');
+    sails.log('Update description started');
 
     if (meetingSeriesId && description) {
       meetingseries.update({ id: meetingSeriesId }).set({
@@ -131,6 +131,7 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
+              res.send(updated[0].description);
             }
           });
         }
@@ -182,8 +183,7 @@ module.exports = {
     var timer = req.param('timer');
     var meetingSeriesId = req.param('id');
 
-    sails.log('Update started');
-    sails.log(req.param('title'));
+    sails.log('Update timer started');
 
     if (meetingSeriesId && timer) {
       meetingseries.update({ id: meetingSeriesId }).set({
@@ -210,6 +210,7 @@ module.exports = {
                 description: updated[0].description,
                 topics: updated[0].topics
               });
+              res.send(updated[0].timer);
             }
           });
         }
@@ -218,6 +219,12 @@ module.exports = {
       res.send('meetingseries');
       sails.log('MeetingSeries not updated: too few parameters');
     }
+  },
+
+  createPerson: function(req, res) {
+    var type = req.param('type');
+    var name = req.param('name');
+    var email = req.param('email');
   },
 
   view: function (req, res) {

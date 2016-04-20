@@ -70,6 +70,7 @@ module.exports.routes = {
   // endpoints for meetingserien controller
   'GET /meetingseries/listen': 'MeetingController.listen',
   'POST /meetingseries/create': 'MeetingSeriesController.create',
+  'POST /meetingseries/createPerson': 'MeetingSeriesController.createPerson',
   'POST /meetingseries/update': 'MeetingSeriesController.update',
   'POST /meetingseries/updateDescription': 'MeetingSeriesController.updateDescription',
   'POST /meetingseries/updateTimer': 'MeetingSeriesController.updateTimer',

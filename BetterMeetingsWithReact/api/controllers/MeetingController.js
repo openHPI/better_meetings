@@ -422,7 +422,7 @@ module.exports = {
                 }, function () {
                   console.log('redirect to: /meeting/id/' + updated[0].url);
                   // redirect not working - don't now why
-                  return res.redirect('/meeting/id/' + updated[0].url);
+                  res.redirect('/meeting/id/' + updated[0].url);
                 });
               });
             }

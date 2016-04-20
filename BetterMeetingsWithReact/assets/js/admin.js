@@ -24,10 +24,8 @@ jQuery(document).ready(function () {
     var person = button.data('person'); // Extract info from data-* attributes
     var modal = jQuery(this);
 
-    console.log('test');
-
     modal.find('.modal-title').text('Create new ' + person);
-    modal.find('#person-type').text(person);
+    jQuery('#person-type').val(person);
   });
 
   /* Topics */
