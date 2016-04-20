@@ -16,30 +16,30 @@ module.exports = function(grunt) {
         // JSX Extension
 
 	grunt.initConfig({
-  		browserify: {
-	      dev: {
-	        options: {
-	          debug: true,
-	          transform: ['reactify']
-	        },
-	        files: {
-	          'public/browserify/reactify.js': 'public/app/components/*.js'
-	        }
-	      },
-	      build: {
-	        options: {
-	          debug: false,
-	          transform: ['reactify']
-	        },
-	        files: {
-	          'public/browserify/reactify.js': 'public/app/components/*.js'
-	        }
-	      }
-	    }
-	});
+    browserify: {
+      dev: {
+        options: {
+          debug: true,
+          transform: ['reactify']
+        },
+        files: {
+          'public/browserify/reactify.js': 'public/app/components/*.js'
+        }
+      },
+      build: {
+        options: {
+          debug: false,
+          transform: ['reactify']
+        },
+        files: {
+          'public/browserify/reactify.js': 'public/app/components/*.js'
+        }
+      }
+    }
+  });
 
 	// RequireJS Plugin
-  	grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 
 

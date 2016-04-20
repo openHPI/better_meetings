@@ -34,8 +34,6 @@ module.exports = {
             var params = Object.keys(req.allParams());
             var order;
 
-            console.log(params);
-
             for (i = 0; i < params.length; i++) {
               if (params[i].startsWith('topic')) {
                 index = parseInt(params[i].substring(5), 10);
@@ -49,6 +47,7 @@ module.exports = {
             }
 
             console.log(topics);
+            console.log(order);
 
             meeting.create(
               {
@@ -57,7 +56,7 @@ module.exports = {
                 topics: topics,
                 topicOrder: order,
                 admins: series.admins,
-                attendees: series.admins + series.members,
+                attendees: series.admins.concat(series.members),
                 isInitialCreation: true,
                 scheduledAt: scheduledAt,
                 done: false,

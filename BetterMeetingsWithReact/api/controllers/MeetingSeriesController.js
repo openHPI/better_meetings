@@ -221,7 +221,7 @@ module.exports = {
     }
   },
 
-  createPerson: function(req, res) {
+  createPerson: function (req, res) {
     var type = req.param('type');
     var name = req.param('name');
     var email = req.param('email');

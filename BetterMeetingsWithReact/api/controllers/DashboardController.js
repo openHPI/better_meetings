@@ -28,12 +28,20 @@ module.exports = {
         meetingHistory = person.assignedMeetings || [];
 
         meetingHistory.sort(function compare(a, b) {
+          // biggest schedule date be the first
           if (a.scheduledAt < b.scheduledAt) {
             return 1;
           } else if (a.scheduledAt > b.scheduledAt) {
             return -1;
           }
 
+          // if schedule date is equal than the updatedAt date decide
+          if (a.updatedAt < b.updatedAt) {
+            return 1;
+          } else if (a.updatedAt > b.updatedAt) {
+            return -1;
+          }
+          
           return 0;
         });
 

@@ -117,16 +117,16 @@ function removeTodoItem(item) {
   _allTodoItems.splice(index, 1);
 }
 
-function generateAssigneeOptions () {
+function generateAssigneeOptions() {
   var options = [];
   var persons = _meeting.admins.concat(_meeting.members, _meeting.attendees);
   var uniqPersons = [];
 
-  for ( var i=0; i < persons.length; i++ )
+  for (var i = 0; i < persons.length; i++)
     uniqPersons[persons[i]['id']] = persons[i];
 
   persons = new Array();
-  for ( var key in uniqPersons )
+  for (var key in uniqPersons)
     persons.push(uniqPersons[key]);
 
   console.log(persons);
@@ -157,7 +157,7 @@ var MeetingStore = _.extend({}, EventEmitter.prototype, {
     return _isMeetingDataLoaded;
   },
 
-  getIsMeetingDone: function() {
+  getIsMeetingDone: function () {
     return _isMeetingDone;
   },
 
