@@ -221,6 +221,12 @@ module.exports = {
     }
   },
 
+  createPerson: function(req, res) {
+    var type = req.param('type');
+    var name = req.param('name');
+    var email = req.param('email');
+  },
+
   view: function (req, res) {
     var id = req.param('id', null);
     var order;
