@@ -14,7 +14,8 @@ module.exports = {
     var scheduledAt = req.param('scheduledAt');
     var self = this;
     var i;
-    var index;
+    var k;
+    var topicId;
     var content;
     var distinctPersons;
 
@@ -36,12 +37,20 @@ module.exports = {
 
             for (i = 0; i < params.length; i++) {
               if (params[i].startsWith('topic')) {
-                index = parseInt(params[i].substring(5), 10);
-                topics.push(series.topics[index]);
-                if (order) {
-                  order += '_' + series.topics[index].id;
-                } else {
-                  order = series.topics[index].id;
+                topicId = parseInt(params[i].substring(5), 10);
+
+                for (k = 0; k < series.topics.length; k++) {
+                  console.log(topicId + '|' + series.topics[k].id);
+                  if (topicId === series.topics[k].id) {
+                    topics.push(series.topics[k]);
+                    if (order) {
+                      order += '_' + series.topics[k].id;
+                    } else {
+                      order = series.topics[k].id;
+                    }
+
+                    break;
+                  }
                 }
               }
             }

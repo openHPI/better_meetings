@@ -22,7 +22,7 @@ module.exports = function (req, res, next) {
     var segments;
 
     if (req.wantsJSON) {
-      if (typeof req.socket === 'undefined') {
+      if (typeof req.socket == 'undefined') {
         return false;
       }
 

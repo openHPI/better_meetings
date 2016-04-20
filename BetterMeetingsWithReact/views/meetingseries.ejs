@@ -430,12 +430,12 @@
             <div class='col-md-9'>
               <div id="dragListMeetingCreation" name="dragListMeetingCreation">
                 <% var i = 0 %>
-                <% _.each(meetingseries.topics, function (topics) { %>
+                <% _.each(meetingseries.topics, function (topic) { %>
                 <div class="text-left checkbox">
                   <i class="fa fa-arrows-v"></i>
                   <label class="form-checkbox form-icon form-text">
-                    <%= topics.title %>
-                    <input type="checkbox" name="topic<%= i %>">
+                    <%= topic.title %>
+                    <input type="checkbox" name="topic<%= topic.id %>">
                   </label>
                 </div>
                 <% i++ %>
