@@ -3,8 +3,8 @@
 ==============================================================*/
 
 
-//var React = require('react');
-//var ReactDOM = require('react-dom');
+var React = require('react');
+var ReactDOM = require('react-dom');
 global.jQuery = require('jquery');
 var bootstrap = require('bootstrap');
 var bsSelect = require('../js/dependencies/bootstrap-select.js');

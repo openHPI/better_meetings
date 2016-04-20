@@ -16,6 +16,7 @@ var _isMeetingDataLoaded = false, _isMeetingDone = false, _user = null, _meeting
  */
 function loadUserData(user) {
   _user = user;
+  console.log(_user);
 }
 
 /**
@@ -120,16 +121,18 @@ function generateAssigneeOptions () {
   var options = [];
   var persons = _meeting.admins.concat(_meeting.members, _meeting.attendees);
   var uniqPersons = [];
-  
-  jQuery.each(persons, function (i, person) {
-    if(jQuery.inArray(person, uniqPersons) === -1)
-      uniqPersons.push(person);
-  });
 
-  console.log(uniqPersons);
+  for ( var i=0; i < persons.length; i++ )
+    uniqPersons[persons[i]['id']] = persons[i];
 
-  for (var i = 0; i < uniqPersons.length; i++) {
-    options.push({ value: uniqPersons[i].email, label: uniqPersons[i].name + " (" + uniqPersons[i].email + ")" });
+  persons = new Array();
+  for ( var key in uniqPersons )
+    persons.push(uniqPersons[key]);
+
+  console.log(persons);
+
+  for (var i = 0; i < persons.length; i++) {
+    options.push({ value: persons[i].email, label: persons[i].name + " (" + persons[i].email + ")" });
   }
 
   _options = options;
