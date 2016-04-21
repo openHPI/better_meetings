@@ -221,6 +221,42 @@ module.exports = {
     }
   },
 
+  assignTodo: function (res, req) {
+    var personId = req.param('id');
+    var todo = req.param('todo');
+    var todos = [];
+
+    if (email && todo) {
+      person.findOne(personId).exec(function foundPerson(err, foundPerson) {
+        todos = foundPerson.todos;
+      });
+
+      if(todos.indexOf(todo) === -1) {
+
+        person.update({ id: personId }).set({
+          todos:  todos.push(todo);
+        }).exec(function updatePerson(err, updated) {
+          if (err) {
+            sails.log('Person not updated ' + err);
+          } else {
+            sails.log('Updated Person: ' + updated[0].name);
+            updated[0].save(function (saveErr) {
+              if (saveErr) {
+                sails.log('Error while saving update to Person ' + updated[0].title);
+              } else {
+                sails.log('Successfully saved updates to Person ' + updated[0].title);
+              }
+            });
+          }
+        });
+      }
+    } else {
+      res.send('person');
+      sails.log('Person not updated: too few parameters');
+    }
+
+  },
+
   login: function (req, res) {
     var name = req.param('name');
     var email = req.param('email');
