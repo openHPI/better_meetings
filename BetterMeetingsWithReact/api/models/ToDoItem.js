@@ -25,9 +25,10 @@ module.exports = {
       model: 'person',
       via: 'todos'
     },
-    assignee: {
-      type: 'string',
-      required: false
+    assignees: {
+      collection: 'person',
+      via: 'todos',
+      dominant: true,
     },
     done: {
       type: 'boolean',
