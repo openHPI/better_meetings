@@ -16,7 +16,6 @@ var _isMeetingDataLoaded = false, _isMeetingDone = false, _user = null, _meeting
  */
 function loadUserData(user) {
   _user = user;
-  console.log(_user);
 }
 
 /**
