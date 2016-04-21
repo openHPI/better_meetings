@@ -257,9 +257,10 @@ AppDispatcher.register(function (payload) {
       action.data.owner = _meeting.topics[_selectedTopic].id;
       action.data.author = _user.id;
       MeetingDataAPI.createTodoItem(action.data);
+      console.dir(action.data);
       if (action.data.assignees !== null) {
         for (var i = 0; i < action.data.assignees.length; i++)
-          MeetingDataAPI.assignTodo(action.data.id, action.data.assignees[i]);
+          MeetingDataAPI.assignTodoItem(action.data.id, action.data.assignees[i]);
       }
       break;
 
@@ -269,6 +270,8 @@ AppDispatcher.register(function (payload) {
 
     case FluxMeetingConstants.TODO_USER_UPDATE:
       MeetingDataAPI.updateTodoItem(action.data);
+      for (var i = 0; i < action.data.assignees.length; i++)
+        MeetingDataAPI.assignTodoItem(action.data.id, action.data.assignees[i]);
       break;
 
     case FluxMeetingConstants.TODO_DESTROY:

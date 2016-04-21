@@ -24,14 +24,14 @@ var FluxTodoItemCreateForm = React.createClass({
         var item = {
           title: this.state.title,
           description: this.state.description,
-          assignees: assignees,
+          assignees: this.state.assignees,
           done: false,
           important: this.state.important
         };
 
         FluxMeetingActions.createTodoItem(item);
 
-        this.setState({ title: '', description: '', assigneess: '', important: false});
+        this.setState({ title: '', description: '', assignees: '', important: false});
 
         jQuery('#createTodoItemModal').modal('hide');
     },
@@ -89,7 +89,7 @@ var FluxTodoItemCreateForm = React.createClass({
       this.setState({ description: this.refs.description.value });
     },
 
-    _assigneesChange: function(assginees) {
+    _assigneesChange: function(assignees) {
       this.setState({ assignees: assignees });
     }
 

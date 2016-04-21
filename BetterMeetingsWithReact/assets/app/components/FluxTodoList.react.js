@@ -19,7 +19,7 @@ var FluxTodoList = React.createClass({
 
     renderTodoList: function(items, draggable) {
       var canEdit = this.props.canEdit;
-      var admins = this.props.admins;
+      var options = this.props.options;
 
       var sortedItems = [];
 
@@ -35,7 +35,7 @@ var FluxTodoList = React.createClass({
         return sortedItems.map(function (item, i) {
           if (item.id === this.props.editingTodoItem) {
             return (
-              <FluxTodoItemUpdate key={i} item={item} index={i} canEdit={canEdit} admins={admins} />
+              <FluxTodoItemUpdate key={i} item={item} index={i} canEdit={canEdit} options={options} />
             );
           }
 

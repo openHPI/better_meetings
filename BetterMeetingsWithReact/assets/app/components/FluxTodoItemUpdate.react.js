@@ -18,7 +18,7 @@ var FluxTodoItemUpdate = React.createClass({
       assignees: item.assignees,
       done: item.done,
       important: item.important,
-      options: this.getOptions()
+      options: this.props.options
     };
   },
 
@@ -62,7 +62,7 @@ var FluxTodoItemUpdate = React.createClass({
       description: this.state.title,
       owner: this.state.owner,
       author: this.state.author,
-      assignee: this.state.assignee,
+      assignees: this.state.assignees,
       done: this.state.done,
       important: this.state.important
     };
@@ -124,7 +124,7 @@ var FluxTodoItemUpdate = React.createClass({
     );
   },
 
-  _assigneesChange: function(assginees) {
+  _assigneesChange: function(assignees) {
     this.setState({ assignees: assignees });
   }
 
