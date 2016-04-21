@@ -234,7 +234,7 @@ module.exports = {
       if(todos.indexOf(todo) === -1) {
 
         person.update({ id: personId }).set({
-          todos:  todos.push(todo);
+          todos:  todos.push(todo)
         }).exec(function updatePerson(err, updated) {
           if (err) {
             sails.log('Person not updated ' + err);

@@ -24,7 +24,7 @@ var FluxTodoItemCreateForm = React.createClass({
         var item = {
           title: this.state.title,
           description: this.state.description,
-          assigneess: assigneess,
+          assignees: assignees,
           done: false,
           important: this.state.important
         };

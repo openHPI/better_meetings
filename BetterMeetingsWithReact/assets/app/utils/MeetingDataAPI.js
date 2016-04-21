@@ -165,6 +165,12 @@ module.exports = {
     io.socket.post('/todoitem/delete', data, function (data, jwres) {});
   },
 
+  assignTodoItem: function (todo, assignee) {
+    var data;
+    data['todo'] = todo;
+    io.socket.post('/person/' +  assignee + '/assignTodo', data, function (data, jwres) {});
+  },
+
   // Member
 
   /**

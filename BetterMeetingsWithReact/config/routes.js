@@ -87,6 +87,7 @@ module.exports.routes = {
   'POST /person/update': 'PersonController.update',
   'POST /person/delete': 'PersonController.delete',
   'GET /person/current': 'PersonController.getCurrent',
+  'POST /person/:id/assignTodo': 'PersonController.assignTodo',
 
   // endpoints for agendaitem controller
   'GET /topic/listen': 'AgendaItemController.listen',
