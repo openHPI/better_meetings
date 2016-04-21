@@ -102,24 +102,26 @@
                 <div class="timeline-header-title bg-success">Future</div>
               </div>
               <% _.each(meetingHistory, function (meeting) { %>
-              <div class="timeline-entry">
-                <div class="timeline-stat">
-                  <div class="timeline-icon"></div>
-                  <div class="timeline-time">
-                    <% if (meeting.scheduledAt) { %>
-                    <%= new Date(meeting.scheduledAt).toLocaleString().replace("00:00:00", "") %>
-                    <% } else { %>
-                    No timestep given
+                <% if(!meeting.done) { %>
+                <div class="timeline-entry">
+                  <div class="timeline-stat">
+                    <div class="timeline-icon"></div>
+                    <div class="timeline-time">
+                      <% if (meeting.scheduledAt) { %>
+                      <%= new Date(meeting.scheduledAt).toLocaleString().replace("00:00:00", "") %>
+                      <% } else { %>
+                      No timestep given
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="timeline-label">
+                    <h5><a class="text-success text-lg" href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
+                    <% if (meeting.description) { %>
+                    <p><%= meeting.description %></p>
                     <% } %>
                   </div>
                 </div>
-                <div class="timeline-label">
-                  <h5><a class="text-success text-lg" href="meeting/id/<%= meeting.url %>"><%= meeting.title %></a></h5>
-                  <% if (meeting.description) { %>
-                  <p><%= meeting.description %></p>
-                  <% } %>
-                </div>
-              </div>
+                <% } %>
               <% }) %>
               <% if (meetingHistory.length == 0) { %>
               <div class="timeline-entry">
