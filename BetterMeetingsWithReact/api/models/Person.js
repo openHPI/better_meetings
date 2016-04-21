@@ -28,6 +28,10 @@ module.exports = {
       collection: 'todoitem',
       via: 'author'
     },
+    assignedTodos: {
+      collection: 'todoitem',
+      via: 'assignees',
+    },
     assignedMeetings: { // former meetings
       collection: 'meeting',
       via: 'attendees',

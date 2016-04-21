@@ -11,6 +11,7 @@ module.exports = {
     var currentMeeting = input.meeting;
     var attendees;
     var guestName;
+    console.log(name + " " + email + " " + password);
 
     if (!currentMeeting) {
       console.log('Error: No Meeting provided for PersonService');
@@ -27,12 +28,14 @@ module.exports = {
           sails.log('Error while creating Person in PersonService');
         } else {
           sails.log('Successfully created or found ' + createdOrFoundPerson.name);
+          console.log(createdOrFoundPerson.name + " " + createdOrFoundPerson.email + " " + createdOrFoundPerson.password);
           person.publishCreate({
             id: createdOrFoundPerson.id,
             name: createdOrFoundPerson.name,
             password: createdOrFoundPerson.password,
             email: createdOrFoundPerson.email
           });
+
           // add created/found Person to attendees of meeting
           return meeting.findOne(currentMeeting).exec(function (err) {
             if (err) {
@@ -45,6 +48,11 @@ module.exports = {
                 if (!errUpdateMeeting) {
                   sails.log('Successfully added new attendee ' + createdOrFoundPerson.name + ' to meeting');
                 }
+                person.publishCreate({
+                  id: createdOrFoundPerson.id,
+                  name: createdOrFoundPerson.name,
+                  email: createdOrFoundPerson.email
+                });
               });
             }
           });
@@ -59,12 +67,15 @@ module.exports = {
         if (error) {
           sails.log('Error while creating Person in PersonService');
         } else {
-          sails.log('Successfully created or found ' + createdOrFoundPerson.name);
+          sails.log('Successfully created or found' + createdOrFoundPerson.name);
+            console.log(createdOrFoundPerson.name + " " + createdOrFoundPerson.email);
+
           person.publishCreate({
             id: createdOrFoundPerson.id,
             name: createdOrFoundPerson.name,
             email: createdOrFoundPerson.email
           });
+
           // add created/found Person to attendees of meeting
           return meeting.findOne(currentMeeting).populateAll().exec(function (err, meetingAnswer) {
             if (err) {

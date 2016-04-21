@@ -92,6 +92,7 @@ module.exports = {
       io.socket.get('/person/listen', function (resData, jwres) {});
 
       io.socket.on('person', function (msg) {
+        console.log(msg);
 
         switch (msg.verb) {
 
@@ -163,6 +164,12 @@ module.exports = {
    */
   destroyTodoItem: function (data) {
     io.socket.post('/todoitem/delete', data, function (data, jwres) {});
+  },
+
+  assignTodoItem: function (todo, assignee) {
+    var data;
+    data['todo'] = todo;
+    io.socket.post('/person/' +  assignee + '/assignTodo', data, function (data, jwres) {});
   },
 
   // Member

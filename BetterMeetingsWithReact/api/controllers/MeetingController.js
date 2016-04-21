@@ -353,14 +353,14 @@ module.exports = {
 
     console.log('start meeting ' + meetingId);
 
-    return meeting.findOne(meetingId).exec(function findMeeting(err, meetingAnswer) {
+    meeting.findOne(meetingId).exec(function findMeeting(err, meetingAnswer) {
       if (err) {
         sails.log.error('Error:', err);
         return null;
       }
       sails.log('Found meeting with title ' + meetingAnswer.title);
 
-      return meetingseries.findOne(meetingAnswer.series)
+      meetingseries.findOne(meetingAnswer.series)
         .exec(function findMeetingSeries(errFindSeries, meetingSeriesAnswer) {
           if (errFindSeries) {
             sails.log('Error: Could not find meetingseries');
@@ -383,7 +383,7 @@ module.exports = {
             }
           }
 
-          return meeting.update({ id: meetingId }).set({
+          meeting.update({ id: meetingId }).set({
             startTime: startTime,
             scheduledAt: startTime
           }).exec(function updateMeeting(errUpdateMeeting, updated) {
@@ -416,7 +416,7 @@ module.exports = {
 
                 console.log('redirect to: /meeting/id/' + updated[0].url);
                 // redirect not working - don't now why
-                res.redirect('/meeting/id/' + updated[0].url);
+                return res.redirect('/meeting/id/' + updated[0].url);
               });
             }
           });
@@ -435,6 +435,14 @@ module.exports = {
     var self = this;
     // sails.log('got meeting ' + _meeting.title);
     // sails.log('got meetingseries with id ' + _meetingSeriesId);
+
+    meeting.update(_meeting.id).set({ done: true }).exec(function updateMeeting(err, updatedMeeting){
+      if (err) {
+        sails.log('Meeting not updated ' + err);
+      } else {
+        sails.log('Updated Meeting: ' + updatedMeeting[0].title);
+      }
+    });
 
     meetingseries.findOne(_meetingSeriesId).exec(function findMeetingSeries(err, meetingSeriesAnswer) {
       if (err) {

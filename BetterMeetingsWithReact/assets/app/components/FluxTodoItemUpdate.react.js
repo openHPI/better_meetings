@@ -15,7 +15,7 @@ var FluxTodoItemUpdate = React.createClass({
       description: item.description,
       owner: item.owner,
       author: item.author,
-      assignee: item.assignees,
+      assignees: item.assignees,
       done: item.done,
       important: item.important,
       options: this.getOptions()
@@ -30,7 +30,7 @@ var FluxTodoItemUpdate = React.createClass({
       description: item.title,
       owner: item.owner,
       author: item.author,
-      assignee: item.assignee,
+      assignees: item.assignees,
       done: item.done,
       important: item.important,
       options: this.props.options

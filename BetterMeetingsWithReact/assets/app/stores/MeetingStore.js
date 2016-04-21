@@ -16,7 +16,6 @@ var _isMeetingDataLoaded = false, _isMeetingDone = false, _user = null, _meeting
  */
 function loadUserData(user) {
   _user = user;
-  console.log(_user);
 }
 
 /**
@@ -136,7 +135,7 @@ function generateAssigneeOptions() {
   }
 
   for (i = 0; i < persons.length; i++) {
-    options.push({ value: persons[i].email, label: persons[i].name + ' (' + persons[i].email + ')' });
+    options.push({ value: persons[i].id, label: persons[i].name + ' (' + persons[i].email + ')' });
   }
 
   _options = options;
@@ -258,6 +257,10 @@ AppDispatcher.register(function (payload) {
       action.data.owner = _meeting.topics[_selectedTopic].id;
       action.data.author = _user.id;
       MeetingDataAPI.createTodoItem(action.data);
+      if (action.data.assignees !== null) {
+        for (var i = 0; i < action.data.assignees.length; i++)
+          MeetingDataAPI.assignTodo(action.data.id, action.data.assignees[i]);
+      }
       break;
 
     case FluxMeetingConstants.TODO_EDIT:

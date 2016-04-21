@@ -8,6 +8,7 @@ var ReactDOM = require('react-dom');
 global.jQuery = require('jquery');
 var bootstrap = require('bootstrap');
 var bsSelect = require('../js/dependencies/bootstrap-select.js');
+
 // var nifty = require('../js/dependencies/nifty.min.js');
 // var niftydemo = require('../js/dependencies/nifty-demo.js');
 // var uipanels = require('../js/dependencies/ui-panels.js');
