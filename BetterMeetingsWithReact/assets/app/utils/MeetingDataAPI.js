@@ -92,6 +92,7 @@ module.exports = {
       io.socket.get('/person/listen', function (resData, jwres) {});
 
       io.socket.on('person', function (msg) {
+        console.log(msg);
 
         switch (msg.verb) {
 
