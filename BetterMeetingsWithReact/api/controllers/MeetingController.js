@@ -9,7 +9,7 @@
 module.exports = {
 
   createFromSeries: function (req, res) {
-    var id = req.param('meetingseries');
+    var id = req.param('id');
     var topics = [];
     var scheduledAt = req.param('scheduledAt');
     var self = this;
@@ -40,7 +40,6 @@ module.exports = {
                 topicId = parseInt(params[i].substring(5), 10);
 
                 for (k = 0; k < series.topics.length; k++) {
-                  console.log(topicId + '|' + series.topics[k].id);
                   if (topicId === series.topics[k].id) {
                     topics.push(series.topics[k]);
                     if (order) {

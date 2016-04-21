@@ -40,7 +40,7 @@ module.exports.policies = {
     createAttendee: 'isAdminOfMeeting',
 
     create: 'isAdmin',
-    createFromSeries: 'isAdmin'
+    createFromSeries: 'isAdminOfMeetingSeries'
   },
 
   DashboardController: {

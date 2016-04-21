@@ -22,10 +22,6 @@ module.exports = function (req, res, next) {
     var segments;
 
     if (req.wantsJSON) {
-      if (typeof req.socket == 'undefined') {
-        return false;
-      }
-
       path = req.socket.request.headers.referer;
       segments = path.split('/');
 
@@ -73,6 +69,12 @@ module.exports = function (req, res, next) {
   if (req.session.me && req.session.me.isAdmin === true) {
     id = req.param('id');
     email = req.session.me.email;
+
+    if (req.wantsJSON) {
+      if (!req.socket.request) {
+        return res.send(403);
+      }
+    }
 
     if (id) {
       return findPerId(id).populate('attendees').exec(findMeeting);

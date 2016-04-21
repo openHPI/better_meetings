@@ -385,7 +385,6 @@ module.exports = {
           assignedMeetings: person.assignedMeetings
         };
 
-        console.log(successRedirect);
         return res.redirect(successRedirect);
       });
   },
@@ -401,27 +400,48 @@ module.exports = {
   },
 
   signup: function (req, res) {
-    person.signup(
-      {
-        name: req.param('name'),
-        email: req.param('email'),
-        password: req.param('password')
-      },
-      function (err, cre) {
-        if (err) return res.negotiate(err);
+    var email = req.param('email');
 
-        return person.findOne({ email: cre.email }).populateAll().exec(function foundPerson(personFindErr, person) {
-          if (personFindErr) return res.negotiate(personFindErr);
 
-          req.session.me = person;
+    function sign(err, cre) {
+      if (err) return res.negotiate(err);
 
-          if (req.wantsJSON) {
-            return res.ok('Signup successful!');
-          }
+      return person.findOne({ email: cre.email }).populateAll().exec(function foundPerson(personFindErr, person) {
+        if (personFindErr) return res.negotiate(personFindErr);
 
-          return res.redirect('/');
-        });
+        req.session.me = person;
+
+        if (req.wantsJSON) {
+          return res.ok('Signup successful!');
+        }
+
+        return res.redirect('/');
       });
+    }
+
+    return person.findOne({ email: email }).exec(function (personFindErr, foundPerson) {
+      if (foundPerson) {
+        if (foundPerson.isAdmin) {
+          return res.forbidden('Person already exist');
+        }
+
+        console.log('update person');
+        return person.signupUpdate(
+          {
+            name: req.param('name'),
+            email: req.param('email'),
+            password: req.param('password')
+          }, sign);
+      }
+
+      console.log('signup person');
+      return person.signup(
+        {
+          name: req.param('name'),
+          email: req.param('email'),
+          password: req.param('password')
+        }, sign);
+    });
   },
 
   createMeetingSeries: function (req, res) {

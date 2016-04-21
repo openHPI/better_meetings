@@ -267,7 +267,10 @@
       <div class="modal-body">
         <form class="panel-body form-horizontal form-padding" action="/meetingseries/createPerson" method="post">
 
-          <input id="person-type" class="hidden" type="text" name="type">
+          <div>
+            <input class="hidden" type="text" name="type" id="person-type">
+            <input class="hidden" type="text" name="id" value=<%= meetingseries.id %>>
+          </div>
 
           <div class="form-group">
             <label class='col-md-3 control-label'>Name</label>
@@ -417,6 +420,11 @@
       <div class="modal-body">
         <form class="panel-body form-horizontal form-padding" action="/meeting/create/<%= meetingseries.id %>"
               method="post">
+
+          <div>
+            <input type="text" name="id" class="form-control" value="<%= meetingseries.id %>"
+                   style="display: none;">
+          </div>
 
           <div class="form-group">
             <label class="col-md-3 control-label">Meetingseries</label>

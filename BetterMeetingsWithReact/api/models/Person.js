@@ -64,6 +64,19 @@ module.exports = {
     }).exec(cb);
   },
 
+  signupUpdate: function (inputs, cb) {
+    // Create a person
+    person.update({
+      email: inputs.email
+    }, {
+      name: inputs.name,
+      email: inputs.email,
+      // TODO: But encrypt the password first
+      password: inputs.password,
+      isAdmin: true
+    }).exec(cb);
+  },
+
 
   /**
    * Check validness of a login using the provided inputs.

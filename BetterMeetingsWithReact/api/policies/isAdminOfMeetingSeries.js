@@ -7,16 +7,16 @@
  *
  */
 module.exports = function (req, res, next) {
-  var meetingId;
+  var meetingSeriesId;
   var email;
   var admins;
   var i;
 
   if (req.session.me && req.session.me.isAdmin === true) {
-    meetingId = req.param('id');
+    meetingSeriesId = req.param('id');
     email = req.session.me.email;
 
-    return meetingseries.findOne(meetingId).populate('admins').exec(function findMeetingSerien(err, cre) {
+    return meetingseries.findOne(meetingSeriesId).populate('admins').exec(function findMeetingSerien(err, cre) {
       if (err) {
         sails.log.error('ERR:', err);
 
@@ -33,6 +33,7 @@ module.exports = function (req, res, next) {
 
         for (i = 0; i < admins.length; i++) {
           if (admins[i].email === email) {
+            console.log('go next');
             return next();
           }
         }

@@ -223,10 +223,61 @@ module.exports = {
 
   createPerson: function (req, res) {
     var type = req.param('type');
-    var name = req.param('name');
     var email = req.param('email');
+    var meetingSeriesId = req.param('id');
 
-    // TODO: make this
+    console.log(req.params.all());
+
+    if (!meetingSeriesId) {
+      return res.send('no meeting series id provided');
+    }
+
+    return meetingseries.findOne(meetingSeriesId).populateAll().exec(function findSeries(errFoundSeries, foundSeries) {
+      if (errFoundSeries) {
+        return res.send(errFoundSeries);
+      }
+
+      if (!foundSeries) {
+        return res.send('no series found');
+      }
+
+      console.log('found series @id:' + meetingSeriesId);
+      return person.findOne({ email: email }).exec(function findPerson(err, foundPerson) {
+        var members = foundSeries.members;
+        var admins = foundSeries.admins;
+        if (!members) members = [];
+        if (!admins) admins = [];
+
+        if (err) {
+          return res.send(err);
+        }
+
+        if (!foundPerson) {
+          return res.send('A Person with email:' + email + ' does not exist');
+        }
+
+        if (type === 'admin') {
+          admins.push(foundPerson);
+        }
+
+        members.push(foundPerson);
+
+        console.log('update with members:' + members);
+        console.log('update with admins:' + admins);
+        return meetingseries.update({
+          id: meetingSeriesId
+        }, {
+          admins: admins,
+          members: members
+        }).exec(function () {
+          console.log('finished :)');
+
+          res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, ' +
+            'pre-check=0');
+          res.redirect('back');
+        });
+      });
+    });
   },
 
   view: function (req, res) {
