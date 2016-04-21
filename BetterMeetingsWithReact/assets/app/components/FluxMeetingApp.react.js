@@ -117,7 +117,7 @@ FluxMeetingApp = React.createClass({
                             items={this.state.meeting.topics[this.state.selectedTopic].todos}
                             canEdit={this.state.canEdit}
                             editingTodoItem={this.state.editingTodoItem} 
-                            options={this.state.options} />
+                            options={this.state.assingeeOptions} />
                         </div>
                       </div>
                     </div>
