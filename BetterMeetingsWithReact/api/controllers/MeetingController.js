@@ -61,7 +61,7 @@ module.exports = {
                 topics: topics,
                 topicOrder: order,
                 admins: series.admins,
-                attendees: series.admins.concat(series.members),
+                attendees: req.session.me,
                 isInitialCreation: true,
                 scheduledAt: scheduledAt,
                 done: false,
