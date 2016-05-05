@@ -136,6 +136,7 @@ FluxMeetingApp = React.createClass({
                     ? ' hidden' : '') }>
                   <div className="col-md-12">
                     <center><h2>Meeting Ende</h2></center>
+                    <center><a href="/dashboard">Go back to the dashboard</a></center>
                   </div>
                 </div>
 
