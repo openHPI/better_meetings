@@ -230,6 +230,33 @@ module.exports = {
 
 
   view: function (req, res) {
+
+    var url = req.param('url');
+    
+    meeting.find({url: url}).exec(function (err, foundMeeting) {
+      if(err){
+        return res.negotiate(err);
+      }
+      else {
+        var attendees = foundMeeting[0].attendees;
+        var id = foundMeeting[0].id;
+        if (attendees.indexOf(req.session.me) === -1) {
+          attendees.push(req.session.me);
+        }
+
+        meeting.update(id).set({attendees: attendees}).exec(function updateMeeting (err, updated) {
+          if (err) {
+            sails.log('Meeting not updated ' + err);
+          } 
+
+          else {
+            sails.log('Updated Meeting: ' + updated[0].title);
+          }
+        });
+
+      }
+    });  
+
     return res.view('meeting');
   },
 
