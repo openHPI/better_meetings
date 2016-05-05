@@ -9,12 +9,14 @@ module.exports = {
 
   create: function (req, res) {
     var admins = req.param('admins') || [req.session.me];
+    var members = req.session.me;
     var title = req.param('title');
     var timer = 900;
 
     if (admins && title) {
       meetingseries.create({
         admins: admins,
+        members: members,
         title: title,
         timer: timer
       }).exec(function createMeetingSeries(err, created) {
@@ -25,6 +27,7 @@ module.exports = {
           meetingseries.publishCreate({
             id: created.id,
             admins: created.admins,
+            members: created.members,
             title: created.title,
             timer: created.timer
           });
@@ -120,17 +123,6 @@ module.exports = {
               sails.log('Error while saving update to MeetingSeries ' + updated[0].title);
             } else {
               sails.log('Successfully saved updates to MeetingSeries ' + updated[0].title);
-              meetingseries.publishUpdate(updated[0].id, {
-                id: updated[0].id,
-                admins: updated[0].admins,
-                title: updated[0].title,
-                meeting: updated[0].meeting,
-                url: updated[0].url,
-                timer: updated[0].timer,
-                members: updated[0].members,
-                description: updated[0].description,
-                topics: updated[0].topics
-              });
               res.send(updated[0].description);
             }
           });
@@ -199,18 +191,8 @@ module.exports = {
               sails.log('Error while saving update to MeetingSeries ' + updated[0].title);
             } else {
               sails.log('Successfully saved updates to MeetingSeries ' + updated[0].title);
-              meetingseries.publishUpdate(updated[0].id, {
-                id: updated[0].id,
-                admins: updated[0].admins,
-                title: updated[0].title,
-                meeting: updated[0].meeting,
-                url: updated[0].url,
-                timer: updated[0].timer,
-                members: updated[0].members,
-                description: updated[0].description,
-                topics: updated[0].topics
-              });
               res.send(updated[0].timer);
+              sails.log('Successfully saved updates to MeetingSeries ' + updated[0].timer);
             }
           });
         }
